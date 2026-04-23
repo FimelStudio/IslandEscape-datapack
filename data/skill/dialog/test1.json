@@ -1,0 +1,52 @@
+{
+    "after_action": "close",
+    "pause": false,
+    "can_close_with_escape": true,
+    "body": [],
+    "inputs": [
+        {
+            "key": "out_text",
+            "type": "text",
+            "label": {
+                "text": "请输入一些文本",
+                "color": "blue"
+            },
+            "label_visible": true,
+            "max_length": 64,
+            "multiline": {
+                "max_lines": 10
+            }
+        }
+    ],
+    "external_title": {
+        "text": "测试对话框",
+        "color": "yellow"
+    },
+    "title": {
+        "text": "这是一个测试对话框",
+        "color": "red"
+    },
+    "type": "confirmation",
+    "no": {
+        "label": {
+            "text": "退出",
+            "color": "red"
+        },
+        "tooltip": {
+            "text": "点击退出"
+        }
+    },
+    "yes": {
+        "label": {
+            "text": "确定",
+            "color": "green"
+        },
+        "tooltip": {
+            "text": "点击确定"
+        },
+        "action": {
+            "type": "dynamic/run_command",
+            "template": "tellraw @a {text:\"$(out_text)\"}"
+        }
+    }
+}

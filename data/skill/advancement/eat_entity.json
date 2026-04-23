@@ -1,0 +1,22 @@
+{
+    "criteria": {
+        "eat_entity": {
+            "trigger": "consume_item",
+            "conditions": {
+                "item": {
+                    "components": {
+                        "custom_data": {
+                            "skill": "eat_entity"
+                        }
+                    }
+                },
+                "player": {
+                    "nbt": "{Tags:[\"zombie_mom\"]}"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "skill:eat/do_eat"
+    }
+}

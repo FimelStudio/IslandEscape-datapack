@@ -1,0 +1,16 @@
+{
+    "criteria": {
+        "ride_interacted": {
+            "trigger": "player_interacted_with_entity",
+            "conditions": {
+                "entity": {
+                    "type": "minecraft:interaction",
+                    "nbt": "{Tags:[\"YL_ride\"]}"
+                }
+            }
+        }
+    },
+    "rewards": {
+      
+    }
+}

@@ -1,0 +1,75 @@
+{
+    "type": "minecraft:multi_action",
+    "pause": false,
+    "title": "职业介绍",
+    "columns": 2,
+    "body": [
+        {
+            "type": "minecraft:plain_message",
+            "contents": [
+                {
+                    "text": "感染者阵营"
+                }
+            ]
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": [
+                {
+                    "text": "(点击切换",
+                    "color": "gray"
+                },
+                {
+                    "text": "幸存者阵营",
+                    "color": "aqua",
+                    "bold": true,
+                    "click_event": {
+                        "action": "show_dialog",
+                        "dialog": "main:profession/pfs_menu"
+                    }
+                },
+                {
+                    "text": ")",
+                    "color": "gray"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "label": "感染源",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "舔食者",
+            "action": {
+                "type": "show_dialog",
+                "dialog": "main:profession/dentist"
+            }
+        },
+        {
+            "label": "循声者",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "暴君",
+            "action": {
+                "type": "show_dialog",
+                "dialog": "main:menu"
+            }
+        }
+    ],
+    "exit_action": {
+        "label": "返回",
+        "action": {
+            "type": "show_dialog",
+            "dialog": "main:menu"
+        }
+    }
+}

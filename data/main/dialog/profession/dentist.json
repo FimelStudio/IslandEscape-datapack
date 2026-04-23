@@ -1,0 +1,55 @@
+{
+    "type": "minecraft:notice",
+    "title": {
+        "text": "幸存者 ",
+        "extra": [
+            {
+                "text": "医师",
+                "color": "light_purple"
+            }
+        ],
+        "color": "aqua",
+        "bold": true
+    },
+    "external_title": {
+        "text": ""
+    },
+    "body": [
+        {
+            "type": "minecraft:item",
+            "item": {
+                "id": "minecraft:paper"
+            },
+            "show_decorations": false,
+            "show_tooltip": false
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "靠近幸存者阵营的玩家使用绷带可为其持续治疗",
+                "color": "gray"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "医者难自医：对自己治疗效果减半",
+                "color": "gray"
+            },
+            "width": 480
+        }
+    ],
+    "inputs": [],
+    "can_close_with_escape": true,
+    "action": {
+        "label": {
+            "text": "返回职业介绍",
+            "color": "green"
+        },
+        "action": {
+            "type": "minecraft:show_dialog",
+            "dialog": "main:profession/pfs_menu"
+        }
+    }
+}
