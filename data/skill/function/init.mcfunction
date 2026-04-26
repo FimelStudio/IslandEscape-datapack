@@ -6,7 +6,7 @@ scoreboard objectives add play_sound dummy
 
 function skill:slide_tackle/slide_init
 
-
+say 1
 
 
 tellraw @a {"text":"初始化完成","color":"green"}
