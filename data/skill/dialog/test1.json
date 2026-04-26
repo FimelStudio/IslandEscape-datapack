@@ -1,8 +1,29 @@
 {
-    "after_action": "close",
     "pause": false,
-    "can_close_with_escape": true,
-    "body": [],
+    "title": {
+        "text": "编辑感染体属性",
+        "color": "red"
+    },
+    "body": [
+        {
+            "type": "plain_message",
+            "contents": [
+                {
+                    "type": "object",
+                    "object": "player",
+                    "player": {}
+                },
+                {
+                    "text": "当前感染者：",
+                    "color": "white"
+                },
+                {
+                    "storage": "zombie:eated",
+                    "nbt": "player_name"
+                }
+            ]
+        }
+    ],
     "inputs": [
         {
             "key": "out_text",
@@ -16,21 +37,22 @@
             "multiline": {
                 "max_lines": 10
             }
+        },
+        {
+            "type": "minecraft:number_range",
+            "label": "更改感染体血量(影响速度和体型)",
+            "key": "config_health",
+            "start": 5,
+            "end": 35,
+            "step": 1,
+            "initial": 20
         }
     ],
-    "external_title": {
-        "text": "测试对话框",
-        "color": "yellow"
-    },
-    "title": {
-        "text": "这是一个测试对话框",
-        "color": "red"
-    },
     "type": "confirmation",
     "no": {
         "label": {
-            "text": "退出",
-            "color": "red"
+            "text": "取消编辑",
+            "color": "white"
         },
         "tooltip": {
             "text": "点击退出"
@@ -38,15 +60,15 @@
     },
     "yes": {
         "label": {
-            "text": "确定",
-            "color": "green"
+            "text": "确定编辑",
+            "color": "dark_red"
         },
         "tooltip": {
             "text": "点击确定"
         },
         "action": {
             "type": "dynamic/run_command",
-            "template": "tellraw @a {text:\"$(out_text)\"}"
+            "template": "tellraw @a {text:\"$(config_health)\"}"
         }
     }
 }

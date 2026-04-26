@@ -1,5 +1,7 @@
 {
-    "values": [
-        "skill:init"
-    ]
+	"replace": false,
+	"values": [
+		"animated_java:global/on_load",
+		"skill:init"
+	]
 }

@@ -137,7 +137,7 @@
             }
         },
         {
-            "label": "职业介绍",
+            "label": "身份介绍",
             "action": {
                 "type": "show_dialog",
                 "dialog": "main:profession/pfs_menu"

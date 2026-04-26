@@ -1,0 +1,4 @@
+interface:
+  display_name: "Minecraft Datapack Dev"
+  short_description: "Develop and verify Minecraft datapacks"
+  default_prompt: "Use $minecraft-datapack-dev to create a Minecraft datapack for my target game version."

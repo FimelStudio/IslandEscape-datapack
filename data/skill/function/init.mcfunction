@@ -1,12 +1,10 @@
 
 # 创建计分板
-
+scoreboard objectives add play_sound dummy
 
 
 
 function skill:slide_tackle/slide_init
-
-
 
 
 

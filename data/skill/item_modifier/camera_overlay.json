@@ -1,0 +1,10 @@
+{
+    "function": "set_components",
+    "components": {
+        "equippable": {
+            "damage_on_hurt": false,
+            "slot": "head",
+            "camera_overlay": "rpg:end"
+        }
+    }
+}

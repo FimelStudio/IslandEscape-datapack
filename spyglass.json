@@ -1,0 +1,13 @@
+{
+  "env": {
+    "gameVersion": "1.21.11",
+    "useFilePolling": true,
+    "dependencies": [
+      "@vanilla-datapack",
+      "@vanilla-resourcepack",
+      "@vanilla-mcdoc",
+      "file:///D:/PCL2/MinecraftPcl/versions/1.21.11-Fabric 0.18.4/saves/[1.21.11]海岛逃生Island Escape v0.1/datapacks/dc_v2.1.0/",
+      "file:///D:/PCL2/MinecraftPcl/versions/1.21.11-Fabric 0.18.4/saves/[1.21.11]海岛逃生Island Escape v0.1/datapacks/FastMotion/"
+    ]
+  }
+}
