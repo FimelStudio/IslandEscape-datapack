@@ -8,3 +8,6 @@ kill @e[type=minecraft:pig,tag=slide_vehicle]
 kill @e[type=minecraft:silverfish,tag=slide_vehicle]
 tag @a remove sliding
 tag @a remove slide_locked
+tag @a remove slide_blocked
+tag @a remove slide_falling
+tag @a remove slide_falling_small

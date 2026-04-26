@@ -5,6 +5,8 @@ kill @e[type=minecraft:silverfish,tag=slide_cleanup]
 
 tag @s remove sliding
 tag @s remove slide_blocked
+tag @s remove slide_falling
+tag @s remove slide_falling_small
 scoreboard players set @s skill.slide_time 0
 scoreboard players set @s skill.slide_cd 8
 

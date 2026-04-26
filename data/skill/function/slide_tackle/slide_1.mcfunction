@@ -1,6 +1,8 @@
 scoreboard players set @s skill.slide_ok 0
 scoreboard players set @s skill.slide_time 0
 tag @s remove slide_blocked
+tag @s remove slide_falling
+tag @s remove slide_falling_small
 
 summon minecraft:silverfish ~ ~ ~ {Tags:["slide_vehicle","slide_new"],NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
 effect give @e[type=minecraft:silverfish,tag=slide_new,limit=1,sort=nearest,distance=..1.5] minecraft:invisibility 3 0 true
