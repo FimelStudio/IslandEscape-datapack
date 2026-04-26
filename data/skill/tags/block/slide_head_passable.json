@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#skill:slide_passable",
+    {
+      "id": "#minecraft:slabs",
+      "required": false
+    }
+  ]
+}

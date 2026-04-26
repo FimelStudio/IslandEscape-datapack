@@ -1,4 +1,5 @@
 execute on vehicle if entity @s[type=minecraft:silverfish,tag=slide_vehicle] run tag @s add slide_cleanup
+execute unless data entity @s RootVehicle run tag @e[type=minecraft:silverfish,tag=slide_vehicle,distance=..2,limit=1,sort=nearest] add slide_cleanup
 ride @s dismount
 execute as @e[type=minecraft:silverfish,tag=slide_cleanup,distance=..4] at @s run tp @s ~ -512 ~
 kill @e[type=minecraft:silverfish,tag=slide_cleanup]
