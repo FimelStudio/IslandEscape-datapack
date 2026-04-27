@@ -1,0 +1,13 @@
+# escape_island:test/menu  —  clickable local test panel
+tellraw @s {"text":"\n=== 孤岛逃生：黎明前夕 自测菜单 ===","color":"gold","bold":true}
+tellraw @s [{"text":"[一键体检]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/smoke"}},{"text":" 检查计分板、地图标记和当前状态","color":"gray"}]
+tellraw @s [{"text":"[地图标记检查]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:debug/validate_map"}},{"text":" 查看关键 marker 是否放齐","color":"gray"}]
+tellraw @s [{"text":"[创建开发沙盒]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/start"}},{"text":" 无地图时生成临时 marker 并进入训练","color":"gray"}]
+tellraw @s [{"text":"[清理开发沙盒]","color":"gray","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/stop"}},{"text":" 退出训练并删除临时 marker","color":"gray"}]
+tellraw @s [{"text":"[感染测试]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/infection_menu"}},{"text":" 污染、治愈、死亡、复活状态机","color":"gray"}]
+tellraw @s [{"text":"[查看状态]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:debug/show_state"}},{"text":" 输出当前局内计分板状态","color":"gray"}]
+tellraw @s [{"text":"[训练模式]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/start"}},{"text":" 单人练技能，不开正式局","color":"gray"}]
+tellraw @s [{"text":"[发全部套件]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/give_all_kits"}},{"text":" 配合训练模式使用","color":"gray"}]
+tellraw @s [{"text":"[退出训练]","color":"gray","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/reset"}},{"text":" 清空训练物品、状态和测试实体","color":"gray"}]
+tellraw @s [{"text":"[刷测试人偶]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/spawn_dummies"}},{"text":" 在身边生成幸存者/感染者/母体人偶","color":"gray"}]
+tellraw @s [{"text":"[开始正式局]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:game/start"}},{"text":" 需要至少 4 名玩家","color":"gray"}]

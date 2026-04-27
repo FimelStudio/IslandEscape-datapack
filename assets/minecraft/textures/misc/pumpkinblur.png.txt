@@ -1,0 +1,10 @@
+【占位说明】
+请在此目录放置真正的 pumpkinblur.png 文件：
+路径: assets/minecraft/textures/misc/pumpkinblur.png
+
+要求:
+- 尺寸: 512x512 (或256x256) RGBA PNG
+- 内容: 红色暗角效果 —— 四角和边缘为半透明深红，中心完全透明
+- 可用 Photoshop / GIMP 制作: 新建512x512透明图层，用径向渐变从边缘(红色50%不透明)到中心(完全透明)
+
+此文件(.txt)可以删除。

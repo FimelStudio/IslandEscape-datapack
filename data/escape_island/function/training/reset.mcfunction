@@ -1,0 +1,72 @@
+# Reset training state
+clear @s
+tag @s remove state.training
+tag @s remove role.doctor
+tag @s remove role.captain
+tag @s remove role.engineer
+tag @s remove role.marine
+tag @s remove role.chef
+tag @s remove role.radio
+tag @s remove role.virologist
+tag @s remove role.mechanic
+tag @s remove role.sailor
+tag @s remove role.priest
+tag @s remove role.survivor
+tag @s remove role.mother
+tag @s remove role.infected
+tag @s remove state.infected_period
+tag @s remove state.sporifying
+tag @s remove state.dead
+tag @s remove state.disguised
+tag @s remove state.infection_resist
+tag @s remove retained.doctor
+tag @s remove retained.captain
+tag @s remove retained.engineer
+tag @s remove retained.marine
+tag @s remove retained.chef
+tag @s remove retained.radio
+tag @s remove retained.virologist
+tag @s remove retained.mechanic
+tag @s remove retained.sailor
+tag @s remove retained.priest
+tag @s remove flag.cross_intact
+tag @s remove flag.has_inject
+tag @s remove flag.has_disguise
+tag @s remove flag.self_injected_this_period
+tag @s remove flag.cross_intercepted
+tag @s remove flag.first_attack
+scoreboard players set @s spore_load 0
+scoreboard players set @s spore_decay_cd 0
+scoreboard players set @s infect_time 0
+scoreboard players set @s sporify_timer 0
+scoreboard players set @s mother_respawn 0
+scoreboard players set @s mother_last_hp 0
+scoreboard players set @s mother_regen_cd 0
+scoreboard players set @s hb_phase 0
+scoreboard players operation @s used_firework_last = @s used_firework
+scoreboard players set @s cd_doctor 0
+scoreboard players set @s cd_captain 0
+scoreboard players set @s cd_engineer 0
+scoreboard players set @s cd_marine 0
+scoreboard players set @s cd_chef 0
+scoreboard players set @s cd_radio 0
+scoreboard players set @s cd_virologist 0
+scoreboard players set @s cd_mechanic 0
+scoreboard players set @s cd_sailor 0
+scoreboard players set @s cd_priest 0
+scoreboard players set @s cd_mother_lunge 0
+scoreboard players set @s cd_mother_rotsense 0
+scoreboard players set @s cd_mother_howl 0
+scoreboard players set @s death_count 0
+effect clear @s
+team leave @s
+gamemode survival @s
+kill @e[tag=test.dummy]
+kill @e[tag=entity.chef_stew_pot]
+kill @e[tag=entity.engineer_battery]
+kill @e[tag=entity.mechanic_trap]
+kill @e[tag=entity.downed_anchor]
+kill @e[tag=entity.dead_anchor]
+kill @e[tag=display.infection_vignette]
+clear @s minecraft:carved_pumpkin
+tellraw @s [{"text":"[训练模式] 已退出并清理。","color":"gray"},{"text":" [自测菜单]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/menu"}}]

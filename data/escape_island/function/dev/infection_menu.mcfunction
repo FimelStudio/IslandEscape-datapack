@@ -1,0 +1,15 @@
+# escape_island:dev/infection_menu  —  clickable infection state test panel
+tellraw @s {"text":"\n=== 感染与死亡状态机测试 ===","color":"dark_red","bold":true}
+tellraw @s [{"text":"[设为幸存者]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_survivor"}},{"text":" 基础幸存者状态","color":"gray"}]
+tellraw @s [{"text":"[设为神父]","color":"white","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_priest"}},{"text":" 测十字架阻断","color":"gray"}]
+tellraw @s [{"text":"[设为感染者]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_infected"}},{"text":" 测感染者死亡/复活","color":"gray"}]
+tellraw @s [{"text":"[设为母体]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_mother"}},{"text":" 测母体死亡/复活","color":"gray"}]
+tellraw @s [{"text":"[+35污染]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/add_spore_35"}},{"text":" 普通感染者命中量","color":"gray"}]
+tellraw @s [{"text":"[+50污染]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/add_spore_50"}},{"text":" 母体命中量","color":"gray"}]
+tellraw @s [{"text":"[强制感染期]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:infection/force_infect"}},{"text":" 直接进入感染期","color":"gray"}]
+tellraw @s [{"text":"[治愈自己]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:infection/cure"}},{"text":" 清除感染期","color":"gray"}]
+tellraw @s [{"text":"[模拟幸存者死亡]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:infection/survivor_death"}},{"text":" 15秒孢化后转感染者","color":"gray"}]
+tellraw @s [{"text":"[模拟感染者死亡]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:infection/infected_death"}},{"text":" 30秒复活","color":"gray"}]
+tellraw @s [{"text":"[模拟母体死亡]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:infection/mother_death"}},{"text":" 60秒复活","color":"gray"}]
+tellraw @s [{"text":"[模拟母体首攻]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/simulate_mother_first_attack"}},{"text":" 单人验证首攻广播只触发一次","color":"gray"}]
+tellraw @s [{"text":"[查看状态]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:debug/show_state"}},{"text":" 查看污染/感染/孢化/复活计时","color":"gray"}]

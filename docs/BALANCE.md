@@ -50,13 +50,13 @@
 
 | 字段 | 值 | 备注 |
 |---|---|---|
-| HP | 60 | 30 心 |
-| 护甲（attribute） | 4 | 默认 0 |
-| 护甲韧性 | 2 | |
-| 击退抗性 | 0.8 | |
-| 远程伤害减免 | 30% | 通过 `damage_reduction` 实现 |
-| 攻击伤害（基础） | 6 | 3 心，无武器加成 |
-| 移速（基础） | 1.05 × 默认 | |
+| HP | 60 | `attribute @s minecraft:max_health base set 60` |
+| 护甲（attribute） | 4 | `attribute @s minecraft:armor base set 4` |
+| 护甲韧性 | 2 | `attribute @s minecraft:armor_toughness base set 2` |
+| 击退抗性 | 0.8 | `attribute @s minecraft:knockback_resistance base set 0.8` |
+| 全伤害减免 | Resistance I（永久） | tick 函数持续刷新；等效约 20% 减伤，替代不可实现的 `damage_reduction` |
+| 攻击伤害（基础） | 6 | `attribute @s minecraft:attack_damage base set 6`（3 心，无武器加成） |
+| 移速（基础） | 0.105（默认 0.1 × 1.05） | `attribute @s minecraft:movement_speed base set 0.105` |
 | 脱战回血 | 5 秒未受伤 → 2 HP/s | tick 函数 |
 | 狂暴阈值 | HP ≤ 30%（18 HP） | |
 | 狂暴效果 | 速度 II + 力量 I | 持续 5 秒 |
@@ -101,7 +101,7 @@
 | 感染期修复/终端交互 | 速度 ×0.5 |
 | 感染期视觉 | 红 vignette + 心跳音 + 脚下 portal 粒子 |
 | 心跳音加快阈值 | 剩余 ≤ 15 秒，间隔从 2s 缩到 0.5s |
-| HP=0 立刻转化 | 是 |
+| HP=0 进入孢化倒计时 | 是，15 秒倒地孢化后转化；船医/疫苗不可救回，神父祝福可在致死前阻断 |
 | 感染期超时自动转化 | 是 |
 | 神父祝福清除感染期 | 是 |
 
@@ -113,16 +113,16 @@
 
 | 字段 | 值 |
 |---|---|
-| 物品基础 | `minecraft:syringe` 不存在，使用 `tipped_arrow` 自定义命名 |
-| 实际触发载体 | `consumable` component carrot_on_a_stick |
-| 触发: 右键队友 | 使用 `interact_at_entity` advancement |
-| 触发距离 | 5 格内 |
-| 治愈条件 | 目标必须在感染期且非自己 |
+| 物品基础 | `tipped_arrow` 自定义命名（外观接近注射器）|
+| 触发载体 | `consumable.consume_seconds:0` + `custom_data.skill:"doctor_antidote"` |
+| 触发方式 | `consume_item` advancement |
+| 触发距离 | 5 格内（在 use.mcfunction 内选目标）|
+| 治愈条件 | 使用后检查 5 格内最近感染期队友；若自身处于感染期则自救 |
 | 冷却 | 90 秒 |
 | 携带上限 | 3 |
 | 补给周期 | 90 秒 +1（不超过上限） |
 | **自救用量** | 消耗 **1 针**，右键自身 |
-| 自救触发条件 | 自身持有感染期 tag + `using_item` 检测目标为自身 |
+| 自救触发条件 | `consume_item` 触发后在 use.mcfunction 内检查 `@s[tag=state.infected_period]` |
 | 自救限制 | 每个感染期最多 1 次（清除后重置；被再次感染可再用） |
 | **被动：污染阈值** | 船医本人为 **130**（普通幸存者为 100）；tick 函数检测 `role.doctor` tag 时写入个人 `spore_threshold` scoreboard |
 
@@ -130,8 +130,8 @@
 
 | 字段 | 值 |
 |---|---|
-| 物品基础 | `goat_horn`（自定义） |
-| 触发: 右键 | `using_item` advancement |
+| 物品基础 | `goat_horn`（自定义，附加 `consumable.consume_seconds:0`）|
+| 触发方式 | `consume_item` advancement（`custom_data.skill:"captain_whistle"`）|
 | 效果半径 | 8 格 |
 | 增益 | 速度 II + 力量 I |
 | 持续 | 15 秒 |
@@ -141,8 +141,8 @@
 
 | 字段 | 值 |
 |---|---|
-| 物品基础 | `redstone_torch` 自定义 |
-| 触发: 放置（drop / right click ground） | `placed_block` advancement |
+| 物品基础 | `redstone_torch` 自定义（附加 `consumable.consume_seconds:0`）|
+| 触发方式 | `consume_item` advancement（adventure 模式无法 `placed_block`，改为右键即在原地召唤 marker）|
 | 效果 | 半径 4 格内的修复点修复速度 +200% |
 | 持续 | 60 秒 |
 | 冷却 | 60 秒 |
@@ -165,18 +165,18 @@
 
 | 字段 | 值 |
 |---|---|
-| 物品基础 | `mushroom_stew` 自定义 |
-| 触发: 放置（投掷在地面）→ 实际是召唤 marker armor_stand | |
-| 锅持续 | 5 分钟 |
-| 饮用回血 | 4 心 |
+| 物品基础 | `mushroom_stew` 自定义（附加 `consumable.consume_seconds:0`）|
+| 触发方式 | `consume_item` advancement（`custom_data.skill:"cook_soup"`）|
+| Batch 5 实现 | 直接右键给自身 4 心（instant_health III）；汤锅放置逻辑推迟至 Batch 10+ |
+| 饮用回血 | 4 心（instant_health amplifier 3）|
 | 冷却 | 180 秒 |
 
 ### 6. 通讯员 — 信号扫描
 
 | 字段 | 值 |
 |---|---|
-| 物品基础 | `compass` 自定义 |
-| 触发: 右键 | `using_item` advancement |
+| 物品基础 | `compass` 自定义（附加 `consumable.consume_seconds:0`）|
+| 触发方式 | `consume_item` advancement（原版指南针无右键动画，`using_item` 不触发）|
 | 高亮范围 | 全图 |
 | 高亮持续 | 5 秒 |
 | 高亮目标 | 全体幸存者（不含母体伪装态？— 否，因为伪装态计为幸存者） |
@@ -198,8 +198,8 @@
 
 | 字段 | 值 |
 |---|---|
-| 物品基础 | `glass_bottle` 自定义 |
-| 触发: 右键 | `using_item` advancement |
+| 物品基础 | `glass_bottle` 自定义（附加 `consumable.consume_seconds:0`）|
+| 触发方式 | `consume_item` advancement（`custom_data.skill:"viro_detector"`）|
 | 检测半径 | 6 格 |
 | 检测目标 | 任何感染期 OR 母体 OR 普通感染者 |
 | 反馈 | 屏幕红泛 + bell 音效，无具体方位 |
@@ -219,8 +219,8 @@
 
 | 字段 | 值 |
 |---|---|
-| 物品基础 | `tripwire_hook` 自定义 |
-| 触发: 放置（drop） | `placed_block` advancement |
+| 物品基础 | `tripwire_hook` 自定义（附加 `consumable.consume_seconds:0`）|
+| 触发方式 | `consume_item` advancement（adventure 模式无法 `placed_block`，右键即在原地召唤 marker）|
 | 触发条件 | 0.8 格内有非自己的实体 |
 | 效果 | 缓慢 II 4 秒 + glowing 30 秒 |
 | 同时存在上限 | 3 |
@@ -297,9 +297,12 @@
 
 | 字段 | 值 |
 |---|---|
-| 物品 | `wither_skeleton_skull` 命名 |
+| 物品 | `fermented_spider_eye`（`consumable` 组件 `consume_seconds: 999`，防止意外消耗） |
 | 效果 | 所有已转化感染者获得 60 秒"集合"buff（速度 II + 屏幕指引母体方向） |
 | 冷却 | 90 秒 |
+| 触发 | `using_item` advancement（右键按住即触发，不等待吃完） |
+
+> **右键技能道具通用规则**：凡是食物类右键技能道具（spider_eye / fermented_spider_eye 等），均附加 `minecraft:consumable {consume_seconds: 999}` 组件。玩家右键按住时 `using_item` advancement 在第 1 tick 触发，skill 函数即时执行，advancement revoke 后道具不会在短暂按住中被消耗。正常游玩不可能连续持右键 16 分钟，故道具实际上永不消失。
 
 ### 4. 伪装试剂 X-7（隐藏）
 
@@ -322,7 +325,7 @@
 |---|---|---|---|---|---|
 | 铁斧 | `iron_axe` | 4 (2 心) | 0.9 | 全员 | 默认 |
 | 铁剑 | `iron_sword` | 6 (3 心) | 1.6 | 战斗职业 + 稀有掉落 | |
-| **M-7 手枪** | `crossbow` 自定义 | 5（对母体 ~3） | 0.4s 间隔 | **全员开局**（8 发）；海军陆战队员开局 24 发；物资箱补弹药 | **8 发弹匣，2 秒装填，子弹是 `iron_nugget` "9mm 弹药"** |
+| **M-7 手枪** | 可替换手枪载体（demo: `minecraft:sugar` + `item_model="ie:gun"`） | 6（对母体按 4 基础结算） | demo 输入冷却 0.2s / 有效结算 0.4s | **全员开局**（手枪 + 8 发）；海军陆战队员开局 24 发；物资箱补弹药 | **8 发弹匣，2 秒装填，子弹是 `iron_nugget` "9mm 弹药"** |
 | 信号枪 | `crossbow` 自定义 (item_model 区分) | 2 + 火焰 | 单发，5 秒装填 | 物资 + 实验室稀有 | 标记目标 5 秒 + 燃烧 3 秒 |
 | 烟雾弹 | `egg` 自定义 | 0 | — | 物资 + 实验室 | 5 秒区域烟雾 + 黑暗 II |
 | 闪光弹 | `firework_rocket` 自定义 | 0 | — | 物资 + 实验室 | 4 格半径致盲 III 3 秒 |
@@ -333,31 +336,37 @@
 
 | 字段 | 值 |
 |---|---|
-| 物品 | `crossbow` + `custom_data.weapon = "pistol"` + `item_model: escape_island:pistol` |
-| 弹匣容量 | 8（用 scoreboard `gun_mag` 跟踪每把枪的剩余弹药，物品 `custom_data.mag` 同步） |
-| 子弹 | `iron_nugget` 命名"9mm 弹药" (`custom_data.ammo = 1`)，玩家持有数量决定可装填总量 |
-| 单发伤害 | 5（默认；对玩家 2.5 心，对母体经减免 = 3 dmg = 1.5 心） |
-| 连射间隔 | 0.4 秒 (8 ticks)，由 `cd_pistol_fire` 控制 |
-| 装填时间 | 2 秒 (40 ticks)；装填期间不能射击，可移动 |
-| 装填触发 | 弹匣空时按住右键 2 秒；或弹匣未空但持 `iron_nugget` 长按右键强制装填（消耗子弹补满） |
-| 单局子弹总量（物资箱） | 4–7 人局约 15 发 / 8–12 人局约 25 发 / 13–16 人局约 35 发 / 17–20 人局约 40 发；分布在 `loot_basic` 物资箱（30% 出现概率，每次出 2–4 发） |
-| 全员开局 | 手枪 ×1 + 子弹 ×8（1 弹匣份） |
-| 海军陆战队员开局 | 手枪 ×1 + 子弹 ×24（3 弹匣份，替代基础 8 发） |
+| 玩家显示名 | M-7 半自动手枪；"克洛格"仅作为当前 demo 命名，可改 |
+| 物品载体 | 可替换；当前 demo 为 `minecraft:sugar` + `item_model="ie:gun"`，最终只要求可右键触发、可显示枪模型、可携带 `custom_data.weapon = "pistol"` 与弹匣数据 |
+| 右键触发 | 当前 demo 用 `minecraft:consumable {consume_seconds:0, animation:"spyglass", has_consume_particles:false, on_consume_effects:[play_sound ie:gunshot]}`；也可换成等效右键输入方案 |
+| 输入冷却 | demo 为 `minecraft:use_cooldown {seconds:0.2}`；只限制右键触发频率，具体值可随手感调参 |
+| 子弹物品 | `minecraft:iron_nugget` 命名"9mm 弹药"（`custom_data.ammo = 1`） |
+| 弹匣容量 | 8 发 |
+| 装填机制 | 空匣右键或潜行右键进入 2 秒装填，消耗背包 9mm 弹药补满弹匣；装填期间可移动但不能射击 |
+| 有效射击间隔 | 0.4 秒（8 tick）；即使输入冷却为 0.2 秒，扣弹和伤害也按 0.4 秒门控 |
+| 单发伤害 | 普通目标 6 damage；母体 4 damage 基础值，再受护甲/抗性影响 |
+| 射击检测 | 手枪框架右键触发射击事件；命中由玩法层 raycast / 命中检测结算，不使用原版弩伤害 |
+| 弹药经济 | 开局 8 发/人（全员）；海军陆战队员 24 发；物资箱额外补给：4–7 人局约 +15 发 / 8–12 人约 +25 发 / 13–20 人约 +40 发 |
+| 全员开局 | 手枪 ×1 + 子弹 ×8 |
+| 海军陆战队员开局 | 手枪 ×1 + 子弹 ×24 |
 
-#### 击杀母体所需投入
+> **设计约束**：M-7 不采用原版弩的一发一装填和原版弩伤害。当前命令只是 demo 参考，最终载体可以替换；弹匣、9mm 消耗、2 秒装填、阵营过滤和伤害必须由玩法函数结算。若采用会被消耗的载体，射击函数必须同 tick 替换/补回手枪，保证武器不丢失。
 
-- 母体 60 HP，每发实际伤害 ~3 → 需要 20 发命中
-- 加上母体 5 秒脱战回 10 HP → 必须**持续命中、不让脱战**
-- 母体狂暴期（HP ≤ 30%）速度大幅提升 → 命中率掉到约 40%
-- 综合：杀一个母体需要约 35–45 发实际打出，等同 1 名玩家 1.5 个弹匣 + 队友辅助
-- 杀完母体后母体并不消失，**60 秒复活冷却**期间地图暂时无母体，倒计时结束后同一玩家在随机 `spore_spot` 复活并自动获得母体装备 → 击杀母体只是**赢得 60 秒喘息窗口**，不能终结游戏
+#### 击杀母体所需投入（更新后数值）
+
+- 母体 60 HP，手枪对母体基础 4 damage，再受护甲/抗性影响
+- 无脱战：约 18–25 发实际命中可击杀
+- 有脱战回血（5 秒未受伤 → 2 HP/s）：必须持续压制，否则母体回血
+- 母体狂暴期（HP ≤ 18）速度 II → 命中率大幅下降，追击者容易被反咬
+- 综合：多人协力约需 3 个弹匣级别的资源 + 控制配合
+- **击杀仅换来 60 秒复活窗口**，不终结游戏 → 保留"杀母体 vs 做任务"的策略张力
 
 #### 防御机制（防止纯枪战阵营）
 
-- **铁块掩体**: 数据包不允许玩家用 `iron_block` 等高耐久方块封地形（`block_break` 阻止破坏地形上的某些方块）
-- **子弹稀缺**: 80 发上限是为了 20 人局，4 人局只 30 发，平均每人不到 8 发
+- **全员开局枪，但弹药稀缺**: 每名幸存者至少有 8 发用于自保；额外弹药控制在"够两次正面遭遇"，避免变成纯枪战
 - **PvP 间无伤**: 队友间无伤害（防止误击 + 心理攻击）
-- **母体腐臭感知 + 猎食冲刺**: 让母体能切入贴脸，破解远射风筝
+- **母体腐臭感知 + 猎食冲刺**: 母体能切入贴脸，破解纯远射风筝策略
+- **目标类型伤害系数**: 手枪框架对母体单独降伤害，避免原版远程伤害过高
 
 ---
 
@@ -435,7 +444,7 @@
 | 烟雾蛋 | 10% | 1 |
 | 闪光弹 | 5% | 1 |
 | 信号燃焰 | 8% | 1 |
-| 9mm 弹药（手枪子弹） | 30% | 2–4 | ← 全员已有 1 弹匣开局，物资箱主要用于补充
+| 9mm 弹药（手枪子弹） | 30% | 2–4（全员已有 1 弹匣开局，物资箱主要用于补充） |
 | 铁剑 | 3% | 1 |
 | 食物（面包） | 40% | 1–3 |
 | 应急手电筒 | 8% | 1 |
@@ -449,7 +458,7 @@
 | 燃料电池 | 30% | 1 |
 | 急救冷藏箱（治愈感染期） | 25% | 1 |
 | 防毒面具（实验室孢子免疫） | 20% | 1 |
-| M-7 手枪 | 8% | 1 |
+| 9mm 弹药包 | 18% | 6–8 |
 | 信号枪 | 12% | 1 |
 | 铁剑 | 25% | 1 |
 | 油桶 | 5% | 1 |

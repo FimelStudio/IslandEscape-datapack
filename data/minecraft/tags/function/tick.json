@@ -4,6 +4,7 @@
 		"skill:eat/eat_tick",
 		"skill:athlete/tick",
 		"skill:tick",
-		"animated_java:global/on_tick"
+		"animated_java:global/on_tick",
+		"escape_island:tick"
 	]
 }

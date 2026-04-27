@@ -316,9 +316,9 @@ escape_island/
 | `state.boarding` | 已上交通工具 |
 | `state.escaped` | 已撤离结算 |
 | `state.dying` | 0 HP 但未结算 |
-| `state.sporifying` | 幸存者死亡后的 15 秒孢化倒计时 |
-| `state.dead` | 已死亡过渡，结束后转感染者或复活 |
-| `state.spectator` | 主动放弃或撤离结算后的观战状态 |
+| `state.sporifying` | 幸存者死亡后的 15 秒倒地孢化倒计时；玩家锁定在死亡位置，不进入 spectator |
+| `state.dead` | 感染者/母体死亡后的复活等待；不进入 spectator，使用隐形 marker 锚定并在倒计时结束后复活 |
+| `state.spectator` | 主动放弃、撤离结算或整局结束后的观战状态；普通死亡不使用 |
 | `state.disguised` | 母体伪装中 |
 | `state.disguise_scanning` | 伪装母体正在登载扫描中 |
 | `state.infection_resist` | 刚被治愈后的短暂污染抗性 |
@@ -367,13 +367,21 @@ escape_island/
 ### Team
 
 ```
-/team add survivors {"text":"幸存者","color":"green"}
-/team add mother    {"text":"母体","color":"dark_red"}      # 仅母体可见
-/team add infected  {"text":"感染者","color":"red"}
-/team add spectator {"text":"旁观者","color":"gray"}
+/team add survivors       {"text":"幸存者","color":"green"}   friendlyFire=false
+/team add mother_hidden   {"text":"幸存者","color":"green"}   friendlyFire=false  # 母体隐藏态：绿名牌，与幸存者视觉完全一致
+/team add infected_period {"text":"幸存者","color":"gold"}    friendlyFire=false  # 感染期：金色名牌，仍属幸存者阵营
+/team add infected        {"text":"感染者","color":"red"}     friendlyFire=false
+/team add mother          {"text":"母体","color":"dark_red"}  friendlyFire=false  # 仅在母体被临时暴露（15s）时使用
+/team add spectator       {"text":"旁观者","color":"gray"}
 ```
 
-队友互不伤害用 `friendlyFire` = false。母体单独一队（保证不被普通感染者识别）。
+**团队逻辑说明**:
+- 母体全程在 `mother_hidden`（绿名牌），任何人（含感染者）都无法从名牌分辨母体身份
+- 进入感染期时: `team join infected_period @s`（金名牌），其他玩家可视别
+- 转化完成时: `team join infected @s`（红名牌）
+- 病毒学家检测剂抓到母体 → 15秒内 `team join mother @s`（暗红），暴露结束后 `team join mother_hidden @s`
+- Team 只负责名牌颜色和同队误伤兜底，不作为完整阵营伤害系统
+- 近战、手枪和技能伤害必须在对应 hit/fire 函数中做阵营判断：幸存者/感染期之间无伤；感染者之间无伤；母体对幸存者有效；幸存者对母体/普通感染者有效
 
 ### Bossbar
 
@@ -503,6 +511,35 @@ infection/consume_antidote.json
 
 `escape_island:skill/doctor_inject` 中先 advancement revoke 自己，然后判断目标 player 是否在感染期，是则治愈。
 
+### 7.1b 右键技能道具（食物类）通用方案
+
+凡是需要"右键触发"但不希望被消耗的食物类道具（`spider_eye`、`fermented_spider_eye` 等），均附加以下组件：
+
+```json
+"minecraft:consumable": {
+  "consume_seconds": 999,
+  "animation": "none"
+}
+```
+
+- `consume_seconds: 999` = 持续右键 16.65 分钟才消耗，正常游玩不可能发生
+- `using_item` advancement 在第 1 tick 触发（右键按住即触发）→ revoke → skill 函数执行
+- 道具永不消失，无需补充机制
+- `animation: "none"` 可选，避免播放咀嚼动画
+
+### 7.1c 死亡倒地与孢化锁定
+
+幸存者死亡不进入 `gamemode spectator`。`infection/survivor_death` 进入 `state.sporifying` 后：
+
+- 记录死亡位置到个人 scoreboard 或临时 marker（`death_x/y/z` 或 `marker.death_body`）。
+- 立刻把玩家拉回死亡点，设置 adventure，给 `slowness 255`、`weakness 255`、`mining_fatigue 255`、`jump_boost 128` 等锁定效果，清理可交互手持道具。
+- 每 tick 或每 2 tick `tp @s <death_pos>`，防止玩家借击退、载具或水流移动；保留视角转动，避免完全失去信息。
+- 生成隐形位置锚点：使用 `minecraft:marker` 锁定死亡位置，玩家本体原地僵直显示；孢化结束或中断时清理。
+- actionbar 显示 `孢化中: Ns`；本人播放低频心跳/孢化音，其他玩家只看到粒子和倒地代理。
+- 15 秒结束后执行 `infection/turn`，移除锁定效果、清理代理，并在转化点或最近 `spore_spot` 恢复为普通感染者。
+
+污染值 `spore_load >= 50` 的预警只对本人可见：actionbar + 轻微心跳音。音效必须在每次提示时 `execute at @s run playsound ... @s ~ ~ ~`，而不是在旧触发点播放，保证玩家移动后仍从当前位置听到。
+
 ### 7.2 投掷物触发（信号弹、烟雾蛋）
 
 使用 `egg` / `firework_rocket` 投掷物，附加 `custom_data` 标记。监听 advancement `shot_crossbow` / `entity_hurt_player` / 自定义 marker 实体监听 Item 落地。
@@ -516,6 +553,29 @@ execute as @s at @s run summon marker ~ ~ ~ {Tags:["entity.smoke_bomb"], data:{o
 ```
 
 或更简单: 用箭矢 (arrow) 替代蛋，附 custom_data 检测落地（`arrow.inGround=1`）。
+
+### 7.2b M-7 手枪框架接入
+
+M-7 不走原版弩战斗模型。实现目标是一个可替换的"手枪适配层"：载体物品只负责右键输入、枪模型、枪声和必要的冷却提示；弹匣、装填、命中、伤害和阵营过滤都由玩法函数结算。
+
+当前 demo 命令如下，仅作为输入/模型/音效参考，不是最终载体限制：
+
+```mcfunction
+give @a minecraft:sugar[custom_name={text:"克洛格",color:"gray",bold:true,italic:false},lore=[{text:"右键使用",color:"gray",italic:false}],consumable={animation:"spyglass",consume_seconds:0,has_consume_particles:false,sound:{sound_id:""},on_consume_effects:[{type:"play_sound",sound:{sound_id:"ie:gunshot"}}]},use_cooldown={seconds:0.2},item_model="ie:gun"] 1
+```
+
+接入规则：
+
+- 载体可沿用当前 demo，也可以换成其他更适合的物品；硬要求是：可右键触发、可应用手枪模型、可携带 `custom_data={weapon:"pistol",mag:<n>}`、不会与其他职业道具误判。
+- 若使用 demo 命令：`item_model="ie:gun"` 显示枪模型，`consume_seconds:0` 让右键即时触发，`use_cooldown.seconds=0.2` 做输入防抖，`ie:gunshot` 播放开火音效。
+- 发给玩家时必须携带 `custom_data={weapon:"pistol",mag:8,role_item:"survivor.pistol"}` 或等价数据；9mm 弹药仍使用 `minecraft:iron_nugget` + `custom_data={ammo:1}`。
+- 右键触发后进入手枪玩法函数（建议命名 `escape_island:weapon/pistol/fire`）；若弹匣为 0 或玩家潜行右键，则进入 `reload_start`，2 秒后 `reload_finish` 消耗 9mm 补满弹匣。
+- 框架输入冷却为 0.2 秒，但实际扣弹/伤害门控为 0.4 秒（8 tick），防止全员手枪射速过高。
+- 如果所选载体会被消耗，`fire` / `reload_start` 必须在同 tick 用 `item replace` 或等价逻辑补回手枪，保证武器不丢失。
+- 命中检测由 raycast 或等效命中系统完成，命中后统一调用 `on_hit`。
+- `on_hit` 必须先做阵营过滤：幸存者/感染期之间无伤；感染者阵营之间无伤；母体隐藏队不影响伤害规则。
+- 伤害按目标类型写死到玩法层：普通目标 6 damage，母体 4 damage 基础值，再交给护甲/抗性处理。
+- 枪口粒子、命中粒子、额外命中音效都 `execute at @s` 或 `execute positioned` 到当前射击/命中位置；基础枪声由 `on_consume_effects` 播放，但仍需实测玩家移动时声音是否跟随当前位置。
 
 ### 7.3 物品冷却显示（lore 倒计时）
 
@@ -544,20 +604,21 @@ $item modify entity @s weapon.mainhand escape_island:add_cooldown_lore {seconds:
 
 ### 7.4 母体 HP > 20
 
-不修改 base health，而用独立 scoreboard `mother_hp` + 当玩家 vanilla health 触发损失时映射到 mother_hp。比如:
+直接使用 `attribute` 命令修改母体各项属性，在 `_make_mother.mcfunction` 中执行：
 
 ```mcfunction
-# infection/on_mother_hurt
-execute as @e[type=player, tag=role.mother] store result score @s mother_dmg run data get entity @s LastDamage
-scoreboard players operation @s mother_hp -= @s mother_dmg
-execute if score @s mother_hp matches ..0 run function escape_island:infection/mother_death
-# 始终把 vanilla health 拉满，HP 显示用 bossbar 或 actionbar
-effect give @s minecraft:regeneration 1 255
+attribute @s minecraft:max_health base set 60
+attribute @s minecraft:armor base set 4
+attribute @s minecraft:armor_toughness base set 2
+attribute @s minecraft:knockback_resistance base set 0.8
+attribute @s minecraft:attack_damage base set 6
+attribute @s minecraft:movement_speed base set 0.105
+heal @s
 ```
 
-或更简洁: 用 `attribute.minecraft:max_health` 直接调到 60，这要求 1.21 已支持（确认已支持 `attribute set @s minecraft:max_health 60`）。
-
-> 建议方案: **直接改 max_health attribute**，更原生。
+- `mother_hp` scoreboard 通过 `data get entity @s Health` 每秒同步，用于追踪回血、狂暴触发、UI 显示
+- Resistance I（永久）通过 `tick_mother.mcfunction` 每秒刷新（duration 2 秒，每秒重给，effectivelyly 永久）
+- 母体 HP 显示用 bossbar（仅 OP debug 可见）或 actionbar（母体本人可见）
 
 ### 7.5 隐秘选母体
 
@@ -634,7 +695,8 @@ armor_stand 上加可坐 boat 实体作为座位。玩家上座 → 监听 `Vehi
 | 没有原生 boss bar 个人 | bossbar 创建后 `players` 限定到玩家 |
 | 没有原生 camera shake | display entity overlay 短暂位移模拟 |
 | 没有原生 vignette | `text_display` 全屏覆盖 + alpha 渐变 |
-| 子弹无重力（弩） | 自定义箭矢 + 短距离消失实现 hitscan 感 |
+| 玩家不能强制播放真正的倒地动画 | 锁定玩家本体 + 隐形 `minecraft:marker` 位置锚点；不使用可见盔甲架身体代理 |
+| 原版弩不符合 M-7 手枪体感 | 使用可替换右键枪载体（demo 为 `minecraft:sugar` + `item_model="ie:gun"`），弹匣、装填、伤害和阵营过滤全部由函数结算 |
 | 物品 NBT 体积 | 用最简 custom_data + 索引到 lookup table，避免内联巨大数据 |
 
 ---
@@ -658,9 +720,10 @@ item/has_role_marker.json   — 持有物品 custom_data.role_item 存在
 ### Loot Table（精选）
 
 ```
-kit/doctor.json             — 给船医套件（铁斧 + 解毒针 ×1 + 食物 ×3）
-kit/captain.json            — 铁剑 + 哨子 + 皮革甲全套 + 食物
-... (10 职业 + 母体)
+kit/doctor.json             — 给船医套件（铁斧 + M-7 + 9mm×8 + 解毒针 ×1 + 食物 ×3）
+kit/captain.json            — 铁剑 + M-7 + 9mm×8 + 哨子 + 皮革甲全套 + 食物
+kit/marine.json             — 铁剑 + M-7 + 9mm×24 + 压制技能道具 + 皮革甲
+... (10 职业均含 M-7 + 9mm×8；母体除外)
 mother.json                 — 母体三件道具 + 60 HP + 护甲属性 → 通过 function 而非 loot 设置
 world/basic_supply.json     — 数值见 BALANCE
 world/rare_supply.json      — 数值见 BALANCE
@@ -694,7 +757,7 @@ role_mother.json            — 母体三件套
 | `skill/priest_cross` | `entity_hurt_player` (when fatal) | 祝福被动监听 |
 | `skill/mother_lunge` | `using_item` (firework) | 母体冲刺 |
 | `skill/mother_rotsense` | `using_item` (spider_eye) | 感知 |
-| `skill/mother_howl` | `using_item` (skull) | 召唤 |
+| `skill/mother_howl` | `using_item` (fermented_spider_eye, consumable 999s) | 孢子召唤 |
 | `interaction/repair_signal` | `using_item` (cable) at marker | 信号塔修复 |
 | `interaction/place_battery` | `placed_block` | 给发电机投电池 |
 | `interaction/drink_disguise` | `consume_item` (potion) | 母体伪装 |

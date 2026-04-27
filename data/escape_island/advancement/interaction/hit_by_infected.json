@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "hit": {
+      "trigger": "minecraft:entity_hurt_player",
+      "conditions": {
+        "damage": {
+          "source_entity": {
+            "nbt": "{Tags:[\"role.infected\"]}"
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "escape_island:interaction/on_hit_by_infected"
+  }
+}
