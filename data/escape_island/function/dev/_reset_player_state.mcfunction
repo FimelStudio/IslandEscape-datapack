@@ -3,6 +3,7 @@ tag @s remove role.survivor
 tag @s remove role.mother
 tag @s remove role.infected
 tag @s remove role.doctor
+tag @s remove doctor
 tag @s remove role.captain
 tag @s remove role.engineer
 tag @s remove role.marine
@@ -27,6 +28,8 @@ tag @s remove flag.cross_intercepted
 tag @s remove flag.has_inject
 tag @s remove flag.has_disguise
 tag @s remove flag.first_attack
+tag @s remove skill.antidote_user
+tag @s remove skill.antidote_target
 scoreboard players set @s role 0
 scoreboard players set @s is_mother 0
 scoreboard players set @s spore_load 0
@@ -35,6 +38,10 @@ scoreboard players set @s infect_time 0
 scoreboard players set @s sporify_timer 0
 scoreboard players set @s mother_respawn 0
 scoreboard players set @s death_count 0
+scoreboard players set @s skill.antidote_charges 0
+scoreboard players set @s skill.antidote_cd 0
+scoreboard players set @s skill.antidote_regen_cd 0
+scoreboard players set @s skill.antidote_state 0
 effect clear @s
 team leave @s
 gamemode survival @s

@@ -18,6 +18,7 @@ execute if entity @s[tag=role.sailor] run effect give @s minecraft:speed 99999 0
 tag @s remove role.survivor
 tag @s remove state.infected_period
 tag @s remove role.doctor
+tag @s remove doctor
 tag @s remove role.captain
 tag @s remove role.engineer
 tag @s remove role.marine
@@ -34,6 +35,10 @@ tag @s remove slide_locked
 tag @s remove role.priest
 tag @s add role.infected
 scoreboard players set @s role 12
+scoreboard players set @s skill.antidote_charges 0
+scoreboard players set @s skill.antidote_cd 0
+scoreboard players set @s skill.antidote_regen_cd 0
+scoreboard players set @s skill.antidote_state 0
 
 attribute @s minecraft:attack_damage base set 4
 

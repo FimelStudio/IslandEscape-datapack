@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "consume_item",
+      "conditions": {
+        "item": {
+          "components": {
+            "custom_data": {
+              "skill": "doctor_antidote"
+            }
+          }
+        },
+        "player": {
+          "nbt": "{Tags:[\"doctor\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:doctor/antidote/use"
+  }
+}

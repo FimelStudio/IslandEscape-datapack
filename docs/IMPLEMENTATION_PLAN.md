@@ -95,7 +95,7 @@
 
 ### Batch 5 — 幸存者 10 职业技能
 
-状态: **进行中：运动员已接入，等待游戏内手测**
+状态: **进行中：运动员已通过游戏内手测；船医已实现，等待游戏内手测**
 
 目标: 所有职业的主动技能均可在训练模式下触发和冷却，被动 tick 效果生效。
 
@@ -134,7 +134,7 @@ data/skill/advancement/<职业>/<技能>/
 - [x] 从旧 `skill:common/cooldown_tick` 移除水手冷却递减
 - [x] 确认 `data/minecraft/tags/function/tick.json` 包含 `skill:athlete/tick`
 - [x] 训练发套件、正式分配、重置、转化清理均接入 `role.athlete` / `athlete`
-- [ ] 运动员游戏内手测通过后再进入船医实现
+- [x] 运动员游戏内手测通过
 
 #### 船医（doctor）— 解毒针（antidote）
 
@@ -335,10 +335,11 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [ ] 等待游戏内手测通过
 
 船医：
-- [ ] `data/skill/function/doctor/{init,tick,cleanup_non_doctor}.mcfunction`
-- [ ] `data/skill/function/doctor/antidote/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
-- [ ] `data/skill/advancement/doctor/antidote/use.json`（`consume_item` + `custom_data.skill:"doctor_antidote"`）
-- [ ] `escape_island:role/tick_doctor.mcfunction`（被动 spore_threshold）
+- [x] `data/skill/function/doctor/{init,tick,cleanup_non_doctor}.mcfunction`
+- [x] `data/skill/function/doctor/antidote/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
+- [x] `data/skill/advancement/doctor/antidote/use.json`（`consume_item` + `custom_data.skill:"doctor_antidote"`）
+- [x] `escape_island:role/tick_doctor.mcfunction`（被动 spore_threshold）
+- [ ] 船医游戏内手测通过后再进入船长实现
 
 船长：
 - [ ] `data/skill/function/captain/{init,tick,cleanup_non_captain}.mcfunction`
@@ -581,6 +582,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 | 2026-04-27 | Batch 4 | 静态检查 | PASS | JSON 可解析，`git diff --check` 无错误；母体速度旧值已清除 |
 | 2026-04-27 | Batch 4 反馈修复 | 静态检查 | PASS | `immediate_respawn` 语法、饱食度恢复、母体补血与狂暴 0 分误触发已修复 |
 | 2026-04-27 | Batch 5 运动员接入 | 静态检查 | PASS | 运动员接入新 `skill:` 结构；等待游戏内手测 |
+| 2026-04-27 | Batch 5 船医解毒针 | 静态检查 | PASS | 新 `skill:doctor/antidote` 结构已接入；等待游戏内手测 |
 
 ---
 

@@ -21,6 +21,7 @@ scoreboard players set $game lab_cards 0
 tag @a remove role.survivor
 tag @a remove role.mother
 tag @a remove role.infected
+tag @a remove doctor
 tag @a remove role.latent_host
 tag @a remove role.secondary_mother
 tag @a remove role.athlete
@@ -56,6 +57,8 @@ tag @a remove flag.has_promfile
 tag @a remove flag.has_disguise
 tag @a remove flag.tutorial_seen
 tag @a remove flag.first_attack
+tag @a remove skill.antidote_user
+tag @a remove skill.antidote_target
 
 scoreboard players reset @a spore_load
 scoreboard players reset @a spore_decay_cd
@@ -65,6 +68,13 @@ scoreboard players reset @a is_mother
 scoreboard players reset @a mother_hp
 scoreboard players reset @a mother_respawn
 scoreboard players reset @a cd_doctor
+scoreboard players reset @a skill.antidote_charges
+scoreboard players reset @a skill.antidote_cd
+scoreboard players reset @a skill.antidote_regen_cd
+scoreboard players reset @a skill.antidote_item
+scoreboard players reset @a skill.antidote_state
+scoreboard players reset @a skill.antidote_sec
+scoreboard players reset @a skill.antidote_last_sec
 scoreboard players reset @a cd_captain
 scoreboard players reset @a cd_engineer
 scoreboard players reset @a cd_marine

@@ -1,0 +1,1 @@
+function skill:doctor/antidote/cleanup_non_doctor

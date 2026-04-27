@@ -1,5 +1,6 @@
 tag @s add role.survivor
 tag @s add role.doctor
+tag @s add doctor
 tag @s add role.captain
 tag @s add role.engineer
 tag @s add role.marine

@@ -1,0 +1,1 @@
+function skill:doctor/tick
