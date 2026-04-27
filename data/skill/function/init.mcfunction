@@ -4,7 +4,7 @@ scoreboard objectives add play_sound dummy
 
 
 
-function skill:athlete/slide_tackle/slide_init
+function skill:athlete/init
 
 
 

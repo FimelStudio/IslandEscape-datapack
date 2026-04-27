@@ -107,8 +107,8 @@
         {
             "label": "运动员",
             "action": {
-                "type": "run_command",
-                "command": "say 1"
+                "type": "show_dialog",
+                "dialog": "main:profession/athlete"
             }
         }
     ],

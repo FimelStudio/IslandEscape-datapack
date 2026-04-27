@@ -1,0 +1,1 @@
+$item replace entity @s hotbar.5 with minecraft:gray_dye[custom_data={skill:"athlete_adrenaline"},custom_name={text:"肾上腺素 冷却中",color:"gray",italic:false},lore=[{text:"冷却剩余 $(sec) 秒",color:"yellow",italic:false}]] 1

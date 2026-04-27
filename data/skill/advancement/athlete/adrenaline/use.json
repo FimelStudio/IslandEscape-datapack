@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "consume_item",
+      "conditions": {
+        "item": {
+          "components": {
+            "custom_data": {
+              "skill": "athlete_adrenaline"
+            }
+          }
+        },
+        "player": {
+          "nbt": "{Tags:[\"athlete\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:athlete/adrenaline/use"
+  }
+}

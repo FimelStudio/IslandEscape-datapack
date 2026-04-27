@@ -23,7 +23,7 @@ execute store success score @s skill.slide_ok run ride @s mount @e[type=minecraf
 execute if score @s skill.slide_ok matches 1 run tag @s add sliding
 execute if score @s skill.slide_ok matches 1 run tag @s add slide_locked
 execute if score @s skill.slide_ok matches 1 run scoreboard players set @s skill.slide_cd 1
-execute if score @s skill.slide_ok matches 1 run scoreboard players operation @s skill.stamina -= #cost skill.stamina_cfg
+execute if score @s skill.slide_ok matches 1 run scoreboard players operation @s skill.stamina -= @s skill.slide_cost
 execute if score @s skill.slide_ok matches 1 run tag @e[type=minecraft:silverfish,tag=slide_new,limit=1,sort=nearest,distance=..2] remove slide_new
 execute unless score @s skill.slide_ok matches 1 run tag @e[type=minecraft:silverfish,tag=slide_new,limit=1,sort=nearest,distance=..2] add slide_cleanup
 execute unless score @s skill.slide_ok matches 1 as @e[type=minecraft:silverfish,tag=slide_new,tag=slide_cleanup] at @s run tp @s ~ -512 ~

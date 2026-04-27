@@ -19,6 +19,7 @@ tag @s remove slide_drop_015
 tag @s remove slide_drop_008
 scoreboard players set @s skill.slide_time 0
 scoreboard players set @s skill.slide_fall 0
+scoreboard players operation @s skill.slide_cost = #cost skill.stamina_cfg
 scoreboard players set @s skill.slide_cd 8
 
 particle minecraft:cloud ~ ~0.15 ~ 0.3 0.04 0.3 0.01 5 force @a[distance=..16]
