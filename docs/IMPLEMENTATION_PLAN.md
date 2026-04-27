@@ -95,7 +95,7 @@
 
 ### Batch 5 — 幸存者 10 职业技能
 
-状态: **待实现（运动员已完成）**
+状态: **进行中：运动员已接入，等待游戏内手测**
 
 目标: 所有职业的主动技能均可在训练模式下触发和冷却，被动 tick 效果生效。
 
@@ -129,9 +129,12 @@ data/skill/advancement/<职业>/<技能>/
 
 `data/skill/function/athlete/` 中滑铲（slide_tackle）+ 肾上腺素（adrenaline）已完整实现。
 
-- [ ] `escape_island:game/_tick_20.mcfunction`：将 `role.sailor` 改为 `role.athlete`；将旧 `skill:common/cooldown_tick` 调用改为 `skill:athlete/tick`
-- [ ] `escape_island:function/load.mcfunction`：删除 `cd_sailor` scoreboard 注册（运动员 scoreboard 已由 `skill:athlete/init` 注册）
-- [ ] 确认 `data/minecraft/tags/function/tick.json` 包含 `skill:athlete/tick` 或由 `_tick_20` 间接调用
+- [x] `escape_island:game/_tick_20.mcfunction` / `training/_tick_20.mcfunction`：将 `role.sailor` 改为 `role.athlete`
+- [x] `escape_island:function/load.mcfunction`：删除 `cd_sailor` scoreboard 注册（运动员 scoreboard 已由 `skill:athlete/init` 注册）
+- [x] 从旧 `skill:common/cooldown_tick` 移除水手冷却递减
+- [x] 确认 `data/minecraft/tags/function/tick.json` 包含 `skill:athlete/tick`
+- [x] 训练发套件、正式分配、重置、转化清理均接入 `role.athlete` / `athlete`
+- [ ] 运动员游戏内手测通过后再进入船医实现
 
 #### 船医（doctor）— 解毒针（antidote）
 
@@ -325,8 +328,11 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 #### Batch 5 实现任务清单
 
 运动员接入（已有代码，仅改引用）：
-- [ ] `escape_island:game/_tick_20`：`role.sailor` → `role.athlete`，移除旧 `skill:common/cooldown_tick`
-- [ ] `escape_island:function/load`：删除 `cd_sailor` 注册
+- [x] `escape_island:game/_tick_20` / `training/_tick_20`：`role.sailor` → `role.athlete`
+- [x] `escape_island:function/load`：删除 `cd_sailor` 注册
+- [x] `skill:common/cooldown_tick` 移除旧水手冷却递减
+- [x] 正式分配、训练套件、重置、转化清理接入 `role.athlete` / `athlete`
+- [ ] 等待游戏内手测通过
 
 船医：
 - [ ] `data/skill/function/doctor/{init,tick,cleanup_non_doctor}.mcfunction`
@@ -574,6 +580,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 | 2026-04-27 | Batch 3 原地倒地/污染预警补丁 | 静态检查 | PASS | JSON 可解析，`git diff --check` 无错误；等待游戏内复测 |
 | 2026-04-27 | Batch 4 | 静态检查 | PASS | JSON 可解析，`git diff --check` 无错误；母体速度旧值已清除 |
 | 2026-04-27 | Batch 4 反馈修复 | 静态检查 | PASS | `immediate_respawn` 语法、饱食度恢复、母体补血与狂暴 0 分误触发已修复 |
+| 2026-04-27 | Batch 5 运动员接入 | 静态检查 | PASS | 运动员接入新 `skill:` 结构；等待游戏内手测 |
 
 ---
 

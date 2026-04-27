@@ -11,7 +11,12 @@ tag @s remove role.radio
 tag @s remove role.virologist
 tag @s remove role.mechanic
 tag @s remove role.sailor
+tag @s remove role.athlete
 tag @s remove role.priest
+tag @s remove athlete
+tag @s remove adren_active
+tag @s remove sliding
+tag @s remove slide_locked
 tag @s remove state.infected_period
 tag @s remove state.sporifying
 tag @s remove state.dead

@@ -24,7 +24,7 @@ execute as @a[tag=role.chef] at @s run function escape_island:role/tick_chef
 execute as @a[tag=role.radio] at @s run function escape_island:role/tick_radio
 execute as @a[tag=role.virologist] at @s run function escape_island:role/tick_virologist
 execute as @a[tag=role.mechanic] at @s run function escape_island:role/tick_mechanic
-execute as @a[tag=role.sailor] at @s run function escape_island:role/tick_sailor
+execute as @a[tag=role.athlete] at @s run function escape_island:role/tick_athlete
 execute as @a[tag=role.priest] at @s run function escape_island:role/tick_priest
 
 function escape_island:task/signal_tower_tick

@@ -23,6 +23,11 @@ tag @a remove role.mother
 tag @a remove role.infected
 tag @a remove role.latent_host
 tag @a remove role.secondary_mother
+tag @a remove role.athlete
+tag @a remove athlete
+tag @a remove adren_active
+tag @a remove sliding
+tag @a remove slide_locked
 tag @a remove state.infected_period
 tag @a remove state.boarding
 tag @a remove state.escaped
@@ -43,6 +48,7 @@ tag @a remove retained.radio
 tag @a remove retained.virologist
 tag @a remove retained.mechanic
 tag @a remove retained.sailor
+tag @a remove retained.athlete
 tag @a remove retained.priest
 tag @a remove flag.has_inject
 tag @a remove flag.has_keynote
@@ -66,8 +72,12 @@ scoreboard players reset @a cd_chef
 scoreboard players reset @a cd_radio
 scoreboard players reset @a cd_virologist
 scoreboard players reset @a cd_mechanic
-scoreboard players reset @a cd_sailor
 scoreboard players reset @a cd_priest
+scoreboard players reset @a skill.adren_time
+scoreboard players reset @a skill.adren_cd
+scoreboard players reset @a skill.slide_time
+scoreboard players reset @a skill.slide_cd
+scoreboard players reset @a skill.stamina_warn
 scoreboard players reset @a cd_mother_lunge
 scoreboard players reset @a cd_mother_rotsense
 scoreboard players reset @a cd_mother_howl

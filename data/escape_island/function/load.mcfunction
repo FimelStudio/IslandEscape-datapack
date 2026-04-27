@@ -20,7 +20,6 @@ scoreboard objectives add cd_chef dummy
 scoreboard objectives add cd_radio dummy
 scoreboard objectives add cd_virologist dummy
 scoreboard objectives add cd_mechanic dummy
-scoreboard objectives add cd_sailor dummy
 scoreboard objectives add cd_priest dummy
 scoreboard objectives add cd_mother_lunge dummy
 scoreboard objectives add cd_mother_rotsense dummy

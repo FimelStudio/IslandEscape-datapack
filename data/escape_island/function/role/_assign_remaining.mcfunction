@@ -7,5 +7,5 @@ execute as @r[tag=candidate,tag=!role.mother] run function escape_island:role/_t
 execute as @r[tag=candidate,tag=!role.mother] run function escape_island:role/_tag_radio
 execute as @r[tag=candidate,tag=!role.mother] run function escape_island:role/_tag_virologist
 execute as @r[tag=candidate,tag=!role.mother] run function escape_island:role/_tag_mechanic
-execute as @r[tag=candidate,tag=!role.mother] run function escape_island:role/_tag_sailor
+execute as @r[tag=candidate,tag=!role.mother] run function escape_island:role/_tag_athlete
 execute as @r[tag=candidate,tag=!role.mother] run function escape_island:role/_tag_priest

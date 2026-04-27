@@ -7,7 +7,8 @@ tag @s add role.chef
 tag @s add role.radio
 tag @s add role.virologist
 tag @s add role.mechanic
-tag @s add role.sailor
+tag @s add role.athlete
+tag @s add athlete
 tag @s add role.priest
 tag @s add flag.cross_intact
 
@@ -20,7 +21,7 @@ function escape_island:role/kit_chef
 function escape_island:role/kit_radio
 function escape_island:role/kit_virologist
 function escape_island:role/kit_mechanic
-function escape_island:role/kit_sailor
+function escape_island:role/kit_athlete
 function escape_island:role/kit_priest
 
 tellraw @s [{"text":"所有职业套件已给予。","color":"green"},{"text":" [退出训练]","color":"gray","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/reset"}},{"text":" [刷测试人偶]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/spawn_dummies"}}]

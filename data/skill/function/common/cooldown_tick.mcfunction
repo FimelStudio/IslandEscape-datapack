@@ -6,7 +6,6 @@ execute as @a[scores={cd_chef=1..}] run scoreboard players remove @s cd_chef 1
 execute as @a[scores={cd_radio=1..}] run scoreboard players remove @s cd_radio 1
 execute as @a[scores={cd_virologist=1..}] run scoreboard players remove @s cd_virologist 1
 execute as @a[scores={cd_mechanic=1..}] run scoreboard players remove @s cd_mechanic 1
-execute as @a[scores={cd_sailor=1..}] run scoreboard players remove @s cd_sailor 1
 execute as @a[scores={cd_priest=1..}] run scoreboard players remove @s cd_priest 1
 execute as @a[scores={cd_mother_lunge=1..}] run scoreboard players remove @s cd_mother_lunge 1
 execute as @a[scores={cd_mother_rotsense=1..}] run scoreboard players remove @s cd_mother_rotsense 1

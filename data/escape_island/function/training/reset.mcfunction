@@ -9,7 +9,12 @@ tag @s remove role.radio
 tag @s remove role.virologist
 tag @s remove role.mechanic
 tag @s remove role.sailor
+tag @s remove role.athlete
 tag @s remove role.priest
+tag @s remove athlete
+tag @s remove adren_active
+tag @s remove sliding
+tag @s remove slide_locked
 tag @s remove role.survivor
 tag @s remove role.mother
 tag @s remove role.infected
@@ -27,6 +32,7 @@ tag @s remove retained.radio
 tag @s remove retained.virologist
 tag @s remove retained.mechanic
 tag @s remove retained.sailor
+tag @s remove retained.athlete
 tag @s remove retained.priest
 tag @s remove flag.cross_intact
 tag @s remove flag.has_inject
@@ -51,8 +57,12 @@ scoreboard players set @s cd_chef 0
 scoreboard players set @s cd_radio 0
 scoreboard players set @s cd_virologist 0
 scoreboard players set @s cd_mechanic 0
-scoreboard players set @s cd_sailor 0
 scoreboard players set @s cd_priest 0
+scoreboard players set @s skill.adren_time 0
+scoreboard players set @s skill.adren_cd 0
+scoreboard players set @s skill.slide_time 0
+scoreboard players set @s skill.slide_cd 0
+scoreboard players set @s skill.stamina_warn 0
 scoreboard players set @s cd_mother_lunge 0
 scoreboard players set @s cd_mother_rotsense 0
 scoreboard players set @s cd_mother_howl 0
