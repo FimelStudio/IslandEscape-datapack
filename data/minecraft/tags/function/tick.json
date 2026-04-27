@@ -2,7 +2,7 @@
 	"replace": false,
 	"values": [
 		"skill:eat/eat_tick",
-		"skill:slide_tackle/slide_tick",
+		"skill:athlete/slide_tackle/slide_tick",
 		"skill:tick",
 		"animated_java:global/on_tick"
 	]

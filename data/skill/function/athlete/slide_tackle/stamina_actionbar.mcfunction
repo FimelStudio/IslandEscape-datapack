@@ -13,8 +13,8 @@ execute if score @s skill.stamina_warn matches 1.. run scoreboard players set @s
 execute unless score @s skill.stamina = #max skill.stamina_cfg run tag @s add slide_stamina_showing
 execute if score @s skill.stamina_warn matches 1.. run tag @s add slide_stamina_showing
 
-execute if entity @s[tag=slide_stamina_showing] unless score @s skill.stamina = #max skill.stamina_cfg run function skill:slide_tackle/stamina_actionbar_render
-execute if score @s skill.stamina = #max skill.stamina_cfg if score @s skill.stamina_warn matches 1.. run function skill:slide_tackle/stamina_actionbar_render
+execute if entity @s[tag=slide_stamina_showing] unless score @s skill.stamina = #max skill.stamina_cfg run function skill:athlete/slide_tackle/stamina_actionbar_render
+execute if score @s skill.stamina = #max skill.stamina_cfg if score @s skill.stamina_warn matches 1.. run function skill:athlete/slide_tackle/stamina_actionbar_render
 execute if score @s skill.stamina = #max skill.stamina_cfg unless score @s skill.stamina_warn matches 1.. if entity @s[tag=slide_stamina_showing] run title @s actionbar {"text":""}
 execute if score @s skill.stamina = #max skill.stamina_cfg unless score @s skill.stamina_warn matches 1.. run tag @s remove slide_stamina_showing
 

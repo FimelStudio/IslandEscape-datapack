@@ -1,4 +1,4 @@
-execute unless entity @s[tag=slide_stamina_init] run function skill:slide_tackle/stamina_init_player
+execute unless entity @s[tag=slide_stamina_init] run function skill:athlete/slide_tackle/stamina_init_player
 scoreboard players add @s skill.stamina 0
 scoreboard players add @s skill.stamina_warn 0
 
