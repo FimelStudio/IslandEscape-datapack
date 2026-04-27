@@ -20,7 +20,9 @@ tag @s remove state.infected_period
 tag @s remove role.doctor
 tag @s remove doctor
 tag @s remove role.captain
+tag @s remove captain
 tag @s remove role.engineer
+tag @s remove engineer
 tag @s remove role.marine
 tag @s remove role.chef
 tag @s remove role.radio
@@ -39,6 +41,10 @@ scoreboard players set @s skill.antidote_charges 0
 scoreboard players set @s skill.antidote_cd 0
 scoreboard players set @s skill.antidote_regen_cd 0
 scoreboard players set @s skill.antidote_state 0
+scoreboard players set @s skill.whistle_cd 0
+scoreboard players set @s skill.whistle_state 0
+scoreboard players set @s skill.battery_cd 0
+scoreboard players set @s skill.battery_state 0
 
 attribute @s minecraft:attack_damage base set 4
 

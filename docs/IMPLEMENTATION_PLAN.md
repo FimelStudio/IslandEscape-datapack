@@ -95,7 +95,7 @@
 
 ### Batch 5 — 幸存者 10 职业技能
 
-状态: **进行中：运动员已通过游戏内手测；船医已实现，等待游戏内手测**
+状态: **进行中：运动员、船医、船长已通过游戏内手测；工程师已实现，等待游戏内手测**
 
 目标: 所有职业的主动技能均可在训练模式下触发和冷却，被动 tick 效果生效。
 
@@ -339,17 +339,19 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `data/skill/function/doctor/antidote/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
 - [x] `data/skill/advancement/doctor/antidote/use.json`（`consume_item` + `custom_data.skill:"doctor_antidote"`）
 - [x] `escape_island:role/tick_doctor.mcfunction`（被动 spore_threshold）
-- [ ] 船医游戏内手测通过后再进入船长实现
+- [x] 船医游戏内手测通过
 
 船长：
-- [ ] `data/skill/function/captain/{init,tick,cleanup_non_captain}.mcfunction`
-- [ ] `data/skill/function/captain/whistle/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
-- [ ] `data/skill/advancement/captain/whistle/use.json`
+- [x] `data/skill/function/captain/{init,tick,cleanup_non_captain}.mcfunction`
+- [x] `data/skill/function/captain/whistle/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
+- [x] `data/skill/advancement/captain/whistle/use.json`
+- [x] 船长游戏内手测通过
 
 工程师：
-- [ ] `data/skill/function/engineer/{init,tick,cleanup_non_engineer}.mcfunction`
-- [ ] `data/skill/function/engineer/battery/{config,init,use,start,tick,item_ready,item_cooldown,recall}.mcfunction`
-- [ ] `data/skill/advancement/engineer/battery/use.json`
+- [x] `data/skill/function/engineer/{init,tick,cleanup_non_engineer}.mcfunction`
+- [x] `data/skill/function/engineer/battery/{config,init,use,start,tick,item_ready,item_cooldown,recall}.mcfunction`
+- [x] `data/skill/advancement/engineer/battery/use.json`
+- [ ] 工程师游戏内手测通过后再进入海军陆战队员实现
 
 海军陆战队员：
 - [ ] `data/skill/function/marine/{init,tick,cleanup_non_marine}.mcfunction`
@@ -583,6 +585,8 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 | 2026-04-27 | Batch 4 反馈修复 | 静态检查 | PASS | `immediate_respawn` 语法、饱食度恢复、母体补血与狂暴 0 分误触发已修复 |
 | 2026-04-27 | Batch 5 运动员接入 | 静态检查 | PASS | 运动员接入新 `skill:` 结构；等待游戏内手测 |
 | 2026-04-27 | Batch 5 船医解毒针 | 静态检查 | PASS | 新 `skill:doctor/antidote` 结构已接入；等待游戏内手测 |
+| 2026-04-27 | Batch 5 船长哨子 | 静态检查 | PASS | 新 `skill:captain/whistle` 结构已接入；等待游戏内手测 |
+| 2026-04-27 | Batch 5 工程师微型电池 | 静态检查 | PASS | 新 `skill:engineer/battery` 结构已接入；等待游戏内手测 |
 
 ---
 

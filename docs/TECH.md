@@ -1,6 +1,6 @@
 # TECH — 数据包技术架构
 
-实现端的"single source of truth"。规则与数值见 [GDD.md](GDD.md) 和 [BALANCE.md](BALANCE.md)。
+实现端的"single source of truth"。规则与数值见 [GDD.md](GDD.md) 和 [BALANCE.md](BALANCE.md)。资源包模型、贴图与音效需求见 [RESOURCE_PACK_ASSETS.md](RESOURCE_PACK_ASSETS.md)。
 
 ## 目录
 

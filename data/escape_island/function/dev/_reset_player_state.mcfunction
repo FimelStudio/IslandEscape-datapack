@@ -5,7 +5,9 @@ tag @s remove role.infected
 tag @s remove role.doctor
 tag @s remove doctor
 tag @s remove role.captain
+tag @s remove captain
 tag @s remove role.engineer
+tag @s remove engineer
 tag @s remove role.marine
 tag @s remove role.chef
 tag @s remove role.radio
@@ -30,6 +32,7 @@ tag @s remove flag.has_disguise
 tag @s remove flag.first_attack
 tag @s remove skill.antidote_user
 tag @s remove skill.antidote_target
+tag @s remove skill.battery_recalled
 scoreboard players set @s role 0
 scoreboard players set @s is_mother 0
 scoreboard players set @s spore_load 0
@@ -42,6 +45,12 @@ scoreboard players set @s skill.antidote_charges 0
 scoreboard players set @s skill.antidote_cd 0
 scoreboard players set @s skill.antidote_regen_cd 0
 scoreboard players set @s skill.antidote_state 0
+scoreboard players set @s skill.whistle_cd 0
+scoreboard players set @s skill.whistle_item 0
+scoreboard players set @s skill.whistle_state 0
+scoreboard players set @s skill.battery_cd 0
+scoreboard players set @s skill.battery_item 0
+scoreboard players set @s skill.battery_state 0
 effect clear @s
 team leave @s
 gamemode survival @s

@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "consume_item",
+      "conditions": {
+        "item": {
+          "components": {
+            "custom_data": {
+              "skill": "captain_whistle"
+            }
+          }
+        },
+        "player": {
+          "nbt": "{Tags:[\"captain\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:captain/whistle/use"
+  }
+}

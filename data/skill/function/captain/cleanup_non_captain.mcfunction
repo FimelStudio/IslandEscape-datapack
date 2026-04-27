@@ -1,0 +1,1 @@
+function skill:captain/whistle/cleanup_non_captain

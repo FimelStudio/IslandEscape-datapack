@@ -22,6 +22,8 @@ tag @a remove role.survivor
 tag @a remove role.mother
 tag @a remove role.infected
 tag @a remove doctor
+tag @a remove captain
+tag @a remove engineer
 tag @a remove role.latent_host
 tag @a remove role.secondary_mother
 tag @a remove role.athlete
@@ -59,6 +61,7 @@ tag @a remove flag.tutorial_seen
 tag @a remove flag.first_attack
 tag @a remove skill.antidote_user
 tag @a remove skill.antidote_target
+tag @a remove skill.battery_recalled
 
 scoreboard players reset @a spore_load
 scoreboard players reset @a spore_decay_cd
@@ -75,8 +78,16 @@ scoreboard players reset @a skill.antidote_item
 scoreboard players reset @a skill.antidote_state
 scoreboard players reset @a skill.antidote_sec
 scoreboard players reset @a skill.antidote_last_sec
-scoreboard players reset @a cd_captain
-scoreboard players reset @a cd_engineer
+scoreboard players reset @a skill.whistle_cd
+scoreboard players reset @a skill.whistle_item
+scoreboard players reset @a skill.whistle_state
+scoreboard players reset @a skill.whistle_sec
+scoreboard players reset @a skill.whistle_last_sec
+scoreboard players reset @a skill.battery_cd
+scoreboard players reset @a skill.battery_item
+scoreboard players reset @a skill.battery_state
+scoreboard players reset @a skill.battery_sec
+scoreboard players reset @a skill.battery_last_sec
 scoreboard players reset @a cd_marine
 scoreboard players reset @a cd_chef
 scoreboard players reset @a cd_radio

@@ -13,8 +13,6 @@ scoreboard objectives add is_mother dummy
 scoreboard objectives add mother_hp dummy
 scoreboard objectives add mother_respawn dummy
 scoreboard objectives add cd_doctor dummy
-scoreboard objectives add cd_captain dummy
-scoreboard objectives add cd_engineer dummy
 scoreboard objectives add cd_marine dummy
 scoreboard objectives add cd_chef dummy
 scoreboard objectives add cd_radio dummy

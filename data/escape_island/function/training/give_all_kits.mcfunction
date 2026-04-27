@@ -2,7 +2,9 @@ tag @s add role.survivor
 tag @s add role.doctor
 tag @s add doctor
 tag @s add role.captain
+tag @s add captain
 tag @s add role.engineer
+tag @s add engineer
 tag @s add role.marine
 tag @s add role.chef
 tag @s add role.radio

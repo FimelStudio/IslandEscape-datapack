@@ -1,0 +1,1 @@
+$item replace entity @s hotbar.6 with minecraft:sugar[custom_data={skill:"captain_whistle"},custom_name={text:"哨子 冷却中",color:"gray",bold:true,italic:false},lore=[{text:"冷却剩余 $(sec) 秒",color:"yellow",italic:false}],consumable={animation:"spyglass",consume_seconds:0,has_consume_particles:false,sound:{sound_id:""}},use_cooldown={seconds:0.5,cooldown_group:"captain:whistle"}] 1

@@ -1,2 +1,4 @@
-give @s minecraft:redstone_torch[minecraft:custom_data={role_item:"engineer.battery"},minecraft:custom_name={"text":"微型电池","italic":false,"color":"yellow"},minecraft:lore=[{"text":"放置 → 4格修复点速度+200% 持续60秒","color":"gray","italic":false},{"text":"右键已放置电池 → 回收（冷却继续计时）","color":"gray","italic":false},{"text":"冷却: 60秒 | 场上上限: 1","color":"dark_gray","italic":false}]] 1
+tag @s add engineer
+scoreboard players set @s skill.battery_cd 0
+function skill:engineer/battery/update_item
 tellraw @s {"text":"§6[工程师]§r 被动: 修复速度 ×1.3。微型电池: 加速修复区域。","color":"gray"}

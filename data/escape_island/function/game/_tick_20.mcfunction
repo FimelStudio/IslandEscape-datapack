@@ -1,6 +1,5 @@
 
 function skill:common/cooldown_tick
-execute if entity @e[tag=entity.engineer_battery,limit=1] run function skill:engineer/battery_tick
 execute if entity @e[tag=entity.mechanic_trap,limit=1] run function skill:mechanic/trap_tick
 execute if entity @e[tag=entity.chef_stew_pot,limit=1] run function skill:chef/stew_tick
 

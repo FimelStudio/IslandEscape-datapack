@@ -3,7 +3,9 @@ tag @s remove state.training
 tag @s remove role.doctor
 tag @s remove doctor
 tag @s remove role.captain
+tag @s remove captain
 tag @s remove role.engineer
+tag @s remove engineer
 tag @s remove role.marine
 tag @s remove role.chef
 tag @s remove role.radio
@@ -43,6 +45,7 @@ tag @s remove flag.cross_intercepted
 tag @s remove flag.first_attack
 tag @s remove skill.antidote_user
 tag @s remove skill.antidote_target
+tag @s remove skill.battery_recalled
 scoreboard players set @s spore_load 0
 scoreboard players set @s spore_decay_cd 0
 scoreboard players set @s infect_time 0
@@ -60,8 +63,16 @@ scoreboard players set @s skill.antidote_item 0
 scoreboard players set @s skill.antidote_state 0
 scoreboard players set @s skill.antidote_sec 0
 scoreboard players set @s skill.antidote_last_sec 0
-scoreboard players set @s cd_captain 0
-scoreboard players set @s cd_engineer 0
+scoreboard players set @s skill.whistle_cd 0
+scoreboard players set @s skill.whistle_item 0
+scoreboard players set @s skill.whistle_state 0
+scoreboard players set @s skill.whistle_sec 0
+scoreboard players set @s skill.whistle_last_sec 0
+scoreboard players set @s skill.battery_cd 0
+scoreboard players set @s skill.battery_item 0
+scoreboard players set @s skill.battery_state 0
+scoreboard players set @s skill.battery_sec 0
+scoreboard players set @s skill.battery_last_sec 0
 scoreboard players set @s cd_marine 0
 scoreboard players set @s cd_chef 0
 scoreboard players set @s cd_radio 0

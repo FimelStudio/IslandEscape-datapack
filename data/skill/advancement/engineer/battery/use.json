@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "consume_item",
+      "conditions": {
+        "item": {
+          "components": {
+            "custom_data": {
+              "skill": "engineer_battery"
+            }
+          }
+        },
+        "player": {
+          "nbt": "{Tags:[\"engineer\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:engineer/battery/use"
+  }
+}
