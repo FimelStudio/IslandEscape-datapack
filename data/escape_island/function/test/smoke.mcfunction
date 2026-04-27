@@ -1,4 +1,3 @@
-# escape_island:test/smoke  —  non-destructive framework smoke check
 tellraw @s {"text":"\n[SELFTEST] 开始一键体检。","color":"aqua","bold":true}
 scoreboard players set $selftest test_count 1
 execute if score $selftest test_count matches 1 run tellraw @s {"text":"[OK] load 已注册 test_count 计分板。","color":"green"}

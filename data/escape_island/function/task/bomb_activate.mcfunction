@@ -1,4 +1,3 @@
-# escape_island:task/bomb_activate  —  self-destruct sequence initiated
 scoreboard players set $game bomb_armed 1
 scoreboard players set $game bomb_countdown 3600
 

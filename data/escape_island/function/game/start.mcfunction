@@ -1,11 +1,8 @@
-# escape_island:game/start  —  begin a new match (run by OP or training trigger)
 
-# Validate player count
 function escape_island:util/recount_players
 execute if score $game player_count matches ..3 run tellraw @a {"text":"[孤岛逃生] 至少需要 4 名玩家才能开始。","color":"red"}
 execute if score $game player_count matches ..3 run return 0
 
-# Reset global counters
 gamerule immediate_respawn true
 kill @e[tag=entity.downed_anchor]
 kill @e[tag=entity.dead_anchor]
@@ -21,7 +18,6 @@ scoreboard players set $game ship_progress 0
 scoreboard players set $game ship_parts 0
 scoreboard players set $game lab_cards 0
 
-# Strip all tags & teams
 tag @a remove role.survivor
 tag @a remove role.mother
 tag @a remove role.infected
@@ -55,7 +51,6 @@ tag @a remove flag.has_disguise
 tag @a remove flag.tutorial_seen
 tag @a remove flag.first_attack
 
-# Reset per-player scoreboards
 scoreboard players reset @a spore_load
 scoreboard players reset @a spore_decay_cd
 scoreboard players reset @a infect_time
@@ -82,7 +77,6 @@ scoreboard players reset @a mother_last_hp
 scoreboard players reset @a mother_regen_cd
 scoreboard players operation @a used_firework_last = @a used_firework
 
-# Assign all to survivors team, clear inventory
 team join survivors @a
 clear @a
 gamemode survival @a
@@ -90,5 +84,4 @@ effect clear @a
 execute as @a run attribute @s minecraft:movement_speed base set 0.1
 effect give @a minecraft:saturation 1 20 true
 
-# Run phase 1 load (role assign, kit, spawn, narration)
 function escape_island:game/phase_1_load

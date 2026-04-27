@@ -1,4 +1,3 @@
-# escape_island:dev/as_survivor  —  make caller a sandbox survivor
 function escape_island:dev/_reset_player_state
 tag @s add role.survivor
 scoreboard players set @s role 1

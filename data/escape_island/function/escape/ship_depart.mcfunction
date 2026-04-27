@@ -1,4 +1,3 @@
-# Ship fully repaired — 30s boarding countdown
 execute if score $game cur_phase matches 4 run return 0
 
 scoreboard players set $game ship_countdown 600

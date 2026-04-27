@@ -1,4 +1,3 @@
-# escape_island:dev/stop  —  leave development sandbox
 scoreboard players set $game dev_mode 0
 function escape_island:training/reset
 function escape_island:dev/clear_markers

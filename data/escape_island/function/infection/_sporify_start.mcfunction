@@ -1,9 +1,7 @@
-# escape_island:infection/_sporify_start  —  player is downed, 15s before turning
 execute if entity @s[tag=state.sporifying] run return 0
 tag @s add state.sporifying
 scoreboard players operation @s sporify_timer = Tunable tunable.death_sporify_seconds
 
-# Incapacitated: lock at the downed spot, adventure mode, zero movement speed, dark screen.
 execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["entity.downed_anchor"]}
 gamemode adventure @s
 attribute @s minecraft:movement_speed base set 0

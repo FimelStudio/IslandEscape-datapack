@@ -1,4 +1,3 @@
-# escape_island:dev/as_infected  —  make caller a sandbox infected
 function escape_island:dev/_reset_player_state
 tag @s add role.infected
 scoreboard players set @s role 12

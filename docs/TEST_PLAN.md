@@ -161,7 +161,7 @@ spawn 4 假玩家（armor_stand + role.survivor + 完整属性）到不同 `mark
 2. 召唤 1 个 dummy，给 role.survivor + role.doctor
 3. mother 攻击 doctor 1 次 → 检查 doctor 的 `spore_load` 增加且未获得 `state.infected_period`
 4. mother 再次攻击 doctor → 检查 doctor 获得 `state.infected_period`
-5. 等 0.5 秒，doctor 用解毒针对自己（dummy 不能右键，用 `function escape_island:skill/doctor_inject` 模拟）
+5. 等 0.5 秒，doctor 用解毒针对自己（dummy 不能右键，用 `function skill:doctor/inject` 模拟）
 6. 检查 `state.infected_period` 是否被清除，且获得短暂 `state.infection_resist`
 
 每个 M2 修复后跑一次。

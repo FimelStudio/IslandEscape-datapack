@@ -129,7 +129,7 @@ data/skill/advancement/<职业>/<技能>/
 
 `data/skill/function/athlete/` 中滑铲（slide_tackle）+ 肾上腺素（adrenaline）已完整实现。
 
-- [ ] `escape_island:game/_tick_20.mcfunction`：将 `role.sailor` 改为 `role.athlete`；将旧 `escape_island:skill/cooldown_tick` 调用改为 `skill:athlete/tick`
+- [ ] `escape_island:game/_tick_20.mcfunction`：将 `role.sailor` 改为 `role.athlete`；将旧 `skill:common/cooldown_tick` 调用改为 `skill:athlete/tick`
 - [ ] `escape_island:function/load.mcfunction`：删除 `cd_sailor` scoreboard 注册（运动员 scoreboard 已由 `skill:athlete/init` 注册）
 - [ ] 确认 `data/minecraft/tags/function/tick.json` 包含 `skill:athlete/tick` 或由 `_tick_20` 间接调用
 
@@ -325,7 +325,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 #### Batch 5 实现任务清单
 
 运动员接入（已有代码，仅改引用）：
-- [ ] `escape_island:game/_tick_20`：`role.sailor` → `role.athlete`，移除旧 `escape_island:skill/cooldown_tick`
+- [ ] `escape_island:game/_tick_20`：`role.sailor` → `role.athlete`，移除旧 `skill:common/cooldown_tick`
 - [ ] `escape_island:function/load`：删除 `cd_sailor` 注册
 
 船医：

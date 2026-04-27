@@ -1,4 +1,3 @@
-# Tick generator countdown
 execute if score $game gen_progress matches 1201.. run return 0
 execute if score $game gen_progress matches 1..1200 run scoreboard players remove $game gen_progress 1
 execute store result bossbar escape_island:gen value run scoreboard players get $game gen_progress

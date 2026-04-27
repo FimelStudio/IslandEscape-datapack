@@ -1,5 +1,3 @@
-# escape_island:task/generator_use  —  insert fuel cell into generator
-# Context: @s = player
 
 execute unless items entity @s weapon.mainhand minecraft:redstone[minecraft:custom_data~{item:"fuel_cell"}] run return 0
 

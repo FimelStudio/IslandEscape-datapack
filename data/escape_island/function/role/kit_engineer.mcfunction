@@ -1,3 +1,2 @@
-# 工程师 kit: 微型电池 + 修复速度被动
 give @s minecraft:redstone_torch[minecraft:custom_data={role_item:"engineer.battery"},minecraft:custom_name={"text":"微型电池","italic":false,"color":"yellow"},minecraft:lore=[{"text":"放置 → 4格修复点速度+200% 持续60秒","color":"gray","italic":false},{"text":"右键已放置电池 → 回收（冷却继续计时）","color":"gray","italic":false},{"text":"冷却: 60秒 | 场上上限: 1","color":"dark_gray","italic":false}]] 1
 tellraw @s {"text":"§6[工程师]§r 被动: 修复速度 ×1.3。微型电池: 加速修复区域。","color":"gray"}

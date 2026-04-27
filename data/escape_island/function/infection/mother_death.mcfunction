@@ -1,4 +1,3 @@
-# escape_island:infection/mother_death  —  Mother is killed; 60s respawn
 
 execute if entity @s[tag=state.dead] run return 0
 tag @s add state.dead
@@ -12,7 +11,6 @@ effect give @s minecraft:invisibility 999 0 true
 effect give @s minecraft:darkness 999 0 true
 effect give @s minecraft:resistance 999 255 true
 
-# Global notification (vague — doesn't identify who)
 tellraw @a {"text":"§7信号中断……某处传来了奇怪的沉默。","color":"gray","italic":true}
 bossbar set escape_island:mother_respawn visible true
 bossbar set escape_island:mother_respawn players @s

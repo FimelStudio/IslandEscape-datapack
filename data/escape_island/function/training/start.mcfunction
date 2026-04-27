@@ -1,5 +1,3 @@
-# escape_island:training/start  —  single-player tutorial mode
-# Sets up a sandbox where skills can be practiced without a real match.
 
 scoreboard players set $game in_game 0
 gamerule immediate_respawn true

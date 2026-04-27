@@ -1,4 +1,3 @@
-# escape_island:dev/start  —  create a no-map sandbox and enter training mode
 function escape_island:dev/clear_markers
 scoreboard players set $game dev_mode 1
 function escape_island:training/start

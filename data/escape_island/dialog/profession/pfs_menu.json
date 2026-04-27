@@ -1,0 +1,122 @@
+{
+    "type": "minecraft:multi_action",
+    "pause": false,
+    "title": "身份介绍",
+    "columns": 2,
+    "body": [
+        {
+            "type": "minecraft:plain_message",
+            "contents": [
+                {
+                    "text": "幸存者阵营"
+                }
+            ]
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": [
+                {
+                    "text": "(切换阵营)",
+                    "color": "gray",
+                    "click_event": {
+                        "action": "show_dialog",
+                        "dialog": "escape_island:profession/zombie_menu"
+                    },
+                    "hover_event": {
+                        "action": "show_text",
+                        "value": [
+                            {
+                                "text": "点击切换",
+                                "color": "white"
+                            },
+                            {
+                                "text": "感染者阵营",
+                                "color": "dark_red",
+                                "bold": true
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "label": "船长",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "医师",
+            "action": {
+                "type": "show_dialog",
+                "dialog": "escape_island:profession/dentist"
+            }
+        },
+        {
+            "label": "拳击手",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "工程师",
+            "action": {
+                "type": "show_dialog",
+                "dialog": "escape_island:menu"
+            }
+        },
+        {
+            "label": "程序员",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "特种兵",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "安保",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "模仿者",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "药剂师",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "运动员",
+            "action": {
+                "type": "show_dialog",
+                "dialog": "escape_island:profession/athlete"
+            }
+        }
+    ],
+    "exit_action": {
+        "label": "返回",
+        "action": {
+            "type": "show_dialog",
+            "dialog": "escape_island:menu"
+        }
+    }
+}

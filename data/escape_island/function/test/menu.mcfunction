@@ -1,4 +1,3 @@
-# escape_island:test/menu  —  clickable local test panel
 tellraw @s {"text":"\n=== 孤岛逃生：黎明前夕 自测菜单 ===","color":"gold","bold":true}
 tellraw @s [{"text":"[一键体检]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/smoke"}},{"text":" 检查计分板、地图标记和当前状态","color":"gray"}]
 tellraw @s [{"text":"[地图标记检查]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:debug/validate_map"}},{"text":" 查看关键 marker 是否放齐","color":"gray"}]

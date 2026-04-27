@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "item": {
+          "items": ["minecraft:spider_eye"],
+          "components": {
+            "minecraft:custom_data": {"role_item": "mother.rotsense"}
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:mother/rotsense"
+  }
+}

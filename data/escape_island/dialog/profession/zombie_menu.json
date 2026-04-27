@@ -1,0 +1,87 @@
+{
+    "type": "minecraft:multi_action",
+    "pause": false,
+    "title": "身份介绍",
+    "columns": 2,
+    "body": [
+        {
+            "type": "minecraft:plain_message",
+            "contents": [
+                {
+                    "text": "感染者阵营"
+                }
+            ]
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": [
+                {
+                    "text": "(切换阵营)",
+                    "color": "gray",
+                    "click_event": {
+                        "action": "show_dialog",
+                        "dialog": "escape_island:profession/pfs_menu"
+                    },
+                    "hover_event": {
+                        "action": "show_text",
+                        "value": [
+                            {
+                                "text": "点击切换",
+                                "color": "white"
+                            },
+                            {
+                                "text": "幸存者阵营",
+                                "color": "aqua",
+                                "bold": true
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "label": "感染源",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "普通感染体",
+            "action": {
+                "type": "show_dialog",
+                "dialog": "escape_island:profession/dentist"
+            }
+        },
+        {
+            "label": "舔食者",
+            "action": {
+                "type": "show_dialog",
+                "dialog": "escape_island:profession/dentist"
+            }
+        },
+        {
+            "label": "循声者",
+            "action": {
+                "type": "run_command",
+                "command": "say 1"
+            }
+        },
+        {
+            "label": "伪装者",
+            "action": {
+                "type": "show_dialog",
+                "dialog": "escape_island:menu"
+            }
+        }
+    ],
+    "exit_action": {
+        "label": "返回",
+        "action": {
+            "type": "show_dialog",
+            "dialog": "escape_island:menu"
+        }
+    }
+}

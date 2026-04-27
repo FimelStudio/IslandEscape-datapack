@@ -1,5 +1,3 @@
-# 海军陆战队员 kit: 铁剑 + 压制射击弩 + 24 发弹药（替换基础8发）
-# Clear default pistol ammo, give marine's 24 ammo instead
 clear @s minecraft:iron_nugget[minecraft:custom_data={ammo:1}]
 give @s minecraft:iron_nugget[minecraft:custom_data={ammo:1},minecraft:custom_name={"text":"9mm 弹药","italic":false,"color":"gray"}] 24
 give @s minecraft:iron_sword[minecraft:custom_data={role_item:"marine.sword"},minecraft:custom_name={"text":"战术刀","italic":false}] 1

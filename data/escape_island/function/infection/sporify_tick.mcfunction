@@ -1,4 +1,3 @@
-# escape_island:infection/sporify_tick  —  countdown per sporifying player (runs as @s at @s)
 
 gamemode adventure @s
 attribute @s minecraft:movement_speed base set 0

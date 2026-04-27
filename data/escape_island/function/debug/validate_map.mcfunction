@@ -1,4 +1,3 @@
-# escape_island:debug/validate_map  —  validate map marker coverage
 tellraw @s {"text":"\n[MAPCHECK] 地图标记检查","color":"gold","bold":true}
 execute if score $game dev_mode matches 1 run tellraw @s {"text":"[MAPCHECK] 当前使用开发沙盒临时 marker。正式地图完成后请清理沙盒再检查。","color":"aqua"}
 execute unless score $game dev_mode matches 1 unless entity @e[type=minecraft:marker,tag=marker.spawn_island,limit=1] run tellraw @s [{"text":"[INFO] 未检测到地图 marker。地图未完成时可先使用开发沙盒。","color":"aqua"},{"text":" [创建开发沙盒]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/start"}}]

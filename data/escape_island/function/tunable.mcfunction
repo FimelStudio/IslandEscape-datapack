@@ -1,5 +1,3 @@
-# escape_island:tunable  —  all balance knobs, edit here then /reload
-# In-game override: scoreboard players set Tunable tunable.<name> <value>
 
 scoreboard players set Tunable tunable.mother_hp 60
 scoreboard players set Tunable tunable.infection_seconds 45

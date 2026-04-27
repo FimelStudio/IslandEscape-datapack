@@ -1,4 +1,3 @@
-# escape_island:dev/as_priest  —  make caller a sandbox priest survivor
 function escape_island:dev/_reset_player_state
 tag @s add role.survivor
 tag @s add role.priest

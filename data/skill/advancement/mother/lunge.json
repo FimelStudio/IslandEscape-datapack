@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "item": {
+          "items": ["minecraft:firework_rocket"],
+          "components": {
+            "minecraft:custom_data": {"role_item": "mother.lunge"}
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:mother/lunge"
+  }
+}

@@ -1,4 +1,3 @@
-# escape_island:dev/_reset_player_state  —  clear role/state for sandbox role switching
 clear @s
 tag @s remove role.survivor
 tag @s remove role.mother

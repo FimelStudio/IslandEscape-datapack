@@ -1,4 +1,3 @@
-# Reset training state
 clear @s
 tag @s remove state.training
 tag @s remove role.doctor

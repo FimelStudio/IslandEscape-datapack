@@ -1,9 +1,7 @@
-# escape_island:infection/infected_death  —  infected player dies; 30s respawn cooldown
 
 execute if entity @s[tag=state.dead] run return 0
 tag @s add state.dead
 scoreboard players operation @s mother_respawn = Tunable tunable.spore_respawn_seconds
-# Priest retained: +10s respawn cooldown
 execute if entity @s[tag=retained.priest] run scoreboard players add @s mother_respawn 10
 
 execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["entity.dead_anchor"]}

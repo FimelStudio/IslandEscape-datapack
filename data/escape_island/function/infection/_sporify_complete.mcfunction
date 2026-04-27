@@ -1,7 +1,5 @@
-# Sporification complete: become infected
 tag @s remove state.sporifying
 
-# Clean up downed state
 effect clear @s minecraft:slowness
 effect clear @s minecraft:darkness
 effect clear @s minecraft:resistance
@@ -10,7 +8,6 @@ execute at @s run kill @e[type=minecraft:marker,tag=entity.downed_anchor,distanc
 
 function escape_island:infection/turn
 
-# Stand up as an infected at the downed position.
 gamemode survival @s
 
 effect give @s minecraft:resistance 100 255 true

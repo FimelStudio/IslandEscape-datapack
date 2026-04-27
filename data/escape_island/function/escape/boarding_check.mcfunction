@@ -1,4 +1,3 @@
-# Mark player as escaped
 execute if entity @s[tag=state.escaped] run return 0
 tag @s add state.escaped
 tag @s remove state.boarding

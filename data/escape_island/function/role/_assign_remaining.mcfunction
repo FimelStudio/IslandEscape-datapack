@@ -1,5 +1,3 @@
-# escape_island:role/_assign_remaining  —  assign remaining roles randomly
-# Each role picks one candidate (excluding already-tagged players and mother).
 
 execute unless entity @a[tag=role.doctor] as @r[tag=candidate,tag=!role.mother] run function escape_island:role/_tag_doctor
 execute as @r[tag=candidate,tag=!role.mother] run function escape_island:role/_tag_captain

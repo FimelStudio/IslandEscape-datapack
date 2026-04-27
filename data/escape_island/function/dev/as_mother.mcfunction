@@ -1,4 +1,3 @@
-# escape_island:dev/as_mother  —  make caller a sandbox mother
 function escape_island:dev/_reset_player_state
 tag @s add role.survivor
 function escape_island:game/_make_mother

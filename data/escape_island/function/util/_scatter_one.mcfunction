@@ -1,4 +1,3 @@
-# Teleport current player to a random available spawn marker, then mark it used.
 tag @s add scatter_target
 tag @e[type=minecraft:marker,tag=spawn_chosen] remove spawn_chosen
 

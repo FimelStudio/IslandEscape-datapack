@@ -1,4 +1,3 @@
-# 母体 kit: 三件技能道具
 give @s minecraft:firework_rocket[minecraft:custom_data={role_item:"mother.lunge"},minecraft:custom_name={"text":"猎食冲刺","italic":false,"color":"dark_red"},minecraft:lore=[{"text":"右键 → 8格直线冲刺，落地范围4伤害","color":"gray","italic":false},{"text":"冷却: 20秒","color":"dark_gray","italic":false}]] 1
 give @s minecraft:spider_eye[minecraft:custom_data={role_item:"mother.rotsense"},minecraft:custom_name={"text":"腐臭感知","italic":false,"color":"dark_red"},minecraft:lore=[{"text":"右键 → 3秒全图幸存者轮廓","color":"gray","italic":false},{"text":"代价: 全图广播暴露提示 | 冷却: 60秒","color":"dark_gray","italic":false}]] 1
 give @s minecraft:fermented_spider_eye[minecraft:custom_data={role_item:"mother.howl"},minecraft:custom_name={"text":"孢子召唤","italic":false,"color":"dark_red"},minecraft:lore=[{"text":"右键 → 感染者获得集合buff 60秒","color":"gray","italic":false},{"text":"冷却: 90秒","color":"dark_gray","italic":false}]] 1

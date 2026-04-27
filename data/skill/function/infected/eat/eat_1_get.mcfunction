@@ -1,0 +1,1 @@
+$item replace entity @s hotbar.4 with minecraft:crossbow[item_model="minecraft:honeycomb",custom_data={skill:out_entity},custom_name=[{color:"yellow",bold:true,text:"吐出"},{text:"$(player_name)"}],lore=[{text:"吐出已吞噬的感染体:",color:"gray"}],charged_projectiles=[{id:"minecraft:arrow",count:1,components:{intangible_projectile:{},custom_name:[{text:"感染体：$(player_name)"}]}}]] 1

@@ -1,4 +1,3 @@
-# Generator started: 60-second maintenance window
 scoreboard players set $game gen_progress 1200
 bossbar set escape_island:gen visible true
 bossbar set escape_island:gen players @a

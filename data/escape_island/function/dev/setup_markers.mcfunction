@@ -1,4 +1,3 @@
-# escape_island:dev/setup_markers  —  create temporary markers around the executor
 execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["dev.marker","marker.lobby_ship"]}
 execute at @s run summon minecraft:marker ~3 ~ ~ {Tags:["dev.marker","marker.dining_room"]}
 

@@ -1,4 +1,3 @@
-# escape_island:ui/tellraw_phase  —  opening narration (Phase 1)
 tellraw @a {"text":"─────────────────────────────","color":"gray"}
 tellraw @a {"text":"  孤岛逃生  ","color":"gold","bold":true}
 tellraw @a {"text":"─────────────────────────────","color":"gray"}

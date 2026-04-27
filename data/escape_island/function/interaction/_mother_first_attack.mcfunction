@@ -1,4 +1,3 @@
-# escape_island:interaction/_mother_first_attack  —  run as mother/secondary mother
 execute if entity @s[tag=flag.first_attack] run return 0
 tag @s add flag.first_attack
 tellraw @a [{"text":"丛林深处传来嚎叫……","color":"dark_red","bold":true},{"text":"有人遭受了突袭。","color":"gray"}]

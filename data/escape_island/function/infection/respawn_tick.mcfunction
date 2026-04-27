@@ -1,4 +1,3 @@
-# escape_island:infection/respawn_tick  —  respawn countdowns for infected and mother
 
 execute as @a[tag=state.dead,scores={mother_respawn=1..}] run scoreboard players remove @s mother_respawn 1
 execute as @a[tag=state.dead,tag=role.mother,limit=1] store result bossbar escape_island:mother_respawn value run scoreboard players get @s mother_respawn

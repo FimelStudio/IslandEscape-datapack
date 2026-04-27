@@ -52,212 +52,73 @@
 
 ## 二、完整目录树
 
-```
-escape_island/
+当前目录按命名空间分工：
+
+- `data/escape_island/`：游戏进程、阶段、感染状态、任务、撤离、职业分配、界面与调试工具。
+- `data/skill/`：职业技能、技能触发进度、技能判定、技能道具标签与技能公共工具。
+- `data/minecraft/`：原版标签入口，例如 `#minecraft:load`、`#minecraft:tick`、暂停菜单入口。
+- `data/animated_java/`：动画模型生成库，只保留生成内容，不承载游戏流程或职业技能逻辑。
+
+```text
+IslandEscape-datapack/
 ├── pack.mcmeta
 ├── data/
-│   └── escape_island/
-│       ├── advancement/
-│       │   ├── skill/
-│       │   │   ├── doctor_inject.json         # 右键队友触发解毒针
-│       │   │   ├── captain_horn.json          # 哨子主动
-│       │   │   ├── engineer_battery.json      # 电池放置
-│       │   │   ├── marine_suppress.json       # 压制射击
-│       │   │   ├── chef_stew.json
-│       │   │   ├── radio_sweep.json
-│       │   │   ├── virologist_reagent.json
-│       │   │   ├── mechanic_trap.json
-│       │   │   ├── sailor_dash.json
-│       │   │   ├── priest_cross.json          # 被动监听致死伤害
-│       │   │   ├── mother_lunge.json
-│       │   │   ├── mother_rotsense.json
-│       │   │   └── mother_howl.json
-│       │   ├── interaction/
-│       │   │   ├── hit_player.json            # 玩家被攻击
-│       │   │   ├── hit_by_mother.json         # 被母体攻击（用 tag 区分）
-│       │   │   ├── repair_signal.json         # 长按修复
-│       │   │   ├── place_battery.json
-│       │   │   └── drink_disguise.json
-│       │   └── infection/
-│       │       ├── consume_antidote.json
-│       │       ├── consume_vaccine.json
-│       │       └── consume_field_kit.json
-│       ├── function/
-│       │   ├── load.mcfunction                # 数据包加载入口
-│       │   ├── tick.mcfunction                # 主 tick 调度器
-│       │   ├── tunable.mcfunction             # 数值旋钮注册
-│       │   ├── game/
-│       │   │   ├── start.mcfunction
-│       │   │   ├── abort.mcfunction
-│       │   │   ├── pick_mother.mcfunction
-│       │   │   ├── pick_latent_host.mcfunction        # 17–20 人局潜伏宿主
-│       │   │   ├── phase_check.mcfunction
-│       │   │   ├── phase_1_load.mcfunction
-│       │   │   ├── phase_2_awakening.mcfunction
-│       │   │   ├── phase_3_repair.mcfunction
-│       │   │   ├── phase_4_escape.mcfunction
-│       │   │   ├── phase_5_mutate.mcfunction
-│       │   │   ├── end_helicopter.mcfunction
-│       │   │   ├── end_ship.mcfunction
-│       │   │   ├── end_lab.mcfunction
-│       │   │   ├── end_destroy.mcfunction
-│       │   │   ├── end_disguise.mcfunction
-│       │   │   ├── end_mutate.mcfunction
-│       │   │   └── settle.mcfunction          # 通用结算（撤离者观战 + 字幕）
-│       │   ├── role/
-│       │   │   ├── assign.mcfunction          # 随机分 10 职业
-│       │   │   ├── give_kit.mcfunction        # 通用 kit 分发
-│       │   │   ├── kit_doctor.mcfunction
-│       │   │   ├── kit_captain.mcfunction
-│       │   │   ├── kit_engineer.mcfunction
-│       │   │   ├── kit_marine.mcfunction
-│       │   │   ├── kit_chef.mcfunction
-│       │   │   ├── kit_radio.mcfunction
-│       │   │   ├── kit_virologist.mcfunction
-│       │   │   ├── kit_mechanic.mcfunction
-│       │   │   ├── kit_sailor.mcfunction
-│       │   │   ├── kit_priest.mcfunction
-│       │   │   ├── tick_doctor.mcfunction     # 被动 tick（医生：5 格内队友回血）
-│       │   │   ├── tick_captain.mcfunction
-│       │   │   ├── tick_engineer.mcfunction
-│       │   │   ├── tick_marine.mcfunction
-│       │   │   ├── tick_chef.mcfunction
-│       │   │   ├── tick_radio.mcfunction
-│       │   │   ├── tick_virologist.mcfunction
-│       │   │   ├── tick_mechanic.mcfunction
-│       │   │   ├── tick_sailor.mcfunction
-│       │   │   └── tick_priest.mcfunction
-│       │   ├── skill/
-│       │   │   ├── cooldown_tick.mcfunction   # 通用冷却 tick（每秒 -1）
-│       │   │   ├── cooldown_lore_update.mcfunction  # 物品 lore 倒计时刷新
-│       │   │   ├── doctor_inject.mcfunction
-│       │   │   ├── captain_horn.mcfunction
-│       │   │   ├── engineer_battery.mcfunction
-│       │   │   ├── engineer_battery_tick.mcfunction
-│       │   │   ├── marine_suppress.mcfunction
-│       │   │   ├── chef_stew.mcfunction
-│       │   │   ├── chef_stew_tick.mcfunction
-│       │   │   ├── radio_sweep.mcfunction
-│       │   │   ├── virologist_reagent.mcfunction
-│       │   │   ├── mechanic_trap.mcfunction
-│       │   │   ├── mechanic_trap_tick.mcfunction
-│       │   │   ├── sailor_dash.mcfunction
-│       │   │   ├── priest_cross_check.mcfunction  # 被动 tick 监控
-│       │   │   ├── mother_lunge.mcfunction
-│       │   │   ├── mother_rotsense.mcfunction
-│       │   │   ├── mother_howl.mcfunction
-│       │   │   └── mother_disguise.mcfunction
-│       │   ├── infection/
-│       │   │   ├── on_attack.mcfunction       # 母体/感染者攻击 → 给受害者叠污染值
-│       │   │   ├── add_spore_load.mcfunction
-│       │   │   ├── spore_load_decay.mcfunction
-│       │   │   ├── tick_infected_state.mcfunction
-│       │   │   ├── cure.mcfunction
-│       │   │   ├── survivor_death.mcfunction  # 幸存者任意死亡 → 孢化倒计时
-│       │   │   ├── sporify_tick.mcfunction
-│       │   │   ├── turn.mcfunction            # 转化为感染者
-│       │   │   ├── infected_death.mcfunction  # 感染者死亡 → 30s 后随机复活
-│       │   │   ├── infected_respawn.mcfunction
-│       │   │   ├── mother_death.mcfunction    # 母体死亡 → 60s 后随机复活
-│       │   │   └── mother_respawn.mcfunction
-│       │   ├── task/
-│       │   │   ├── signal_tower_repair.mcfunction
-│       │   │   ├── signal_tower_tick.mcfunction
-│       │   │   ├── generator_use.mcfunction
-│       │   │   ├── generator_tick.mcfunction
-│       │   │   ├── ship_dock_tick.mcfunction
-│       │   │   ├── lab_research_killed.mcfunction  # 感染研究员击杀回调
-│       │   │   ├── lab_terminal.mcfunction
-│       │   │   ├── lab_arming_tick.mcfunction
-│       │   │   ├── bomb_activate.mcfunction
-│       │   │   ├── bomb_tick.mcfunction
-│       │   │   └── disguise_terminal.mcfunction
-│       │   ├── escape/
-│       │   │   ├── helicopter_call.mcfunction
-│       │   │   ├── helicopter_pick_landing.mcfunction
-│       │   │   ├── helicopter_arrive.mcfunction
-│       │   │   ├── helicopter_tick.mcfunction
-│       │   │   ├── ship_depart.mcfunction
-│       │   │   ├── submarine_depart.mcfunction
-│       │   │   └── boarding_check.mcfunction
-│       │   ├── event/
-│       │   │   ├── pick_event.mcfunction      # 随机环境事件
-│       │   │   ├── blackout.mcfunction
-│       │   │   ├── radio_static.mcfunction
-│       │   │   ├── hallucination.mcfunction
-│       │   │   ├── storm.mcfunction
-│       │   │   └── spore_burst.mcfunction
-│       │   ├── ui/
-│       │   │   ├── update_actionbar.mcfunction
-│       │   │   ├── tellraw_phase.mcfunction
-│       │   │   ├── tellraw_lore_book.mcfunction
-│       │   │   ├── update_bossbar.mcfunction
-│       │   │   └── ending_subtitle.mcfunction
-│       │   ├── util/
-│       │   │   ├── random_select.mcfunction   # 不重复随机
-│       │   │   ├── ensure_marker.mcfunction   # 校验 marker 已放置
-│       │   │   ├── tellraw_factory.mcfunction
-│       │   │   ├── give_role_item.mcfunction
-│       │   │   ├── play_sound_global.mcfunction
-│       │   │   └── debug_log.mcfunction
-│       │   ├── training/
-│       │   │   ├── start.mcfunction
-│       │   │   ├── give_all_kits.mcfunction
-│       │   │   └── reset.mcfunction
-│       │   ├── debug/
-│       │   │   ├── show_state.mcfunction
-│       │   │   ├── force_phase.mcfunction
-│       │   │   ├── force_mother.mcfunction
-│       │   │   └── reveal_roles.mcfunction
-│       │   └── test/
-│       │       ├── spawn_dummies.mcfunction
-│       │       ├── full_simulation.mcfunction
-│       │       └── perf_check.mcfunction
-│       ├── item_modifier/
-│       │   ├── role_doctor.json
-│       │   ├── role_captain.json
-│       │   ├── ... (10 个职业 + 母体)
-│       │   └── add_cooldown_lore.json
-│       ├── loot_table/
-│       │   ├── kit/
-│       │   │   ├── doctor.json
-│       │   │   ├── captain.json
-│       │   │   ├── ... (10 个)
-│       │   │   └── mother.json
-│       │   ├── world/
-│       │   │   ├── basic_supply.json
-│       │   │   ├── rare_supply.json
-│       │   │   └── keynote.json
-│       │   └── mob/
-│       │       └── researcher_drops.json
-│       ├── predicate/
-│       │   ├── role/
-│       │   │   ├── is_survivor.json
-│       │   │   ├── is_infected.json
-│       │   │   ├── is_mother.json
-│       │   │   ├── is_doctor.json
-│       │   │   └── ... (10 个职业)
-│       │   ├── phase/
-│       │   │   ├── is_phase_1.json
-│       │   │   ├── is_phase_2.json
-│       │   │   ├── is_phase_3.json
-│       │   │   ├── is_phase_4.json
-│       │   │   └── is_phase_5.json
-│       │   ├── infection/
-│       │   │   ├── is_infected_period.json
-│       │   │   └── infection_almost_expire.json
-│       │   └── item/
-│       │       └── has_role_marker.json
-│       ├── tags/
-│       │   ├── function/
-│       │   │   ├── load.json
-│       │   │   └── tick.json
-│       │   └── item/
-│       │       ├── role_items.json
-│       │       └── consumable_skill_items.json
-│       └── recipe/                            # 备用病毒学家疫苗
-│           └── vaccine.json
-└── (resourcepack 单独一个 zip — escape_island_resources.zip)
+│   ├── escape_island/
+│   │   ├── advancement/
+│   │   │   ├── interaction/
+│   │   │   └── infection/
+│   │   ├── dialog/
+│   │   │   ├── menu.json
+│   │   │   └── profession/
+│   │   └── function/
+│   │       ├── load.mcfunction
+│   │       ├── tick.mcfunction
+│   │       ├── game/
+│   │       ├── role/
+│   │       ├── infection/
+│   │       ├── task/
+│   │       ├── escape/
+│   │       ├── event/
+│   │       ├── ui/
+│   │       ├── util/
+│   │       ├── training/
+│   │       ├── debug/
+│   │       └── test/
+│   ├── skill/
+│   │   ├── advancement/
+│   │   │   ├── athlete/
+│   │   │   ├── mother/
+│   │   │   ├── infected/
+│   │   │   └── common/
+│   │   ├── function/
+│   │   │   ├── init.mcfunction
+│   │   │   ├── tick.mcfunction
+│   │   │   ├── athlete/
+│   │   │   ├── captain/
+│   │   │   ├── chef/
+│   │   │   ├── common/
+│   │   │   ├── doctor/
+│   │   │   ├── engineer/
+│   │   │   ├── infected/
+│   │   │   ├── mechanic/
+│   │   │   ├── mother/
+│   │   │   ├── priest/
+│   │   │   ├── radio/
+│   │   │   ├── sailor/
+│   │   │   ├── virologist/
+│   │   │   └── ...
+│   │   ├── predicate/
+│   │   └── tags/
+│   │       ├── block/
+│   │       └── item/
+│   │           ├── role_items.json
+│   │           └── consumable_skill_items.json
+│   ├── minecraft/
+│   │   └── tags/
+│   │       ├── function/
+│   │       └── dialog/
+│   └── animated_java/
+└── docs/
 ```
 
 ---
@@ -468,7 +329,7 @@ tick (每 tick)
 skill/doctor_inject.json (advancement)
   trigger: minecraft:player_interacted_with_entity
   conditions: 物品有 role.doctor.inject 标签 + 目标是感染期玩家
-  reward: function escape_island:skill/doctor_inject
+  reward: function skill:doctor/inject
 
 infection/consume_antidote.json
   trigger: minecraft:consume_item
@@ -485,7 +346,7 @@ infection/consume_antidote.json
 1.21 中 `minecraft:player_interacted_with_entity` advancement 在右键实体时触发。配合物品 `consumable` 组件控制行为。
 
 ```json
-// data/escape_island/advancement/skill/doctor_inject.json
+// data/skill/advancement/doctor_inject.json
 {
   "criteria": {
     "trigger": {
@@ -504,12 +365,12 @@ infection/consume_antidote.json
     }
   },
   "rewards": {
-    "function": "escape_island:skill/doctor_inject"
+    "function": "skill:doctor/inject"
   }
 }
 ```
 
-`escape_island:skill/doctor_inject` 中先 advancement revoke 自己，然后判断目标 player 是否在感染期，是则治愈。
+`skill:doctor/inject` 中先 advancement revoke 自己，然后判断目标 player 是否在感染期，是则治愈。
 
 ### 7.1b 右键技能道具（食物类）通用方案
 
@@ -583,7 +444,7 @@ give @a minecraft:sugar[custom_name={text:"克洛格",color:"gray",bold:true,ita
 
 ```mcfunction
 # skill/cooldown_lore_update (在持有道具的玩家上下文运行)
-execute as @a[predicate=escape_island:role/is_doctor, scores={cd_doctor=1..}] run function escape_island:skill/_lore_doctor
+execute as @a[predicate=escape_island:role/is_doctor, scores={cd_doctor=1..}] run function skill:_lore_doctor
 
 # _lore_doctor.mcfunction
 $item modify entity @s weapon.mainhand escape_island:add_cooldown_lore {seconds:$(cd_doctor)}

@@ -1,7 +1,6 @@
-# escape_island:load  —  called by #minecraft:load on every /reload
 
-# Scoreboard objectives
 scoreboard objectives add in_game dummy
+scoreboard objectives add play_sound dummy
 scoreboard objectives add phase_timer dummy
 scoreboard objectives add cur_phase dummy
 scoreboard objectives add dawn_timer dummy
@@ -76,7 +75,6 @@ scoreboard objectives add test_count dummy
 
 function escape_island:tunable
 
-# Teams
 team add survivors {"text":"幸存者","color":"green"}
 team modify survivors friendlyFire false
 team modify survivors seeFriendlyInvisibles true
@@ -92,7 +90,6 @@ team add spectator {"text":"旁观者","color":"gray"}
 team modify spectator friendlyFire false
 team modify spectator nametagVisibility never
 
-# Bossbars
 bossbar add escape_island:phase {"text":"阶段进度","color":"yellow"}
 bossbar set escape_island:phase visible false
 bossbar add escape_island:signal {"text":"信号塔修复进度","color":"green"}
@@ -114,7 +111,6 @@ bossbar set escape_island:disguise visible false
 bossbar add escape_island:mother_respawn {"text":"母体复活","color":"dark_red"}
 bossbar set escape_island:mother_respawn visible false
 
-# Initial game state
 scoreboard players set $game in_game 0
 scoreboard players set $game dev_mode 0
 scoreboard players set $tick cycle20 0

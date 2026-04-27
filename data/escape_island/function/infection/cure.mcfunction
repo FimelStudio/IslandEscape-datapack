@@ -1,4 +1,3 @@
-# escape_island:infection/cure  —  remove infection period from @s (called by doctor/antidote)
 
 execute unless entity @s[tag=state.infected_period] run return 0
 
@@ -10,7 +9,6 @@ scoreboard players set @s spore_load 0
 scoreboard players set @s hb_phase 0
 clear @s minecraft:carved_pumpkin
 
-# 20-second pollution resistance after cure
 tag @s add state.infection_resist
 schedule function escape_island:infection/_remove_resist 400t
 

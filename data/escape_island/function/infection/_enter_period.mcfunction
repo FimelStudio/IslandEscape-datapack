@@ -1,10 +1,8 @@
-# Transition @s into infection period
 execute if entity @s[tag=state.infected_period] run return 0
 execute if entity @s[tag=role.mother] run return 0
 execute if entity @s[tag=role.infected] run return 0
 
-# Priest cross: intercept once if cross is still intact
-execute if entity @s[tag=role.priest,tag=flag.cross_intact] run function escape_island:skill/priest_cross_intercept
+execute if entity @s[tag=role.priest,tag=flag.cross_intact] run function skill:priest/cross_intercept
 execute if entity @s[tag=flag.cross_intercepted] run return run tag @s remove flag.cross_intercepted
 execute if entity @s[tag=state.infected_period] run return 0
 
@@ -19,5 +17,4 @@ title @s subtitle [{"text":"治愈倒计时: ","color":"yellow"},{"score":{"name
 playsound minecraft:entity.warden.heartbeat master @s ~ ~ ~ 1 0.7
 tellraw @s {"text":"§c警告: 你进入了感染期！寻求船医协助或使用急救箱。","color":"red"}
 
-# Red vignette: equip invisible pumpkin → triggers pumpkinblur.png overlay (overridden in resource pack)
 item replace entity @s armor.head with minecraft:carved_pumpkin

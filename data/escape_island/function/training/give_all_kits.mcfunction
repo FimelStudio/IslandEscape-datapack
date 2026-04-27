@@ -1,4 +1,3 @@
-# Give caller all role kits for testing
 tag @s add role.survivor
 tag @s add role.doctor
 tag @s add role.captain

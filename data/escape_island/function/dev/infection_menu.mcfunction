@@ -1,4 +1,3 @@
-# escape_island:dev/infection_menu  —  clickable infection state test panel
 tellraw @s {"text":"\n=== 感染与死亡状态机测试 ===","color":"dark_red","bold":true}
 tellraw @s [{"text":"[设为幸存者]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_survivor"}},{"text":" 基础幸存者状态","color":"gray"}]
 tellraw @s [{"text":"[设为神父]","color":"white","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_priest"}},{"text":" 测十字架阻断","color":"gray"}]
