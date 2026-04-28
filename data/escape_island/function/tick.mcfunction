@@ -1,4 +1,9 @@
 
+scoreboard players enable @a ie.dialog
+scoreboard players enable @a ie.eat_health
+execute as @a[scores={ie.dialog=1..}] run function escape_island:dialog/trigger
+execute as @a[scores={ie.eat_health=1..}] run function skill:mother/eat/apply_config_trigger
+
 execute as @a[tag=role.survivor,tag=!state.sporifying,tag=!state.dead,tag=!state.escaped,tag=!state.spectator] at @s run spawnpoint @s ~ ~ ~
 execute as @a[tag=role.infected,tag=!state.dead,tag=!state.escaped,tag=!state.spectator] at @s run spawnpoint @s ~ ~ ~
 execute as @a[tag=role.mother,tag=!state.dead,tag=!state.escaped,tag=!state.spectator] at @s run spawnpoint @s ~ ~ ~

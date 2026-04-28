@@ -1,6 +1,0 @@
-# 此文件由动画模型工具生成，不建议手动编辑。
-execute if score @s aj.animation_model_circle.frame matches 9.. run scoreboard players set @s aj.animation_model_circle.frame 1
-data remove storage animated_java:temp args
-execute store result storage animated_java:temp args.frame int 1 run scoreboard players get @s aj.animation_model_circle.frame
-execute at @s run function animated_java:blueprint/animations/animation_model_circle/zzz/apply_frame with storage animated_java:temp args
-scoreboard players add @s aj.animation_model_circle.frame 1

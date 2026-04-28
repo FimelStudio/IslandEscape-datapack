@@ -1,5 +1,6 @@
 function escape_island:dev/_reset_player_state
 tag @s add role.infected
+tag @s add zombie
 scoreboard players set @s role 12
 team join infected @s
 attribute @s minecraft:attack_damage base set 4

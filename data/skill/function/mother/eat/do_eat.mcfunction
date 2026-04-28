@@ -1,0 +1,7 @@
+advancement revoke @s only skill:mother/eat/eat_entity
+execute unless entity @s[tag=role.mother] run return 0
+execute if entity @s[tag=mother_eating] run title @s actionbar {"text":"已吞噬一个感染体，先使用吐出。","color":"red"}
+execute if entity @s[tag=mother_eating] run return 0
+
+execute unless predicate skill:facing_zombie run function skill:mother/eat/eat_0
+execute if predicate skill:facing_zombie run function skill:mother/eat/eat_1

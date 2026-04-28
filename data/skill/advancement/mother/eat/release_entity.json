@@ -1,0 +1,22 @@
+{
+    "criteria": {
+        "release_entity": {
+            "trigger": "consume_item",
+            "conditions": {
+                "item": {
+                    "components": {
+                        "custom_data": {
+                            "skill": "mother/eat_release"
+                        }
+                    }
+                },
+                "player": {
+                    "nbt": "{Tags:[\"role.mother\"]}"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "skill:mother/eat/release_item"
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "type": "minecraft:notice",
+    "title": {
+        "text": "幸存者 海军陆战队员",
+        "color": "red",
+        "bold": true
+    },
+    "external_title": {
+        "text": ""
+    },
+    "body": [
+        {
+            "type": "minecraft:item",
+            "item": {
+                "id": "minecraft:crossbow"
+            },
+            "show_decorations": false,
+            "show_tooltip": false
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "正面压制与救援掩护职业，开局弹药更多，适合在关键时刻阻断母体追击。",
+                "color": "gray"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "压制射击：用于制造距离、保护队友撤出污染区，重点是控制节奏而不是单独击杀母体。",
+                "color": "red"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "弱点：弹药和冷却都有限，空技能后需要依赖队友完成转点。",
+                "color": "dark_gray"
+            },
+            "width": 480
+        }
+    ],
+    "inputs": [],
+    "can_close_with_escape": true,
+    "action": {
+        "label": {
+            "text": "返回职业介绍",
+            "color": "green"
+        },
+        "action": {
+            "type": "minecraft:show_dialog",
+            "dialog": "escape_island:profession/pfs_menu"
+        }
+    }
+}

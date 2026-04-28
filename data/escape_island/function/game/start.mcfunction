@@ -6,6 +6,7 @@ execute if score $game player_count matches ..3 run return 0
 gamerule immediate_respawn true
 kill @e[tag=entity.downed_anchor]
 kill @e[tag=entity.dead_anchor]
+function skill:mother/eat/clear_storage
 scoreboard players set $game in_game 1
 scoreboard players set $game cur_phase 1
 scoreboard players set $game phase_timer 0
@@ -21,6 +22,7 @@ scoreboard players set $game lab_cards 0
 tag @a remove role.survivor
 tag @a remove role.mother
 tag @a remove role.infected
+tag @a remove zombie
 tag @a remove doctor
 tag @a remove captain
 tag @a remove engineer
@@ -31,6 +33,10 @@ tag @a remove athlete
 tag @a remove adren_active
 tag @a remove sliding
 tag @a remove slide_locked
+tag @a remove mother_eating
+tag @a remove mother_eat_fired
+tag @a remove mother_eat_absorbing
+tag @a remove eaten_zombie
 tag @a remove state.infected_period
 tag @a remove state.boarding
 tag @a remove state.escaped
@@ -99,6 +105,9 @@ scoreboard players reset @a skill.adren_cd
 scoreboard players reset @a skill.slide_time
 scoreboard players reset @a skill.slide_cd
 scoreboard players reset @a skill.stamina_warn
+scoreboard players reset @a skill.mother_eat_anim
+scoreboard players reset @a ie.dialog
+scoreboard players reset @a ie.eat_health
 scoreboard players reset @a cd_mother_lunge
 scoreboard players reset @a cd_mother_rotsense
 scoreboard players reset @a cd_mother_howl

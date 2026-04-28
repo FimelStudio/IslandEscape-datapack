@@ -1,0 +1,57 @@
+{
+    "type": "minecraft:notice",
+    "title": {
+        "text": "幸存者 工程师",
+        "color": "gold",
+        "bold": true
+    },
+    "external_title": {
+        "text": ""
+    },
+    "body": [
+        {
+            "type": "minecraft:item",
+            "item": {
+                "id": "minecraft:redstone"
+            },
+            "show_decorations": false,
+            "show_tooltip": false
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "核心维修职业，修复设施速度更快，适合主导信号塔、发电机等关键任务。",
+                "color": "gray"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "微型电池：部署后加速附近修复进度，能把短暂安全窗口转化为实际任务收益。",
+                "color": "gold"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "弱点：经常需要留在固定点位，容易被母体判断行踪。",
+                "color": "dark_gray"
+            },
+            "width": 480
+        }
+    ],
+    "inputs": [],
+    "can_close_with_escape": true,
+    "action": {
+        "label": {
+            "text": "返回职业介绍",
+            "color": "green"
+        },
+        "action": {
+            "type": "minecraft:show_dialog",
+            "dialog": "escape_island:profession/pfs_menu"
+        }
+    }
+}

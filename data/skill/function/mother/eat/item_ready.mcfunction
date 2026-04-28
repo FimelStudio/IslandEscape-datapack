@@ -1,0 +1,2 @@
+item replace entity @s hotbar.4 with minecraft:red_dye[minecraft:custom_data={skill:"mother/eat"},minecraft:custom_name={"text":"吞噬","color":"dark_red","bold":true,"italic":false},minecraft:lore=[{"text":"面向8格内感染体右键，将其吞入体内。","color":"gray","italic":false}],minecraft:consumable={animation:"spyglass",consume_seconds:0,has_consume_particles:false,sound:{sound_id:""}},minecraft:use_cooldown={seconds:0.5,cooldown_group:"mother:eat"}] 1
+clear @s minecraft:structure_void[minecraft:custom_data={skill:"mother/zombie_editor"}] 1

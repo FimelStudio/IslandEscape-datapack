@@ -1,0 +1,57 @@
+{
+    "type": "minecraft:notice",
+    "title": {
+        "text": "幸存者 神父",
+        "color": "white",
+        "bold": true
+    },
+    "external_title": {
+        "text": ""
+    },
+    "body": [
+        {
+            "type": "minecraft:item",
+            "item": {
+                "id": "minecraft:paper"
+            },
+            "show_decorations": false,
+            "show_tooltip": false
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "保护与关键反制职业，适合在队伍最危险的时刻提供容错。",
+                "color": "gray"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "祝福被动：围绕致命伤害和队友保护展开，能改变一次追击的结果。",
+                "color": "white"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "弱点：主动推进能力有限，需要队友利用你争取出的时间完成任务。",
+                "color": "dark_gray"
+            },
+            "width": 480
+        }
+    ],
+    "inputs": [],
+    "can_close_with_escape": true,
+    "action": {
+        "label": {
+            "text": "返回职业介绍",
+            "color": "green"
+        },
+        "action": {
+            "type": "minecraft:show_dialog",
+            "dialog": "escape_island:profession/pfs_menu"
+        }
+    }
+}

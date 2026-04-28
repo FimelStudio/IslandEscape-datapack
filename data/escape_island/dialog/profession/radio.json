@@ -1,0 +1,57 @@
+{
+    "type": "minecraft:notice",
+    "title": {
+        "text": "幸存者 通讯员",
+        "color": "dark_aqua",
+        "bold": true
+    },
+    "external_title": {
+        "text": ""
+    },
+    "body": [
+        {
+            "type": "minecraft:item",
+            "item": {
+                "id": "minecraft:compass"
+            },
+            "show_decorations": false,
+            "show_tooltip": false
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "信息职业，能帮助队伍判断谁失联、哪里需要支援、撤离时该往哪边集合。",
+                "color": "gray"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "信号扫描：高亮幸存者位置。注意伪装母体也可能被当作幸存者显示。",
+                "color": "dark_aqua"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "弱点：扫描给的是信息，不是结论；需要结合语音、路线和行为判断。",
+                "color": "dark_gray"
+            },
+            "width": 480
+        }
+    ],
+    "inputs": [],
+    "can_close_with_escape": true,
+    "action": {
+        "label": {
+            "text": "返回职业介绍",
+            "color": "green"
+        },
+        "action": {
+            "type": "minecraft:show_dialog",
+            "dialog": "escape_island:profession/pfs_menu"
+        }
+    }
+}

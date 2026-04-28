@@ -36,6 +36,7 @@ tag @s remove sliding
 tag @s remove slide_locked
 tag @s remove role.priest
 tag @s add role.infected
+tag @s add zombie
 scoreboard players set @s role 12
 scoreboard players set @s skill.antidote_charges 0
 scoreboard players set @s skill.antidote_cd 0

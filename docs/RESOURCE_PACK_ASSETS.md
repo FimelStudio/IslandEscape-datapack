@@ -38,8 +38,8 @@
 | X-7 伪装试剂 | `ie:item/x7_disguise` | `potion` | `role_item:"mother.disguise"` | 母体伪装路线 |
 | 海军压制射击 | `ie:item/marine_suppressor` | 当前为 `crossbow` | `role_item:"marine.suppress"`，后续改 `skill:"marine_suppress"` | 海军陆战队员控制技能 |
 | 感染者陷阱 | `ie:item/infected_trap` | `tripwire_hook` | `role_item:"mechanic.infected_trap"` | 机修工转化保留 |
-| 吞噬 | `ie:item/infected_eat` | `red_dye` | `skill:"infected/eat_entity"` | 感染者/母体吞噬框架 |
-| 吐出感染体 | `ie:item/infected_release` | `crossbow` | `skill:"out_entity"` | 吞噬框架调试/玩法扩展 |
+| 吞噬 | `ie:item/mother_eat` | `red_dye` | `skill:"mother/eat"` | 母体吞噬感染体 |
+| 吐出感染体 | `ie:item/mother_eat_release` | `slime_ball` | `skill:"mother/eat_release"` | 母体释放已吞噬的感染体 |
 
 ## 四、P1 任务与物资道具
 
@@ -118,4 +118,3 @@
 3. 同一技能的 ready / cooldown / empty 状态可以共用模型，也可以用独立模型；若做独立模型，建议加后缀 `_ready`、`_cooldown`、`_empty`。
 4. 音效命名应稳定，不要把具体实现音源写进 id。例如用 `ie:weapon.gunshot`，不要用 `ie:pistol_9mm_close_v3`。
 5. 无资源包时，所有物品必须仍有清晰 `custom_name` 和 `lore`，以便开发测试继续进行。
-

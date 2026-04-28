@@ -1,0 +1,22 @@
+{
+    "criteria": {
+        "eat_entity": {
+            "trigger": "consume_item",
+            "conditions": {
+                "item": {
+                    "components": {
+                        "custom_data": {
+                            "skill": "mother/eat"
+                        }
+                    }
+                },
+                "player": {
+                    "nbt": "{Tags:[\"role.mother\"]}"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "skill:mother/eat/do_eat"
+    }
+}

@@ -1,10 +1,9 @@
 {
 	"replace": false,
 	"values": [
-		"skill:infected/eat/eat_tick",
+		"escape_island:tick",
 		"skill:athlete/tick",
-		"skill:tick",
-		"animated_java:global/on_tick",
-		"escape_island:tick"
+		"skill:mother/eat/tick",
+		"skill:tick"
 	]
 }

@@ -1,40 +1,42 @@
 {
     "type": "minecraft:multi_action",
     "pause": false,
-    "title": "身份介绍",
+    "title": {
+        "text": "     幸存者身份",
+        "color": "aqua",
+        "bold": true
+    },
     "columns": 2,
     "body": [
         {
             "type": "minecraft:plain_message",
-            "contents": [
-                {
-                    "text": "幸存者阵营"
-                }
-            ]
+            "contents": {
+                "text": "幸存者靠分工取胜。职业能力不直接决定胜负，但会改变你适合承担的任务：救援、维修、侦察、控制、信息或机动。",
+                "color": "gray"
+            },
+            "width": 480
         },
         {
             "type": "minecraft:plain_message",
             "contents": [
                 {
-                    "text": "(切换阵营)",
-                    "color": "gray",
+                    "text": "切换到 ",
+                    "color": "dark_gray"
+                },
+                {
+                    "text": "感染阵营",
+                    "color": "dark_red",
+                    "bold": true,
                     "click_event": {
                         "action": "show_dialog",
                         "dialog": "escape_island:profession/zombie_menu"
                     },
                     "hover_event": {
                         "action": "show_text",
-                        "value": [
-                            {
-                                "text": "点击切换",
-                                "color": "white"
-                            },
-                            {
-                                "text": "感染者阵营",
-                                "color": "dark_red",
-                                "bold": true
-                            }
-                        ]
+                        "value": {
+                            "text": "查看母体与感染体",
+                            "color": "white"
+                        }
                     }
                 }
             ]
@@ -44,78 +46,78 @@
         {
             "label": "船长",
             "action": {
-                "type": "run_command",
-                "command": "say 1"
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/captain"
             }
         },
         {
             "label": "医师",
             "action": {
-                "type": "show_dialog",
+                "type": "minecraft:show_dialog",
                 "dialog": "escape_island:profession/dentist"
-            }
-        },
-        {
-            "label": "拳击手",
-            "action": {
-                "type": "run_command",
-                "command": "say 1"
             }
         },
         {
             "label": "工程师",
             "action": {
-                "type": "show_dialog",
-                "dialog": "escape_island:menu"
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/engineer"
             }
         },
         {
-            "label": "程序员",
+            "label": "海军陆战队员",
             "action": {
-                "type": "run_command",
-                "command": "say 1"
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/marine"
             }
         },
         {
-            "label": "特种兵",
+            "label": "厨师",
             "action": {
-                "type": "run_command",
-                "command": "say 1"
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/chef"
             }
         },
         {
-            "label": "安保",
+            "label": "通讯员",
             "action": {
-                "type": "run_command",
-                "command": "say 1"
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/radio"
             }
         },
         {
-            "label": "模仿者",
+            "label": "病毒学家",
             "action": {
-                "type": "run_command",
-                "command": "say 1"
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/virologist"
             }
         },
         {
-            "label": "药剂师",
+            "label": "机修工",
             "action": {
-                "type": "run_command",
-                "command": "say 1"
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/mechanic"
             }
         },
         {
             "label": "运动员",
             "action": {
-                "type": "show_dialog",
+                "type": "minecraft:show_dialog",
                 "dialog": "escape_island:profession/athlete"
+            }
+        },
+        {
+            "label": "神父",
+            "action": {
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/priest"
             }
         }
     ],
     "exit_action": {
         "label": "返回",
         "action": {
-            "type": "show_dialog",
+            "type": "minecraft:show_dialog",
             "dialog": "escape_island:menu"
         }
     }

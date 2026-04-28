@@ -1,0 +1,57 @@
+{
+    "type": "minecraft:notice",
+    "title": {
+        "text": "感染阵营 普通感染体",
+        "color": "red",
+        "bold": true
+    },
+    "external_title": {
+        "text": ""
+    },
+    "body": [
+        {
+            "type": "minecraft:item",
+            "item": {
+                "id": "minecraft:rotten_flesh"
+            },
+            "show_decorations": false,
+            "show_tooltip": false
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "普通感染体由幸存者转化而来，身份公开，是感染阵营的正面追击力量。",
+                "color": "gray"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "你的任务是追踪落单目标、压迫任务点、保护母体节奏，并用持续命中积累幸存者的孢子污染。",
+                "color": "red"
+            },
+            "width": 480
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "死亡不会让你永久离场，倒计时结束后会在孢子点复活。利用复活压力迫使幸存者不断转移。",
+                "color": "gray"
+            },
+            "width": 480
+        }
+    ],
+    "inputs": [],
+    "can_close_with_escape": true,
+    "action": {
+        "label": {
+            "text": "返回感染阵营",
+            "color": "green"
+        },
+        "action": {
+            "type": "minecraft:show_dialog",
+            "dialog": "escape_island:profession/zombie_menu"
+        }
+    }
+}

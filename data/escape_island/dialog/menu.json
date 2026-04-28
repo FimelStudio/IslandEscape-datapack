@@ -2,7 +2,9 @@
     "type": "minecraft:multi_action",
     "pause": false,
     "title": {
-        "text": "快捷菜单"
+        "text": "      快捷菜单",
+        "color": "white",
+        "bold": true
     },
     "external_title": {
         "text": "快捷菜单",
@@ -35,101 +37,118 @@
                 {
                     "text": "\n"
                 }
-            ]
+            ],
+            "width": 480
         }
     ],
     "columns": 1,
     "actions": [
         {
-            "label": "地图介绍",
+            "label": "游戏背景",
             "action": {
-                "type": "show_dialog",
+                "type": "minecraft:show_dialog",
                 "dialog": {
                     "type": "minecraft:notice",
-                    "title": "地图介绍",
+                    "pause": false,
+                    "title": {
+                        "text": "      游戏背景",
+                        "color": "gold",
+                        "bold": true
+                    },
                     "body": [
                         {
                             "type": "minecraft:plain_message",
-                            "contents": [
-                                {
-                                    "text": ""
-                                },
-                                {
-                                    "text": "wifi's MiniGames",
-                                    "color": "yellow",
-                                    "bold": true
-                                },
-                                {
-                                    "text": "\n一个集合多种小游戏为一张地图的项目。\n该项目您可以在 GitHub 上找到。\n您可以在本地图许可证范围内对地图进行修改。\n许可证请查看地图目录中 ",
-                                    "color": "aqua"
-                                },
-                                {
-                                    "text": "LISENCE",
-                                    "color": "green",
-                                    "underlined": true,
-                                    "click_event": {
-                                        "action": "open_url",
-                                        "url": "https://github.com/wifi-left/Map-MiniGames/blob/master/LISENCE"
-                                    }
-                                },
-                                {
-                                    "text": " 找到。\n",
-                                    "color": "aqua"
-                                },
-                                {
-                                    "text": "\n祝您游玩本地图愉快！\n",
-                                    "color": "light_purple"
-                                }
-                            ]
+                            "contents": {
+                                "text": "一支幸存者小队被迫滞留在远离大陆的研究岛。通讯中断、设施停摆，岛上残留的感染样本开始失控。",
+                                "color": "gray"
+                            },
+                            "width": 480
                         },
                         {
                             "type": "minecraft:plain_message",
-                            "contents": [
-                                {
-                                    "text": "【主创作者】\n",
-                                    "color": "gold"
-                                },
-                                {
-                                    "text": "wifi_left (wifi_right)",
-                                    "color": "aqua"
-                                },
-                                "\n\n",
-                                {
-                                    "text": "【特别感谢】\n",
-                                    "color": "gold"
-                                },
-                                "",
-                                {
-                                    "text": "616789\nDomnick_JYH\nlawyer112 \u00a7e(服务器支持)\n\u00a7b00ɹɐəlϽ \u00a7e(战利品表)\u00a7b\nLateTea\nWemsur\n残月sama\n墨安",
-                                    "color": "aqua"
-                                },
-                                "\n\n",
-                                {
-                                    "text": "【建筑师团队】\n",
-                                    "color": "gold"
-                                },
-                                {
-                                    "text": "616789\nDomnick_JYH\nlawyer112 \u00a7e(协助烫手的山芋地图#1)\u00a7b\nBadt_i_m_e \u00a77(早期)\n\u00a7bmelon_444 \u00a77(早期)\u00a7b\nCreatorLizard \u00a77(早期)\u00a7b\nSR_AJ67 \u00a77(早期)\u00a7b\nthework \u00a77(早期)\u00a7b\n毒岛渡鸦丶 \u00a77(有偿)\u00a7b\n\u00a77... ...",
-                                    "color": "aqua"
-                                },
-                                "\n\n",
-                                {
-                                    "text": "【测试团队】\n",
-                                    "color": "gold"
-                                },
-                                {
-                                    "text": "wifi_left (wifi_right)\n616789\nlawyer112\nDomnick_JYH\n\u00a77...\n\u00a7a以及支持 MiniGames 的小伙伴们！~",
-                                    "color": "aqua"
-                                }
-                            ]
+                            "contents": {
+                                "text": "最危险的不是已经暴露的感染体，而是潜伏在人群中的母体。它看起来仍像普通幸存者，却能在夜色、混乱和不信任中扩散感染。",
+                                "color": "dark_red"
+                            },
+                            "width": 480
+                        },
+                        {
+                            "type": "minecraft:plain_message",
+                            "contents": {
+                                "text": "岛上仍有信号塔、发电机、船只、实验室和撤离设施。幸存者必须抢时间完成任务；感染阵营则要拖慢、分割并最终转化所有人。",
+                                "color": "gray"
+                            },
+                            "width": 480
                         }
                     ],
-                    "pause": false,
-                    "after_action": "close",
+                    "can_close_with_escape": true,
                     "action": {
-                        "label": "返回",
+                        "label": {
+                            "text": "返回菜单",
+                            "color": "green"
+                        },
                         "action": {
-                            "type": "show_dialog",
+                            "type": "minecraft:show_dialog",
+                            "dialog": "escape_island:menu"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "label": "游戏玩法",
+            "action": {
+                "type": "minecraft:show_dialog",
+                "dialog": {
+                    "type": "minecraft:notice",
+                    "pause": false,
+                    "title": {
+                        "text": "      游戏玩法",
+                        "color": "aqua",
+                        "bold": true
+                    },
+                    "body": [
+                        {
+                            "type": "minecraft:plain_message",
+                            "contents": {
+                                "text": "幸存者目标：探索岛屿、搜集物资、修复关键设施，并通过直升机、船只、潜艇或其他路线撤离。",
+                                "color": "gray"
+                            },
+                            "width": 480
+                        },
+                        {
+                            "type": "minecraft:plain_message",
+                            "contents": {
+                                "text": "感染阵营目标：母体保持身份隐藏，利用冲刺、感知、吞噬和孢子召唤制造减员；普通感染体负责追击、压迫和破坏任务节奏。",
+                                "color": "dark_red"
+                            },
+                            "width": 480
+                        },
+                        {
+                            "type": "minecraft:plain_message",
+                            "contents": {
+                                "text": "核心规则：感染不是一次命中立刻转化，而是先积累孢子污染。污染叠满后进入感染期，若未及时处理，玩家会转化为普通感染体。",
+                                "color": "yellow"
+                            },
+                            "width": 480
+                        },
+                        {
+                            "type": "minecraft:plain_message",
+                            "contents": {
+                                "text": "行动建议：不要长期单走；发现队友失踪、路线异常或任务点被拖慢时，优先汇报位置和状态。杀死母体只能争取时间，完成撤离才是主要胜利路径。",
+                                "color": "gray"
+                            },
+                            "width": 480
+                        }
+                    ],
+                    "can_close_with_escape": true,
+                    "action": {
+                        "label": {
+                            "text": "返回菜单",
+                            "color": "green"
+                        },
+                        "action": {
+                            "type": "minecraft:show_dialog",
                             "dialog": "escape_island:menu"
                         }
                     }
@@ -139,33 +158,26 @@
         {
             "label": "身份介绍",
             "action": {
-                "type": "show_dialog",
+                "type": "minecraft:show_dialog",
                 "dialog": "escape_island:profession/pfs_menu"
             }
         },
         {
             "label": "游戏设置",
             "action": {
-                "type": "show_dialog",
+                "type": "minecraft:show_dialog",
                 "dialog": {
                     "columns": 1,
                     "pause": false,
                     "type": "minecraft:multi_action",
-                    "title": "地图背景音乐设置",
+                    "title": "游戏设置",
                     "body": [
                         {
                             "type": "minecraft:plain_message",
-                            "contents": [
-                                {
-                                    "text": "启用或者禁用地图音乐。\n您也可以关闭声音选项中的"
-                                },
-                                {
-                                    "translate": "soundCategory.voice"
-                                },
-                                {
-                                    "text": "来调整音乐声音大小。"
-                                }
-                            ]
+                            "contents": {
+                                "text": "设置入口已预留，具体选项后续接入。",
+                                "color": "gray"
+                            }
                         }
                     ],
                     "actions": [
@@ -175,8 +187,8 @@
                                 "color": "green"
                             },
                             "action": {
-                                "type": "run_command",
-                                "command": "say 1"
+                                "type": "minecraft:run_command",
+                                "command": "trigger ie.dialog set 101"
                             }
                         },
                         {
@@ -185,14 +197,14 @@
                                 "color": "red"
                             },
                             "action": {
-                                "type": "run_command",
-                                "command": "say 1"
+                                "type": "minecraft:run_command",
+                                "command": "trigger ie.dialog set 102"
                             }
                         },
                         {
                             "label": "返回",
                             "action": {
-                                "type": "show_dialog",
+                                "type": "minecraft:show_dialog",
                                 "dialog": "escape_island:menu"
                             }
                         }
@@ -207,7 +219,7 @@
             "label": "返回大厅",
             "action": {
                 "type": "minecraft:run_command",
-                "command": "tellraw @a {text:\"yes\"}"
+                "command": "trigger ie.dialog set 103"
             }
         }
     ],

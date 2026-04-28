@@ -1,40 +1,42 @@
 {
     "type": "minecraft:multi_action",
     "pause": false,
-    "title": "身份介绍",
+    "title": {
+        "text": "     感染者身份",
+        "color": "dark_red",
+        "bold": true
+    },
     "columns": 2,
     "body": [
         {
             "type": "minecraft:plain_message",
-            "contents": [
-                {
-                    "text": "感染者阵营"
-                }
-            ]
+            "contents": {
+                "text": "感染者分为隐藏的母体和暴露的普通感染体。母体负责制造第一波混乱，感染体负责追击、压迫和拖慢任务。",
+                "color": "gray"
+            },
+            "width": 480
         },
         {
             "type": "minecraft:plain_message",
             "contents": [
                 {
-                    "text": "(切换阵营)",
-                    "color": "gray",
+                    "text": "切换到 ",
+                    "color": "dark_gray"
+                },
+                {
+                    "text": "幸存者阵营",
+                    "color": "aqua",
+                    "bold": true,
                     "click_event": {
                         "action": "show_dialog",
                         "dialog": "escape_island:profession/pfs_menu"
                     },
                     "hover_event": {
                         "action": "show_text",
-                        "value": [
-                            {
-                                "text": "点击切换",
-                                "color": "white"
-                            },
-                            {
-                                "text": "幸存者阵营",
-                                "color": "aqua",
-                                "bold": true
-                            }
-                        ]
+                        "value": {
+                            "text": "查看幸存者职业",
+                            "color": "white"
+                        }
                     }
                 }
             ]
@@ -42,45 +44,38 @@
     ],
     "actions": [
         {
-            "label": "感染源",
+            "label": "母体",
             "action": {
-                "type": "run_command",
-                "command": "say 1"
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/mother"
             }
         },
         {
             "label": "普通感染体",
             "action": {
-                "type": "show_dialog",
-                "dialog": "escape_island:profession/dentist"
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/zombie"
             }
         },
         {
-            "label": "舔食者",
+            "label": "潜伏宿主",
             "action": {
-                "type": "show_dialog",
-                "dialog": "escape_island:profession/dentist"
+                "type": "minecraft:run_command",
+                "command": "trigger ie.dialog set 301"
             }
         },
         {
-            "label": "循声者",
+            "label": "特殊感染体",
             "action": {
-                "type": "run_command",
-                "command": "say 1"
-            }
-        },
-        {
-            "label": "伪装者",
-            "action": {
-                "type": "show_dialog",
-                "dialog": "escape_island:menu"
+                "type": "minecraft:run_command",
+                "command": "trigger ie.dialog set 302"
             }
         }
     ],
     "exit_action": {
         "label": "返回",
         "action": {
-            "type": "show_dialog",
+            "type": "minecraft:show_dialog",
             "dialog": "escape_island:menu"
         }
     }

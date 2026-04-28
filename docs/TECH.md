@@ -88,7 +88,6 @@ IslandEscape-datapack/
 │   │   ├── advancement/
 │   │   │   ├── athlete/
 │   │   │   ├── mother/
-│   │   │   ├── infected/
 │   │   │   └── common/
 │   │   ├── function/
 │   │   │   ├── init.mcfunction
@@ -99,7 +98,6 @@ IslandEscape-datapack/
 │   │   │   ├── common/
 │   │   │   ├── doctor/
 │   │   │   ├── engineer/
-│   │   │   ├── infected/
 │   │   │   ├── mechanic/
 │   │   │   ├── mother/
 │   │   │   ├── priest/
@@ -171,7 +169,8 @@ IslandEscape-datapack/
 | `role.mother` | 母体（专属，全局唯一） |
 | `role.latent_host` | 17–20 人局潜伏宿主，觉醒前仍按幸存者处理 |
 | `role.secondary_mother` | 潜伏宿主觉醒后的次级母体 |
-| `role.infected` | 普通感染者 |
+| `role.infected` | 普通感染者（游戏进程内部身份） |
+| `zombie` | 感染者技能目标标签；普通感染者转化/调试赋予时同步添加 |
 | `role.doctor`, `role.captain`, ..., `role.priest` | 具体职业（10 个） |
 | `state.infected_period` | 感染期中 |
 | `state.boarding` | 已上交通工具 |
@@ -326,7 +325,7 @@ tick (每 tick)
 ### 事件回调（advancement → function）
 
 ```
-skill/doctor_inject.json (advancement)
+skill/doctor/inject.json (advancement)
   trigger: minecraft:player_interacted_with_entity
   conditions: 物品有 role.doctor.inject 标签 + 目标是感染期玩家
   reward: function skill:doctor/inject
@@ -346,7 +345,7 @@ infection/consume_antidote.json
 1.21 中 `minecraft:player_interacted_with_entity` advancement 在右键实体时触发。配合物品 `consumable` 组件控制行为。
 
 ```json
-// data/skill/advancement/doctor_inject.json
+// data/skill/advancement/doctor/inject.json
 {
   "criteria": {
     "trigger": {
@@ -606,19 +605,22 @@ role_mother.json            — 母体三件套
 
 | Advancement | Trigger | 用途 |
 |---|---|---|
-| `skill/doctor_inject` | `player_interacted_with_entity` | 解毒针 |
-| `skill/captain_horn` | `using_item` (goat_horn) | 哨子 |
-| `skill/engineer_battery` | `placed_block` | 电池 |
+| `skill/doctor/inject` | `player_interacted_with_entity` | 解毒针 |
+| `skill/captain/horn` | `using_item` (goat_horn) | 哨子 |
+| `skill/engineer/battery` | `placed_block` | 电池 |
 | `skill/marine_suppress` | `shot_crossbow` | 压制 |
-| `skill/chef_stew` | `using_item` (mushroom_stew) | 热汤 |
-| `skill/radio_sweep` | `using_item` (compass) | 信号扫描 |
-| `skill/virologist_reagent` | `using_item` (potion) | 检测剂 |
-| `skill/mechanic_trap` | `placed_block` | 陷阱 |
-| `skill/sailor_dash` | `using_item` (feather) | 冲刺 |
+| `skill/chef/stew` | `using_item` (mushroom_stew) | 热汤 |
+| `skill/radio/sweep` | `using_item` (compass) | 信号扫描 |
+| `skill/virologist/reagent` | `using_item` (potion) | 检测剂 |
+| `skill/mechanic/trap` | `placed_block` | 陷阱 |
+| `skill/sailor/dash` | `using_item` (feather) | 冲刺 |
 | `skill/priest_cross` | `entity_hurt_player` (when fatal) | 祝福被动监听 |
-| `skill/mother_lunge` | `using_item` (firework) | 母体冲刺 |
-| `skill/mother_rotsense` | `using_item` (spider_eye) | 感知 |
-| `skill/mother_howl` | `using_item` (fermented_spider_eye, consumable 999s) | 孢子召唤 |
+| `skill/mother/lunge` | `using_item` (firework) | 母体冲刺 |
+| `skill/mother/rotsense` | `using_item` (spider_eye) | 感知 |
+| `skill/mother/howl` | `using_item` (fermented_spider_eye, consumable 999s) | 孢子召唤 |
+| `skill/mother/eat/eat_entity` | `consume_item` (red_dye) | 吞噬感染体 |
+| `skill/mother/eat/use_zombie_editor` | `consume_item` (structure_void) | 编辑被吞噬的感染体 |
+| `skill/mother/eat/release_entity` | `consume_item` (slime_ball) | 吐出感染体 |
 | `interaction/repair_signal` | `using_item` (cable) at marker | 信号塔修复 |
 | `interaction/place_battery` | `placed_block` | 给发电机投电池 |
 | `interaction/drink_disguise` | `consume_item` (potion) | 母体伪装 |

@@ -69,6 +69,12 @@ scoreboard objectives add mother_regen_cd dummy
 scoreboard objectives add used_firework minecraft.used:minecraft.firework_rocket
 scoreboard objectives add used_firework_last dummy
 scoreboard objectives add test_count dummy
+scoreboard objectives add skill.mother_eat dummy
+scoreboard objectives add skill.mother_eat_anim dummy
+scoreboard objectives add ie.dialog trigger
+scoreboard objectives add ie.eat_health trigger
+scoreboard players enable @a ie.dialog
+scoreboard players enable @a ie.eat_health
 
 function escape_island:tunable
 

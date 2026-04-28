@@ -1,6 +1,0 @@
-# 此文件由动画模型工具生成，不建议手动编辑。
-data modify storage animated_java:temp args.current_uuid set from storage animated_java:temp uuids[-1].uuid
-data remove storage animated_java:temp uuids[-1]
-function animated_java:global/remove/entity_stack_by_uuid with storage animated_java:temp args
-scoreboard players remove #aj.length aj.i 1
-execute if score #aj.length aj.i matches 1.. run function animated_java:global/remove/as_data/loop_over_uuids

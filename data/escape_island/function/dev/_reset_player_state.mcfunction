@@ -2,6 +2,7 @@ clear @s
 tag @s remove role.survivor
 tag @s remove role.mother
 tag @s remove role.infected
+tag @s remove zombie
 tag @s remove role.doctor
 tag @s remove doctor
 tag @s remove role.captain
@@ -20,6 +21,11 @@ tag @s remove athlete
 tag @s remove adren_active
 tag @s remove sliding
 tag @s remove slide_locked
+tag @s remove mother_eating
+tag @s remove mother_eat_fired
+tag @s remove mother_eat_absorbing
+tag @s remove eaten_zombie
+scoreboard players reset @s skill.mother_eat_anim
 tag @s remove state.infected_period
 tag @s remove state.sporifying
 tag @s remove state.dead

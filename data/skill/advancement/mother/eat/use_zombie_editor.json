@@ -1,0 +1,22 @@
+{
+    "criteria": {
+        "use_zombie_editor": {
+            "trigger": "consume_item",
+            "conditions": {
+                "item": {
+                    "components": {
+                        "custom_data": {
+                            "skill": "mother/zombie_editor"
+                        }
+                    }
+                },
+                "player": {
+                    "nbt": "{Tags:[\"role.mother\"]}"
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "skill:mother/eat/zombie_editor"
+    }
+}
