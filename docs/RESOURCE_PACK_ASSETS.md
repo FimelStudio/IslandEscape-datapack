@@ -32,9 +32,8 @@
 
 | 资产 | 建议 id | 当前/计划载体 | 逻辑标识 | 用途 |
 |---|---|---|---|---|
-| 母体猎食冲刺 | `ie:item/mother_lunge` | `firework_rocket` | `role_item:"mother.lunge"` | 母体冲刺技能 |
-| 腐臭感知 | `ie:item/mother_rotsense` | `spider_eye` | `role_item:"mother.rotsense"` | 母体侦察技能 |
-| 孢子召唤 | `ie:item/mother_howl` | `fermented_spider_eye` | `role_item:"mother.howl"` | 母体集合 buff |
+| 腐痕感知 | `ie:item/mother_trail_sense` | `spider_eye` | `role_item:"mother.trail_sense"` | 显示附近幸存者脚印 |
+| 集群嚎叫 | `ie:item/mother_howl` | `fermented_spider_eye` | `role_item:"mother.howl"` | 感染者集合 buff |
 | X-7 伪装试剂 | `ie:item/x7_disguise` | `potion` | `role_item:"mother.disguise"` | 母体伪装路线 |
 | 海军压制射击 | `ie:item/marine_suppressor` | 当前为 `crossbow` | `skill:"marine_suppress"` | 海军陆战队员主动控制技能 |
 | 感染者陷阱 | `ie:item/infected_trap` | `tripwire_hook` | `role_item:"mechanic.infected_trap"` | 机修工转化保留 |
@@ -68,7 +67,7 @@
 | 热汤锅 | `ie:entity/hot_soup_pot` | 厨师技能放置物 | 当前旧实现用隐形 armor stand 名字 |
 | 微型电池放置物 | `ie:entity/battery_node` | 工程师技能区域 | marker + 粒子，资源包可加小模型 |
 | 机关陷阱放置物 | `ie:entity/trap_node` | 机修工陷阱 | 需要小而可发现，不应过亮 |
-| 孢子洞/复活点 | `ie:block/spore_den` 或 `ie:entity/spore_den` | 感染者/母体复活点 | 用于地图点位强化 |
+| 孢子洞/复活点 | `ie:block/spore_den` 或 `ie:entity/spore_den` | 感染者复活表现 / 母巢崩坏表现 | 用于地图点位强化 |
 | 信号塔修复部件 | `ie:block/signal_tower_panel` | 任务点 | 可配合地图方块或 display 模型 |
 | 发电机 | `ie:entity/generator` | 任务点 | 可配合燃料投入反馈 |
 
@@ -151,7 +150,7 @@ title @p[distance=..16] title {"text":"\uE002","font":"ie:hud"}
 | 肾上腺素注射/呼吸 | `ie:skill.adrenaline` | `minecraft:entity.player.breath` | 运动员技能 |
 | 感染心跳 | `ie:infection.heartbeat` | `minecraft:entity.warden.heartbeat` | 污染/感染期 |
 | 孢化完成 | `ie:infection.sporify` | 待定 | 幸存者死亡转化 |
-| 孢子洞复活 | `ie:infection.respawn` | 待定 | 感染者/母体复活 |
+| 孢子洞复活 | `ie:infection.respawn` | 待定 | 感染者复活 / 母巢崩坏提示 |
 | 直升机远处旋翼 | `ie:escape.helicopter_far` | `minecraft:entity.ender_dragon.flap` | 呼叫直升机 |
 | 直升机到达/起飞 | `ie:escape.helicopter_arrive` / `ie:escape.helicopter_takeoff` | `minecraft:entity.ender_dragon.growl` | 撤离高潮 |
 | 无线电杂讯 | `ie:event.radio_static` | `minecraft:block.note_block.pling` | 环境事件 |
