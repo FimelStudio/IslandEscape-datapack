@@ -24,7 +24,11 @@ scoreboard objectives add cd_mother_rotsense dummy
 scoreboard objectives add cd_mother_howl dummy
 scoreboard objectives add kit_remaining dummy
 scoreboard objectives add signal_progress dummy
+scoreboard objectives add signal_done dummy
+scoreboard objectives add signal_repair_time dummy
+scoreboard objectives add signal_repair_seen dummy
 scoreboard objectives add gen_progress dummy
+scoreboard objectives add gen_done dummy
 scoreboard objectives add ship_progress dummy
 scoreboard objectives add ship_parts dummy
 scoreboard objectives add lab_cards dummy

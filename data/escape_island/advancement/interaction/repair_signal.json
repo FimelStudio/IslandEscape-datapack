@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "hold": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "item": {
+          "predicates": {
+            "minecraft:custom_data": "{item:\"cable\"}"
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "escape_island:task/signal_tower_hold"
+  }
+}
