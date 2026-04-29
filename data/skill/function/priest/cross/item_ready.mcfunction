@@ -1,0 +1,1 @@
+give @s minecraft:nautilus_shell[minecraft:custom_data={skill:"priest_cross",role_item:"survivor.skill"},minecraft:custom_name={text:"神圣十字架",color:"gold",bold:true,italic:false},minecraft:lore=[{text:"被动触发: 阻挡致命伤害或感染转化",color:"gray",italic:false}]] 1

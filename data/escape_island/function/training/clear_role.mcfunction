@@ -24,7 +24,8 @@ tag @s remove role.sailor
 tag @s remove role.athlete
 tag @s remove athlete
 tag @s remove role.priest
-tag @s remove role.mother
+tag @s remove cross_active
+tag @s remove flag.cross_intact
 tag @s remove role.infected
 tag @s remove adren_active
 tag @s remove sliding

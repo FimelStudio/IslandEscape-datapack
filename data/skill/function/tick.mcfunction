@@ -7,3 +7,4 @@ function skill:chef/tick
 function skill:radio/tick
 function skill:virologist/tick
 function skill:mechanic/tick
+function skill:priest/tick

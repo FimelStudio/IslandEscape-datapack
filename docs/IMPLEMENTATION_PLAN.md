@@ -355,7 +355,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `data/skill/function/engineer/{init,tick,cleanup_non_engineer}.mcfunction`
 - [x] `data/skill/function/engineer/battery/{config,init,use,start,tick,item_ready,item_cooldown,recall}.mcfunction`
 - [x] `data/skill/advancement/engineer/battery/use.json`
-- [ ] 工程师游戏内手测通过后再进入海军陆战队员实现
+- [x] 工程师游戏内手测通过后再进入海军陆战队员实现
 
 海军陆战队员：
 - [x] `data/skill/function/marine/{init,tick,cleanup_non_marine}.mcfunction`
@@ -385,7 +385,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `data/skill/function/mechanic/{init,tick,cleanup_non_mechanic}.mcfunction`
 - [x] `data/skill/function/mechanic/trap/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
 - [x] `data/skill/advancement/mechanic/trap/use.json`
-- [ ] 机修工游戏内手测通过后再进入神父实现
+- [x] 机修工游戏内手测通过后再进入神父实现
 
 神父：
 - [ ] `data/skill/function/priest/{init,tick,cleanup_non_priest}.mcfunction`

@@ -8,4 +8,5 @@ function skill:chef/init
 function skill:radio/init
 function skill:virologist/init
 function skill:mechanic/init
+function skill:priest/init
 tellraw @a {"text":"初始化完成","color":"green"}
