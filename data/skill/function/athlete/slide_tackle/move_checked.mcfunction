@@ -11,7 +11,8 @@ tag @s remove slide_drop_030
 tag @s remove slide_drop_015
 tag @s remove slide_drop_008
 
-$execute rotated as @s rotated ~ 0 on vehicle positioned as @s if entity @s[type=minecraft:silverfish,tag=slide_vehicle] unless block ^ ^0.25 ^$(speed) #skill:slide_passable on passengers if entity @s[type=minecraft:player,tag=sliding] run tag @s add slide_blocked
+$execute rotated as @s rotated ~ 0 on vehicle positioned as @s if entity @s[type=minecraft:silverfish,tag=slide_vehicle] unless block ^ ^0.25 ^$(speed) #skill:slide_passable unless block ^ ^0.25 ^$(speed) #skill:slide_low_floor_passable unless block ^ ^0.25 ^$(speed) #minecraft:slabs[type=bottom] on passengers if entity @s[type=minecraft:player,tag=sliding] run tag @s add slide_blocked
+$execute rotated as @s rotated ~ 0 on vehicle positioned as @s if entity @s[type=minecraft:silverfish,tag=slide_vehicle] if block ^ ^0.25 ^$(speed) #minecraft:slabs[type=bottom] unless block ^ ^1.25 ^$(speed) #skill:slide_passable on passengers if entity @s[type=minecraft:player,tag=sliding] run tag @s add slide_blocked
 $execute rotated as @s rotated ~ 0 on vehicle positioned as @s if entity @s[type=minecraft:silverfish,tag=slide_vehicle] unless block ^ ^1.25 ^$(speed) #skill:slide_head_passable on passengers if entity @s[type=minecraft:player,tag=sliding] run tag @s add slide_blocked
 
 $execute rotated as @s rotated ~ 0 on vehicle positioned as @s if entity @s[type=minecraft:silverfish,tag=slide_vehicle] if block ^ ^-0.1 ^$(speed) #skill:slide_passable if block ^ ^-0.35 ^$(speed) #skill:slide_passable on passengers if entity @s[type=minecraft:player,tag=sliding] run tag @s add slide_falling

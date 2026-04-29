@@ -133,7 +133,7 @@ data/skill/advancement/<职业>/<技能>/
 - [x] `escape_island:function/load.mcfunction`：删除 `cd_sailor` scoreboard 注册（运动员 scoreboard 已由 `skill:athlete/init` 注册）
 - [x] 从旧 `skill:common/cooldown_tick` 移除水手冷却递减
 - [x] 确认 `data/minecraft/tags/function/tick.json` 包含 `skill:athlete/tick`
-- [x] 训练发套件、正式分配、重置、转化清理均接入 `role.athlete` / `athlete`
+- [x] 训练发套件、正式分配、重置、转化清理均接入 `role.athlete`
 - [x] 运动员游戏内手测通过
 
 #### 船医（doctor）— 解毒针（antidote）
@@ -331,7 +331,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `escape_island:game/_tick_20` / `training/_tick_20`：`role.sailor` → `role.athlete`
 - [x] `escape_island:function/load`：删除 `cd_sailor` 注册
 - [x] `skill:common/cooldown_tick` 移除旧水手冷却递减
-- [x] 正式分配、训练套件、重置、转化清理接入 `role.athlete` / `athlete`
+- [x] 正式分配、训练套件、重置、转化清理接入 `role.athlete`
 - [ ] 等待游戏内手测通过
 
 船医：

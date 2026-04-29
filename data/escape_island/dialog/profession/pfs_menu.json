@@ -20,13 +20,8 @@
             "type": "minecraft:plain_message",
             "contents": [
                 {
-                    "text": "切换到 ",
-                    "color": "dark_gray"
-                },
-                {
-                    "text": "感染阵营",
-                    "color": "dark_red",
-                    "bold": true,
+                    "text": "点击切换阵营",
+                    "color": "dark_gray",
                     "click_event": {
                         "action": "show_dialog",
                         "dialog": "escape_island:profession/zombie_menu"
@@ -34,8 +29,9 @@
                     "hover_event": {
                         "action": "show_text",
                         "value": {
-                            "text": "查看母体与感染体",
-                            "color": "white"
+                            "text": "感染阵营",
+                            "color": "dark_red",
+                            "bold": true
                         }
                     }
                 }

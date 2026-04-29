@@ -11,7 +11,6 @@ tag @s add role.radio
 tag @s add role.virologist
 tag @s add role.mechanic
 tag @s add role.athlete
-tag @s add athlete
 tag @s add role.priest
 tag @s add flag.cross_intact
 

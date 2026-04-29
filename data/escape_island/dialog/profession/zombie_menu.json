@@ -20,13 +20,8 @@
             "type": "minecraft:plain_message",
             "contents": [
                 {
-                    "text": "切换到 ",
-                    "color": "dark_gray"
-                },
-                {
-                    "text": "幸存者阵营",
-                    "color": "aqua",
-                    "bold": true,
+                    "text": "点击切换阵营",
+                    "color": "dark_gray",
                     "click_event": {
                         "action": "show_dialog",
                         "dialog": "escape_island:profession/pfs_menu"
@@ -34,8 +29,9 @@
                     "hover_event": {
                         "action": "show_text",
                         "value": {
-                            "text": "查看幸存者职业",
-                            "color": "white"
+                            "text": "幸存者阵营",
+                            "color": "aqua",
+                            "bold": true
                         }
                     }
                 }
