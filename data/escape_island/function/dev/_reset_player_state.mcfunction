@@ -18,6 +18,7 @@ tag @s remove radio
 tag @s remove role.virologist
 tag @s remove virologist
 tag @s remove role.mechanic
+tag @s remove mechanic
 tag @s remove role.sailor
 tag @s remove role.athlete
 tag @s remove role.priest
@@ -30,6 +31,8 @@ tag @s remove mother_eat_fired
 tag @s remove mother_eat_absorbing
 tag @s remove eaten_zombie
 scoreboard players reset @s skill.mother_eat_anim
+scoreboard players set @s skill.trap_charges 0
+scoreboard players set @s skill.trap_place_cd 0
 tag @s remove state.infected_period
 tag @s remove state.sporifying
 tag @s remove state.dead

@@ -291,7 +291,7 @@ scoreboard players set #warn_dur     skill.detector_cfg  60     # 3s 警告窗�
 ```
 scoreboard players set #hotbar_slot  skill.trap_cfg  6
 scoreboard players set #cooldown     skill.trap_cfg  1800   # 90s（充能时间=CD，非持续）
-scoreboard players set #range        skill.trap_cfg  1      # 0.8 格触发半径
+scoreboard players set #range        skill.trap_cfg  125    # 约 1.25 格触发半径
 scoreboard players set #slow_amp     skill.trap_cfg  1      # Slowness II
 scoreboard players set #slow_dur     skill.trap_cfg  80     # 4s = 80 tick
 scoreboard players set #glow_dur     skill.trap_cfg  600    # 30s glowing
@@ -299,8 +299,9 @@ scoreboard players set #max_traps    skill.trap_cfg  3      # 场上最多 3 个
 ```
 
 关键逻辑：
-- 触发后：在玩家脚下 `summon minecraft:marker ~ ~ ~ {Tags:["skill.trap_marker"]}` + 绿粒子标记（仅靠近可见）
-- tick：`execute as @a[tag=role.mother] at @s if entity @e[tag=skill.trap_marker,distance=..1,limit=1]` → 触发效果 + kill marker
+- 触发后：在玩家脚下 `summon minecraft:marker ~ ~ ~ {Tags:["skill.trap_marker"]}` + 绿粒子标记（幸存者可见）
+- 充能：最多 3 次充能，场上最多 3 个陷阱；充能不满时每 90 秒恢复 1 次
+- tick：`execute as @e[tag=role.mother] at @s if entity @e[tag=skill.trap_marker,distance=..1.25,limit=1]` → 触发效果 + kill marker
 - 同样检测 `tag=role.infected`
 - 幸存者不触发；感染者阵营可 sneak+use 拆除
 - 感染者机修工（转化保留）补发"感染者陷阱"（`custom_data.skill:"mechanic_infected_trap"`）
@@ -381,9 +382,10 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `data/skill/advancement/virologist/detector/use.json`
 
 机修工：
-- [ ] `data/skill/function/mechanic/{init,tick,cleanup_non_mechanic}.mcfunction`
-- [ ] `data/skill/function/mechanic/trap/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
-- [ ] `data/skill/advancement/mechanic/trap/use.json`
+- [x] `data/skill/function/mechanic/{init,tick,cleanup_non_mechanic}.mcfunction`
+- [x] `data/skill/function/mechanic/trap/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
+- [x] `data/skill/advancement/mechanic/trap/use.json`
+- [ ] 机修工游戏内手测通过后再进入神父实现
 
 神父：
 - [ ] `data/skill/function/priest/{init,tick,cleanup_non_priest}.mcfunction`

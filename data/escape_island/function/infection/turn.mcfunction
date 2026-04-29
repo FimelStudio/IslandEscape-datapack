@@ -32,6 +32,7 @@ tag @s remove radio
 tag @s remove role.virologist
 tag @s remove virologist
 tag @s remove role.mechanic
+tag @s remove mechanic
 tag @s remove role.sailor
 tag @s remove role.athlete
 tag @s remove athlete
@@ -43,6 +44,7 @@ tag @s add role.infected
 tag @s add zombie
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
+function skill:mechanic/cleanup_non_mechanic
 scoreboard players set @s role 12
 scoreboard players set @s skill.antidote_charges 0
 scoreboard players set @s skill.antidote_cd 0
@@ -62,11 +64,18 @@ scoreboard players set @s skill.soup_item 0
 scoreboard players set @s skill.soup_state 0
 scoreboard players set @s skill.soup_sec 0
 scoreboard players set @s skill.soup_last_sec 0
+scoreboard players set @s skill.trap_cd 0
+scoreboard players set @s skill.trap_state 0
+scoreboard players set @s skill.trap_place_cd 0
 
 attribute @s minecraft:attack_damage base set 4
 
 clear @s #skill:role_items
 clear @s minecraft:iron_axe
+
+execute if entity @s[tag=retained.mechanic] run function skill:mechanic/trap/config
+execute if entity @s[tag=retained.mechanic] run scoreboard players operation @s skill.trap_charges = #max_traps skill.trap_cfg
+execute if entity @s[tag=retained.mechanic] run function skill:mechanic/trap/update_item
 
 title @s title {"text":"§4感染","bold":true}
 title @s subtitle {"text":"§c你已被同化。扩散孢子。"}

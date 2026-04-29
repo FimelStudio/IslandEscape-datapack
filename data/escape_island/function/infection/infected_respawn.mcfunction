@@ -17,7 +17,7 @@ effect give @s minecraft:resistance 100 255 true
 execute at @s run particle minecraft:dust{color:[0.0,0.9,0.25],scale:1.4} ~ ~1 ~ 1 0.8 1 0.02 30 force @a
 playsound minecraft:entity.warden.emerge master @s ~ ~ ~ 0.8 0.8
 
-execute if entity @s[tag=role.mechanic] unless entity @e[tag=entity.mechanic_trap,limit=1] run give @s minecraft:tripwire_hook[minecraft:custom_data={role_item:"mechanic.infected_trap"},minecraft:custom_name={"text":"感染者陷阱","italic":false,"color":"dark_green"}] 1
+execute if entity @s[tag=retained.mechanic] run function skill:mechanic/trap/update_item
 
 execute if entity @s[tag=retained.priest] run effect give @s minecraft:resistance 200 1 true
 execute if entity @s[tag=retained.priest] run effect give @s minecraft:speed 200 0 true

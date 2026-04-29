@@ -19,6 +19,7 @@ tag @s remove radio
 tag @s remove role.virologist
 tag @s remove virologist
 tag @s remove role.mechanic
+tag @s remove mechanic
 tag @s remove role.sailor
 tag @s remove role.athlete
 tag @s remove athlete
@@ -36,6 +37,7 @@ tag @s remove skill.antidote_target
 tag @s remove skill.battery_recalled
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
+function skill:mechanic/cleanup_non_mechanic
 scoreboard players set @s role 0
 scoreboard players set @s cd_doctor 0
 scoreboard players set @s skill.antidote_charges 0
@@ -60,6 +62,12 @@ scoreboard players set @s skill.soup_item 0
 scoreboard players set @s skill.soup_state 0
 scoreboard players set @s skill.soup_sec 0
 scoreboard players set @s skill.soup_last_sec 0
+scoreboard players set @s skill.trap_cd 0
+scoreboard players set @s skill.trap_item 0
+scoreboard players set @s skill.trap_state 0
+scoreboard players set @s skill.trap_sec 0
+scoreboard players set @s skill.trap_charges 0
+scoreboard players set @s skill.trap_place_cd 0
 scoreboard players set @s skill.adren_time 0
 scoreboard players set @s skill.adren_cd 0
 scoreboard players set @s skill.slide_time 0
