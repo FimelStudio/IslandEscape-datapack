@@ -85,6 +85,58 @@
 | X 字准心命中反馈 (普通) | `ie:hud` 字体下的 `\uE001` | 命中普通感染者的准心反馈动画/图标 |
 | X 字准心命中反馈 (母体) | `ie:hud` 字体下的 `\uE002` | 命中母体/暴击的红色或金色准心反馈 |
 
+### HUD 字库：手枪命中反馈
+
+数据包当前已经在手枪命中函数里调用 `font:"ie:hud"`：
+
+```mcfunction
+title @p[distance=..16] times 0 5 5
+title @p[distance=..16] title {"text":"\uE001","font":"ie:hud"}
+title @p[distance=..16] title {"text":"\uE002","font":"ie:hud"}
+```
+
+资源包需要提供：
+
+| 资源 | 建议路径 | 码位 | 视觉 |
+|---|---|---|---|
+| HUD 字库定义 | `assets/ie/font/hud.json` | - | 注册命中反馈字符 |
+| 普通命中 X | `assets/ie/textures/font/hitmarker_x.png` | `\uE001` | 白色/浅灰 X，透明背景 |
+| 母体命中 X | `assets/ie/textures/font/hitmarker_x_mother.png` | `\uE002` | 红色或金色 X，透明背景 |
+
+建议图片规格：
+
+- 尺寸：`16x16` 或 `32x32` PNG，透明背景。
+- 图形：中心留空的四段短斜线，避免遮住准心主体。
+- 色彩：普通命中用白色或浅灰；母体命中用红色、暗红或金色。
+- 显示时长由数据包控制为 `5 tick`，资源包不需要做动画；若想做动画，后续可拆成多个码位逐 tick 轮播。
+
+示例 `assets/ie/font/hud.json`：
+
+```json
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "ie:font/hitmarker_x.png",
+      "ascent": 8,
+      "height": 16,
+      "chars": [
+        "\uE001"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "ie:font/hitmarker_x_mother.png",
+      "ascent": 8,
+      "height": 16,
+      "chars": [
+        "\uE002"
+      ]
+    }
+  ]
+}
+```
+
 ## 七、P0/P1 音效
 
 | 音效 | 建议 id | 当前替代 | 用途 |
