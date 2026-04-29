@@ -2,6 +2,8 @@ scoreboard players remove @a[scores={skill.pistol_fire_cd=1..}] skill.pistol_fir
 scoreboard players remove @a[tag=skill.pistol_reloading,scores={skill.pistol_reload=1..}] skill.pistol_reload 1
 
 execute as @a[tag=skill.pistol_reloading,scores={skill.pistol_reload=0}] run function skill:weapon/pistol/reload_finish
+execute as @a[scores={skill.pistol_swap=1..}] run function skill:weapon/pistol/swap_reload
+execute as @a unless entity @s[tag=skill.pistol_reloading] if items entity @s weapon.offhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol"}] run function skill:weapon/pistol/swap_reload
 
 tag @a remove skill.pistol_holding
 execute as @a if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol"}] run tag @s add skill.pistol_holding

@@ -412,7 +412,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] 海军陆战队员 kit：格洛克手枪 + 9mm 弹药 24 发。
 - [x] 接入手枪玩法入口：`weapon/pistol/fire`、`weapon/pistol/reload_start`、`weapon/pistol/reload_finish`、`weapon/pistol/tick`。
 - [x] 手枪玩法层读取 `custom_data.weapon = "pistol"`、弹匣剩余、装填状态和 9mm 弹药数量；开火/换弹同 tick 补回手枪。
-- [x] 右键开火；空匣右键或潜行右键进入 2 秒装填；0.2 秒是输入冷却，实际扣弹/伤害按 0.4 秒门控。
+- [x] 右键开火；F 键或空匣右键进入 2 秒装填；海军陆战队员保留潜行右键枪械精通；0.2 秒是输入冷却，实际扣弹/伤害按 0.4 秒门控。
 - [x] 命中结算按目标类型分流：普通目标 6 damage；母体 4 damage 基础值；幸存者/感染期互相无伤，感染者/母体不可使用枪械。
 - [x] 音效、枪口粒子、命中粒子均在玩家当前位置执行，避免声音留在触发点。
 - [ ] 验收: 开发沙盒中右键有枪模型/枪声反馈，枪不被消耗；可射击 8 发、空匣不能造成伤害、装填 2 秒、消耗 9mm 弹药、命中母体/感染者/幸存者符合阵营伤害规则。
