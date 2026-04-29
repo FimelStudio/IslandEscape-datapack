@@ -1,0 +1,15 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "player": {
+          "nbt": "{Tags:[\"marine\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:marine/gun_mastery/use"
+  }
+}

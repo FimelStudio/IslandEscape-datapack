@@ -10,6 +10,3 @@ execute as @a[tag=role.mother,tag=!state.dead,scores={mother_regen_cd=..0}] at @
 
 execute as @a[tag=role.mother,tag=!state.dead,scores={mother_hp=1..18}] at @s run effect give @s minecraft:speed 3 1 true
 execute as @a[tag=role.mother,tag=!state.dead,scores={mother_hp=1..18}] at @s run effect give @s minecraft:strength 3 0 true
-
-execute as @a[tag=role.mother,tag=!state.disguised,tag=!state.dead] at @s run particle minecraft:dust{color:[1.0,0.84,0.0],scale:0.9} ~ ~1 ~ 0.5 0.4 0.5 0.01 8 force @a[tag=role.virologist,distance=..4]
-execute as @a[tag=role.mother,tag=!state.disguised,tag=!state.dead] at @s run particle minecraft:dust{color:[1.0,0.84,0.0],scale:0.5} ~ ~1 ~ 0.4 0.3 0.4 0.01 2 force @a[tag=role.virologist,distance=5..8]

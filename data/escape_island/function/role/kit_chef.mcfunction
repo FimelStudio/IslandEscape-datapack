@@ -1,3 +1,7 @@
-give @s minecraft:mushroom_stew[minecraft:custom_data={role_item:"chef.stew"},minecraft:custom_name={"text":"热汤","italic":false,"color":"green"},minecraft:lore=[{"text":"放置 → 5分钟饮用锅（4心回血）","color":"gray","italic":false},{"text":"冷却: 180秒","color":"dark_gray","italic":false}]] 1
+tag @s add chef
+function skill:chef/hot_soup/config
+scoreboard players set @s skill.soup_cd 0
+scoreboard players set @s skill.soup_state 0
+function skill:chef/hot_soup/update_item
 give @s minecraft:cooked_porkchop 5
-tellraw @s {"text":"§a[厨师]§r 热汤: 放置汤锅供队友饮用。被动: 5格内队友回血 +20%。","color":"gray"}
+tellraw @s {"text":"§a[厨师]§r 热汤: 右键立即饮用回复4心。被动: 夜视 + 5格内队友热餐护盾。","color":"gray"}

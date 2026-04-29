@@ -1,3 +1,4 @@
+clear @s minecraft:redstone_torch[minecraft:custom_data~{skill:"engineer_battery"}]
 scoreboard players operation @s skill.battery_sec = @s skill.battery_cd
 scoreboard players operation @s skill.battery_sec /= #twenty skill.battery_cfg
 execute store result storage skill:engineer.battery item.sec int 1 run scoreboard players get @s skill.battery_sec

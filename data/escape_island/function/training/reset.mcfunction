@@ -7,9 +7,13 @@ tag @s remove captain
 tag @s remove role.engineer
 tag @s remove engineer
 tag @s remove role.marine
+tag @s remove marine
 tag @s remove role.chef
+tag @s remove chef
 tag @s remove role.radio
+tag @s remove radio
 tag @s remove role.virologist
+tag @s remove virologist
 tag @s remove role.mechanic
 tag @s remove role.sailor
 tag @s remove role.athlete
@@ -52,6 +56,9 @@ tag @s remove flag.first_attack
 tag @s remove skill.antidote_user
 tag @s remove skill.antidote_target
 tag @s remove skill.battery_recalled
+tag @s remove skill.gm_hit
+function skill:radio/cleanup_non_radio
+function skill:virologist/cleanup_non_virologist
 scoreboard players set @s spore_load 0
 scoreboard players set @s spore_decay_cd 0
 scoreboard players set @s infect_time 0
@@ -79,6 +86,19 @@ scoreboard players set @s skill.battery_item 0
 scoreboard players set @s skill.battery_state 0
 scoreboard players set @s skill.battery_sec 0
 scoreboard players set @s skill.battery_last_sec 0
+scoreboard players set @s skill.suppress_cd 0
+scoreboard players set @s skill.suppress_item 0
+scoreboard players set @s skill.suppress_state 0
+scoreboard players set @s skill.suppress_sec 0
+scoreboard players set @s skill.suppress_last_sec 0
+scoreboard players set @s skill.gm_burst 0
+scoreboard players set @s skill.gm_delay 0
+scoreboard players set @s skill.gm_input_cd 0
+scoreboard players set @s skill.soup_cd 0
+scoreboard players set @s skill.soup_item 0
+scoreboard players set @s skill.soup_state 0
+scoreboard players set @s skill.soup_sec 0
+scoreboard players set @s skill.soup_last_sec 0
 scoreboard players set @s cd_marine 0
 scoreboard players set @s cd_chef 0
 scoreboard players set @s cd_radio 0

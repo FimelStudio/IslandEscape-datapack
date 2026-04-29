@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "consume_item",
+      "conditions": {
+        "item": {
+          "predicates": {
+            "minecraft:custom_data": "{weapon:\"pistol\"}"
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:weapon/pistol/use"
+  }
+}

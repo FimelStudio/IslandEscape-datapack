@@ -421,13 +421,13 @@ M-7 不走原版弩战斗模型。实现目标是一个可替换的"手枪适配
 当前 demo 命令如下，仅作为输入/模型/音效参考，不是最终载体限制：
 
 ```mcfunction
-give @a minecraft:sugar[custom_name={text:"克洛格",color:"gray",bold:true,italic:false},lore=[{text:"右键使用",color:"gray",italic:false}],consumable={animation:"spyglass",consume_seconds:0,has_consume_particles:false,sound:{sound_id:""},on_consume_effects:[{type:"play_sound",sound:{sound_id:"ie:gunshot"}}]},use_cooldown={seconds:0.2},item_model="ie:gun"] 1
+give @a minecraft:sugar[custom_name={text:"克洛格",color:"gray",bold:true,italic:false},lore=[{text:"右键使用",color:"gray",italic:false}],consumable={animation:"spyglass",consume_seconds:0,has_consume_particles:false,sound:{sound_id:""},on_consume_effects:[{type:"play_sound",sound:{sound_id:"ie:gunshot"}}]},use_cooldown={seconds:0.2},item_model="ie:glock_gun"] 1
 ```
 
 接入规则：
 
 - 载体可沿用当前 demo，也可以换成其他更适合的物品；硬要求是：可右键触发、可应用手枪模型、可携带 `custom_data={weapon:"pistol",mag:<n>}`、不会与其他职业道具误判。
-- 若使用 demo 命令：`item_model="ie:gun"` 显示枪模型，`consume_seconds:0` 让右键即时触发，`use_cooldown.seconds=0.2` 做输入防抖，`ie:gunshot` 播放开火音效。
+- 若使用 demo 命令：`item_model="ie:glock_gun"` 显示枪模型，`consume_seconds:0` 让右键即时触发，`use_cooldown.seconds=0.2` 做输入防抖，`ie:gunshot` 播放开火音效。
 - 发给玩家时必须携带 `custom_data={weapon:"pistol",mag:8,role_item:"survivor.pistol"}` 或等价数据；9mm 弹药仍使用 `minecraft:iron_nugget` + `custom_data={ammo:1}`。
 - 右键触发后进入手枪玩法函数（建议命名 `escape_island:weapon/pistol/fire`）；若弹匣为 0 或玩家潜行右键，则进入 `reload_start`，2 秒后 `reload_finish` 消耗 9mm 补满弹匣。
 - 框架输入冷却为 0.2 秒，但实际扣弹/伤害门控为 0.4 秒（8 tick），防止全员手枪射速过高。
@@ -556,7 +556,7 @@ armor_stand 上加可坐 boat 实体作为座位。玩家上座 → 监听 `Vehi
 | 没有原生 camera shake | display entity overlay 短暂位移模拟 |
 | 没有原生 vignette | `text_display` 全屏覆盖 + alpha 渐变 |
 | 玩家不能强制播放真正的倒地动画 | 锁定玩家本体 + 隐形 `minecraft:marker` 位置锚点；不使用可见盔甲架身体代理 |
-| 原版弩不符合 M-7 手枪体感 | 使用可替换右键枪载体（demo 为 `minecraft:sugar` + `item_model="ie:gun"`），弹匣、装填、伤害和阵营过滤全部由函数结算 |
+| 原版弩不符合 M-7 手枪体感 | 使用可替换右键枪载体（当前为 `minecraft:sugar` + `item_model="ie:glock_gun"`），弹匣、装填、伤害和阵营过滤全部由函数结算 |
 | 物品 NBT 体积 | 用最简 custom_data + 索引到 lookup table，避免内联巨大数据 |
 
 ---
@@ -610,8 +610,8 @@ role_mother.json            — 母体三件套
 | `skill/engineer/battery` | `placed_block` | 电池 |
 | `skill/marine_suppress` | `shot_crossbow` | 压制 |
 | `skill/chef/stew` | `using_item` (mushroom_stew) | 热汤 |
-| `skill/radio/sweep` | `using_item` (compass) | 信号扫描 |
-| `skill/virologist/reagent` | `using_item` (potion) | 检测剂 |
+| `skill/radio/signal_scan/use` | `consume_item` (compass) | 信号扫描 |
+| `skill/virologist/detector/use` | `consume_item` (glass_bottle) | 检测剂 |
 | `skill/mechanic/trap` | `placed_block` | 陷阱 |
 | `skill/sailor/dash` | `using_item` (feather) | 冲刺 |
 | `skill/priest_cross` | `entity_hurt_player` (when fatal) | 祝福被动监听 |

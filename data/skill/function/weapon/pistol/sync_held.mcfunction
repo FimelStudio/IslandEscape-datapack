@@ -1,0 +1,9 @@
+execute if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol",mag:0}] run scoreboard players set @s skill.pistol_mag 0
+execute if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol",mag:1}] run scoreboard players set @s skill.pistol_mag 1
+execute if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol",mag:2}] run scoreboard players set @s skill.pistol_mag 2
+execute if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol",mag:3}] run scoreboard players set @s skill.pistol_mag 3
+execute if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol",mag:4}] run scoreboard players set @s skill.pistol_mag 4
+execute if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol",mag:5}] run scoreboard players set @s skill.pistol_mag 5
+execute if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol",mag:6}] run scoreboard players set @s skill.pistol_mag 6
+execute if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol",mag:7}] run scoreboard players set @s skill.pistol_mag 7
+execute if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol",mag:8}] run scoreboard players set @s skill.pistol_mag 8

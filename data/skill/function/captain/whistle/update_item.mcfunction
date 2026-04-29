@@ -1,3 +1,5 @@
+clear @s minecraft:goat_horn[minecraft:custom_data~{skill:"captain_whistle"}]
+clear @s minecraft:sugar[minecraft:custom_data~{skill:"captain_whistle"}]
 scoreboard players operation @s skill.whistle_sec = @s skill.whistle_cd
 scoreboard players operation @s skill.whistle_sec /= #twenty skill.whistle_cfg
 execute store result storage skill:captain.whistle item.sec int 1 run scoreboard players get @s skill.whistle_sec

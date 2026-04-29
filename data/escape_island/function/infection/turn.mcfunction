@@ -24,9 +24,13 @@ tag @s remove captain
 tag @s remove role.engineer
 tag @s remove engineer
 tag @s remove role.marine
+tag @s remove marine
 tag @s remove role.chef
+tag @s remove chef
 tag @s remove role.radio
+tag @s remove radio
 tag @s remove role.virologist
+tag @s remove virologist
 tag @s remove role.mechanic
 tag @s remove role.sailor
 tag @s remove role.athlete
@@ -37,6 +41,8 @@ tag @s remove slide_locked
 tag @s remove role.priest
 tag @s add role.infected
 tag @s add zombie
+function skill:radio/cleanup_non_radio
+function skill:virologist/cleanup_non_virologist
 scoreboard players set @s role 12
 scoreboard players set @s skill.antidote_charges 0
 scoreboard players set @s skill.antidote_cd 0
@@ -46,6 +52,16 @@ scoreboard players set @s skill.whistle_cd 0
 scoreboard players set @s skill.whistle_state 0
 scoreboard players set @s skill.battery_cd 0
 scoreboard players set @s skill.battery_state 0
+scoreboard players set @s skill.suppress_cd 0
+scoreboard players set @s skill.suppress_state 0
+scoreboard players set @s skill.gm_burst 0
+scoreboard players set @s skill.gm_delay 0
+scoreboard players set @s skill.gm_input_cd 0
+scoreboard players set @s skill.soup_cd 0
+scoreboard players set @s skill.soup_item 0
+scoreboard players set @s skill.soup_state 0
+scoreboard players set @s skill.soup_sec 0
+scoreboard players set @s skill.soup_last_sec 0
 
 attribute @s minecraft:attack_damage base set 4
 

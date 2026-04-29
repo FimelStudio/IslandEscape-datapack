@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "consume_item",
+      "conditions": {
+        "item": {
+          "components": {
+            "custom_data": {
+              "skill": "cook_soup"
+            }
+          }
+        },
+        "player": {
+          "nbt": "{Tags:[\"chef\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:chef/hot_soup/use"
+  }
+}

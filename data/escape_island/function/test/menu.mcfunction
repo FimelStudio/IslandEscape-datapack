@@ -6,7 +6,7 @@ tellraw @s [{"text":"[清理开发沙盒]","color":"gray","bold":true,"click_eve
 tellraw @s [{"text":"[感染测试]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/infection_menu"}},{"text":" 污染、治愈、死亡、复活状态机","color":"gray"}]
 tellraw @s [{"text":"[查看状态]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:debug/show_state"}},{"text":" 输出当前局内计分板状态","color":"gray"}]
 tellraw @s [{"text":"[训练模式]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/start"}},{"text":" 单人练技能，不开正式局","color":"gray"}]
-tellraw @s [{"text":"[发全部套件]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/give_all_kits"}},{"text":" 配合训练模式使用","color":"gray"}]
+tellraw @s [{"text":"[选择训练职业]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/role_menu"}},{"text":" 一次只拥有一个职业，避免技能串线","color":"gray"}]
 tellraw @s [{"text":"[退出训练]","color":"gray","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/reset"}},{"text":" 清空训练物品、状态和测试实体","color":"gray"}]
 tellraw @s [{"text":"[刷测试人偶]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/spawn_dummies"}},{"text":" 在身边生成幸存者/感染者/母体人偶","color":"gray"}]
 tellraw @s [{"text":"[开始正式局]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:game/start"}},{"text":" 需要至少 4 名玩家","color":"gray"}]

@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "consume_item",
+      "conditions": {
+        "item": {
+          "components": {
+            "custom_data": {
+              "skill": "radio_signal_scan"
+            }
+          }
+        },
+        "player": {
+          "nbt": "{Tags:[\"radio\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:radio/signal_scan/use"
+  }
+}

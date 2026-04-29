@@ -11,4 +11,4 @@ execute as @a[tag=doctor] if score @s skill.antidote_charges < #max_charges skil
 
 execute as @a[tag=doctor,scores={skill.antidote_cd=0,skill.antidote_state=2}] run function skill:doctor/antidote/update_item
 execute as @a[tag=doctor,scores={skill.antidote_cd=1..}] run function skill:doctor/antidote/cooldown_tick
-execute as @a[tag=doctor,scores={skill.antidote_cd=0}] run function skill:doctor/antidote/ensure_item
+execute as @a[tag=doctor] run function skill:doctor/antidote/ensure_item

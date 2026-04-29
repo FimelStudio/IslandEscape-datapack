@@ -156,20 +156,31 @@
 | 物品基础 | `crossbow` 自定义 |
 | 触发: 射击 | 弹匣是无伤害的隐形箭 |
 | 锥形角度 | 45° |
-| 锥形半径 | 3 格 |
+| 锥形半径 | 5 格 |
 | 减速 | 缓慢 III |
 | 持续 | 6 秒 |
 | 冷却 | 45 秒 |
+
+#### 被动：枪械精通
+
+| 字段 | 值 |
+|---|---|
+| 触发方式 | 海军陆战队员持 M-7 手枪时潜行右键 |
+| 载体 | M-7 使用 `minecraft:sugar` + `item_model="ie:glock_gun"`，不使用弩 |
+| 效果 | 快速射空当前弹匣；每 2 tick 结算 1 发 |
+| 单发伤害 | 感染者 6 damage；母体/次级母体 4 damage |
+| 命中 | 玩家准星前方 10 格内逐段检测最近感染阵营目标 |
 
 ### 5. 厨师 — 热汤
 
 | 字段 | 值 |
 |---|---|
-| 物品基础 | `mushroom_stew` 自定义（附加 `consumable.consume_seconds:0`）|
+| 物品基础 | `mushroom_stew` 自定义（`food={nutrition:1,saturation:0.0,can_always_eat:true}` + `consumable.consume_seconds:0`，并移除 `use_remainder` 避免返还碗覆盖冷却物品）|
 | 触发方式 | `consume_item` advancement（`custom_data.skill:"cook_soup"`）|
 | Batch 5 实现 | 直接右键给自身 4 心（instant_health III）；汤锅放置逻辑推迟至 Batch 10+ |
 | 饮用回血 | 4 心（instant_health amplifier 3）|
 | 冷却 | 180 秒 |
+| 被动 | 自身夜视；5 格内队友获得短暂伤害吸收 I |
 
 ### 6. 通讯员 — 信号扫描
 
@@ -177,12 +188,12 @@
 |---|---|
 | 物品基础 | `compass` 自定义（附加 `consumable.consume_seconds:0`）|
 | 触发方式 | `consume_item` advancement（原版指南针无右键动画，`using_item` 不触发）|
-| 高亮范围 | 全图 |
-| 高亮持续 | 5 秒 |
-| 高亮目标 | 全体幸存者（不含母体伪装态？— 否，因为伪装态计为幸存者） |
+| 情报范围 | 全图 |
+| 情报形式 | 私聊式异常信号报告，只给通讯员本人显示目标姓名与距离区间 |
+| 情报目标 | 已转化感染者、感染期玩家、已暴露母体；隐藏/伪装母体不显示 |
 | 冷却 | 120 秒 |
 
-> 注: 这意味着伪装母体在通讯员扫描下也显示为幸存者。要识别伪装需要病毒学家的 4 格金粒子检测。
+> 注: `/particle ... force <viewers>` 最多只向 512 格内玩家发送粒子，且不提供可靠穿墙轮廓，因此通讯员主动改为私聊异常距离报告。要识别伪装/隐藏母体仍需要病毒学家的近距离金粒子检测。
 
 ### 6b. 通讯员 — 虚假扫描（转化保留）
 
@@ -190,15 +201,15 @@
 |---|---|
 | 物品 | 复活时自动发放"干扰器"（`custom_data.item = "fake_scan"`） |
 | 冷却 | 120 秒 |
-| 效果 | 全图随机 3–5 处生成幸存者 glowing 轮廓（display entity），持续 3 秒 |
-| 外观 | 与真实信号扫描完全相同，无法从视觉上分辨 |
+| 效果 | 待重做；不再沿用全员可见 glowing 轮廓 |
+| 外观 | 后续应伪造/污染私有异常信号报告，而不是制造全图高亮 |
 | 触发 | 感染者通讯员主动使用道具 |
 
 ### 7. 病毒学家 — 检测剂
 
 | 字段 | 值 |
 |---|---|
-| 物品基础 | `glass_bottle` 自定义（附加 `consumable.consume_seconds:0`）|
+| 物品基础 | `potion` 自定义（`!minecraft:use_remainder` + `consumable.consume_seconds:0`）|
 | 触发方式 | `consume_item` advancement（`custom_data.skill:"viro_detector"`）|
 | 检测半径 | 6 格 |
 | 检测目标 | 任何感染期 OR 母体 OR 普通感染者 |
@@ -325,7 +336,7 @@
 |---|---|---|---|---|---|
 | 铁斧 | `iron_axe` | 4 (2 心) | 0.9 | 全员 | 默认 |
 | 铁剑 | `iron_sword` | 6 (3 心) | 1.6 | 战斗职业 + 稀有掉落 | |
-| **M-7 手枪** | 可替换手枪载体（demo: `minecraft:sugar` + `item_model="ie:gun"`） | 6（对母体按 4 基础结算） | demo 输入冷却 0.2s / 有效结算 0.4s | **全员开局**（手枪 + 8 发）；海军陆战队员开局 24 发；物资箱补弹药 | **8 发弹匣，2 秒装填，子弹是 `iron_nugget` "9mm 弹药"** |
+| **M-7 手枪** | 可替换手枪载体（当前: `minecraft:sugar` + `item_model="ie:glock_gun"`） | 6（对母体按 4 基础结算） | demo 输入冷却 0.2s / 有效结算 0.4s | **全员开局**（手枪 + 8 发）；海军陆战队员开局 24 发；物资箱补弹药 | **8 发弹匣，2 秒装填，子弹是 `iron_nugget` "9mm 弹药"** |
 | 信号枪 | `crossbow` 自定义 (item_model 区分) | 2 + 火焰 | 单发，5 秒装填 | 物资 + 实验室稀有 | 标记目标 5 秒 + 燃烧 3 秒 |
 | 烟雾弹 | `egg` 自定义 | 0 | — | 物资 + 实验室 | 5 秒区域烟雾 + 黑暗 II |
 | 闪光弹 | `firework_rocket` 自定义 | 0 | — | 物资 + 实验室 | 4 格半径致盲 III 3 秒 |
@@ -337,7 +348,7 @@
 | 字段 | 值 |
 |---|---|
 | 玩家显示名 | M-7 半自动手枪；"克洛格"仅作为当前 demo 命名，可改 |
-| 物品载体 | 可替换；当前 demo 为 `minecraft:sugar` + `item_model="ie:gun"`，最终只要求可右键触发、可显示枪模型、可携带 `custom_data.weapon = "pistol"` 与弹匣数据 |
+| 物品载体 | 可替换；当前 demo 为 `minecraft:sugar` + `item_model="ie:glock_gun"`，最终只要求可右键触发、可显示枪模型、可携带 `custom_data.weapon = "pistol"` 与弹匣数据 |
 | 右键触发 | 当前 demo 用 `minecraft:consumable {consume_seconds:0, animation:"spyglass", has_consume_particles:false, on_consume_effects:[play_sound ie:gunshot]}`；也可换成等效右键输入方案 |
 | 输入冷却 | demo 为 `minecraft:use_cooldown {seconds:0.2}`；只限制右键触发频率，具体值可随手感调参 |
 | 子弹物品 | `minecraft:iron_nugget` 命名"9mm 弹药"（`custom_data.ammo = 1`） |

@@ -1,0 +1,1 @@
+item replace entity @s hotbar.6 with minecraft:crossbow[custom_data={skill:"marine_suppress"},custom_name={text:"压制射击",color:"red",bold:true,italic:false},lore=[{text:"右键: 5格前方锥形缓慢III",color:"gray",italic:false},{text:"持续6秒 | 冷却45秒",color:"dark_gray",italic:false}],charged_projectiles=[{id:"minecraft:arrow",components:{"minecraft:intangible_projectile":{}}}]] 1
