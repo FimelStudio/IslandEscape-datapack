@@ -1,1 +1,2 @@
-execute if score $game phase_timer matches 3600 run tellraw @s {"text":"你看到铭牌下方有一行被划掉的内容……","color":"gray","italic":true}
+execute as @a[tag=role.priest,tag=!state.dead] at @s run effect give @s minecraft:night_vision 3 0 true
+execute as @a[tag=role.priest,tag=state.infected_period,tag=cross_active] at @s run function skill:priest/cross/use

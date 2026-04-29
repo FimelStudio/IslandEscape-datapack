@@ -291,7 +291,7 @@ scoreboard players set #warn_dur     skill.detector_cfg  60     # 3s 警告窗�
 ```
 scoreboard players set #hotbar_slot  skill.trap_cfg  6
 scoreboard players set #cooldown     skill.trap_cfg  1800   # 90s（充能时间=CD，非持续）
-scoreboard players set #range        skill.trap_cfg  1      # 0.8 格触发半径
+scoreboard players set #range        skill.trap_cfg  125    # 约 1.25 格触发半径
 scoreboard players set #slow_amp     skill.trap_cfg  1      # Slowness II
 scoreboard players set #slow_dur     skill.trap_cfg  80     # 4s = 80 tick
 scoreboard players set #glow_dur     skill.trap_cfg  600    # 30s glowing
@@ -299,8 +299,9 @@ scoreboard players set #max_traps    skill.trap_cfg  3      # 场上最多 3 个
 ```
 
 关键逻辑：
-- 触发后：在玩家脚下 `summon minecraft:marker ~ ~ ~ {Tags:["skill.trap_marker"]}` + 绿粒子标记（仅靠近可见）
-- tick：`execute as @a[tag=role.mother] at @s if entity @e[tag=skill.trap_marker,distance=..1,limit=1]` → 触发效果 + kill marker
+- 触发后：在玩家脚下 `summon minecraft:marker ~ ~ ~ {Tags:["skill.trap_marker"]}` + 绿粒子标记（幸存者可见）
+- 充能：最多 3 次充能，场上最多 3 个陷阱；充能不满时每 90 秒恢复 1 次
+- tick：`execute as @e[tag=role.mother] at @s if entity @e[tag=skill.trap_marker,distance=..1.25,limit=1]` → 触发效果 + kill marker
 - 同样检测 `tag=role.infected`
 - 幸存者不触发；感染者阵营可 sneak+use 拆除
 - 感染者机修工（转化保留）补发"感染者陷阱"（`custom_data.skill:"mechanic_infected_trap"`）
@@ -354,7 +355,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `data/skill/function/engineer/{init,tick,cleanup_non_engineer}.mcfunction`
 - [x] `data/skill/function/engineer/battery/{config,init,use,start,tick,item_ready,item_cooldown,recall}.mcfunction`
 - [x] `data/skill/advancement/engineer/battery/use.json`
-- [ ] 工程师游戏内手测通过后再进入海军陆战队员实现
+- [x] 工程师游戏内手测通过后再进入海军陆战队员实现
 
 海军陆战队员：
 - [x] `data/skill/function/marine/{init,tick,cleanup_non_marine}.mcfunction`
@@ -381,9 +382,10 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `data/skill/advancement/virologist/detector/use.json`
 
 机修工：
-- [ ] `data/skill/function/mechanic/{init,tick,cleanup_non_mechanic}.mcfunction`
-- [ ] `data/skill/function/mechanic/trap/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
-- [ ] `data/skill/advancement/mechanic/trap/use.json`
+- [x] `data/skill/function/mechanic/{init,tick,cleanup_non_mechanic}.mcfunction`
+- [x] `data/skill/function/mechanic/trap/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
+- [x] `data/skill/advancement/mechanic/trap/use.json`
+- [x] 机修工游戏内手测通过后再进入神父实现
 
 神父：
 - [ ] `data/skill/function/priest/{init,tick,cleanup_non_priest}.mcfunction`
@@ -412,7 +414,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] 海军陆战队员 kit：格洛克手枪 + 9mm 弹药 24 发。
 - [x] 接入手枪玩法入口：`weapon/pistol/fire`、`weapon/pistol/reload_start`、`weapon/pistol/reload_finish`、`weapon/pistol/tick`。
 - [x] 手枪玩法层读取 `custom_data.weapon = "pistol"`、弹匣剩余、装填状态和 9mm 弹药数量；开火/换弹同 tick 补回手枪。
-- [x] 右键开火；空匣右键或潜行右键进入 2 秒装填；0.2 秒是输入冷却，实际扣弹/伤害按 0.4 秒门控。
+- [x] 右键开火；F 键或空匣右键进入 2 秒装填；海军陆战队员保留潜行右键枪械精通；0.2 秒是输入冷却，实际扣弹/伤害按 0.4 秒门控。
 - [x] 命中结算按目标类型分流：普通目标 6 damage；母体 4 damage 基础值；幸存者/感染期互相无伤，感染者/母体不可使用枪械。
 - [x] 音效、枪口粒子、命中粒子均在玩家当前位置执行，避免声音留在触发点。
 - [ ] 验收: 开发沙盒中右键有枪模型/枪声反馈，枪不被消耗；可射击 8 发、空匣不能造成伤害、装填 2 秒、消耗 9mm 弹药、命中母体/感染者/幸存者符合阵营伤害规则。

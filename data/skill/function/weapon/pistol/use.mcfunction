@@ -10,8 +10,9 @@ execute if entity @s[tag=role.mother] run return 0
 execute if entity @s[tag=skill.pistol_reloading] run function skill:weapon/pistol/update_item
 execute if entity @s[tag=skill.pistol_reloading] run return 0
 
-execute if predicate skill:is_sneak run function skill:weapon/pistol/reload_start
-execute if predicate skill:is_sneak run return 0
+execute if entity @s[tag=marine] if predicate skill:is_sneak run function skill:marine/gun_mastery/use
+execute if entity @s[tag=marine] if predicate skill:is_sneak run function skill:weapon/pistol/update_item
+execute if entity @s[tag=marine] if predicate skill:is_sneak run return 0
 
 execute if score @s skill.pistol_mag matches ..0 run function skill:weapon/pistol/reload_start
 execute if score @s skill.pistol_mag matches ..0 run return 0

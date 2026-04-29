@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "consume_item",
+      "conditions": {
+        "item": {
+          "components": {
+            "custom_data": {
+              "skill": "mechanic_trap"
+            }
+          }
+        }
+      }
+    },
+    "use_infected": {
+      "trigger": "consume_item",
+      "conditions": {
+        "item": {
+          "components": {
+            "custom_data": {
+              "skill": "mechanic_infected_trap"
+            }
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "use",
+      "use_infected"
+    ]
+  ],
+  "rewards": {
+    "function": "skill:mechanic/trap/use"
+  }
+}

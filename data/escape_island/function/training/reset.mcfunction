@@ -15,6 +15,7 @@ tag @s remove radio
 tag @s remove role.virologist
 tag @s remove virologist
 tag @s remove role.mechanic
+tag @s remove mechanic
 tag @s remove role.sailor
 tag @s remove role.athlete
 tag @s remove role.priest
@@ -104,6 +105,8 @@ scoreboard players set @s cd_chef 0
 scoreboard players set @s cd_radio 0
 scoreboard players set @s cd_virologist 0
 scoreboard players set @s cd_mechanic 0
+scoreboard players set @s skill.trap_charges 0
+scoreboard players set @s skill.trap_place_cd 0
 scoreboard players set @s cd_priest 0
 scoreboard players set @s skill.adren_time 0
 scoreboard players set @s skill.adren_cd 0
