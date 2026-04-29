@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:shot_crossbow",
+      "conditions": {
+        "item": {
+          "components": {
+            "custom_data": {
+              "skill": "marine_suppress"
+            }
+          }
+        },
+        "player": {
+          "nbt": "{Tags:[\"marine\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:marine/suppress/use"
+  }
+}

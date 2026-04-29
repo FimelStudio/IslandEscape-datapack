@@ -1,6 +1,6 @@
-# 孤岛逃生：感染（Escape from Deserted Island）
+# 海岛逃生：黎明前夕（Escape from Deserted Island）
 
-一张面向 Minecraft Java Edition **1.21.11** 的原版多人 PvP 地图（**仅依赖数据包，无 Mod**）。灵感融合《第五人格》《黎明杀机》《森林》《Phasmophobia》。
+一张面向 Minecraft Java Edition **1.21.11** 的原版多人 PvP 地图（**仅依赖数据包，无 Mod**）。灵感融合《太空狼人杀》《第五人格》《黎明杀机》《森林》《Phasmophobia》。
 
 > 一艘游轮在风暴中触礁，乘客被迫在一座未标注的小岛上过夜。岛上潜伏着 2024 年从一家"已解散"医药巨头黑实验中泄漏的嵌合病毒。当夜，第一名感染者出现了——而你不知道身边谁是下一个。
 

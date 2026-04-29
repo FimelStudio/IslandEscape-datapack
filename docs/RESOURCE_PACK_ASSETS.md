@@ -16,17 +16,17 @@
 
 | 资产 | 建议 id | 当前/计划载体 | 逻辑标识 | 用途 |
 |---|---|---|---|---|
-| M-7 手枪 | `ie:item/m7_pistol` | 当前临时为 `crossbow`，Batch 6 计划改为稳定右键载体 | `weapon:"pistol"` | 全员开局反抗手段；需要明显区别于弩 |
+| M-7 手枪 | `ie:glock_gun` | 当前为 `minecraft:sugar` + `item_model="ie:glock_gun"` | `weapon:"pistol"` | 全员开局反抗手段；不使用弩 |
 | 9mm 弹药 | `ie:item/ammo_9mm` | `iron_nugget` | `ammo:1` | 手枪弹药，物资箱也会掉落 |
 | 解毒针 | `ie:item/doctor_antidote` | `tipped_arrow` | `skill:"doctor_antidote"` | 船医主动技能 |
 | 船长哨子 | `ie:item/captain_whistle` | `sugar` | `skill:"captain_whistle"` | 船长主动技能；因 `goat_horn` 会吞右键，载体不用山羊角 |
 | 肾上腺素 | `ie:item/athlete_adrenaline` | `sugar` / `gray_dye` | `skill:"athlete_adrenaline"` | 运动员主动技能与冷却态 |
 | 十字架 | `ie:item/priest_cross` | `nautilus_shell` | `role_item:"priest.cross"` | 神父一次性保命道具 |
-| 检测剂 | `ie:item/viro_detector` | `glass_bottle` | `role_item:"virologist.reagent"`，后续改 `skill:"viro_detector"` | 病毒学家主动技能 |
+| 检测剂 | `ie:item/viro_detector` | `potion` | `skill:"viro_detector"` | 病毒学家主动技能；移除 `use_remainder` 避免返还空瓶 |
 | 微型电池 | `ie:item/engineer_battery` | `redstone_torch` | `role_item:"engineer.battery"`，后续改 `skill:"engineer_battery"` | 工程师主动技能 |
 | 机关陷阱 | `ie:item/mechanic_trap` | `tripwire_hook` | `role_item:"mechanic.trap"`，后续改 `skill:"mechanic_trap"` | 机修工主动技能 |
-| 热汤 | `ie:item/cook_hot_soup` | `mushroom_stew` | `role_item:"chef.stew"`，后续改 `skill:"cook_soup"` | 厨师主动技能 |
-| 信号扫描仪 | `ie:item/radio_signal_scan` | `compass` | `role_item:"radio.sweep"`，后续改 `skill:"radio_signal_scan"` | 通讯员主动技能 |
+| 热汤 | `ie:item/cook_hot_soup` | `mushroom_stew` | `skill:"cook_soup"` | 厨师主动技能；移除 `use_remainder` 避免返还碗覆盖冷却物品 |
+| 信号扫描仪 | `ie:item/radio_signal_scan` | `compass` | `skill:"radio_signal_scan"` | 通讯员主动技能 |
 
 ## 三、P1 职业与阵营技能
 
@@ -36,7 +36,7 @@
 | 腐臭感知 | `ie:item/mother_rotsense` | `spider_eye` | `role_item:"mother.rotsense"` | 母体侦察技能 |
 | 孢子召唤 | `ie:item/mother_howl` | `fermented_spider_eye` | `role_item:"mother.howl"` | 母体集合 buff |
 | X-7 伪装试剂 | `ie:item/x7_disguise` | `potion` | `role_item:"mother.disguise"` | 母体伪装路线 |
-| 海军压制射击 | `ie:item/marine_suppressor` | 当前为 `crossbow` | `role_item:"marine.suppress"`，后续改 `skill:"marine_suppress"` | 海军陆战队员控制技能 |
+| 海军压制射击 | `ie:item/marine_suppressor` | 当前为 `crossbow` | `skill:"marine_suppress"` | 海军陆战队员主动控制技能 |
 | 感染者陷阱 | `ie:item/infected_trap` | `tripwire_hook` | `role_item:"mechanic.infected_trap"` | 机修工转化保留 |
 | 吞噬 | `ie:item/mother_eat` | `red_dye` | `skill:"mother/eat"` | 母体吞噬感染体 |
 | 吐出感染体 | `ie:item/mother_eat_release` | `slime_ball` | `skill:"mother/eat_release"` | 母体释放已吞噬的感染体 |
@@ -82,6 +82,8 @@
 | 无线电杂讯 overlay | `ie:ui/radio_static` | 环境事件 |
 | 幻觉轮廓 | `ie:entity/hallucination_silhouette` | 环境事件/通讯员假扫描 |
 | 母体近距离金色粒子贴图 | `ie:particle/mother_trace` | 病毒学家被动视觉增强 |
+| X 字准心命中反馈 (普通) | `ie:hud` 字体下的 `\uE001` | 命中普通感染者的准心反馈动画/图标 |
+| X 字准心命中反馈 (母体) | `ie:hud` 字体下的 `\uE002` | 命中母体/暴击的红色或金色准心反馈 |
 
 ## 七、P0/P1 音效
 
@@ -107,7 +109,8 @@
 
 | id | 来源 | 状态 |
 |---|---|---|
-| `ie:gun` | 手枪 demo 的 `item_model` | 建议改名或兼容到 `ie:item/m7_pistol` |
+| `ie:glock_gun` | 手枪当前 `item_model` | M-7 / Glock 手枪模型 |
+| `ie:hud` | 命中反馈的字库(font) | 数据包使用 `\uE001` 和 `\uE002` 字符调用资源包准心 UI |
 | `ie:gunshot` | 手枪 demo 的枪声音效 | 建议保留兼容，正式也可映射到 `ie:weapon.gunshot` |
 | `animated_java:blueprint/...` | Animated Java 生成内容 | 工具生成，不作为手写资源清单维护 |
 

@@ -1,3 +1,8 @@
+function skill:weapon/tick
 function skill:doctor/tick
 function skill:captain/tick
 function skill:engineer/tick
+function skill:marine/tick
+function skill:chef/tick
+function skill:radio/tick
+function skill:virologist/tick

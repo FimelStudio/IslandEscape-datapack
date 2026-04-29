@@ -11,4 +11,4 @@ execute as @e[type=minecraft:marker,tag=entity.engineer_battery,scores={skill.ba
 
 execute as @a[tag=engineer,scores={skill.battery_cd=0,skill.battery_state=2}] run function skill:engineer/battery/update_item
 execute as @a[tag=engineer,scores={skill.battery_cd=1..}] run function skill:engineer/battery/cooldown_tick
-execute as @a[tag=engineer,scores={skill.battery_cd=0}] run function skill:engineer/battery/ensure_item
+execute as @a[tag=engineer] run function skill:engineer/battery/ensure_item

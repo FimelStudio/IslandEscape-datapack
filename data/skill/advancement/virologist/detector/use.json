@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "consume_item",
+      "conditions": {
+        "item": {
+          "components": {
+            "custom_data": {
+              "skill": "viro_detector"
+            }
+          }
+        },
+        "player": {
+          "nbt": "{Tags:[\"virologist\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:virologist/detector/use"
+  }
+}

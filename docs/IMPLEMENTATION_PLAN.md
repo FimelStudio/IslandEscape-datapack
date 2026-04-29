@@ -207,37 +207,39 @@ scoreboard players set #range        skill.battery_cfg  4      # 4 格半径
 ```
 scoreboard players set #hotbar_slot  skill.suppress_cfg  5     # hotbar 槽（与 M-7 分开）
 scoreboard players set #cooldown     skill.suppress_cfg  900   # 45s
-scoreboard players set #range        skill.suppress_cfg  3
+scoreboard players set #range        skill.suppress_cfg  5
 scoreboard players set #slow_amp     skill.suppress_cfg  2     # Slowness III
 scoreboard players set #slow_dur     skill.suppress_cfg  120   # 6s = 120 tick
 ```
 
 关键逻辑：
 - `shot_crossbow` advancement 条件：`item.components.custom_data.skill = "marine_suppress"`
-- 触发后：`execute at @s as @a[tag=!role.survivor,tag=!state.dead,distance=..3]` → `effect give @s minecraft:slowness 6 2 true`（包含母体和感染者，不含幸存者）
+- 触发后：前方约 5 格锥形范围内感染阵营目标 → `effect give @s minecraft:slowness 6 2 true`（包含母体和感染者，不含幸存者）
 - 弩使用无伤害箭（`custom_data.item:"suppress_bolt"`）作弹药，不消耗但可触发 advancement
 
-**被动**：kit 中给全套皮革甲
+**被动**：
+- kit 中给全套皮革甲
+- 枪械精通：海军陆战队员持 M-7 手枪时，潜行右键会快速射空当前弹匣。该被动使用 M-7 的非弩载体（`minecraft:sugar` + `item_model="ie:glock_gun"`），与主动技能 `压制射击` 完全分离。
 
-#### 厨师（cook）— 热汤（hot_soup）
+#### 厨师（chef）— 热汤（hot_soup）
 
-**触发**：`consume_item`，道具 `minecraft:mushroom_stew`（`consumable.consume_seconds:0`，`custom_data.skill:"cook_soup"`）
+**触发**：`consume_item`，道具 `minecraft:mushroom_stew`（`!minecraft:use_remainder` + `food.can_always_eat:true` + `consumable.consume_seconds:0`，`custom_data.skill:"cook_soup"`）
 
-`data/skill/function/cook/hot_soup/config.mcfunction`：
+`data/skill/function/chef/hot_soup/config.mcfunction`：
 ```
 scoreboard players set #hotbar_slot  skill.soup_cfg  6
 scoreboard players set #cooldown     skill.soup_cfg  3600   # 180s
 scoreboard players set #heal_amp     skill.soup_cfg  3      # instant_health amplifier 3 ≈ 4 心
-scoreboard players set #charges      skill.soup_cfg  1      # 每次补充 1 份
 ```
 
 关键逻辑：
 - 触发后：检查冷却 → `effect give @s minecraft:instant_health 1 3 true`（约 8 HP = 4 心）
-- 在玩家位置播放 `minecraft:entity.generic.drink` 音效 + 食物粒子
+- 在玩家位置播放 `minecraft:entity.generic.drink` 音效 + 心形/村民快乐粒子
 - Batch 5 先实现自用版（给自身）；后期扩展汤锅放置留给 Batch 10+
 
-**被动**（`escape_island:role/tick_cook.mcfunction`）：
-- `execute as @a[tag=role.cook,tag=!state.dead] at @s run effect give @s minecraft:night_vision 3 0 true`
+**被动**（`escape_island:role/tick_chef.mcfunction`）：
+- `effect give @s minecraft:night_vision 3 0 true`
+- 5 格内非厨师幸存者获得短暂 `minecraft:absorption 3 0 true`。当前全员不会消耗饱食度，所以不再使用饱和恢复。
 
 #### 通讯员（radio）— 信号扫描（signal_scan）
 
@@ -249,19 +251,20 @@ scoreboard players set #charges      skill.soup_cfg  1      # 每次补充 1 份
 ```
 scoreboard players set #hotbar_slot  skill.signal_scan_cfg  6
 scoreboard players set #cooldown     skill.signal_scan_cfg  2400   # 120s
-scoreboard players set #glow_dur     skill.signal_scan_cfg  100    # 5s = 100 tick
+scoreboard players set #glow_dur     skill.signal_scan_cfg  100    # 废弃配置，保留兼容旧计分项
 ```
 
 关键逻辑：
-- 触发后：`effect give @a[tag=role.survivor,tag=!state.dead] minecraft:glowing 5 0 true`
-- glowing 对所有人（包括母体）可见——这是设计意图，信号会暴露所有幸存者位置（母体伪装者也高亮，但仅能区分幸存者/感染者阵营，不能识别伪装身份）
-- 感染者通讯员（转化保留）使用"干扰器"（`custom_data.skill:"radio_fake_scan"`）：召唤 3–5 个 `display entity` 假轮廓，3s 后清除
+- 触发后：给使用者打临时 `skill.radio_viewer`，再对 `role.infected`、`state.infected_period`、已暴露母体（`role.mother` + `flag.first_attack`，且非 `state.disguised`）输出私有 `tellraw` 距离区间报告
+- 不使用 `glowing`，也不使用目标头顶粒子；目标不会被全员看见，母体也不会收到通讯员报告
+- `/particle ... force <viewers>` 只能解决“谁能看见”，不能解决远距离和穿墙问题，因此不作为通讯员主侦察手段
+- 隐藏母体（`team=mother_hidden`）和伪装母体（`state.disguised`）不进入异常报告；单人测试人偶的感染者/母体会进入报告，方便训练模式验证
 
-**被动**（Batch 7 中接入）：`tag=radio` 在信号塔旁时修复速度 ×1.5
+**被动**：近距离准心对准其他玩家时显示公开职业；隐藏/伪装母体显示为幸存者，暴露母体/感染者显示为信号异常
 
 #### 病毒学家（virologist）— 检测剂（detector）
 
-**触发**：`consume_item`，道具 `minecraft:glass_bottle`（`consumable.consume_seconds:0`，`custom_data.skill:"viro_detector"`）
+**触发**：`consume_item`，道具 `minecraft:potion`（`!minecraft:use_remainder` + `consumable.consume_seconds:0`，`custom_data.skill:"viro_detector"`）
 
 > 船医解毒针也用 `tipped_arrow`，但 `custom_data` 不同，advancement 条件可区分。
 
@@ -354,25 +357,28 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [ ] 工程师游戏内手测通过后再进入海军陆战队员实现
 
 海军陆战队员：
-- [ ] `data/skill/function/marine/{init,tick,cleanup_non_marine}.mcfunction`
-- [ ] `data/skill/function/marine/suppress/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
-- [ ] `data/skill/advancement/marine/suppress/use.json`（`shot_crossbow`）
+- [x] `data/skill/function/marine/{init,tick,cleanup_non_marine}.mcfunction`
+- [x] `data/skill/function/marine/suppress/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
+- [x] `data/skill/advancement/marine/suppress/use.json`（`shot_crossbow`）
+- [x] `data/skill/function/marine/gun_mastery/*`（被动：持 M-7 潜行右键快速射空弹匣）
+- [x] `data/skill/advancement/marine/gun_mastery/use.json`（`using_item` + `custom_data.weapon:"pistol"`）
 
 厨师：
-- [ ] `data/skill/function/cook/{init,tick,cleanup_non_cook}.mcfunction`
-- [ ] `data/skill/function/cook/hot_soup/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
-- [ ] `data/skill/advancement/cook/hot_soup/use.json`
-- [ ] `escape_island:role/tick_cook.mcfunction`（被动夜视）
+- [x] `data/skill/function/chef/{init,tick,cleanup_non_chef}.mcfunction`
+- [x] `data/skill/function/chef/hot_soup/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
+- [x] `data/skill/advancement/chef/hot_soup/use.json`
+- [x] `escape_island:role/tick_chef.mcfunction`（被动夜视 + 5格队友热餐护盾）
 
 通讯员：
-- [ ] `data/skill/function/radio/{init,tick,cleanup_non_radio}.mcfunction`
-- [ ] `data/skill/function/radio/signal_scan/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
-- [ ] `data/skill/advancement/radio/signal_scan/use.json`（`consume_item` + compass）
+- [x] `data/skill/function/radio/{init,tick,cleanup_non_radio}.mcfunction`
+- [x] `data/skill/function/radio/signal_scan/{config,init,use,start,tick,item_ready,item_cooldown,report_line}.mcfunction`
+- [x] `data/skill/function/radio/inspect/{tick,show}.mcfunction`
+- [x] `data/skill/advancement/radio/signal_scan/use.json`（`consume_item` + compass）
 
 病毒学家：
-- [ ] `data/skill/function/virologist/{init,tick,cleanup_non_virologist}.mcfunction`
-- [ ] `data/skill/function/virologist/detector/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
-- [ ] `data/skill/advancement/virologist/detector/use.json`
+- [x] `data/skill/function/virologist/{init,tick,cleanup_non_virologist,passive}.mcfunction`
+- [x] `data/skill/function/virologist/detector/{config,init,use,start,tick,item_ready,item_cooldown}.mcfunction`
+- [x] `data/skill/advancement/virologist/detector/use.json`
 
 机修工：
 - [ ] `data/skill/function/mechanic/{init,tick,cleanup_non_mechanic}.mcfunction`
@@ -394,21 +400,21 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 6 — M-7 手枪系统
 
-状态: **demo 载体已确认，最终载体可调整，玩法结算待接入**
+状态: **已实现并通过静态检查，等待游戏内手测**
 
 目标: 基于组员 demo 验证出的右键手枪输入框架实现 M-7；保留全员开局反抗能力；具体载体不限定为 sugar，可按实现手感替换；弹匣、装填、命中和伤害均由玩法函数结算，不采用原版弩伤害/一发一装填规则。
 
 任务:
 
-- [x] 手枪 demo 规格确认：`minecraft:sugar`，显示名 "克洛格"，`item_model="ie:gun"`，`consumable.consume_seconds=0`，`use_cooldown.seconds=0.2`，`on_consume_effects` 播放 `ie:gunshot`。这是参考实现，不是最终载体限制。
-- [ ] 选定最终手枪载体：可沿用当前 demo，也可替换为其他稳定右键载体；必须能承载手枪模型、枪声、`custom_data.weapon="pistol"` 和弹匣数据。
-- [ ] `kit_*` 函数中全员开局给 M-7 手枪 + 9mm 弹药 8 发；当前若仍为 crossbow 临时载体，需要替换为最终手枪载体。
-- [ ] 海军陆战队员 kit：M-7 手枪 + 9mm 弹药 24 发。
-- [ ] 接入手枪玩法入口：`weapon/pistol/fire`、`weapon/pistol/reload_start`、`weapon/pistol/reload_finish`、`weapon/pistol/tick`。
-- [ ] 手枪玩法层读取 `custom_data.weapon = "pistol"`、弹匣剩余、装填状态和 9mm 弹药数量；若所选载体会被消耗，开火函数同 tick 补回手枪。
-- [ ] 右键开火；空匣右键或潜行右键进入 2 秒装填；0.2 秒是输入冷却，实际扣弹/伤害仍按 0.4 秒门控。
-- [ ] 命中结算按目标类型分流：普通目标 6 damage；母体 4 damage 基础值并保留母体护甲/抗性；幸存者/感染期互相无伤。
-- [ ] 音效、枪口粒子、命中粒子均在玩家当前位置执行，避免声音留在触发点。
+- [x] 手枪 demo 规格确认：`minecraft:sugar`，显示名 "克洛格"，`item_model="ie:glock_gun"`，`consumable.consume_seconds=0`，`use_cooldown.seconds=0.2`，`on_consume_effects` 播放 `ie:gunshot`。这是参考实现，不是最终载体限制。
+- [x] 选定最终手枪载体：当前使用 `minecraft:sugar` + `item_model="ie:glock_gun"` + `custom_data.weapon="pistol"` + `custom_data.mag`。
+- [x] `kit_*` 函数中全员开局给格洛克手枪 + 9mm 弹药 8 发；替换旧 crossbow 临时载体。
+- [x] 海军陆战队员 kit：格洛克手枪 + 9mm 弹药 24 发。
+- [x] 接入手枪玩法入口：`weapon/pistol/fire`、`weapon/pistol/reload_start`、`weapon/pistol/reload_finish`、`weapon/pistol/tick`。
+- [x] 手枪玩法层读取 `custom_data.weapon = "pistol"`、弹匣剩余、装填状态和 9mm 弹药数量；开火/换弹同 tick 补回手枪。
+- [x] 右键开火；空匣右键或潜行右键进入 2 秒装填；0.2 秒是输入冷却，实际扣弹/伤害按 0.4 秒门控。
+- [x] 命中结算按目标类型分流：普通目标 6 damage；母体 4 damage 基础值；幸存者/感染期互相无伤，感染者/母体不可使用枪械。
+- [x] 音效、枪口粒子、命中粒子均在玩家当前位置执行，避免声音留在触发点。
 - [ ] 验收: 开发沙盒中右键有枪模型/枪声反馈，枪不被消耗；可射击 8 发、空匣不能造成伤害、装填 2 秒、消耗 9mm 弹药、命中母体/感染者/幸存者符合阵营伤害规则。
 
 ### Batch 7 — 任务系统
@@ -587,6 +593,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 | 2026-04-27 | Batch 5 船医解毒针 | 静态检查 | PASS | 新 `skill:doctor/antidote` 结构已接入；等待游戏内手测 |
 | 2026-04-27 | Batch 5 船长哨子 | 静态检查 | PASS | 新 `skill:captain/whistle` 结构已接入；等待游戏内手测 |
 | 2026-04-27 | Batch 5 工程师微型电池 | 静态检查 | PASS | 新 `skill:engineer/battery` 结构已接入；等待游戏内手测 |
+| 2026-04-28 | Batch 6 格洛克手枪 | 静态检查 | PASS | JSON 可解析，`git diff --check` 无错误；等待游戏内手测 |
 
 ---
 
@@ -598,9 +605,9 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 2. 聊天中应出现 `[打开自测菜单]` 和 `[开始游戏]`，两个按钮都应可点击。
 3. 点击 `[打开自测菜单]`，应出现自测菜单。
 4. 点击 `[创建开发沙盒]`。
-5. 预期: 聊天显示临时 marker 数量；进入训练模式；出现职业/退出按钮。
+5. 预期: 聊天显示临时 marker 数量；进入训练模式；出现职业选择/退出按钮。
 6. 点击 `[地图标记检查]`：关键项不应出现红色 `MISS`。
-7. 点击 `[发全部套件]`：背包获得职业道具，名称 lore 正常显示。
+7. 点击 `[选择职业]` 中任一职业：背包只获得该职业套件，玩家只拥有该职业 tag，名称 lore 正常显示。
 8. 点击 `[退出训练]`：背包清空，临时实体和 marker 清理。
 
 ### Batch 3 感染状态机手测

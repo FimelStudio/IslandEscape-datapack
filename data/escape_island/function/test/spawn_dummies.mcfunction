@@ -1,3 +1,3 @@
-execute at @s run summon minecraft:armor_stand ~3 ~ ~0 {Tags:["test.dummy","role.survivor"],CustomName:{"text":"测试人偶(幸存者)"},CustomNameVisible:1b}
-execute at @s run summon minecraft:armor_stand ~-3 ~ ~0 {Tags:["test.dummy","role.infected"],CustomName:{"text":"测试人偶(感染者)"},CustomNameVisible:1b}
-execute at @s run summon minecraft:armor_stand ~0 ~ ~3 {Tags:["test.dummy","role.mother"],CustomName:{"text":"测试人偶(母体)"},CustomNameVisible:1b}
+execute at @s run summon minecraft:mannequin ~3 ~ ~0 {Tags:["test.dummy","role.survivor"],profile:{texture:"minecraft:entity/player/wide/steve",model:"wide"},CustomName:{"text":"测试人偶(幸存者)"},CustomNameVisible:1b,hide_description:true,immovable:true}
+execute at @s run summon minecraft:mannequin ~-3 ~ ~0 {Tags:["test.dummy","role.infected"],profile:{texture:"minecraft:entity/player/slim/alex",model:"slim"},CustomName:{"text":"测试人偶(感染者)"},CustomNameVisible:1b,hide_description:true,immovable:true}
+execute at @s run summon minecraft:mannequin ~0 ~ ~3 {Tags:["test.dummy","role.mother"],profile:{texture:"minecraft:entity/player/wide/steve",model:"wide"},CustomName:{"text":"测试人偶(母体)"},CustomNameVisible:1b,hide_description:true,immovable:true}

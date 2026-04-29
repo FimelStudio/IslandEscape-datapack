@@ -7,4 +7,4 @@ scoreboard players remove @a[tag=captain,scores={skill.whistle_cd=1..}] skill.wh
 
 execute as @a[tag=captain,scores={skill.whistle_cd=0,skill.whistle_state=2}] run function skill:captain/whistle/update_item
 execute as @a[tag=captain,scores={skill.whistle_cd=1..}] run function skill:captain/whistle/cooldown_tick
-execute as @a[tag=captain,scores={skill.whistle_cd=0}] run function skill:captain/whistle/ensure_item
+execute as @a[tag=captain] run function skill:captain/whistle/ensure_item

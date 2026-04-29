@@ -23,9 +23,17 @@ tag @a remove role.survivor
 tag @a remove role.mother
 tag @a remove role.infected
 tag @a remove zombie
+tag @a remove role.marine
 tag @a remove doctor
 tag @a remove captain
 tag @a remove engineer
+tag @a remove marine
+tag @a remove role.chef
+tag @a remove chef
+tag @a remove role.radio
+tag @a remove radio
+tag @a remove role.virologist
+tag @a remove virologist
 tag @a remove role.latent_host
 tag @a remove role.secondary_mother
 tag @a remove role.athlete
@@ -68,6 +76,9 @@ tag @a remove flag.first_attack
 tag @a remove skill.antidote_user
 tag @a remove skill.antidote_target
 tag @a remove skill.battery_recalled
+tag @a remove skill.gm_hit
+execute as @a run function skill:radio/cleanup_non_radio
+execute as @a run function skill:virologist/cleanup_non_virologist
 
 scoreboard players reset @a spore_load
 scoreboard players reset @a spore_decay_cd
@@ -94,6 +105,19 @@ scoreboard players reset @a skill.battery_item
 scoreboard players reset @a skill.battery_state
 scoreboard players reset @a skill.battery_sec
 scoreboard players reset @a skill.battery_last_sec
+scoreboard players reset @a skill.suppress_cd
+scoreboard players reset @a skill.suppress_item
+scoreboard players reset @a skill.suppress_state
+scoreboard players reset @a skill.suppress_sec
+scoreboard players reset @a skill.suppress_last_sec
+scoreboard players reset @a skill.gm_burst
+scoreboard players reset @a skill.gm_delay
+scoreboard players reset @a skill.gm_input_cd
+scoreboard players reset @a skill.soup_cd
+scoreboard players reset @a skill.soup_item
+scoreboard players reset @a skill.soup_state
+scoreboard players reset @a skill.soup_sec
+scoreboard players reset @a skill.soup_last_sec
 scoreboard players reset @a cd_marine
 scoreboard players reset @a cd_chef
 scoreboard players reset @a cd_radio

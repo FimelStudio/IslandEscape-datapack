@@ -1,3 +1,4 @@
+clear @s minecraft:tipped_arrow[minecraft:custom_data~{skill:"doctor_antidote"}]
 execute store result storage skill:doctor.antidote item.charges int 1 run scoreboard players get @s skill.antidote_charges
 scoreboard players operation @s skill.antidote_sec = @s skill.antidote_cd
 scoreboard players operation @s skill.antidote_sec /= #twenty skill.antidote_cfg
