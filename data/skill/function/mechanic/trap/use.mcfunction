@@ -4,8 +4,9 @@ tag @s remove skill.trap_recalled
 execute unless entity @s[tag=mechanic] unless entity @s[tag=retained.mechanic] run function skill:mechanic/cleanup_non_mechanic
 execute unless entity @s[tag=mechanic] unless entity @s[tag=retained.mechanic] run return 0
 
-execute if predicate skill:is_sneak at @s if entity @e[type=minecraft:marker,tag=skill.trap_marker,distance=..3,limit=1] run function skill:mechanic/trap/recall
-execute if predicate skill:is_sneak unless entity @s[tag=skill.trap_recalled] at @s unless entity @e[type=minecraft:marker,tag=skill.trap_marker,distance=..3,limit=1] run title @s actionbar {"text":"附近没有可拆除的机关陷阱","color":"gray"}
+execute if predicate skill:is_sneak run scoreboard players set #recall_len skill.trap_tmp 0
+execute if predicate skill:is_sneak anchored eyes run function skill:mechanic/trap/recall_raycast
+execute if predicate skill:is_sneak unless entity @s[tag=skill.trap_recalled] run title @s actionbar {"text":"未瞄准可拆除的机关陷阱","color":"gray"}
 execute if predicate skill:is_sneak run tag @s remove skill.trap_recalled
 execute if predicate skill:is_sneak run return 0
 
