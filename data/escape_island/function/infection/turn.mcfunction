@@ -40,11 +40,13 @@ tag @s remove adren_active
 tag @s remove sliding
 tag @s remove slide_locked
 tag @s remove role.priest
+tag @s remove priest
 tag @s add role.infected
 tag @s add zombie
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
 function skill:mechanic/cleanup_non_mechanic
+function skill:priest/cleanup_non_priest
 scoreboard players set @s role 12
 scoreboard players set @s skill.antidote_charges 0
 scoreboard players set @s skill.antidote_cd 0

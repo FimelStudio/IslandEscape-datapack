@@ -95,7 +95,7 @@
 
 ### Batch 5 — 幸存者 10 职业技能
 
-状态: **进行中：运动员、船医、船长已通过游戏内手测；工程师已实现，等待游戏内手测**
+状态: **Batch 5 职业实现已完成；运动员、船医、船长、工程师、机修工、神父已通过游戏内手测**
 
 目标: 所有职业的主动技能均可在训练模式下触发和冷却，被动 tick 效果生效。
 
@@ -336,7 +336,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `escape_island:function/load`：删除 `cd_sailor` 注册
 - [x] `skill:common/cooldown_tick` 移除旧水手冷却递减
 - [x] 正式分配、训练套件、重置、转化清理接入 `role.athlete` / `athlete`
-- [ ] 等待游戏内手测通过
+- [x] 运动员游戏内手测通过
 
 船医：
 - [x] `data/skill/function/doctor/{init,tick,cleanup_non_doctor}.mcfunction`
@@ -388,15 +388,16 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] 机修工游戏内手测通过后再进入神父实现
 
 神父：
-- [ ] `data/skill/function/priest/{init,tick,cleanup_non_priest}.mcfunction`
-- [ ] `data/skill/function/priest/cross/{config,init,use,item_ready}.mcfunction`
-- [ ] `data/skill/advancement/priest/cross/use.json`（`entity_hurt_player`）
-- [ ] `escape_island:role/tick_priest.mcfunction`（被动夜视 + 感染期检查）
+- [x] `data/skill/function/priest/{init,tick,cleanup_non_priest}.mcfunction`
+- [x] `data/skill/function/priest/cross/{config,init,use,item_ready}.mcfunction`
+- [x] `data/skill/advancement/priest/cross/use.json`（`entity_hurt_player`）
+- [x] `escape_island:role/tick_priest.mcfunction`（被动夜视 + 感染期检查）
+- [x] 神父游戏内手测通过
 
 所有职业共用：
-- [ ] `skill:init.mcfunction` 调用所有 9 个新职业 + athlete 的 `init`
-- [ ] `escape_island:game/_tick_20` 中为每个职业调用 `function skill:<职业>/tick`
-- [ ] 每个 `_make_<职业>.mcfunction` 末尾加 `function skill:<职业>/init`（确保 scoreboard 就绪后给道具）
+- [x] `skill:init.mcfunction` 调用所有 9 个新职业 + athlete 的 `init`
+- [x] `skill:tick.mcfunction` 中为每个职业调用 `function skill:<职业>/tick`
+- [x] 每个 `kit_<职业>.mcfunction` 开头调用对应 `function skill:<职业>/init`（确保 scoreboard 就绪后给道具）
 
 验收: 训练模式下切换各职业，确认每个技能至少一次触发、一次冷却中被拒绝（actionbar 提示）；被动效果每秒生效。
 

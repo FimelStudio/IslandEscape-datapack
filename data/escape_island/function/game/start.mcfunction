@@ -38,6 +38,8 @@ tag @a remove role.latent_host
 tag @a remove role.secondary_mother
 tag @a remove role.athlete
 tag @a remove athlete
+tag @a remove role.priest
+tag @a remove priest
 tag @a remove adren_active
 tag @a remove sliding
 tag @a remove slide_locked
@@ -79,6 +81,7 @@ tag @a remove skill.battery_recalled
 tag @a remove skill.gm_hit
 execute as @a run function skill:radio/cleanup_non_radio
 execute as @a run function skill:virologist/cleanup_non_virologist
+execute as @a run function skill:priest/cleanup_non_priest
 
 scoreboard players reset @a spore_load
 scoreboard players reset @a spore_decay_cd
