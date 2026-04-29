@@ -114,6 +114,7 @@ scoreboard players set @s skill.adren_time 0
 scoreboard players set @s skill.adren_cd 0
 scoreboard players set @s skill.slide_time 0
 scoreboard players set @s skill.slide_cd 0
+scoreboard players set @s skill.slide_sprint 0
 scoreboard players set @s skill.stamina_warn 0
 scoreboard players set @s cd_mother_lunge 0
 scoreboard players set @s cd_mother_rotsense 0

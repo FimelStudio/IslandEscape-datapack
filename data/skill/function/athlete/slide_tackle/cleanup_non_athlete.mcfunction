@@ -28,4 +28,5 @@ scoreboard players set @s skill.slide_time 0
 scoreboard players set @s skill.slide_fall 0
 scoreboard players set @s skill.slide_cd 0
 scoreboard players set @s skill.slide_cost 0
+scoreboard players set @s skill.slide_sprint 0
 scoreboard players set @s skill.stamina_warn 0

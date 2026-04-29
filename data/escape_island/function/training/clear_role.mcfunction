@@ -75,6 +75,7 @@ scoreboard players set @s skill.adren_time 0
 scoreboard players set @s skill.adren_cd 0
 scoreboard players set @s skill.slide_time 0
 scoreboard players set @s skill.slide_cd 0
+scoreboard players set @s skill.slide_sprint 0
 effect clear @s
 attribute @s minecraft:movement_speed base set 0.1
 effect give @s minecraft:saturation 1 20 true
