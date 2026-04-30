@@ -10,8 +10,13 @@ execute as @a[tag=infected.mother,tag=!state.dead,tag=!state.escaped,tag=!state.
 function escape_island:infection/death_check
 execute as @a[tag=state.sporifying] at @s at @e[type=minecraft:marker,tag=entity.downed_anchor,distance=..3,sort=nearest,limit=1] run tp @s ~ ~ ~
 execute as @a[tag=state.dead] at @s at @e[type=minecraft:marker,tag=entity.dead_anchor,distance=..3,sort=nearest,limit=1] run tp @s ~ ~ ~
+
 execute as @a[scores={signal_repair_time=1..,signal_repair_seen=0}] run function escape_island:task/signal_tower_reset_hold
 scoreboard players remove @a[scores={signal_repair_seen=1..}] signal_repair_seen 1
+
+execute as @a[scores={gen_hold_lock=1,gen_hold_seen=0}] run function escape_island:task/generator_reset_hold
+execute as @a[scores={gen_hold_time=1..,gen_hold_seen=0}] run function escape_island:task/generator_reset_hold
+scoreboard players remove @a[scores={gen_hold_seen=1..}] gen_hold_seen 1
 
 execute if score $game in_game matches 1 run function escape_island:game/phase_check
 

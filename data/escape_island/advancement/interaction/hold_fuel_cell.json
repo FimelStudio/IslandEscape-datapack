@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "hold": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "item": {
+          "predicates": {
+            "minecraft:custom_data": "{item:\"fuel_cell\"}"
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "escape_island:task/generator_hold"
+  }
+}

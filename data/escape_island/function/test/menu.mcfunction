@@ -5,6 +5,7 @@ tellraw @s [{"text":"[创建开发沙盒]","color":"aqua","bold":true,"click_eve
 tellraw @s [{"text":"[清理开发沙盒]","color":"gray","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/stop"}},{"text":" 退出训练并删除临时 marker","color":"gray"}]
 tellraw @s [{"text":"[感染测试]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/infection_menu"}},{"text":" 污染、治愈、死亡、复活状态机","color":"gray"}]
 tellraw @s [{"text":"[Batch 7A 信号塔测试]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/signal_tower_setup"}},{"text":" 自动准备阶段、线缆和信号塔位置","color":"gray"}]
+tellraw @s [{"text":"[Batch 7B 发电机测试]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/generator_setup"}},{"text":" 自动准备发电机位置和燃料电池","color":"gray"}]
 tellraw @s [{"text":"[查看状态]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:debug/show_state"}},{"text":" 输出当前局内计分板状态","color":"gray"}]
 tellraw @s [{"text":"[训练模式]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/start"}},{"text":" 单人练技能，不开正式局","color":"gray"}]
 tellraw @s [{"text":"[选择训练职业]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/role_menu"}},{"text":" 一次只拥有一个职业，避免技能串线","color":"gray"}]

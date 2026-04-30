@@ -19,6 +19,10 @@ scoreboard players set $game signal_done 0
 scoreboard players set $game ship_progress 0
 scoreboard players set $game ship_parts 0
 scoreboard players set $game lab_cards 0
+scoreboard players set $game gen_state 0
+scoreboard players set $game gen_hold_time 0
+scoreboard players set $game gen_hold_seen 0
+scoreboard players set $game gen_hold_lock 0
 scoreboard players set $game gen_done 0
 
 tag @a remove team.human
