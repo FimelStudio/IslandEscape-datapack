@@ -1,4 +1,5 @@
 kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"engineer_battery"}}}}]
+kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"engineer_battery_used"}}}}]
 
 execute as @a[tag=!role.engineer] run function skill:engineer/battery/cleanup_non_engineer
 

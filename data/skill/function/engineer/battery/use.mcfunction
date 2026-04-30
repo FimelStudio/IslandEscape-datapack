@@ -1,4 +1,5 @@
 advancement revoke @s only skill:engineer/battery/use
+clear @s minecraft:sugar[custom_data={skill:"engineer_battery_used"}]
 
 execute unless entity @s[tag=role.engineer] run function skill:engineer/battery/cleanup_non_engineer
 execute unless entity @s[tag=role.engineer] run return 0

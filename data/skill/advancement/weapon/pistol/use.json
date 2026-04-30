@@ -1,12 +1,17 @@
 {
   "criteria": {
     "use": {
-      "trigger": "consume_item",
+      "trigger": "inventory_changed",
       "conditions": {
-        "item": {
-          "predicates": {
-            "minecraft:custom_data": "{weapon:\"pistol\"}"
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{weapon:\"pistol_used\"}"
+            }
           }
+        ],
+        "player": {
+          "nbt": "{Tags:[\"team.human\"]}"
         }
       }
     }

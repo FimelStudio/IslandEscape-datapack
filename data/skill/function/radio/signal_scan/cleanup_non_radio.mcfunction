@@ -1,5 +1,6 @@
 advancement revoke @s only skill:radio/signal_scan/use
 clear @s minecraft:compass[minecraft:custom_data~{skill:"radio_signal_scan"}]
+clear @s minecraft:sugar[custom_data={skill:"radio_signal_scan_used"}]
 scoreboard players set @s skill.signal_scan_cd 0
 scoreboard players set @s skill.signal_scan_item 0
 scoreboard players set @s skill.signal_scan_state 0

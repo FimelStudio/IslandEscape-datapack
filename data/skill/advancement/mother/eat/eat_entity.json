@@ -1,22 +1,22 @@
 {
-    "criteria": {
-        "eat_entity": {
-            "trigger": "consume_item",
-            "conditions": {
-                "item": {
-                    "components": {
-                        "custom_data": {
-                            "skill": "mother/eat"
-                        }
-                    }
-                },
-                "player": {
-                    "nbt": "{Tags:[\"infected.mother\"]}"
-                }
+  "criteria": {
+    "eat_entity": {
+      "trigger": "inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{skill:\"mother/eat_used\"}"
             }
+          }
+        ],
+        "player": {
+          "nbt": "{Tags:[\"infected.mother\"]}"
         }
-    },
-    "rewards": {
-        "function": "skill:mother/eat/do_eat"
+      }
     }
+  },
+  "rewards": {
+    "function": "skill:mother/eat/do_eat"
+  }
 }

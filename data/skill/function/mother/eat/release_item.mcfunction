@@ -1,4 +1,5 @@
 advancement revoke @s only skill:mother/eat/release_entity
+clear @s minecraft:sugar[minecraft:custom_data={skill:"mother/eat_release_used"}]
 execute unless entity @s[tag=infected.mother,tag=skill.mother.eating] run return 0
 execute unless entity @a[tag=skill.mother.eat.target,limit=1] run function skill:mother/eat/reset_state
 execute unless entity @a[tag=skill.mother.eat.target,limit=1] run return 0

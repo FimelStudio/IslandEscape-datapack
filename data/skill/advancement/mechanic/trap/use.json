@@ -1,26 +1,47 @@
 {
   "criteria": {
     "use": {
-      "trigger": "consume_item",
+      "trigger": "inventory_changed",
       "conditions": {
-        "item": {
-          "components": {
-            "custom_data": {
-              "skill": "mechanic_trap"
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{skill:\"mechanic_trap_used\"}"
             }
           }
+        ],
+        "player": {
+          "nbt": "{Tags:[\"role.mechanic\"]}"
         }
       }
     },
     "use_infected": {
-      "trigger": "consume_item",
+      "trigger": "inventory_changed",
       "conditions": {
-        "item": {
-          "components": {
-            "custom_data": {
-              "skill": "mechanic_infected_trap"
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{skill:\"mechanic_infected_trap_used\"}"
             }
           }
+        ],
+        "player": {
+          "nbt": "{Tags:[\"infected.common\",\"retained.mechanic\"]}"
+        }
+      }
+    },
+    "use_retained": {
+      "trigger": "inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{skill:\"mechanic_trap_used\"}"
+            }
+          }
+        ],
+        "player": {
+          "nbt": "{Tags:[\"retained.mechanic\"]}"
         }
       }
     }
@@ -28,6 +49,7 @@
   "requirements": [
     [
       "use",
+      "use_retained",
       "use_infected"
     ]
   ],

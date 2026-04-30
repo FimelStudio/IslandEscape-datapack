@@ -1,4 +1,5 @@
 advancement revoke @s only skill:doctor/antidote/use
+clear @s minecraft:sugar[custom_data={skill:"doctor_antidote_used"}]
 
 execute unless entity @s[tag=role.doctor] run function skill:doctor/antidote/cleanup_non_doctor
 execute unless entity @s[tag=role.doctor] run return 0

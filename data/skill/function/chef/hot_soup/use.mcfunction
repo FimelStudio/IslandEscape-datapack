@@ -1,4 +1,5 @@
 advancement revoke @s only skill:chef/hot_soup/use
+clear @s minecraft:sugar[custom_data={skill:"cook_soup_used"}]
 
 execute unless entity @s[tag=role.chef] run function skill:chef/hot_soup/cleanup_non_chef
 execute unless entity @s[tag=role.chef] run return 0

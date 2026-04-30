@@ -1,4 +1,5 @@
 advancement revoke @s only skill:captain/whistle/use
+clear @s minecraft:sugar[custom_data={skill:"captain_whistle_used"}]
 
 execute unless entity @s[tag=role.captain] run function skill:captain/whistle/cleanup_non_captain
 execute unless entity @s[tag=role.captain] run return 0

@@ -1,4 +1,6 @@
 advancement revoke @s only skill:mechanic/trap/use
+clear @s minecraft:sugar[custom_data={skill:"mechanic_trap_used"}]
+clear @s minecraft:sugar[custom_data={skill:"mechanic_infected_trap_used"}]
 tag @s remove skill.trap.recalled
 
 execute unless entity @s[tag=role.mechanic] unless entity @s[tag=retained.mechanic] run function skill:mechanic/cleanup_non_mechanic

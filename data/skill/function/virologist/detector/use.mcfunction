@@ -1,4 +1,5 @@
 advancement revoke @s only skill:virologist/detector/use
+clear @s minecraft:sugar[custom_data={skill:"viro_detector_used"}]
 
 execute unless entity @s[tag=role.virologist] run function skill:virologist/detector/cleanup_non_virologist
 execute unless entity @s[tag=role.virologist] run return 0

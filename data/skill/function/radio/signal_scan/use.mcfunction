@@ -1,4 +1,5 @@
 advancement revoke @s only skill:radio/signal_scan/use
+clear @s minecraft:sugar[custom_data={skill:"radio_signal_scan_used"}]
 
 execute unless entity @s[tag=role.radio] run function skill:radio/signal_scan/cleanup_non_radio
 execute unless entity @s[tag=role.radio] run return 0

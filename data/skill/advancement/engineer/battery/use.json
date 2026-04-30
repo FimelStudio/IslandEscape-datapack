@@ -1,15 +1,15 @@
 {
   "criteria": {
     "use": {
-      "trigger": "consume_item",
+      "trigger": "inventory_changed",
       "conditions": {
-        "item": {
-          "components": {
-            "custom_data": {
-              "skill": "engineer_battery"
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{skill:\"engineer_battery_used\"}"
             }
           }
-        },
+        ],
         "player": {
           "nbt": "{Tags:[\"role.engineer\"]}"
         }

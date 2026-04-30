@@ -1,3 +1,4 @@
+scoreboard players add @s skill.pistol_mag 0
 execute if score @s skill.pistol_mag matches ..-1 run scoreboard players set @s skill.pistol_mag 0
 execute if score @s skill.pistol_mag matches 9.. run scoreboard players set @s skill.pistol_mag 8
 

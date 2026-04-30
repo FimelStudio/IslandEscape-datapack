@@ -1,4 +1,5 @@
 advancement revoke @s only skill:weapon/pistol/use
+clear @s minecraft:sugar[minecraft:custom_data~{weapon:"pistol_used"}]
 tag @s remove skill.pistol.reloading
 tag @s remove skill.pistol.holding
 tag @s remove skill.pistol.xp

@@ -1,5 +1,6 @@
 kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:sugar",components:{"minecraft:custom_data":{skill:"captain_whistle"}}}}]
 kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:goat_horn",components:{"minecraft:custom_data":{skill:"captain_whistle"}}}}]
+kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:sugar",components:{"minecraft:custom_data":{skill:"captain_whistle_used"}}}}]
 
 execute as @a[tag=!role.captain] run function skill:captain/whistle/cleanup_non_captain
 

@@ -1,22 +1,22 @@
 {
-    "criteria": {
-        "use_zombie_editor": {
-            "trigger": "consume_item",
-            "conditions": {
-                "item": {
-                    "components": {
-                        "custom_data": {
-                            "skill": "mother/zombie_editor"
-                        }
-                    }
-                },
-                "player": {
-                    "nbt": "{Tags:[\"infected.mother\"]}"
-                }
+  "criteria": {
+    "use_zombie_editor": {
+      "trigger": "inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{skill:\"mother/zombie_editor_used\"}"
             }
+          }
+        ],
+        "player": {
+          "nbt": "{Tags:[\"infected.mother\"]}"
         }
-    },
-    "rewards": {
-        "function": "skill:mother/eat/zombie_editor"
+      }
     }
+  },
+  "rewards": {
+    "function": "skill:mother/eat/zombie_editor"
+  }
 }

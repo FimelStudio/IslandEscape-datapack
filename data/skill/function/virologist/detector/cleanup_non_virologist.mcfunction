@@ -2,6 +2,7 @@ advancement revoke @s only skill:virologist/detector/use
 clear @s minecraft:potion[minecraft:custom_data~{skill:"viro_detector"}]
 clear @s minecraft:glass_bottle[minecraft:custom_data~{skill:"viro_detector"}]
 clear @s minecraft:glass_bottle[minecraft:custom_data~{role_item:"virologist.reagent"}]
+clear @s minecraft:sugar[custom_data={skill:"viro_detector_used"}]
 scoreboard players set @s skill.detector_cd 0
 scoreboard players set @s skill.detector_item 0
 scoreboard players set @s skill.detector_state 0
