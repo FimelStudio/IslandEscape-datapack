@@ -22,16 +22,16 @@ execute unless items entity @s weapon.mainhand minecraft:string[minecraft:custom
 execute unless items entity @s weapon.mainhand minecraft:string[minecraft:custom_data~{item:"cable"}] run return 0
 
 scoreboard players add @s signal_repair_time 1
-execute if entity @s[tag=engineer] if score $tick cycle20 matches 0 run scoreboard players add @s signal_repair_time 1
-execute if entity @s[tag=engineer] if score $tick cycle20 matches 2 run scoreboard players add @s signal_repair_time 1
-execute if entity @s[tag=engineer] if score $tick cycle20 matches 4 run scoreboard players add @s signal_repair_time 1
-execute if entity @s[tag=engineer] if score $tick cycle20 matches 6 run scoreboard players add @s signal_repair_time 1
-execute if entity @s[tag=engineer] if score $tick cycle20 matches 8 run scoreboard players add @s signal_repair_time 1
-execute if entity @s[tag=engineer] if score $tick cycle20 matches 10 run scoreboard players add @s signal_repair_time 1
-execute if entity @s[tag=engineer] if score $tick cycle20 matches 12 run scoreboard players add @s signal_repair_time 1
-execute if entity @s[tag=engineer] if score $tick cycle20 matches 14 run scoreboard players add @s signal_repair_time 1
-execute if entity @s[tag=engineer] if score $tick cycle20 matches 16 run scoreboard players add @s signal_repair_time 1
-execute if entity @s[tag=engineer] if score $tick cycle20 matches 18 run scoreboard players add @s signal_repair_time 1
+execute if entity @s[tag=role.engineer] if score $tick cycle20 matches 0 run scoreboard players add @s signal_repair_time 1
+execute if entity @s[tag=role.engineer] if score $tick cycle20 matches 2 run scoreboard players add @s signal_repair_time 1
+execute if entity @s[tag=role.engineer] if score $tick cycle20 matches 4 run scoreboard players add @s signal_repair_time 1
+execute if entity @s[tag=role.engineer] if score $tick cycle20 matches 6 run scoreboard players add @s signal_repair_time 1
+execute if entity @s[tag=role.engineer] if score $tick cycle20 matches 8 run scoreboard players add @s signal_repair_time 1
+execute if entity @s[tag=role.engineer] if score $tick cycle20 matches 10 run scoreboard players add @s signal_repair_time 1
+execute if entity @s[tag=role.engineer] if score $tick cycle20 matches 12 run scoreboard players add @s signal_repair_time 1
+execute if entity @s[tag=role.engineer] if score $tick cycle20 matches 14 run scoreboard players add @s signal_repair_time 1
+execute if entity @s[tag=role.engineer] if score $tick cycle20 matches 16 run scoreboard players add @s signal_repair_time 1
+execute if entity @s[tag=role.engineer] if score $tick cycle20 matches 18 run scoreboard players add @s signal_repair_time 1
 execute if entity @e[type=minecraft:marker,tag=entity.engineer_battery,distance=..4,limit=1] run scoreboard players add @s signal_repair_time 1
 execute if entity @s[tag=state.infected_period] if score $tick cycle20 matches 0 run scoreboard players remove @s signal_repair_time 1
 execute if entity @s[tag=state.infected_period] if score $tick cycle20 matches 2 run scoreboard players remove @s signal_repair_time 1

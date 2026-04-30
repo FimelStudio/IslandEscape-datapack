@@ -1,6 +1,6 @@
-execute as @a[tag=role.survivor,tag=!role.mother] at @s if entity @e[tag=marker.ship_dock,distance=..3] run scoreboard players add $game ship_progress 1
+execute as @a[tag=team.human,tag=!infected.mother] at @s if entity @e[tag=marker.ship_dock,distance=..3] run scoreboard players add $game ship_progress 1
 execute if entity @a[tag=role.sailor] at @s if entity @e[tag=marker.ship_dock,distance=..3] run scoreboard players add $game ship_progress 0
-execute as @a[tag=role.infected] at @s if entity @e[tag=marker.ship_dock,distance=..3] run scoreboard players remove $game ship_progress 2
+execute as @a[tag=infected.common] at @s if entity @e[tag=marker.ship_dock,distance=..3] run scoreboard players remove $game ship_progress 2
 
 execute if score $game ship_progress matches ..-1 run scoreboard players set $game ship_progress 0
 

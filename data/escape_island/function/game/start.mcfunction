@@ -21,34 +21,35 @@ scoreboard players set $game ship_parts 0
 scoreboard players set $game lab_cards 0
 scoreboard players set $game gen_done 0
 
-tag @a remove role.survivor
-tag @a remove role.mother
-tag @a remove role.infected
-tag @a remove zombie
+tag @a remove team.human
+tag @a remove team.infected
+tag @a remove infected.special
+tag @a remove infected.licker
+tag @a remove infected.listener
+tag @a remove infected.runner
+tag @a remove infected.tank
+tag @a remove infected.spitter
+tag @a remove infected.mother
+tag @a remove infected.common
 tag @a remove role.marine
-tag @a remove doctor
-tag @a remove captain
-tag @a remove engineer
-tag @a remove marine
+tag @a remove role.doctor
+tag @a remove role.captain
+tag @a remove role.engineer
+tag @a remove role.marine
 tag @a remove role.chef
-tag @a remove chef
 tag @a remove role.radio
-tag @a remove radio
 tag @a remove role.virologist
-tag @a remove virologist
-tag @a remove role.latent_host
-tag @a remove role.secondary_mother
+tag @a remove state.latent_host
+tag @a remove infected.secondary_mother
 tag @a remove role.athlete
-tag @a remove athlete
 tag @a remove role.priest
-tag @a remove priest
-tag @a remove adren_active
-tag @a remove sliding
-tag @a remove slide_locked
-tag @a remove mother_eating
-tag @a remove mother_eat_fired
-tag @a remove mother_eat_absorbing
-tag @a remove eaten_zombie
+tag @a remove skill.adrenaline.active
+tag @a remove skill.slide.active
+tag @a remove skill.slide.locked
+tag @a remove skill.mother.eating
+tag @a remove skill.mother.eat.fired
+tag @a remove skill.mother.eat.absorbing
+tag @a remove skill.mother.eat.target
 tag @a remove state.infected_period
 tag @a remove state.boarding
 tag @a remove state.escaped
@@ -77,10 +78,10 @@ tag @a remove flag.has_promfile
 tag @a remove flag.has_disguise
 tag @a remove flag.tutorial_seen
 tag @a remove flag.first_attack
-tag @a remove skill.antidote_user
-tag @a remove skill.antidote_target
-tag @a remove skill.battery_recalled
-tag @a remove skill.gm_hit
+tag @a remove skill.antidote.user
+tag @a remove skill.antidote.target
+tag @a remove skill.battery.recalled
+tag @a remove skill.gun_mastery.hit
 execute as @a run function skill:radio/cleanup_non_radio
 execute as @a run function skill:virologist/cleanup_non_virologist
 execute as @a run function skill:priest/cleanup_non_priest

@@ -1,4 +1,4 @@
+tag @s add team.human
 tag @s add role.engineer
-tag @s add engineer
-tag @s remove candidate
+tag @s remove state.role_candidate
 scoreboard players set @s role 3

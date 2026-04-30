@@ -15,34 +15,24 @@ execute if entity @s[tag=role.athlete] run tag @s add retained.athlete
 execute if entity @s[tag=role.priest] run tag @s add retained.priest
 execute if entity @s[tag=role.sailor] run effect give @s minecraft:speed 99999 0 true
 
-tag @s remove role.survivor
+tag @s remove team.human
 tag @s remove state.infected_period
 tag @s remove role.doctor
-tag @s remove doctor
 tag @s remove role.captain
-tag @s remove captain
 tag @s remove role.engineer
-tag @s remove engineer
 tag @s remove role.marine
-tag @s remove marine
 tag @s remove role.chef
-tag @s remove chef
 tag @s remove role.radio
-tag @s remove radio
 tag @s remove role.virologist
-tag @s remove virologist
 tag @s remove role.mechanic
-tag @s remove mechanic
 tag @s remove role.sailor
 tag @s remove role.athlete
-tag @s remove athlete
-tag @s remove adren_active
-tag @s remove sliding
-tag @s remove slide_locked
+tag @s remove skill.adrenaline.active
+tag @s remove skill.slide.active
+tag @s remove skill.slide.locked
 tag @s remove role.priest
-tag @s remove priest
-tag @s add role.infected
-tag @s add zombie
+tag @s add team.infected
+tag @s add infected.common
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
 function skill:mechanic/cleanup_non_mechanic
@@ -84,7 +74,7 @@ title @s subtitle {"text":"§c你已被同化。扩散孢子。"}
 playsound minecraft:entity.witch.celebrate master @s ~ ~ ~ 1 0.5
 
 function escape_island:util/recount_infected
-tellraw @a[tag=!role.mother] {"text":"§c岛上有人倒下了……","color":"dark_red","italic":true}
-tellraw @a[tag=role.mother] [{"text":"§4+1 感染者已就位。总计: "},{"score":{"name":"$tmp","objective":"infected_count"}}]
+tellraw @a[tag=!infected.mother] {"text":"§c岛上有人倒下了……","color":"dark_red","italic":true}
+tellraw @a[tag=infected.mother] [{"text":"§4+1 感染者已就位。总计: "},{"score":{"name":"$tmp","objective":"infected_count"}}]
 
-execute if score $game in_game matches 1 unless entity @a[tag=role.survivor] run function escape_island:game/end_mutate
+execute if score $game in_game matches 1 unless entity @a[tag=team.human] run function escape_island:game/end_mutate

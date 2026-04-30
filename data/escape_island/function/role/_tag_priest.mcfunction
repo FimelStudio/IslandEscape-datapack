@@ -1,4 +1,4 @@
+tag @s add team.human
 tag @s add role.priest
-tag @s add priest
-tag @s remove candidate
+tag @s remove state.role_candidate
 scoreboard players set @s role 10

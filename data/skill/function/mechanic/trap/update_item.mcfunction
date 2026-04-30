@@ -10,5 +10,5 @@ execute store result storage skill:mechanic.trap item.charges int 1 run scoreboa
 execute if score @s skill.trap_charges matches ..0 run scoreboard players set @s skill.trap_state 2
 execute if score @s skill.trap_charges matches ..0 run function skill:mechanic/trap/item_cooldown with storage skill:mechanic.trap item
 execute if score @s skill.trap_charges matches 1.. run scoreboard players set @s skill.trap_state 1
-execute if score @s skill.trap_charges matches 1.. if entity @s[tag=role.infected] run function skill:mechanic/trap/item_infected_ready with storage skill:mechanic.trap item
-execute if score @s skill.trap_charges matches 1.. unless entity @s[tag=role.infected] run function skill:mechanic/trap/item_ready with storage skill:mechanic.trap item
+execute if score @s skill.trap_charges matches 1.. if entity @s[tag=infected.common] run function skill:mechanic/trap/item_infected_ready with storage skill:mechanic.trap item
+execute if score @s skill.trap_charges matches 1.. unless entity @s[tag=infected.common] run function skill:mechanic/trap/item_ready with storage skill:mechanic.trap item

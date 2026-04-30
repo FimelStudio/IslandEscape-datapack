@@ -1,5 +1,5 @@
 function escape_island:dev/_reset_player_state
-tag @s add role.survivor
+tag @s add team.human
 tag @s add role.priest
 scoreboard players set @s role 10
 team join survivors @s

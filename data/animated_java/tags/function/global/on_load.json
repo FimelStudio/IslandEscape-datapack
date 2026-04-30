@@ -1,4 +1,4 @@
 {
 	"replace": false,
-	"values": []
+	"values": ["animated_java:helicopter/on_load"]
 }

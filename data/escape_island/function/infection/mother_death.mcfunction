@@ -1,6 +1,6 @@
 
 execute if entity @s[tag=state.dead] run return 0
-execute if entity @s[tag=mother_eating] at @s run function skill:mother/eat/release_fallback
+execute if entity @s[tag=skill.mother.eating] at @s run function skill:mother/eat/release_fallback
 tag @s add state.dead
 scoreboard players operation @s mother_respawn = Tunable tunable.mother_respawn_seconds
 

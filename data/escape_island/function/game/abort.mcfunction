@@ -19,10 +19,10 @@ bossbar set escape_island:disguise visible false
 bossbar set escape_island:mother_respawn visible false
 
 team leave @a
-tag @a remove mother_eating
-tag @a remove mother_eat_fired
-tag @a remove mother_eat_absorbing
-tag @a remove eaten_zombie
+tag @a remove skill.mother.eating
+tag @a remove skill.mother.eat.fired
+tag @a remove skill.mother.eat.absorbing
+tag @a remove skill.mother.eat.target
 scoreboard players reset @a skill.mother_eat_anim
 function skill:mother/eat/clear_storage
 

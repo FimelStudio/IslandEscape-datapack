@@ -1,4 +1,4 @@
-tag @s add mother_eat_absorbing
+tag @s add skill.mother.eat.absorbing
 scoreboard players set @s skill.mother_eat_anim 18
 effect give @s minecraft:slowness 1 255 true
 effect give @s minecraft:weakness 1 255 true

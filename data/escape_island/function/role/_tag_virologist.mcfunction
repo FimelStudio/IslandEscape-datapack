@@ -1,4 +1,4 @@
+tag @s add team.human
 tag @s add role.virologist
-tag @s add virologist
-tag @s remove candidate
+tag @s remove state.role_candidate
 scoreboard players set @s role 7

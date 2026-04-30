@@ -1,5 +1,5 @@
 function escape_island:training/clear_role
-tag @s add role.survivor
+tag @s add team.human
 function escape_island:role/_tag_marine
 function escape_island:role/_give_base_survivor
 function escape_island:role/kit_marine

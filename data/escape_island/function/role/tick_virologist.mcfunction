@@ -1,1 +1,1 @@
-tag @s add virologist
+tag @s add role.virologist

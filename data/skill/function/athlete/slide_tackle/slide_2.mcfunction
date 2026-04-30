@@ -1,22 +1,22 @@
-execute on vehicle if entity @s[type=minecraft:silverfish,tag=slide_vehicle] run tag @s add slide_cleanup
-execute unless data entity @s RootVehicle run tag @e[type=minecraft:silverfish,tag=slide_vehicle,distance=..8,limit=1,sort=nearest] add slide_cleanup
+execute on vehicle if entity @s[type=minecraft:silverfish,tag=skill.slide.vehicle] run tag @s add skill.slide.cleanup
+execute unless data entity @s RootVehicle run tag @e[type=minecraft:silverfish,tag=skill.slide.vehicle,distance=..8,limit=1,sort=nearest] add skill.slide.cleanup
 ride @s dismount
-execute as @e[type=minecraft:silverfish,tag=slide_cleanup] at @s run tp @s ~ -512 ~
-kill @e[type=minecraft:silverfish,tag=slide_cleanup]
+execute as @e[type=minecraft:silverfish,tag=skill.slide.cleanup] at @s run tp @s ~ -512 ~
+kill @e[type=minecraft:silverfish,tag=skill.slide.cleanup]
 
-tag @s remove sliding
-tag @s remove slide_blocked
-tag @s remove slide_falling
-tag @s remove slide_falling_small
-tag @s remove slide_moved
-tag @s remove slide_drop_113
-tag @s remove slide_drop_100
-tag @s remove slide_drop_083
-tag @s remove slide_drop_064
-tag @s remove slide_drop_044
-tag @s remove slide_drop_030
-tag @s remove slide_drop_015
-tag @s remove slide_drop_008
+tag @s remove skill.slide.active
+tag @s remove skill.slide.blocked
+tag @s remove skill.slide.falling
+tag @s remove skill.slide.falling_small
+tag @s remove skill.slide.moved
+tag @s remove skill.slide.drop_113
+tag @s remove skill.slide.drop_100
+tag @s remove skill.slide.drop_083
+tag @s remove skill.slide.drop_064
+tag @s remove skill.slide.drop_044
+tag @s remove skill.slide.drop_030
+tag @s remove skill.slide.drop_015
+tag @s remove skill.slide.drop_008
 scoreboard players set @s skill.slide_time 0
 scoreboard players set @s skill.slide_fall 0
 scoreboard players operation @s skill.slide_cost = #cost skill.stamina_cfg

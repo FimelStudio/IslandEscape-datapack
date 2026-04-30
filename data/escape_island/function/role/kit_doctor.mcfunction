@@ -1,4 +1,4 @@
-tag @s add doctor
+tag @s add role.doctor
 tag @s add flag.has_inject
 scoreboard players set @s skill.antidote_charges 1
 scoreboard players set @s skill.antidote_cd 0

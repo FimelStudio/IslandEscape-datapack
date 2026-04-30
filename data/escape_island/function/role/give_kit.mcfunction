@@ -1,5 +1,5 @@
 
-execute if entity @s[tag=role.survivor] run function escape_island:role/_give_base_survivor
+execute if entity @s[tag=team.human] run function escape_island:role/_give_base_survivor
 
 execute if entity @s[tag=role.doctor] run function escape_island:role/kit_doctor
 execute if entity @s[tag=role.captain] run function escape_island:role/kit_captain

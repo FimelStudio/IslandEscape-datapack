@@ -6,7 +6,7 @@
             "type": "minecraft:player",
             "looking_at": {
                 "type": "minecraft:player",
-                "nbt": "{Tags:[\"zombie\"]}",
+                "nbt": "{Tags:[\"infected.common\"]}",
                 "distance": {
                     "absolute": {
                         "max": 8

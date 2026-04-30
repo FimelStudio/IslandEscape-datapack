@@ -1,4 +1,4 @@
-tag @s add mechanic
+tag @s add role.mechanic
 function skill:mechanic/trap/config
 scoreboard players set @s skill.trap_cd 0
 scoreboard players set @s skill.trap_state 0

@@ -16,8 +16,8 @@ execute as @a[tag=state.infected_period] at @s run particle minecraft:dust{color
 
 execute as @a[tag=state.infected_period] run effect give @s minecraft:slowness 2 0 true
 
-execute as @a[tag=role.infected,tag=retained.captain,tag=!state.dead] at @s run effect give @a[tag=role.infected,distance=..6] minecraft:strength 2 0 true
+execute as @a[tag=infected.common,tag=retained.captain,tag=!state.dead] at @s run effect give @a[tag=infected.common,distance=..6] minecraft:strength 2 0 true
 
-execute as @a[tag=role.infected,tag=!state.dead] at @s run particle minecraft:dust{color:[0.0,0.9,0.25],scale:0.9} ~ ~1 ~ 2 0.7 2 0.01 8 force @a
+execute as @a[tag=infected.common,tag=!state.dead] at @s run particle minecraft:dust{color:[0.0,0.9,0.25],scale:0.9} ~ ~1 ~ 2 0.7 2 0.01 8 force @a
 
 execute as @a[tag=state.infected_period,scores={infect_time=..0}] run function escape_island:infection/turn

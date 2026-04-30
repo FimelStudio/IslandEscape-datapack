@@ -1,4 +1,4 @@
-tag @s add radio
+tag @s add role.radio
 function skill:radio/signal_scan/config
 scoreboard players set @s skill.signal_scan_cd 0
 scoreboard players set @s skill.signal_scan_state 0

@@ -1,1 +1,1 @@
-tag @s add marine
+tag @s add role.marine

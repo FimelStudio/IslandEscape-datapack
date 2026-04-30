@@ -1,4 +1,4 @@
-tag @s add chef
+tag @s add role.chef
 function skill:chef/hot_soup/config
 scoreboard players set @s skill.soup_cd 0
 scoreboard players set @s skill.soup_state 0

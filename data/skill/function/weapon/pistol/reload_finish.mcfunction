@@ -1,4 +1,4 @@
-tag @s remove skill.pistol_reloading
+tag @s remove skill.pistol.reloading
 scoreboard players set @s skill.pistol_reload 0
 scoreboard players operation #before skill.pistol_tmp = @s skill.pistol_mag
 

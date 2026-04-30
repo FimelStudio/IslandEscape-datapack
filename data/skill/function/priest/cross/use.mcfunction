@@ -1,6 +1,6 @@
 advancement revoke @s only skill:priest/cross/use
 
-execute unless entity @s[tag=cross_active] run return 0
+execute unless entity @s[tag=skill.priest.cross.active] run return 0
 
 # Trigger protection
 effect give @s minecraft:resistance 1 255 true
@@ -8,7 +8,7 @@ tag @s remove state.infected_period
 scoreboard players set @s infect_time 0
 scoreboard players set @s spore_load 0
 effect clear @s minecraft:slowness
-tag @s remove cross_active
+tag @s remove skill.priest.cross.active
 tag @s remove flag.cross_intact
 clear @s minecraft:nautilus_shell[minecraft:custom_data~{skill:"priest_cross"}]
 clear @s minecraft:nautilus_shell[minecraft:custom_data~{skill:"priest_cross_used"}]

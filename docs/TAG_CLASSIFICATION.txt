@@ -1,0 +1,221 @@
+Island Escape Tag 分类规范
+===========================
+
+目标
+----
+统一阵营、职业、感染者类型、临时状态、技能状态和实体标记的命名。判断“阵营”只看 `team.*`，判断“职业”只看 `role.*`，判断“感染者种类”只看 `infected.*`。
+
+一、阵营 Tag
+------------
+每名正式游戏玩家在正常状态下只应该属于一个主阵营。
+
+`team.human`
+  人类阵营。
+
+`team.infected`
+  感染阵营，包含母体、普通感染体、次级母体、特殊感染体。
+
+常用选择器：
+`@a[tag=team.human]`
+`@a[tag=team.infected]`
+
+说明：
+不再给人类额外维护“幸存者”“人类 NPC”“伪装人类”这类身份 tag。是否属于人类阵营统一用 `team.human` 判断。
+
+二、人类职业 Tag
+----------------
+职业统一使用 `role.xxx`。`role.*` 只表示具体职业，不表示阵营；判断阵营仍然使用 `team.human`。
+
+`role.doctor`      船医
+`role.captain`     船长
+`role.engineer`    工程师
+`role.marine`      海军陆战队员
+`role.chef`        厨师
+`role.radio`       通讯员
+`role.virologist`  病毒学家
+`role.mechanic`    机修工
+`role.sailor`      水手
+`role.athlete`     运动员
+`role.priest`      神父
+
+示例：运动员
+`tag @s add team.human`
+`tag @s add role.athlete`
+
+三、感染者类型 Tag
+------------------
+感染阵营内部使用 `infected.xxx` 区分类型。`infected.*` 只表示感染者种类，不表示阵营；判断阵营仍然使用 `team.infected`。
+
+`infected.mother`
+  母体。
+
+`infected.secondary_mother`
+  次级母体。
+
+`infected.common`
+  普通感染体。
+
+`infected.special`
+  特殊感染体总类。
+
+`infected.licker`
+  舔食者。与 `infected.special` 同时存在。
+
+`infected.listener`
+  循声者。与 `infected.special` 同时存在。
+
+`infected.runner`
+  奔跑者。与 `infected.special` 同时存在。
+
+`infected.tank`
+  坦克型感染体。与 `infected.special` 同时存在。
+
+`infected.spitter`
+  喷吐者。与 `infected.special` 同时存在。
+
+示例：母体
+`tag @s add team.infected`
+`tag @s add infected.mother`
+
+示例：普通感染体
+`tag @s add team.infected`
+`tag @s add infected.common`
+
+示例：舔食者
+`tag @s add team.infected`
+`tag @s add infected.special`
+`tag @s add infected.licker`
+
+四、状态 Tag
+------------
+`state.*` 只表示临时状态或流程状态，不表示阵营、职业或感染者种类。
+
+`state.dead`
+`state.spectator`
+`state.escaped`
+`state.boarding`
+`state.infected_period`
+`state.sporifying`
+`state.disguised`
+`state.disguise_scanning`
+`state.infection_resist`
+`state.infect_immune`
+`state.berserk`
+`state.latent_host`
+`state.training`
+`state.role_candidate`
+`state.scatter.target`
+`state.spawn.available`
+`state.spawn.chosen`
+
+五、技能内部 Tag
+----------------
+技能内部状态统一使用 `skill.xxx`。技能 tag 不参与阵营、职业、感染者类型判断。
+
+运动员：
+`skill.adrenaline.active`
+`skill.slide.active`
+`skill.slide.locked`
+`skill.slide.vehicle`
+`skill.slide.cleanup`
+`skill.slide.blocked`
+`skill.slide.falling`
+`skill.slide.falling_small`
+`skill.slide.moved`
+`skill.slide.stamina.init`
+`skill.slide.stamina.showing`
+
+母体吞噬：
+`skill.mother.eating`
+`skill.mother.eat.target`
+`skill.mother.eat.absorbing`
+`skill.mother.eat.fired`
+
+神父：
+`skill.priest.cross.active`
+
+船医：
+`skill.antidote.user`
+`skill.antidote.target`
+
+工程师：
+`skill.battery.active`
+`skill.battery.marker`
+`skill.battery.recalled`
+
+通讯员：
+`skill.radio.viewer`
+`skill.radio.reported`
+`skill.radio.inspector`
+`skill.radio.inspect.target`
+`skill.radio.role.found`
+
+病毒学家：
+`skill.virologist.viewer`
+`skill.virologist.hit`
+
+机修工：
+`skill.trap.marker`
+`skill.trap.recalled`
+
+武器：
+`skill.pistol.holding`
+`skill.pistol.reloading`
+`skill.pistol.update`
+`skill.pistol.xp`
+`skill.gun_mastery.hit`
+
+六、实体与流程辅助 Tag
+----------------------
+这些 tag 用于地图实体、标记点、事件、调试或流程缓存；它们不参与玩家身份判断。
+
+`entity.*`
+  可交互实体或技能实体，例如 `entity.engineer_battery`、`entity.mechanic_trap`。
+
+`marker.*`
+  地图固定点位，例如 `marker.signal_tower`、`marker.spawn_island`。
+
+`display.*`
+  纯显示实体。
+
+`event.*`
+  当前事件状态。
+
+`flag.*`
+  一次性流程标志或玩家流程标志。
+
+`retained.*`
+  玩家转化为感染体后临时保留的原职业信息。
+
+`test.*`
+  测试实体或测试流程。
+
+`dev.*`
+  开发与调试辅助标记。
+
+七、常用判断方式
+----------------
+所有人类阵营：
+`@a[tag=team.human]`
+
+所有感染阵营：
+`@a[tag=team.infected]`
+
+运动员：
+`@a[tag=role.athlete]`
+
+母体：
+`@a[tag=infected.mother]`
+
+普通感染体：
+`@a[tag=infected.common]`
+
+任意特殊感染体：
+`@a[tag=infected.special]`
+
+八、禁止混用
+------------
+不要用职业 tag 判断阵营。
+不要用感染者类型 tag 代替 `team.infected`。
+不要用无前缀的技能状态 tag。
+不要再使用旧的普通感染体英文简称作为正式分类 tag。

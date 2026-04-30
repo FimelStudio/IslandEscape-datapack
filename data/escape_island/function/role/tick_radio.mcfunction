@@ -1,1 +1,1 @@
-tag @s add radio
+tag @s add role.radio

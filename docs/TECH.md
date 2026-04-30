@@ -171,11 +171,11 @@ IslandEscape-datapack/
 
 | Tag | 含义 |
 |---|---|
-| `role.survivor` | 幸存者阵营 |
-| `role.mother` | 母体（专属，全局唯一） |
-| `role.latent_host` | 17–20 人局潜伏宿主，觉醒前仍按幸存者处理 |
-| `role.secondary_mother` | 潜伏宿主觉醒后的次级母体 |
-| `role.infected` | 普通感染者（游戏进程内部身份） |
+| `team.human` | 幸存者阵营 |
+| `infected.mother` | 母体（专属，全局唯一） |
+| `state.latent_host` | 17–20 人局潜伏宿主，觉醒前仍按幸存者处理 |
+| `infected.secondary_mother` | 潜伏宿主觉醒后的次级母体 |
+| `infected.common` | 普通感染者（游戏进程内部身份） |
 | `zombie` | 感染者技能目标标签；普通感染者转化/调试赋予时同步添加 |
 | `role.doctor`, `role.captain`, ..., `role.priest` | 具体职业（10 个） |
 | `state.infected_period` | 感染期中 |
@@ -490,13 +490,13 @@ heal @s
 
 ```mcfunction
 # game/pick_mother
-# 把所有幸存者临时打 candidate tag
-tag @a[tag=role.survivor] add candidate
+# 把所有幸存者临时打 state.role_candidate tag
+tag @a[tag=team.human] add state.role_candidate
 # 用 random 选 1
-execute as @r[tag=candidate] run function escape_island:game/_make_mother
+execute as @r[tag=state.role_candidate] run function escape_island:game/_make_mother
 # _make_mother
-tag @s remove role.survivor
-tag @s add role.mother
+tag @s remove team.human
+tag @s add infected.mother
 team join mother @s
 attribute @s minecraft:max_health base set 80
 function escape_island:role/give_kit_mother
@@ -525,9 +525,9 @@ tellraw @s [{"text":"§4§l你被柯尔文咬伤了。\\n","color":"dark_red"}, 
 
 ```mcfunction
 # 伪代码
-execute if entity @s[tag=role.mother] run function escape_island:infection/add_spore_load {amount:50}
-execute if entity @s[tag=role.secondary_mother] run function escape_island:infection/add_spore_load {amount:50}
-execute if entity @s[tag=role.infected] run function escape_island:infection/add_spore_load {amount:35}
+execute if entity @s[tag=infected.mother] run function escape_island:infection/add_spore_load {amount:50}
+execute if entity @s[tag=infected.secondary_mother] run function escape_island:infection/add_spore_load {amount:50}
+execute if entity @s[tag=infected.common] run function escape_island:infection/add_spore_load {amount:35}
 ```
 
 `add_spore_load` 增加目标 `spore_load`，重置 `spore_decay_cd` 为 15 秒；若目标有 `state.infection_resist` 则本次污染值减半。`spore_load >= tunable.spore_threshold` 时才进入 `state.infected_period`，同时清空污染值。
@@ -572,10 +572,10 @@ armor_stand 上加可坐 boat 实体作为座位。玩家上座 → 监听 `Vehi
 ### Predicate（精选）
 
 ```
-role/is_survivor.json       — 玩家有 role.survivor tag 且无 state.spectator / state.escaped
-role/is_mother.json         — 玩家有 role.mother tag
-role/is_infected.json       — 玩家有 role.infected、role.mother 或 role.secondary_mother
-role/is_latent_host.json    — 玩家有 role.latent_host
+role/is_survivor.json       — 玩家有 team.human tag 且无 state.spectator / state.escaped
+role/is_mother.json         — 玩家有 infected.mother tag
+role/is_infected.json       — 玩家有 infected.common、infected.mother 或 infected.secondary_mother
+role/is_latent_host.json    — 玩家有 state.latent_host
 infection/is_infected_period.json — state.infected_period tag
 infection/has_spore_load.json     — spore_load >= 1
 infection/spore_threshold.json    — spore_load >= tunable.spore_threshold
@@ -601,7 +601,7 @@ mob/researcher_drops.json   — 身份卡碎片 + 防毒面具偶尔
 
 ```
 add_cooldown_lore.json      — 用 macro 注入剩余 X 秒
-role_doctor.json            — 把铁斧设置为带 role.survivor.weapon 标签
+role_doctor.json            — 把铁斧设置为带 team.human.weapon 标签
 role_mother.json            — 母体三件套
 ```
 

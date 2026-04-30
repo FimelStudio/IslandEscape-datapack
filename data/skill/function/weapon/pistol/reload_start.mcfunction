@@ -8,7 +8,7 @@ execute if score #ammo skill.pistol_tmp matches ..0 run playsound minecraft:bloc
 execute if score #ammo skill.pistol_tmp matches ..0 run function skill:weapon/pistol/update_item
 execute if score #ammo skill.pistol_tmp matches ..0 run return 0
 
-tag @s add skill.pistol_reloading
+tag @s add skill.pistol.reloading
 scoreboard players set @s skill.pistol_reload 40
 function skill:weapon/pistol/update_item
 title @s actionbar {"text":"开始换弹","color":"yellow"}

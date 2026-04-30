@@ -1,6 +1,7 @@
 
-tag @s remove role.survivor
-tag @s add role.mother
+tag @s remove team.human
+tag @s add team.infected
+tag @s add infected.mother
 scoreboard players set @s role 11
 scoreboard players set @s is_mother 1
 team join mother_hidden @s

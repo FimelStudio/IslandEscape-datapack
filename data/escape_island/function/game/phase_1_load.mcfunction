@@ -1,7 +1,7 @@
 
 gamerule pvp false
 
-tag @a add role.survivor
+tag @a add team.human
 
 function escape_island:role/assign
 

@@ -55,7 +55,7 @@
 - [ ] 污染值 15 秒未新增后开始衰减
 - [ ] 感染期倒计时正确（默认 45 秒）
 - [ ] 感染期玩家仍属于幸存者阵营，不能伤害其他幸存者，也不会传播污染
-- [ ] 感染期内被打死 → 进入 15 秒倒地孢化，结束后转化感染者（变为 `role.infected`）
+- [ ] 感染期内被打死 → 进入 15 秒倒地孢化，结束后转化感染者（变为 `infected.common`）
 - [ ] 感染期超时 → 自动转化
 - [ ] 船医解毒针右键队友 → 治愈感染期，冷却 90 秒
 - [ ] 神父祝福挡死 → 阻断死亡与感染期，不进入孢化倒计时
@@ -138,7 +138,7 @@
 ### `escape_island:test/spawn_dummies`
 
 ```
-spawn 4 假玩家（armor_stand + role.survivor + 完整属性）到不同 `marker.spawn_island`
+spawn 4 假玩家（armor_stand + team.human + 完整属性）到不同 `marker.spawn_island`
 分配职业:
   dummy_1 → 船医
   dummy_2 → 工程师
@@ -161,8 +161,8 @@ spawn 4 假玩家（armor_stand + role.survivor + 完整属性）到不同 `mark
 ### `escape_island:test/regression_M2`
 
 专门验证感染状态机:
-1. 召唤 1 个 dummy，给 role.mother
-2. 召唤 1 个 dummy，给 role.survivor + role.doctor
+1. 召唤 1 个 dummy，给 infected.mother
+2. 召唤 1 个 dummy，给 team.human + role.doctor
 3. mother 攻击 doctor 1 次 → 检查 doctor 的 `spore_load` 增加且未获得 `state.infected_period`
 4. mother 再次攻击 doctor → 检查 doctor 获得 `state.infected_period`
 5. 等 0.5 秒，doctor 用解毒针对自己（dummy 不能右键，用 `function skill:doctor/inject` 模拟）

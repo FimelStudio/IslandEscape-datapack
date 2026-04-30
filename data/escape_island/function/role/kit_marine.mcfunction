@@ -1,4 +1,4 @@
-tag @s add marine
+tag @s add role.marine
 clear @s minecraft:iron_nugget[minecraft:custom_data={ammo:1}]
 clear @s minecraft:crossbow[minecraft:custom_data~{weapon:"pistol"}]
 clear @s minecraft:sugar[minecraft:custom_data~{weapon:"pistol"}]

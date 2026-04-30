@@ -1,7 +1,4 @@
 {
 	"replace": false,
-	"values": [
-		"escape_island:load",
-		"skill:init"
-	]
+	"values": ["animated_java:global/on_load", "escape_island:load", "skill:init"]
 }

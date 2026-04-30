@@ -8,5 +8,5 @@ scoreboard players set @s skill.detector_state 0
 scoreboard players set @s skill.detector_sec 0
 scoreboard players set @s skill.detector_last_sec 0
 scoreboard players set @s skill.viro_passive_cd 0
-tag @s remove skill.viro_hit
-tag @s remove skill.viro_viewer
+tag @s remove skill.virologist.hit
+tag @s remove skill.virologist.viewer

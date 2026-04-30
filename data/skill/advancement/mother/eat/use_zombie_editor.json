@@ -11,7 +11,7 @@
                     }
                 },
                 "player": {
-                    "nbt": "{Tags:[\"role.mother\"]}"
+                    "nbt": "{Tags:[\"infected.mother\"]}"
                 }
             }
         }

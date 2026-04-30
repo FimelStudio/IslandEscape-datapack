@@ -1,4 +1,4 @@
-tag @s add skill.pistol_xp
+tag @s add skill.pistol.xp
 experience set @s 1 levels
 execute if score @s skill.pistol_mag matches ..0 run experience set @s 0 points
 execute if score @s skill.pistol_mag matches 1 run experience set @s 1 points

@@ -1,1 +1,1 @@
-tag @s add skill.pistol_update
+tag @s add skill.pistol.update

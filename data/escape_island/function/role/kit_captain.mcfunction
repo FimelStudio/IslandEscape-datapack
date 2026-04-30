@@ -1,4 +1,4 @@
-tag @s add captain
+tag @s add role.captain
 give @s minecraft:iron_sword[minecraft:custom_data={role_item:"captain.sword"},minecraft:custom_name={"text":"指挥刀","italic":false}] 1
 scoreboard players set @s skill.whistle_cd 0
 function skill:captain/whistle/update_item

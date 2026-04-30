@@ -8,7 +8,6 @@ scoreboard players set $game gen_done 0
 scoreboard players set Tunable tunable.signal_stages 5
 scoreboard players set @s signal_repair_time 0
 scoreboard players set @s signal_repair_seen 0
-tag @s remove engineer
 tag @s remove role.engineer
 tag @s remove state.infected_period
 kill @e[type=minecraft:marker,tag=entity.engineer_battery,distance=..8]

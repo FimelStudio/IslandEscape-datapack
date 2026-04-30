@@ -1,1 +1,1 @@
-tag @s add captain
+tag @s add role.captain

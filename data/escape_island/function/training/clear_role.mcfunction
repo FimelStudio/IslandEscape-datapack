@@ -3,40 +3,39 @@ clear @s minecraft:crossbow[minecraft:custom_data~{weapon:"pistol"}]
 clear @s minecraft:sugar[minecraft:custom_data~{weapon:"pistol"}]
 function skill:weapon/pistol/clear_state
 tag @s add state.training
-tag @s remove role.survivor
+tag @s remove team.human
+tag @s remove team.infected
+tag @s remove infected.secondary_mother
+tag @s remove infected.special
+tag @s remove infected.licker
+tag @s remove infected.listener
+tag @s remove infected.runner
+tag @s remove infected.tank
+tag @s remove infected.spitter
+tag @s remove state.latent_host
 tag @s remove role.doctor
-tag @s remove doctor
 tag @s remove role.captain
-tag @s remove captain
 tag @s remove role.engineer
-tag @s remove engineer
 tag @s remove role.marine
-tag @s remove marine
 tag @s remove role.chef
-tag @s remove chef
 tag @s remove role.radio
-tag @s remove radio
 tag @s remove role.virologist
-tag @s remove virologist
 tag @s remove role.mechanic
-tag @s remove mechanic
 tag @s remove role.sailor
 tag @s remove role.athlete
-tag @s remove athlete
 tag @s remove role.priest
-tag @s remove priest
-tag @s remove cross_active
+tag @s remove skill.priest.cross.active
 tag @s remove flag.cross_intact
-tag @s remove role.infected
-tag @s remove adren_active
-tag @s remove sliding
-tag @s remove slide_locked
+tag @s remove infected.common
+tag @s remove skill.adrenaline.active
+tag @s remove skill.slide.active
+tag @s remove skill.slide.locked
 tag @s remove flag.cross_intact
 tag @s remove flag.has_inject
 tag @s remove flag.self_injected_this_period
-tag @s remove skill.antidote_user
-tag @s remove skill.antidote_target
-tag @s remove skill.battery_recalled
+tag @s remove skill.antidote.user
+tag @s remove skill.antidote.target
+tag @s remove skill.battery.recalled
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
 function skill:mechanic/cleanup_non_mechanic

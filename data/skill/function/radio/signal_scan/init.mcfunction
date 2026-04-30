@@ -15,5 +15,5 @@ scoreboard players set @a skill.signal_scan_state 0
 scoreboard players set @a skill.signal_scan_sec 0
 scoreboard players set @a skill.signal_scan_last_sec 0
 scoreboard players set @a skill.signal_scan_time 0
-tag @a remove skill.radio_viewer
-tag @e[tag=skill.radio_reported] remove skill.radio_reported
+tag @a remove skill.radio.viewer
+tag @e[tag=skill.radio.reported] remove skill.radio.reported

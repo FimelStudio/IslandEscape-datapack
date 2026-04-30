@@ -10,8 +10,8 @@ scoreboard objectives add skill.antidote_last_sec dummy
 function skill:doctor/antidote/config
 
 advancement revoke @a only skill:doctor/antidote/use
-tag @a remove skill.antidote_user
-tag @a remove skill.antidote_target
+tag @a remove skill.antidote.user
+tag @a remove skill.antidote.target
 scoreboard players set @a skill.antidote_cd 0
 scoreboard players set @a skill.antidote_regen_cd 0
 scoreboard players set @a skill.antidote_charges 0

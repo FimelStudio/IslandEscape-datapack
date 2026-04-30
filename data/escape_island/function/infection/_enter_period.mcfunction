@@ -1,6 +1,6 @@
 execute if entity @s[tag=state.infected_period] run return 0
-execute if entity @s[tag=role.mother] run return 0
-execute if entity @s[tag=role.infected] run return 0
+execute if entity @s[tag=infected.mother] run return 0
+execute if entity @s[tag=infected.common] run return 0
 
 execute if entity @s[tag=role.priest,tag=flag.cross_intact] run function skill:priest/cross_intercept
 execute if entity @s[tag=flag.cross_intercepted] run return run tag @s remove flag.cross_intercepted

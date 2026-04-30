@@ -17,4 +17,4 @@ scoreboard players set @a skill.trap_sec 0
 scoreboard players operation @a skill.trap_charges = #max_traps skill.trap_cfg
 scoreboard players set @a skill.trap_place_cd 0
 scoreboard players set #active skill.trap_tmp 0
-tag @a remove skill.trap_recalled
+tag @a remove skill.trap.recalled

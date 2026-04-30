@@ -1,9 +1,4 @@
 {
 	"replace": false,
-	"values": [
-		"escape_island:tick",
-		"skill:athlete/tick",
-		"skill:mother/eat/tick",
-		"skill:tick"
-	]
+	"values": ["escape_island:tick", "skill:athlete/tick", "skill:mother/eat/tick", "skill:tick", "animated_java:global/on_tick"]
 }

@@ -1,4 +1,4 @@
-tag @s add adren_active
+tag @s add skill.adrenaline.active
 scoreboard players operation @s skill.adren_time = #duration skill.adren_cfg
 scoreboard players operation @s skill.adren_cd = #cooldown skill.adren_cfg
 scoreboard players set @s skill.adren_last_sec 0

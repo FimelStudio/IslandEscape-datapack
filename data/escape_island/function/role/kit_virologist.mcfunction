@@ -1,4 +1,4 @@
-tag @s add virologist
+tag @s add role.virologist
 function skill:virologist/detector/config
 scoreboard players set @s skill.detector_cd 0
 scoreboard players set @s skill.detector_state 0

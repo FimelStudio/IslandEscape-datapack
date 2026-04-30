@@ -125,7 +125,7 @@ data/skill/advancement/<职业>/<技能>/
   use.json
 ```
 
-- 职业 tag 在 `skill:` 内使用简写，如 `tag=doctor`（对应 `_make_doctor` 给予的 tag）
+- ?? tag ???? `role.xxx`?? `tag=role.doctor`???????????? tag?
 - 被动效果单独写在 `escape_island:role/tick_<职业>.mcfunction`，不放入 `skill:` 技能函数
 - `escape_island:game/_make_<职业>.mcfunction` 末尾调用 `function skill:<职业>/init`
 - 所有右键一次性触发技能统一使用 `consume_item` advancement + `consumable.consume_seconds:0` 模式（不用 `using_item`，因部分物品无原版右键动画）；ensure_item pattern 在 tick 中补回道具
@@ -134,11 +134,11 @@ data/skill/advancement/<职业>/<技能>/
 
 `data/skill/function/athlete/` 中滑铲（slide_tackle）+ 肾上腺素（adrenaline）已完整实现。
 
-- [x] `escape_island:game/_tick_20.mcfunction` / `training/_tick_20.mcfunction`：将 `role.sailor` 改为 `role.athlete`
+- [x] `escape_island:game/_tick_20.mcfunction` / `training/_tick_20.mcfunction`：将运动员职业 tag 统一为 `role.athlete`
 - [x] `escape_island:function/load.mcfunction`：删除 `cd_sailor` scoreboard 注册（运动员 scoreboard 已由 `skill:athlete/init` 注册）
 - [x] 从旧 `skill:common/cooldown_tick` 移除水手冷却递减
 - [x] 确认 `data/minecraft/tags/function/tick.json` 包含 `skill:athlete/tick`
-- [x] 训练发套件、正式分配、重置、转化清理均接入 `role.athlete`
+- [x] 训练发套件、正式分配、重置、转化清理均接入 `athlete`
 - [x] 运动员游戏内手测通过
 
 #### 船医（doctor）— 解毒针（antidote）
@@ -156,7 +156,7 @@ scoreboard players set #regen_cd       skill.antidote_cfg  1800   # 自动补给
 ```
 
 关键逻辑：
-- 在 `use.mcfunction` 中：先检查 `@s[tag=state.infected_period]` → 自救分支；否则 `execute at @s as @a[tag=state.infected_period,tag=role.survivor,distance=..5,sort=nearest,limit=1]` → 清除感染期
+- 在 `use.mcfunction` 中：先检查 `@s[tag=state.infected_period]` → 自救分支；否则 `execute at @s as @a[tag=state.infected_period,tag=team.human,distance=..5,sort=nearest,limit=1]` → 清除感染期
 - 自救分支：清除 `state.infected_period`，给本人短暂 Resistance（后续 spore_load 清零），消耗 1 份道具（scoreboard `antidote_charges` -1）
 - 道具数量由 `antidote_charges` scoreboard 追踪，冷却结束时 tick 检测 `antidote_charges < #max_charges` → +1
 
@@ -178,7 +178,7 @@ scoreboard players set #strength_amp skill.whistle_cfg  0      # Strength I
 ```
 
 关键逻辑：
-- 触发后：`execute at @s as @a[tag=role.survivor,tag=!state.dead,distance=..8]` → `effect give @s minecraft:speed 15 1 true` + `effect give @s minecraft:strength 15 0 true`（含自身）
+- 触发后：`execute at @s as @a[tag=team.human,tag=!state.dead,distance=..8]` → `effect give @s minecraft:speed 15 1 true` + `effect give @s minecraft:strength 15 0 true`（含自身）
 - 播放 goat_horn 音效给使用者（原版音效节省资源包）
 
 **被动**：kit 中给船长皮革甲（`attribute @s minecraft:armor base set 4`）
@@ -196,13 +196,13 @@ scoreboard players set #range        skill.battery_cfg  4      # 4 格半径
 ```
 
 关键逻辑：
-- 触发后：`summon minecraft:marker ~ ~ ~ {Tags:["skill.battery_marker","skill.battery_active"],CustomName:'{"text":"engineer_battery"}'}` 在玩家脚下
+- 触发后：`summon minecraft:marker ~ ~ ~ {Tags:["skill.battery.marker","skill.battery.active"],CustomName:'{"text":"engineer_battery"}'}` 在玩家脚下
 - 设置 `battery_timer` scoreboard；tick 每秒 -1，归零后 remove marker
-- 任务系统（Batch 7）中检测距 `skill.battery_marker` ≤4 格时修复速度 ×3（覆盖原本 ×2 工程师被动）
-- 同时上限 1：`execute if entity @a[tag=skill.battery_active]` 则不能再放
+- 任务系统（Batch 7）中检测距 `skill.battery.marker` ≤4 格时修复速度 ×3（覆盖原本 ×2 工程师被动）
+- 同时上限 1：`execute if entity @a[tag=skill.battery.active]` 则不能再放
 - 拆除：若同一工程师在 2 格内 sneak+use → 清除 marker，返还道具（`function skill:engineer/battery/recall`）
 
-**被动**（Batch 7 中接入）：`tag=engineer` 在修复点旁时速度 ×2
+**被动**（Batch 7 中接入）：`tag=role.engineer` 在修复点旁时速度 ×2
 
 #### 海军陆战队员（marine）— 压制射击（suppress）
 
@@ -260,7 +260,7 @@ scoreboard players set #glow_dur     skill.signal_scan_cfg  100    # 废弃配�
 ```
 
 关键逻辑：
-- 触发后：给使用者打临时 `skill.radio_viewer`，再对 `role.infected`、`state.infected_period`、已暴露母体（`role.mother` + `flag.first_attack`，且非 `state.disguised`）输出私有 `tellraw` 距离区间报告
+- 触发后：给使用者打临时 `skill.radio.viewer`，再对 `infected.common`、`state.infected_period`、已暴露母体（`infected.mother` + `flag.first_attack`，且非 `state.disguised`）输出私有 `tellraw` 距离区间报告
 - 不使用 `glowing`，也不使用目标头顶粒子；目标不会被全员看见，母体也不会收到通讯员报告
 - `/particle ... force <viewers>` 只能解决“谁能看见”，不能解决远距离和穿墙问题，因此不作为通讯员主侦察手段
 - 隐藏母体（`team=mother_hidden`）和伪装母体（`state.disguised`）不进入异常报告；单人测试人偶的感染者/母体会进入报告，方便训练模式验证
@@ -282,7 +282,7 @@ scoreboard players set #warn_dur     skill.detector_cfg  60     # 3s 警告窗�
 ```
 
 关键逻辑：
-- 触发后：`execute at @s if entity @a[tag=role.mother,tag=!state.disguised,distance=..6]` OR `execute at @s if entity @a[tag=role.infected,distance=..6]` OR `if entity @a[tag=state.infected_period,distance=..6]`
+- 触发后：`execute at @s if entity @a[tag=infected.mother,tag=!state.disguised,distance=..6]` OR `execute at @s if entity @a[tag=infected.common,distance=..6]` OR `if entity @a[tag=state.infected_period,distance=..6]`
 - 任一条件为真 → `title @s title {"text":"⚠ 异常生命体征","color":"red","bold":true}` + 播放 `minecraft:block.bell.use` 音效
 - 无目标时 → `title @s actionbar {"text":"未检测到异常","color":"gray"}`
 
@@ -304,14 +304,14 @@ scoreboard players set #max_traps    skill.trap_cfg  3      # 场上最多 3 个
 ```
 
 关键逻辑：
-- 触发后：在玩家脚下 `summon minecraft:marker ~ ~ ~ {Tags:["skill.trap_marker"]}` + 绿粒子标记（幸存者可见）
+- 触发后：在玩家脚下 `summon minecraft:marker ~ ~ ~ {Tags:["skill.trap.marker"]}` + 绿粒子标记（幸存者可见）
 - 充能：最多 3 次充能，场上最多 3 个陷阱；充能不满时每 90 秒恢复 1 次
-- tick：`execute as @e[tag=role.mother] at @s if entity @e[tag=skill.trap_marker,distance=..1.25,limit=1]` → 触发效果 + kill marker
-- 同样检测 `tag=role.infected`
+- tick：`execute as @e[tag=infected.mother] at @s if entity @e[tag=skill.trap.marker,distance=..1.25,limit=1]` → 触发效果 + kill marker
+- 同样检测 `tag=infected.common`
 - 幸存者不触发；感染者阵营可 sneak+use 拆除
 - 感染者机修工（转化保留）补发"感染者陷阱"（`custom_data.skill:"mechanic_infected_trap"`）
 
-**被动**（Batch 8 中接入）：`tag=mechanic` 在直升机/轮船修复点旁时速度 +30%
+**被动**（Batch 8 中接入）：`tag=role.mechanic` 在直升机/轮船修复点旁时速度 +30%
 
 #### 神父（priest）— 十字架（cross）
 
@@ -324,10 +324,10 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 ```
 
 关键逻辑：
-- `entity_hurt_player` advancement 条件：`player.nbt` 含 `Tags:["role.priest","cross_active"]`
-- `use.mcfunction`：检查 `@s[tag=cross_active]` → 给 Resistance 255 1 tick（阻断致死伤害）→ remove cross_active tag → 清除 `state.infected_period` → clear 十字架物品（`clear @s minecraft:nautilus_shell 1`）→ 粒子 + 钟声
-- 感染期阻断：在 `tick_priest.mcfunction` 中：`execute as @a[tag=role.priest,tag=state.infected_period,tag=cross_active]` → 同上清除流程
-- `_make_priest.mcfunction` 给 `tag cross_active` + `minecraft:nautilus_shell`（自定义命名）
+- `entity_hurt_player` advancement 条件：`player.nbt` 含 `Tags:["role.priest","skill.priest.cross.active"]`
+- `use.mcfunction`：检查 `@s[tag=skill.priest.cross.active]` → 给 Resistance 255 1 tick（阻断致死伤害）→ remove skill.priest.cross.active tag → 清除 `state.infected_period` → clear 十字架物品（`clear @s minecraft:nautilus_shell 1`）→ 粒子 + 钟声
+- 感染期阻断：在 `tick_priest.mcfunction` 中：`execute as @a[tag=role.priest,tag=state.infected_period,tag=skill.priest.cross.active]` → 同上清除流程
+- `_make_priest.mcfunction` 给 `tag skill.priest.cross.active` + `minecraft:nautilus_shell`（自定义命名）
 
 **被动**（`escape_island:role/tick_priest.mcfunction`）：
 - `execute as @a[tag=role.priest,tag=!state.dead] at @s run effect give @s minecraft:night_vision 3 0 true`
@@ -337,10 +337,10 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 #### Batch 5 实现任务清单
 
 运动员接入（已有代码，仅改引用）：
-- [x] `escape_island:game/_tick_20` / `training/_tick_20`：`role.sailor` → `role.athlete`
+- [x] `escape_island:game/_tick_20` / `training/_tick_20`：运动员职业 tag 统一为 `role.athlete`
 - [x] `escape_island:function/load`：删除 `cd_sailor` 注册
 - [x] `skill:common/cooldown_tick` 移除旧水手冷却递减
-- [x] 正式分配、训练套件、重置、转化清理接入 `role.athlete` / `athlete`
+- [x] 正式分配、训练套件、重置、转化清理接入 `athlete`
 - [x] 运动员游戏内手测通过
 
 船医：
