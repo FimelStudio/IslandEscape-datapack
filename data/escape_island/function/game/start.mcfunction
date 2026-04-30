@@ -15,9 +15,11 @@ scoreboard players set $game infected_dead 0
 scoreboard players set $game bomb_armed 0
 scoreboard players set $game dawn_active 0
 scoreboard players set $game signal_progress 0
+scoreboard players set $game signal_done 0
 scoreboard players set $game ship_progress 0
 scoreboard players set $game ship_parts 0
 scoreboard players set $game lab_cards 0
+scoreboard players set $game gen_done 0
 
 tag @a remove role.survivor
 tag @a remove role.mother
@@ -38,6 +40,8 @@ tag @a remove role.latent_host
 tag @a remove role.secondary_mother
 tag @a remove role.athlete
 tag @a remove athlete
+tag @a remove role.priest
+tag @a remove priest
 tag @a remove adren_active
 tag @a remove sliding
 tag @a remove slide_locked
@@ -79,8 +83,11 @@ tag @a remove skill.battery_recalled
 tag @a remove skill.gm_hit
 execute as @a run function skill:radio/cleanup_non_radio
 execute as @a run function skill:virologist/cleanup_non_virologist
+execute as @a run function skill:priest/cleanup_non_priest
 
 scoreboard players reset @a spore_load
+scoreboard players reset @a signal_repair_time
+scoreboard players reset @a signal_repair_seen
 scoreboard players reset @a spore_decay_cd
 scoreboard players reset @a infect_time
 scoreboard players reset @a sporify_timer

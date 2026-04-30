@@ -50,52 +50,57 @@
 
 ### Batch 3 — 感染与死亡状态机
 
-状态: **反馈修复中：污染预警与倒地孢化已补实现，等待游戏内复测**
+状态: **需重构：母体新版玩法已改设计，等待实现**
 
-- [x] 母体/感染者命中增加 `spore_load`（advancement 检测）。
+- [ ] 母体/感染者命中增加 `spore_load`（advancement 检测），按新版母体攻击冷却重构。
 - [x] 阈值到达进入 `state.infected_period`（金色名牌）。
 - [x] 感染期玩家仍在幸存者阵营，不能攻击其他幸存者。
 - [x] 任意幸存者死亡进入孢化倒计时，然后转感染者。
-- [x] 感染者/母体死亡进入各自复活倒计时，并分流到对应复活函数。
+- [ ] 感染者死亡：母体存活时围绕母体复活；母体死亡后不再复活。
+- [ ] 母体死亡：不复活，进入母巢崩坏；感染者全灭后触发幸存者清剿胜利。
 - [x] 神父十字架阻断感染期/死亡孢化。
-- [x] 感染期、孢化、感染者复活、母体复活均显示 actionbar 秒级倒计时。
+- [ ] 感染期、孢化、感染者复活、母巢崩坏均显示 actionbar 秒级状态。
 - [x] 感染期补齐心跳音、脚下粒子；完全转化感染者补齐绿色孢子粒子（无 glowing）。
 - [x] 污染值 ≥ 50 时给本人 actionbar + 轻微心跳音；音效每次在玩家当前位置播放。
 - [x] 幸存者死亡进入倒地孢化：每 tick 在当前位置刷新个人重生点，真实死亡后原地立即重生并用隐形 marker 锚定，不进入 spectator，不可自由飞行；玩家本人站在原地僵直并显示 15 秒倒计时，结束后在原地转化为感染者。
-- [x] 感染者/母体死亡冷却期间不进入 spectator：原地重生后用隐形 marker 锚定，adventure + 移速 0 + 黑暗/隐形等待复活，避免自由飞行侦察。
+- [ ] 感染者死亡冷却期间不进入 spectator：原地重生后用隐形 marker 锚定，adventure + 移速 0 + 黑暗/隐形等待复活；母体死亡后同样锁定但不复活。
 - [x] 修复 Tunable 加载顺序。
 - [x] 修复孢子点选择使用 marker 实体。
 - [x] 名牌变色系统（母体隐藏绿 / 感染期金 / 感染者红）。
 - [x] 转化保留系统（retained.* tag 在 turn.mcfunction 中复制）。
-- [x] 母体 HP 追踪（data get Health → scoreboard）。
-- [x] 母体脱战回血、狂暴检测（tick_mother.mcfunction）。
+- [ ] 母体 HP 追踪（data get Health → scoreboard）改为 80→100 成长体系。
+- [ ] 母体脱战回血、成长阶段、攻击冷却/擦刀反馈（tick_mother.mcfunction）。
 
 ### Batch 4 — 母体属性与首攻揭示
 
-状态: **已实现，等待游戏内手测**
+状态: **需重构：旧版属性与技能已被新版母体设计替换**
 
-目标: 母体有正确的战斗属性，首次攻击触发全图广播（不暴露姓名）。
+目标: 母体成为不可复活的感染阵营核心：三下有效命中进感染期，拥有吞噬、腐痕感知、集群嚎叫三个技能，并随时间成长。
 
 任务:
 
-- [x] `_make_mother.mcfunction` 补齐 attribute 命令:
-  - `attribute @s minecraft:max_health base set 60`
+- [ ] `_make_mother.mcfunction` 调整 attribute 命令:
+  - `attribute @s minecraft:max_health base set 80`
   - `attribute @s minecraft:armor base set 4`
   - `attribute @s minecraft:armor_toughness base set 2`
   - `attribute @s minecraft:knockback_resistance base set 0.8`
-  - `attribute @s minecraft:attack_damage base set 6`
+  - `attribute @s minecraft:attack_damage base set 4`
   - `attribute @s minecraft:movement_speed base set 0.105`
-  - 执行后用 `effect give @s minecraft:instant_health 1 10 true` 补满 60 HP，并给 `saturation` 保证可疾跑
-- [x] `tick_mother.mcfunction` 加 `effect give @s minecraft:resistance 2 0 true`（永久 Resistance I，20% 减伤）
-- [x] `on_hit_by_mother.mcfunction` 检查 `flag.first_attack`：
+  - 执行后用 `effect give @s minecraft:instant_health 1 10 true` 补满 HP，并给 `saturation` 保证可疾跑
+- [ ] `tick_mother.mcfunction` 维持 Resistance I、脱战回血、成长阶段、攻击冷却与擦刀提示
+- [ ] `on_hit_by_mother.mcfunction` 检查 `flag.first_attack`：
   - 若无此 tag → 全图 `tellraw @a` 广播"有人遭受了突袭……"（不含玩家名）→ 给母体 `tag add flag.first_attack`
-- [x] `game/start.mcfunction` 加 `tag @a remove flag.first_attack` 清理
-- [x] `training/reset.mcfunction` 同步清理 first_attack tag
-- [ ] 验收: 训练沙盒中以母体攻击玩家或点击单人调试按钮，确认属性正确 + 首攻广播仅触发一次
+- [ ] 母体技能重构：
+  - `mother/eat/*` 保留吞噬技能
+  - 新增/替换 `mother/trail_sense/*`：显示附近幸存者脚印 5–8 秒
+  - 新增/替换 `mother/howl/*`：集群嚎叫，给感染者方向提示与短暂速度
+- [ ] `game/start.mcfunction` 加 `tag @a remove flag.first_attack` 清理
+- [ ] `training/reset.mcfunction` 同步清理 first_attack tag
+- [ ] 验收: 训练沙盒中母体三次有效命中使幸存者进感染期；攻击冷却中命中只擦刀；母体死亡不复活；感染者围绕母体复活，母体死亡后失去复活
 
 ### Batch 5 — 幸存者 10 职业技能
 
-状态: **进行中：运动员、船医、船长已通过游戏内手测；工程师已实现，等待游戏内手测**
+状态: **Batch 5 职业实现已完成；运动员、船医、船长、工程师、机修工、神父已通过游戏内手测**
 
 目标: 所有职业的主动技能均可在训练模式下触发和冷却，被动 tick 效果生效。
 
@@ -335,8 +340,8 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `escape_island:game/_tick_20` / `training/_tick_20`：`role.sailor` → `role.athlete`
 - [x] `escape_island:function/load`：删除 `cd_sailor` 注册
 - [x] `skill:common/cooldown_tick` 移除旧水手冷却递减
-- [x] 正式分配、训练套件、重置、转化清理接入 `role.athlete`
-- [ ] 等待游戏内手测通过
+- [x] 正式分配、训练套件、重置、转化清理接入 `role.athlete` / `athlete`
+- [x] 运动员游戏内手测通过
 
 船医：
 - [x] `data/skill/function/doctor/{init,tick,cleanup_non_doctor}.mcfunction`
@@ -388,15 +393,16 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] 机修工游戏内手测通过后再进入神父实现
 
 神父：
-- [ ] `data/skill/function/priest/{init,tick,cleanup_non_priest}.mcfunction`
-- [ ] `data/skill/function/priest/cross/{config,init,use,item_ready}.mcfunction`
-- [ ] `data/skill/advancement/priest/cross/use.json`（`entity_hurt_player`）
-- [ ] `escape_island:role/tick_priest.mcfunction`（被动夜视 + 感染期检查）
+- [x] `data/skill/function/priest/{init,tick,cleanup_non_priest}.mcfunction`
+- [x] `data/skill/function/priest/cross/{config,init,use,item_ready}.mcfunction`
+- [x] `data/skill/advancement/priest/cross/use.json`（`entity_hurt_player`）
+- [x] `escape_island:role/tick_priest.mcfunction`（被动夜视 + 感染期检查）
+- [x] 神父游戏内手测通过
 
 所有职业共用：
-- [ ] `skill:init.mcfunction` 调用所有 9 个新职业 + athlete 的 `init`
-- [ ] `escape_island:game/_tick_20` 中为每个职业调用 `function skill:<职业>/tick`
-- [ ] 每个 `_make_<职业>.mcfunction` 末尾加 `function skill:<职业>/init`（确保 scoreboard 就绪后给道具）
+- [x] `skill:init.mcfunction` 调用所有 9 个新职业 + athlete 的 `init`
+- [x] `skill:tick.mcfunction` 中为每个职业调用 `function skill:<职业>/tick`
+- [x] 每个 `kit_<职业>.mcfunction` 开头调用对应 `function skill:<职业>/init`（确保 scoreboard 就绪后给道具）
 
 验收: 训练模式下切换各职业，确认每个技能至少一次触发、一次冷却中被拒绝（actionbar 提示）；被动效果每秒生效。
 
@@ -417,13 +423,13 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] 右键开火；F 键或空匣右键进入 2 秒装填；海军陆战队员保留潜行右键枪械精通；0.2 秒是输入冷却，实际扣弹/伤害按 0.4 秒门控。
 - [x] 命中结算按目标类型分流：普通目标 6 damage；母体 4 damage 基础值；幸存者/感染期互相无伤，感染者/母体不可使用枪械。
 - [x] 音效、枪口粒子、命中粒子均在玩家当前位置执行，避免声音留在触发点。
-- [ ] 验收: 开发沙盒中右键有枪模型/枪声反馈，枪不被消耗；可射击 8 发、空匣不能造成伤害、装填 2 秒、消耗 9mm 弹药、命中母体/感染者/幸存者符合阵营伤害规则。
+- [x] 验收: 开发沙盒中右键有枪模型/枪声反馈，枪不被消耗；可射击 8 发、空匣不能造成伤害、装填 2 秒、消耗 9mm 弹药、命中母体/感染者/幸存者符合阵营伤害规则。
 
 ### Batch 7 — 任务系统
 
 状态: **待实现**
 
-目标: 信号塔修复、发电机启动、轮船修复在开发沙盒中可完整跑通。
+目标: 主线直升机前置任务在开发沙盒中可完整跑通：信号塔修复 + 任一发电机稳定运行 → 直升机呼叫。轮船修复暂缓到后续批次。
 
 #### 7A — 信号塔修复
 
@@ -431,21 +437,26 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
   - 检测玩家是否在 `marker.signal_tower` 2 格内 + 持有线缆（`custom_data.item="cable"`）
   - 持续 5 秒 `interact_item` 检测（`using_item` advancement + 近距离 marker 检查）
   - 完成一段 → `signal_progress ++` → 广播进度 + bossbar 更新
-  - 中断条件: 受伤 or 离开范围 → 进度条暂停（不回退）
-  - 工程师在范围内: 速度 ×2（每段 2.5 秒）；工程师电池在范围内: 速度 ×3（每段 1.7 秒）
+  - 中断条件: 受伤、离开范围、松开互动或放下线缆 → 当前阶段清空；已完成阶段不回退
+  - 工程师在范围内: 速度 +50%；工程师电池在范围内: 每段约 2 秒
+  - 感染期玩家修复速度 -50%
   - `signal_progress >= tunable.signal_stages` → 广播"信号塔修复完成" → 写入 `$game signal_done 1`
 - [ ] bossbar `escape_island:signal`：`signal_progress / tunable.signal_stages`，全员可见
-- [ ] 线缆道具：`custom_data.item = "cable"`，loot_basic 30% 概率出现
+- [ ] 线缆道具：`custom_data.item = "cable"`，loot_basic 30% 概率出现；全图保底 `tunable.signal_stages + 1` 根
 
 #### 7B — 发电机启动
 
 - [ ] `generator_tick.mcfunction`（每秒运行）:
-  - 玩家靠近 `marker.generator` + 持有燃料电池（`custom_data.item="fuel_cell"`）右键投入
-  - 投入 3 个后启动，`gen_countdown = 60`
-  - 每秒 `gen_countdown --`；感染者/母体靠近 2 格 → `gen_countdown -= 3`（破坏加速）
-  - `gen_countdown <= 0` → 发电机损坏（进度归零，电池需重投）
-  - `gen_countdown` 从 60 倒计时完成无破坏 → 写入 `$game gen_done 1`
+  - 玩家靠近 `marker.generator` + 持有燃料电池（`custom_data.item="fuel_cell"`）右键投入；每台发电机独立记录投入数
+  - 小人数局需 2 块燃料电池，标准局需 3 块；全图保底至少 4 块
+  - 投满后进入 10 秒预热，再进入稳定运行倒计时
+  - 稳定运行时间按人数缩放：4–7 人 45 秒，8–12 人 60 秒，13+ 人 75 秒
+  - 感染者/母体靠近 2.5 格 → 暂停稳定倒计时；无幸存者争夺时 `gen_overload += 3/s`
+  - 幸存者靠近并互动稳定发电机 → `gen_overload -= 4/s`
+  - `gen_overload >= 20` → 发电机熄火；燃料进度保留到至少 1 格，不完全归零
+  - 稳定运行倒计时完成 → 写入 `$game gen_done 1`
 - [ ] bossbar `escape_island:gen`：显示发电机维持剩余时间，全员可见
+- [ ] bossbar 或 actionbar 显示当前发电机过载压力，避免玩家不知道为什么倒计时暂停
 
 #### 7C — 信号塔 + 发电机完成 → 直升机呼叫
 
@@ -458,7 +469,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 暂缓，先跑通主线直升机路线后再实现。
 
-验收: 开发沙盒中手动置入线缆和电池，跑完信号塔 + 发电机 → 直升机广播出现。
+验收: 开发沙盒中手动置入线缆和电池，跑完信号塔 + 发电机 → 直升机广播出现；感染者靠近发电机能暂停倒计时并积累过载，幸存者稳定后可恢复。
 
 ### Batch 8 — 直升机撤离与结局
 
@@ -560,7 +571,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 - [ ] `game/start.mcfunction` 调用 `util/apply_scaling`，按 player_count 写入 tunable.*
 - [ ] `util/apply_scaling.mcfunction`（参见 BALANCE.md §九 表格）
-- [ ] 潜伏宿主: `game/pick_latent_host.mcfunction` → T+8:00 / 第一名普通幸存者转化后 15s / 主母体复活冷却时觉醒
+- [ ] 潜伏宿主: 新版母体不可复活，`game/pick_latent_host.mcfunction` 需重审；不得在主母体死亡后自动顶替母体
 - [ ] 小人数局（4–7 人）保证船医出现在非母体幸存者职业池
 - [ ] 完整 15 分钟流程压测（`debug_speed = 1` 压缩时间）
 - [ ] 验收: 4 人局 + 12 人局各跑通 1 次完整流程
@@ -619,16 +630,18 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 3. `[+35污染]` 再次 → 进入感染期，金色名牌，actionbar 显示转化倒计时，心跳音，脚下粒子
 4. 等待 45 秒 → 自动转化为感染者，名牌变红
 5. `[设为幸存者]` → `[模拟幸存者死亡]` → 原地倒地孢化，不能移动/飞行/交互，actionbar 显示 15 秒倒计时，结束后转感染者
-6. `[设为感染者]` → `[模拟感染者死亡]` → 30 秒复活倒计时，结束后在 `spore_spot` 复活
-7. `[设为母体]` → `[模拟母体死亡]` → 60 秒复活倒计时，结束后复活并重新获得母体道具
+6. `[设为感染者]` → `[模拟感染者死亡]` → 母体存活时 25–30 秒复活倒计时，结束后在母体附近复活
+7. `[设为母体]` → `[模拟母体死亡]` → 母体进入母巢崩坏，不复活；感染者随后死亡不再复活
 8. `[设为神父]` → `[强制感染期]` → 十字架触发阻断
 
 ### Batch 4 母体属性手测
 
-1. `[设为母体]` → 检查 HP = 30 心
-2. 被攻击：血量正确减少，回血触发（5 秒不受伤后 Regen）
-3. HP ≤ 9 心：狂暴触发，速度提升可感知
-4. 首次攻击测试人偶：全图出现"有人遭受了突袭"广播，第二次攻击不再广播
+1. `[设为母体]` → 检查 HP = 40 心，成长后最高约 50 心
+2. 攻击幸存者：有效攻击冷却约 2.5 秒，冷却中命中播放擦刀反馈但不叠污染
+3. 连续 3 次有效命中幸存者：目标进入感染期
+4. 使用腐痕感知：附近幸存者脚印显示 5–8 秒，首次使用触发模糊暴露广播
+5. 使用集群嚎叫：感染者获得短暂速度和母体方向提示
+6. 首次攻击测试人偶：全图出现"有人遭受了突袭"广播，第二次攻击不再广播
 
 ### Batch 5 技能手测
 

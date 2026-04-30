@@ -24,6 +24,7 @@ tag @s remove role.sailor
 tag @s remove role.athlete
 tag @s remove athlete
 tag @s remove role.priest
+tag @s remove priest
 tag @s remove cross_active
 tag @s remove flag.cross_intact
 tag @s remove role.infected
@@ -39,6 +40,7 @@ tag @s remove skill.battery_recalled
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
 function skill:mechanic/cleanup_non_mechanic
+function skill:priest/cleanup_non_priest
 scoreboard players set @s role 0
 scoreboard players set @s cd_doctor 0
 scoreboard players set @s skill.antidote_charges 0
@@ -73,6 +75,7 @@ scoreboard players set @s skill.adren_time 0
 scoreboard players set @s skill.adren_cd 0
 scoreboard players set @s skill.slide_time 0
 scoreboard players set @s skill.slide_cd 0
+scoreboard players set @s skill.slide_sprint 0
 effect clear @s
 attribute @s minecraft:movement_speed base set 0.1
 effect give @s minecraft:saturation 1 20 true

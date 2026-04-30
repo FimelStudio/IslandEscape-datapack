@@ -3,6 +3,7 @@ scoreboard objectives add skill.slide_cd dummy
 scoreboard objectives add skill.slide_ok dummy
 scoreboard objectives add skill.slide_fall dummy
 scoreboard objectives add skill.slide_cost dummy
+scoreboard objectives add skill.slide_sprint dummy
 scoreboard objectives add skill.stamina dummy
 scoreboard objectives add skill.stamina_cfg dummy
 scoreboard objectives add skill.stamina_bar dummy
@@ -38,4 +39,5 @@ tag @a remove slide_stamina_showing
 tag @a remove athlete_cleanup_rider
 scoreboard players set @a skill.slide_fall 0
 scoreboard players set @a skill.slide_cost 0
+scoreboard players set @a skill.slide_sprint 0
 scoreboard players set @a skill.stamina_warn 0

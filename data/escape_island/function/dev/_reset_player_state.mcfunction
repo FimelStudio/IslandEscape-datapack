@@ -23,6 +23,7 @@ tag @s remove role.sailor
 tag @s remove role.athlete
 tag @s remove role.priest
 tag @s remove athlete
+tag @s remove priest
 tag @s remove adren_active
 tag @s remove sliding
 tag @s remove slide_locked
@@ -49,6 +50,7 @@ tag @s remove skill.battery_recalled
 tag @s remove skill.gm_hit
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
+function skill:priest/cleanup_non_priest
 scoreboard players set @s role 0
 scoreboard players set @s is_mother 0
 scoreboard players set @s spore_load 0

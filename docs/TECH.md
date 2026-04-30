@@ -135,11 +135,17 @@ IslandEscape-datapack/
 | `spore_decay_cd` | dummy | 污染值衰减等待计时，15 秒未新增污染后开始衰减 |
 | `is_mother` | dummy | 0/1 |
 | `mother_hp` | dummy | 母体 HP（独立追踪不依赖 vanilla health 显示） |
-| `mother_respawn` | dummy | 母体死后复活倒计时（60 秒） |
+| `mother_respawn` | dummy | 旧母体复活计时，后续重构为母巢崩坏状态兼容字段 |
+| `mother_stage` | dummy | 母体成长阶段 0–3 |
+| `mother_attack_cd` | dummy | 母体有效攻击冷却，冷却中命中只擦刀 |
 | `cd_doctor`, `cd_captain`, ... | dummy | 各职业冷却（10 个 + 母体 3 个 = 13 个） |
 | `kit_remaining` | dummy | 解毒针剩余、信号弹剩余等 |
 | `signal_progress` | dummy | 信号塔修复阶段 |
-| `gen_progress` | dummy | 发电机维持秒数 |
+| `signal_done` | dummy | 0/1 信号塔已修复 |
+| `gen_progress` | dummy | 当前发电机燃料/运行阶段进度 |
+| `gen_done` | dummy | 0/1 任一发电机已稳定完成 |
+| `gen_countdown` | dummy | 发电机预热/稳定运行剩余秒数 |
+| `gen_overload` | dummy | 发电机过载压力，达到上限后熄火 |
 | `ship_progress` | dummy | 轮船 0–100 |
 | `ship_parts` | dummy | 已交部件数 |
 | `lab_cards` | dummy | 收集的身份卡碎片 |
@@ -177,12 +183,12 @@ IslandEscape-datapack/
 | `state.escaped` | 已撤离结算 |
 | `state.dying` | 0 HP 但未结算 |
 | `state.sporifying` | 幸存者死亡后的 15 秒倒地孢化倒计时；玩家锁定在死亡位置，不进入 spectator |
-| `state.dead` | 感染者/母体死亡后的复活等待；不进入 spectator，使用隐形 marker 锚定并在倒计时结束后复活 |
+| `state.dead` | 感染者死亡后的复活等待；母体死亡后的母巢崩坏锁定也使用该状态 |
 | `state.spectator` | 主动放弃、撤离结算或整局结束后的观战状态；普通死亡不使用 |
 | `state.disguised` | 母体伪装中 |
 | `state.disguise_scanning` | 伪装母体正在登载扫描中 |
 | `state.infection_resist` | 刚被治愈后的短暂污染抗性 |
-| `state.berserk` | 母体狂暴 |
+| `state.mother_broken` | 母体死亡后的母巢崩坏状态，感染者不再复活 |
 | `state.infect_immune` | 神父祝福生效中 |
 | `flag.has_inject` | 解毒针道具持有标志 |
 | `flag.has_keynote` | 持有主任笔记 |
@@ -256,7 +262,7 @@ IslandEscape-datapack/
 | `escape_island:bomb` | 自爆倒计时 | 全员 |
 | `escape_island:infection` | 感染期个人倒计时 | 仅感染期玩家 |
 | `escape_island:disguise` | 母体伪装倒计时 | 仅母体本人 |
-| `escape_island:mother_respawn` | 母体复活倒计时 | 仅服务端 OP debug |
+| `escape_island:mother_respawn` | 旧母体复活倒计时，后续改为母巢崩坏 debug | 仅服务端 OP debug |
 
 ---
 
@@ -476,7 +482,7 @@ attribute @s minecraft:movement_speed base set 0.105
 heal @s
 ```
 
-- `mother_hp` scoreboard 通过 `data get entity @s Health` 每秒同步，用于追踪回血、狂暴触发、UI 显示
+- `mother_hp` scoreboard 通过 `data get entity @s Health` 每秒同步，用于追踪回血、成长和 UI 显示。新版母体不复活，死亡后进入母巢崩坏，感染者失去复活能力
 - Resistance I（永久）通过 `tick_mother.mcfunction` 每秒刷新（duration 2 秒，每秒重给，effectivelyly 永久）
 - 母体 HP 显示用 bossbar（仅 OP debug 可见）或 actionbar（母体本人可见）
 
@@ -492,14 +498,14 @@ execute as @r[tag=candidate] run function escape_island:game/_make_mother
 tag @s remove role.survivor
 tag @s add role.mother
 team join mother @s
-attribute @s minecraft:max_health base set 60
+attribute @s minecraft:max_health base set 80
 function escape_island:role/give_kit_mother
 tellraw @s [{"text":"§4§l你被柯尔文咬伤了。\\n","color":"dark_red"}, ...]
 ```
 
 关键点: 不要用任何 `tellraw @a`、不要播放任何全图音效，不要 `setblock` 任何可见效果。其他玩家**完全感知不到**有人被选中。
 
-17–20 人局另外执行 `game/pick_latent_host`，从非母体幸存者中选 1 名 `role.latent_host`。潜伏宿主觉醒前保留幸存者队伍、无母体技能、无感染能力；在 T+8:00 / 第一名普通幸存者转化后 15 秒 / 主母体死亡进入复活冷却三者最早时，调用 `game/awaken_secondary_mother`。
+17–20 人局的潜伏宿主需要随新版母体规则重审。主母体不可复活，潜伏宿主不应在主母体死亡后自动顶替，否则会破坏清剿胜利路线。
 
 ### 7.6 隐藏伪装
 
@@ -615,9 +621,8 @@ role_mother.json            — 母体三件套
 | `skill/mechanic/trap` | `placed_block` | 陷阱 |
 | `skill/sailor/dash` | `using_item` (feather) | 冲刺 |
 | `skill/priest_cross` | `entity_hurt_player` (when fatal) | 祝福被动监听 |
-| `skill/mother/lunge` | `using_item` (firework) | 母体冲刺 |
-| `skill/mother/rotsense` | `using_item` (spider_eye) | 感知 |
-| `skill/mother/howl` | `using_item` (fermented_spider_eye, consumable 999s) | 孢子召唤 |
+| `skill/mother/trail_sense` | `using_item` (spider_eye, consumable 999s) | 腐痕感知 |
+| `skill/mother/howl` | `using_item` (fermented_spider_eye, consumable 999s) | 集群嚎叫 |
 | `skill/mother/eat/eat_entity` | `consume_item` (red_dye) | 吞噬感染体 |
 | `skill/mother/eat/use_zombie_editor` | `consume_item` (structure_void) | 编辑被吞噬的感染体 |
 | `skill/mother/eat/release_entity` | `consume_item` (slime_ball) | 吐出感染体 |
