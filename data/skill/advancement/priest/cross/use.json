@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "nbt": "{Tags:[\"skill.priest.cross.active\"]}"
+              "nbt": "{Tags:[\"role.priest\"]}"
             }
           }
         ]

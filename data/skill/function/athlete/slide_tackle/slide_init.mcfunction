@@ -36,7 +36,6 @@ tag @a remove skill.slide.drop_015
 tag @a remove skill.slide.drop_008
 tag @a remove skill.slide.stamina.init
 tag @a remove skill.slide.stamina.showing
-tag @a remove skill.slide.cleanup_rider
 scoreboard players set @a skill.slide_fall 0
 scoreboard players set @a skill.slide_cost 0
 scoreboard players set @a skill.slide_sprint 0

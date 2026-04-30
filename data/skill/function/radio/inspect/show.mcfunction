@@ -21,8 +21,6 @@ execute if entity @e[tag=skill.radio.inspect.target,tag=role.athlete,limit=1] ru
 execute if entity @e[tag=skill.radio.inspect.target,tag=role.priest,limit=1] run title @s actionbar {"text":"职业: 神父","color":"white"}
 execute if entity @e[tag=skill.radio.inspect.target,tag=role.priest,limit=1] run tag @s add skill.radio.role.found
 
-execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,team=mother_hidden,limit=1] run title @s actionbar {"text":"职业: 幸存者","color":"green"}
-execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,team=mother_hidden,limit=1] run tag @s add skill.radio.role.found
 execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,tag=state.disguised,limit=1] run title @s actionbar {"text":"职业: 幸存者","color":"green"}
 execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,tag=state.disguised,limit=1] run tag @s add skill.radio.role.found
 

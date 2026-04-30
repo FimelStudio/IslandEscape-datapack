@@ -4,7 +4,7 @@
       "trigger": "minecraft:using_item",
       "conditions": {
         "player": {
-          "nbt": "{Tags:[\"marine\"]}"
+          "nbt": "{Tags:[\"role.marine\"]}"
         }
       }
     }

@@ -11,7 +11,7 @@
           }
         },
         "player": {
-          "nbt": "{Tags:[\"athlete\"]}"
+          "nbt": "{Tags:[\"role.athlete\"]}"
         }
       }
     }

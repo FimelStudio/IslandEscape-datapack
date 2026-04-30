@@ -11,7 +11,7 @@
           }
         },
         "player": {
-          "nbt": "{Tags:[\"chef\"]}"
+          "nbt": "{Tags:[\"role.chef\"]}"
         }
       }
     }
