@@ -17,6 +17,7 @@ bossbar set escape_island:infection visible false
 bossbar set escape_island:disguise visible false
 bossbar set escape_island:mother_respawn visible false
 
+function escape_island:escape/helicopter_cleanup
 kill @e[tag=entity.engineer_battery]
 kill @e[tag=entity.mechanic_trap]
 kill @e[tag=entity.chef_stew_pot]

@@ -1,0 +1,16 @@
+{
+  "criteria": {
+    "interact": {
+      "trigger": "player_interacted_with_entity",
+      "conditions": {
+        "entity": {
+          "entity_type": "minecraft:interaction",
+          "nbt": "{Tags:[\"entity.helicopter_door\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "escape_island:escape/helicopter_door_interact"
+  }
+}

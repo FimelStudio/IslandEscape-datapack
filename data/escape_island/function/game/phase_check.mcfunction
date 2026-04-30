@@ -14,6 +14,8 @@ execute if score $game cur_phase matches 1 if score $game phase_timer matches 24
 
 execute if score $game cur_phase matches 2 if score $game phase_timer matches 3600.. run function escape_island:game/phase_3_repair
 
+execute if score $game cur_phase matches 3 run function escape_island:game/check_helicopter_ready
+
 execute if score $game cur_phase matches 3 if score $game phase_timer matches 18000.. run function escape_island:game/phase_5_mutate
 execute if score $game cur_phase matches 4 if score $game phase_timer matches 18000.. run function escape_island:game/phase_5_mutate
 

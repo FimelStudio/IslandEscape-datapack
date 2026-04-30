@@ -5,7 +5,7 @@ scoreboard players set $game in_game 0
 tellraw @a {"text":"[孤岛逃生] 游戏已强制中止。","color":"red"}
 
 effect clear @a
-gamemode survival @a
+gamemode adventure @a
 
 bossbar set escape_island:phase visible false
 bossbar set escape_island:signal visible false

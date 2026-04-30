@@ -151,7 +151,8 @@ IslandEscape-datapack/
 | `lab_cards` | dummy | 收集的身份卡碎片 |
 | `bomb_armed` | dummy | 0/1 自爆已激活 |
 | `bomb_countdown` | dummy | 自爆秒数 |
-| `heli_countdown` | dummy | 直升机秒数 |
+| `heli_countdown` | dummy | 直升机阶段秒数；正数=抵达倒计时，负数=登机窗口剩余秒数 |
+| `heli_motion` | dummy | 直升机模型动画状态；1..90 飞入，201..300 起飞 |
 | `ship_countdown` | dummy | 轮船倒计时 |
 | `sub_countdown` | dummy | 潜艇倒计时 |
 | `escaped_count` | dummy | 已撤离玩家数 |
@@ -219,7 +220,9 @@ IslandEscape-datapack/
 | `marker.loot_keynote` | 关键剧情点 |
 | `marker.mob_lab_researcher` | 感染研究员刷点 |
 | `marker.event_blackout` | 断电中心点 |
-| `entity.helicopter` | 直升机 armor_stand |
+| `entity.helicopter` | Animated Java 直升机 root；若模型函数不可用则回退 armor_stand |
+| `entity.helicopter_door` | 直升机登机舱门 interaction |
+| `entity.helicopter_door_hint` | 直升机舱门文字提示 |
 | `entity.disguise_potion` | 伪装试剂掉落物 |
 | `entity.researcher` | 实验室僵尸 |
 | `entity.engineer_battery` | 工程师电池 marker |
@@ -536,11 +539,13 @@ execute if entity @s[tag=infected.common] run function escape_island:infection/a
 
 ### 7.7 直升机/船/潜艇上车判定
 
-armor_stand 上加可坐 boat 实体作为座位。玩家上座 → 监听 `Vehicle` NBT 或 `tag passenger` advancement → 给 `state.boarding` tag。
+直升机路线当前采用“模型视觉 + interaction 舱门判定”的分离方案。Animated Java 模型 root 加 `entity.helicopter`，登机点单独生成 `entity.helicopter_door` interaction 和 `entity.helicopter_door_hint` 文本提示。玩家右键舱门触发 `escape/helicopter_door_interact`。
 
-直升机起飞动画: 把整组实体（多个 armor_stand 拼成机身）每 tick `tp ~ ~0.5 ~`（向上 0.5 / tick）持续 200 tick = 10 秒。座位玩家随之上升。
+幸存者右键舱门 → `state.boarding` + spectator，等待起飞；感染者右键舱门 → 提示无法登机；伪装母体右键舱门 → `state.boarding` + `state.disguise_scanning`，8 秒扫描后未识破则触发 `game/end_disguise`。
 
-10 秒后所有座位玩家被传送到结算空间 → `state.escaped` + 结算观战 + `function game/end_helicopter`。
+`heli_countdown` 为正数时表示直升机抵达倒计时；倒计时最后 5 秒调用 `helicopter_start_approach`，设置 `heli_motion=1` 并从远处生成模型。`heli_motion` 每 tick 移动模型：飞入为水平接近后垂直下降，起飞为垂直升空后向机头方向飞离。登机窗口为 60 秒，结束后 `_helicopter_depart` 将 `state.boarding` 玩家转为 `state.escaped`，飞离动画结束后清理模型并 `function game/end_helicopter`。
+
+船/潜艇路线后续可复用 interaction 舱门判定，不建议把玩家真实骑乘到撤离模型上。
 
 ### 7.8 性能预算
 

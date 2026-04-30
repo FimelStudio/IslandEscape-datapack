@@ -2,12 +2,16 @@ execute unless entity @e[type=minecraft:marker,tag=marker.signal_tower,limit=1] 
 
 scoreboard players set $game in_game 1
 scoreboard players set $game cur_phase 3
+scoreboard players set $game phase_timer 0
+scoreboard players set $tick cycle20 0
+scoreboard players set $tick cycle5 0
 scoreboard players set $game signal_progress 0
 scoreboard players set $game signal_done 0
 scoreboard players set $game gen_done 0
 scoreboard players set Tunable tunable.signal_stages 5
 scoreboard players set @s signal_repair_time 0
 scoreboard players set @s signal_repair_seen 0
+gamemode adventure @s
 tag @s remove role.engineer
 tag @s remove state.infected_period
 kill @e[type=minecraft:marker,tag=entity.engineer_battery,distance=..8]

@@ -1,6 +1,6 @@
 
 tag @s remove state.dead
-gamemode survival @s
+gamemode adventure @s
 attribute @s minecraft:movement_speed base set 0.1
 effect clear @s minecraft:invisibility
 effect clear @s minecraft:darkness

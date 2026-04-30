@@ -29,9 +29,12 @@ scoreboard objectives add signal_repair_time dummy
 scoreboard objectives add signal_repair_seen dummy
 scoreboard objectives add gen_progress dummy
 scoreboard objectives add gen_state dummy
+scoreboard objectives add gen_countdown dummy
+scoreboard objectives add gen_overload dummy
 scoreboard objectives add gen_hold_time dummy
 scoreboard objectives add gen_hold_seen dummy
 scoreboard objectives add gen_hold_lock dummy
+scoreboard objectives add gen_interact_cd dummy
 scoreboard objectives add gen_done dummy
 scoreboard objectives add ship_progress dummy
 scoreboard objectives add ship_parts dummy
@@ -39,6 +42,7 @@ scoreboard objectives add lab_cards dummy
 scoreboard objectives add bomb_armed dummy
 scoreboard objectives add bomb_countdown dummy
 scoreboard objectives add heli_countdown dummy
+scoreboard objectives add heli_motion dummy
 scoreboard objectives add ship_countdown dummy
 scoreboard objectives add sub_countdown dummy
 scoreboard objectives add escaped_count dummy
@@ -130,5 +134,6 @@ scoreboard players set $tick decay_cycle 0
 scoreboard players set $const_60 event_threshold 60
 scoreboard players set $const_2 spore_load 2
 scoreboard players set $const_4 infect_time 4
+scoreboard players set $const_minus1 heli_countdown -1
 
 tellraw @a [{"text":"[孤岛逃生：黎明前夕] 数据包已加载。 ","color":"gold"},{"text":"[打开自测菜单]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/menu"}},{"text":" ","color":"white"},{"text":"[开始游戏]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:game/start"}}]

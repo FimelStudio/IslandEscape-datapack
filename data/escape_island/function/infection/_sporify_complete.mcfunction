@@ -8,7 +8,7 @@ execute at @s run kill @e[type=minecraft:marker,tag=entity.downed_anchor,distanc
 
 function escape_island:infection/turn
 
-gamemode survival @s
+gamemode adventure @s
 
 effect give @s minecraft:resistance 100 255 true
 execute at @s run particle minecraft:dust{color:[0.0,0.9,0.25],scale:1.4} ~ ~1 ~ 1 0.8 1 0.02 30 force @a

@@ -121,7 +121,7 @@ scoreboard players set @s cd_mother_howl 0
 scoreboard players set @s death_count 0
 effect clear @s
 team leave @s
-gamemode survival @s
+gamemode adventure @s
 kill @e[tag=test.dummy]
 kill @e[tag=entity.chef_stew_pot]
 kill @e[tag=entity.engineer_battery]

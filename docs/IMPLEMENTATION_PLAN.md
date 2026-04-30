@@ -451,8 +451,10 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
   - 小人数局需 2 块燃料电池，标准局需 3 块；全图保底至少 4 块
   - 投满后进入 10 秒预热，再进入稳定运行倒计时
   - 稳定运行时间按人数缩放：4–7 人 45 秒，8–12 人 60 秒，13+ 人 75 秒
-  - 感染者/母体靠近 2.5 格 → 暂停稳定倒计时；无幸存者争夺时 `gen_overload += 3/s`
-  - 幸存者靠近并互动稳定发电机 → `gen_overload -= 4/s`
+  - 发电机启动后，玩家靠近发电机且副手为空时，副手临时替换为发电机交互器；离开范围自动移除
+  - `team.infected` 玩家使用发电机交互器对发电机长按右键 → 暂停稳定倒计时并逐步积累过载；约 10 秒连续破坏才会打满
+  - 幸存者使用发电机交互器对发电机长按右键 → 降低过载；故障状态下长按维修后重新预热
+  - 技术限制: 空手右键实体只有单次点击事件，没有持续按住信号；真实长按必须通过 `using_item` + 可使用物品检测
   - `gen_overload >= 20` → 发电机熄火并进入故障状态；已投入燃料全部保留，不需要重新投入电池
   - 故障状态下幸存者靠近并长按维修，清空过载后重新进入 10 秒预热 / 稳定运行
   - 稳定运行倒计时完成 → 写入 `$game gen_done 1`
@@ -461,7 +463,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 #### 7C — 信号塔 + 发电机完成 → 直升机呼叫
 
-- [ ] `phase_check.mcfunction` 检查 `$game signal_done = 1 AND $game gen_done = 1`
+- [x] `phase_check.mcfunction` 检查 `$game signal_done = 1 AND $game gen_done = 1`
   - → 广播"天边开始发白，直升机正在靠近……"
   - → `heli_countdown = tunable.helicopter_countdown`（默认 90）
   - → `escape/helicopter_call.mcfunction`
@@ -480,29 +482,31 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 任务:
 
-- [ ] `escape/helicopter_call.mcfunction`:
+- [x] `escape/helicopter_call.mcfunction`:
   - 从 4 个 `marker.heli_pad` 中随机选 1 个，广播坐标
-  - 召唤直升机 armor_stand（临时用普通 armor_stand，资源包后期加模型）
+  - 选定降落点；倒计时最后 5 秒召唤 Animated Java 直升机模型并从远处飞入
   - 启动 `heli_countdown`
-- [ ] `escape/helicopter_tick.mcfunction`（每秒运行）:
+- [x] `escape/helicopter_tick.mcfunction`（每秒运行）:
   - `heli_countdown --`
   - bossbar `escape_island:heli` 更新
   - `heli_countdown <= 0` → `escape/helicopter_arrive.mcfunction`
-- [ ] `escape/helicopter_arrive.mcfunction`:
-  - 广播"直升机降落！30 秒内上机！"
-  - 召唤可坐 boat 实体作为登机判定（或 2 格内接触判定）
-- [ ] `escape/boarding_check.mcfunction`（每秒）:
-  - 检测 `marker.heli_pad` 2 格内玩家
-  - 母体/感染者：击退 + 告知无法上机
-  - 幸存者（含感染期）：给 `state.boarding` tag
-  - 登机倒计时 30s 后所有 `state.boarding` 玩家 → `state.escaped` + gamemode spectator
+- [x] `escape/helicopter_arrive.mcfunction`:
+  - 广播"直升机降落！60 秒内上机！"
+  - 召唤舱门 `interaction` 实体作为右键登机判定
+- [x] `escape/helicopter_door_interact.mcfunction`:
+  - 右键舱门检测玩家阵营
+  - 感染者：告知无法登机
+  - 幸存者（含感染期）：给 `state.boarding` tag，并切旁观等待起飞
+  - 登机倒计时 60s 后所有 `state.boarding` 玩家 → `state.escaped` + gamemode spectator
   - 满足胜利条件（至少 1 人撤离）→ `game/end_helicopter.mcfunction`
-- [ ] `game/end_helicopter.mcfunction`:
+- [x] `game/end_helicopter.mcfunction`:
   - 广播结局字幕（"幸存者已撤离……"）
   - `in_game = 0`，清理所有 bossbar
   - 所有人进入结算
+- [x] 直升机飞入 / 起飞动画第一版：`heli_motion` 每 tick 移动模型，起飞结束后清理模型并结算
+- [x] 登机窗口调整为 60 秒；舱门 interaction 右键登机
 - [ ] 动态破晓（可后期添加）: 每秒 `/time add X` 让天色渐亮，X 根据 `heli_countdown` 反比例计算
-- [ ] 验收: 开发沙盒中手动触发直升机路线，跑完完整流程，确认结算
+- [x] 验收: 开发沙盒中手动触发直升机路线，跑完完整流程，确认结算
 
 ### Batch 9 — 其余撤离路线与结局
 

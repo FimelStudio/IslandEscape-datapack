@@ -30,6 +30,8 @@ tag @s remove skill.mother.eating
 tag @s remove skill.mother.eat.fired
 tag @s remove skill.mother.eat.absorbing
 tag @s remove skill.mother.eat.target
+tag @s remove gen.channel.sabotage
+tag @s remove gen.channel.repair
 scoreboard players reset @s skill.mother_eat_anim
 scoreboard players set @s skill.trap_charges 0
 scoreboard players set @s skill.trap_place_cd 0
@@ -81,7 +83,7 @@ scoreboard players set @s skill.soup_sec 0
 scoreboard players set @s skill.soup_last_sec 0
 effect clear @s
 team leave @s
-gamemode survival @s
+gamemode adventure @s
 execute at @s run kill @e[type=minecraft:marker,tag=entity.downed_anchor,distance=..3,sort=nearest,limit=1]
 execute at @s run kill @e[type=minecraft:marker,tag=entity.dead_anchor,distance=..3,sort=nearest,limit=1]
 attribute @s minecraft:max_health base set 20

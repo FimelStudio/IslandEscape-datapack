@@ -1,3 +1,6 @@
+execute if score $game cur_phase matches 4.. run bossbar set escape_island:signal visible false
+execute if score $game cur_phase matches 4.. run return 0
+
 execute if score $game signal_progress matches 1.. run bossbar set escape_island:signal visible true
 execute if score $game signal_done matches 1.. run bossbar set escape_island:signal visible true
 execute if score $game signal_progress matches 1.. run bossbar set escape_island:signal players @a

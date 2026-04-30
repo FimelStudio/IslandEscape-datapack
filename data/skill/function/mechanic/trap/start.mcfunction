@@ -7,7 +7,7 @@ execute if score #active skill.trap_tmp >= #max_traps skill.trap_cfg run title @
 execute if score #active skill.trap_tmp >= #max_traps skill.trap_cfg run function skill:mechanic/trap/update_item
 execute if score #active skill.trap_tmp >= #max_traps skill.trap_cfg run return 0
 
-execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["entity.mechanic_trap","skill.trap.marker"],CustomName:'{"text":"机关陷阱","color":"gray"}'}
+execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["entity.mechanic_trap","skill.trap.marker"],CustomName:{"text":"机关陷阱","color":"gray"}}
 execute at @s run particle minecraft:dust{color:[0.1,0.8,0.2],scale:0.9} ~ ~0.08 ~ 0.25 0.03 0.25 0.01 18 force @a[distance=..8]
 execute at @s run playsound minecraft:block.tripwire.attach player @a[distance=..12] ~ ~ ~ 0.8 1.4
 title @s actionbar {"text":"机关陷阱已部署","color":"green"}

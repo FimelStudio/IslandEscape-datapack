@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "hold": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "item": {
+          "predicates": {
+            "minecraft:custom_data": "{item:\"generator_action\"}"
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "escape_island:task/generator_action_hold"
+  }
+}

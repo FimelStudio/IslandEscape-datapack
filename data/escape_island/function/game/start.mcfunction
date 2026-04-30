@@ -20,10 +20,18 @@ scoreboard players set $game ship_progress 0
 scoreboard players set $game ship_parts 0
 scoreboard players set $game lab_cards 0
 scoreboard players set $game gen_state 0
+scoreboard players set $game gen_countdown 0
+scoreboard players set $game gen_overload 0
 scoreboard players set $game gen_hold_time 0
 scoreboard players set $game gen_hold_seen 0
 scoreboard players set $game gen_hold_lock 0
+scoreboard players set $game gen_interact_cd 0
 scoreboard players set $game gen_done 0
+scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_progress 0
+scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_state 0
+scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_countdown 0
+scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_overload 0
+function escape_island:task/generator_attach_interactions
 
 tag @a remove team.human
 tag @a remove team.infected
@@ -151,11 +159,12 @@ scoreboard players reset @a death_count
 scoreboard players reset @a hb_phase
 scoreboard players reset @a mother_last_hp
 scoreboard players reset @a mother_regen_cd
+scoreboard players reset @a gen_interact_cd
 scoreboard players operation @a used_firework_last = @a used_firework
 
 team join survivors @a
 clear @a
-gamemode survival @a
+gamemode adventure @a
 effect clear @a
 execute as @a run attribute @s minecraft:movement_speed base set 0.1
 effect give @a minecraft:saturation 1 20 true

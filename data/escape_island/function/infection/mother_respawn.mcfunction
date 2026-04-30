@@ -1,6 +1,6 @@
 
 tag @s remove state.dead
-gamemode survival @s
+gamemode adventure @s
 effect clear @s minecraft:invisibility
 effect clear @s minecraft:darkness
 effect clear @s minecraft:resistance
