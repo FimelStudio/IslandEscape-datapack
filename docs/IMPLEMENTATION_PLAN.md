@@ -427,27 +427,28 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 7 — 任务系统
 
-状态: **待实现**
+状态: **已实现并通过游戏内手测（7A/7B/7C）**
 
 目标: 主线直升机前置任务在开发沙盒中可完整跑通：信号塔修复 + 任一发电机稳定运行 → 直升机呼叫。轮船修复暂缓到后续批次。
 
 #### 7A — 信号塔修复
 
-- [ ] `signal_tower_tick.mcfunction`（每秒运行）:
-  - 检测玩家是否在 `marker.signal_tower` 2 格内 + 持有线缆（`custom_data.item="cable"`）
-  - 持续 5 秒 `interact_item` 检测（`using_item` advancement + 近距离 marker 检查）
+- [x] `signal_tower_tick.mcfunction` / `signal_tower_hold.mcfunction` / `signal_tower_repair.mcfunction`：
+  - 检测玩家是否在 `marker.signal_tower` 2.5 格内 + 持有线缆（`custom_data.item="cable"`）
+  - 使用线缆长按右键检测（`using_item` advancement + 近距离 marker 检查）
   - 完成一段 → `signal_progress ++` → 广播进度 + bossbar 更新
   - 中断条件: 受伤、离开范围、松开互动或放下线缆 → 当前阶段清空；已完成阶段不回退
   - 工程师在范围内: 速度 +50%；工程师电池在范围内: 每段约 2 秒
   - 感染期玩家修复速度 -50%
   - `signal_progress >= tunable.signal_stages` → 广播"信号塔修复完成" → 写入 `$game signal_done 1`
-- [ ] bossbar `escape_island:signal`：`signal_progress / tunable.signal_stages`，全员可见
-- [ ] 线缆道具：`custom_data.item = "cable"`，loot_basic 30% 概率出现；全图保底 `tunable.signal_stages + 1` 根
+- [x] bossbar `escape_island:signal`：`signal_progress / tunable.signal_stages`，全员可见；进入直升机阶段后隐藏
+- [x] 线缆道具：`custom_data.item = "cable"`；开发/测试通过 `task/give_cable.mcfunction` 给与
+- [ ] 线缆正式投放：loot_basic 概率与全图保底并入 Batch 10 物资系统
 
 #### 7B — 发电机启动
 
-- [ ] `generator_tick.mcfunction`（每秒运行）:
-  - 玩家靠近 `marker.generator` + 持有燃料电池（`custom_data.item="fuel_cell"`）右键投入；每台发电机独立记录投入数
+- [x] `generator_tick.mcfunction` / `generator_tick_one.mcfunction` / `generator_use.mcfunction`：
+  - 玩家靠近 `marker.generator` + 持有燃料电池（`custom_data.item="fuel_cell"`）并面向发电机右键投入；每台发电机独立记录投入数
   - 小人数局需 2 块燃料电池，标准局需 3 块；全图保底至少 4 块
   - 投满后进入 10 秒预热，再进入稳定运行倒计时
   - 稳定运行时间按人数缩放：4–7 人 45 秒，8–12 人 60 秒，13+ 人 75 秒
@@ -458,21 +459,25 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
   - `gen_overload >= 20` → 发电机熄火并进入故障状态；已投入燃料全部保留，不需要重新投入电池
   - 故障状态下幸存者靠近并长按维修，清空过载后重新进入 10 秒预热 / 稳定运行
   - 稳定运行倒计时完成 → 写入 `$game gen_done 1`
-- [ ] bossbar `escape_island:gen`：显示发电机维持剩余时间，全员可见
-- [ ] bossbar 或 actionbar 显示当前发电机过载压力，避免玩家不知道为什么倒计时暂停
+- [x] bossbar `escape_island:gen`：预热/稳定/故障阶段显示对应进度；进入直升机阶段后隐藏
+- [x] actionbar 显示当前发电机预热、稳定倒计时、过载压力、维修进度，避免玩家不知道为什么倒计时暂停
+- [x] 开发自测菜单接入：`test/generator_setup`、`test/generator_as_survivor`、`test/generator_as_infected`
+- [ ] 燃料电池正式投放：loot_basic 概率与全图保底并入 Batch 10 物资系统
 
 #### 7C — 信号塔 + 发电机完成 → 直升机呼叫
 
 - [x] `phase_check.mcfunction` 检查 `$game signal_done = 1 AND $game gen_done = 1`
   - → 广播"天边开始发白，直升机正在靠近……"
-  - → `heli_countdown = tunable.helicopter_countdown`（默认 90）
+  - → `heli_countdown = tunable.helicopter_countdown`
   - → `escape/helicopter_call.mcfunction`
+- [x] `check_helicopter_ready.mcfunction` 负责防重复呼叫与阶段推进
+- [x] 呼叫直升机时隐藏信号塔/发电机/轮船/潜艇 bossbar，仅保留 `escape_island:heli`
 
 #### 7D — 轮船修复（可选，后续批次）
 
 暂缓，先跑通主线直升机路线后再实现。
 
-验收: 开发沙盒中手动置入线缆和电池，跑完信号塔 + 发电机 → 直升机广播出现；感染者靠近发电机能暂停倒计时并积累过载，过载熄火后幸存者维修即可恢复，不需要重新投入电池。
+验收: 开发沙盒中通过自测菜单跑完信号塔 + 发电机 → 直升机广播出现；感染者靠近发电机可长按破坏并积累过载，过载熄火后幸存者长按维修即可恢复，不需要重新投入电池。7A/7B/7C 已游戏内手测通过；正式物资投放留到 Batch 10。
 
 ### Batch 8 — 直升机撤离与结局
 
