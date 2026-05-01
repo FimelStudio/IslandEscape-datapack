@@ -1,3 +1,4 @@
+execute if items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol"}] run function skill:weapon/pistol/sync_held
 execute if score @s skill.pistol_mag matches 8.. run title @s actionbar {"text":"弹匣已满","color":"gray"}
 execute if score @s skill.pistol_mag matches 8.. run function skill:weapon/pistol/update_item
 execute if score @s skill.pistol_mag matches 8.. run return 0

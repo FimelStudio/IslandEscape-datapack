@@ -9,10 +9,7 @@
               "custom_data": "{weapon:\"pistol_used\"}"
             }
           }
-        ],
-        "player": {
-          "nbt": "{Tags:[\"team.human\"]}"
-        }
+        ]
       }
     }
   },

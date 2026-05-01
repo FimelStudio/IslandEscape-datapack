@@ -1,4 +1,4 @@
-kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:sugar",components:{"minecraft:custom_data":{weapon:"pistol_used"}}}}]
+kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:paper",components:{"minecraft:custom_data":{weapon:"pistol_used"}}}}]
 execute as @a[tag=skill.pistol.update] run function skill:weapon/pistol/update_item_sync
 tag @a remove skill.pistol.update
 tag @a remove skill.pistol.holding

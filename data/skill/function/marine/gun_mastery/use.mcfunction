@@ -1,7 +1,7 @@
 advancement revoke @s only skill:marine/gun_mastery/use
 
 execute unless entity @s[tag=role.marine] run return 0
-execute unless items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol"}] run return 0
+execute unless items entity @s weapon.mainhand minecraft:sugar[minecraft:custom_data~{weapon:"pistol"}] unless items entity @s weapon.mainhand minecraft:paper[minecraft:custom_data~{weapon:"pistol_used"}] run return 0
 execute unless predicate skill:is_sneak run return 0
 
 execute if score @s skill.gm_input_cd matches 1.. run return 0
