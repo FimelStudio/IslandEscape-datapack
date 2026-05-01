@@ -1,4 +1,4 @@
-advancement revoke @s only skill:sailor/dash
+#advancement revoke @s only skill:sailor/dash
 execute if score @s cd_sailor matches 1.. run return 0
 
 scoreboard players set @s cd_sailor 30
