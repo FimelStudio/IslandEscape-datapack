@@ -10,10 +10,8 @@ execute if entity @s[tag=role.chef] run tag @s add retained.chef
 execute if entity @s[tag=role.radio] run tag @s add retained.radio
 execute if entity @s[tag=role.virologist] run tag @s add retained.virologist
 execute if entity @s[tag=role.mechanic] run tag @s add retained.mechanic
-execute if entity @s[tag=role.sailor] run tag @s add retained.sailor
 execute if entity @s[tag=role.athlete] run tag @s add retained.athlete
 execute if entity @s[tag=role.priest] run tag @s add retained.priest
-execute if entity @s[tag=role.sailor] run effect give @s minecraft:speed 99999 0 true
 
 tag @s remove team.human
 tag @s remove state.infected_period
@@ -25,7 +23,6 @@ tag @s remove role.chef
 tag @s remove role.radio
 tag @s remove role.virologist
 tag @s remove role.mechanic
-tag @s remove role.sailor
 tag @s remove role.athlete
 tag @s remove skill.adrenaline.active
 tag @s remove skill.slide.active

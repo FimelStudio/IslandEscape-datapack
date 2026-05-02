@@ -17,8 +17,11 @@ scoreboard players set $game heli_motion 0
 scoreboard players set $game escaped_count 0
 scoreboard players set $game bomb_armed 0
 scoreboard players set $game ship_progress 0
-scoreboard players set $game ship_parts 0
+scoreboard players set $game ship_bonus_tick 0
+function escape_island:task/ship_reset_parts
 scoreboard players set $game ship_countdown 0
+scoreboard players set $game ship_hold_time 0
+scoreboard players set $game ship_hold_seen 0
 scoreboard players set $game lab_cards 0
 scoreboard players set $event event_timer 0
 scoreboard players set $event event_threshold 0
@@ -36,6 +39,8 @@ scoreboard players set @a gen_hold_lock 0
 scoreboard players set @a gen_interact_cd 0
 scoreboard players set @a signal_repair_time 0
 scoreboard players set @a signal_repair_seen 0
+scoreboard players set @a ship_hold_time 0
+scoreboard players set @a ship_hold_seen 0
 
 bossbar set escape_island:phase visible false
 bossbar set escape_island:signal visible false
@@ -54,6 +59,7 @@ tag @a remove event.has_flashlight
 tag @a remove gen.channel.sabotage
 tag @a remove gen.channel.repair
 tag @a remove state.boarding
+tag @a remove state.escaped
 tag @a remove state.disguise_scanning
 effect clear @a minecraft:blindness
 effect clear @a minecraft:nausea
@@ -68,5 +74,7 @@ schedule clear escape_island:event/_static_end
 schedule clear escape_island:escape/_helicopter_depart
 schedule clear escape_island:escape/_disguise_scan_complete
 schedule clear escape_island:escape/_ship_go
+kill @e[type=minecraft:interaction,tag=entity.ship_door]
+kill @e[tag=entity.ship_door_hint]
 
 title @a actionbar ""

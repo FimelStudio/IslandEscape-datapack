@@ -19,7 +19,6 @@ tag @s remove role.chef
 tag @s remove role.radio
 tag @s remove role.virologist
 tag @s remove role.mechanic
-tag @s remove role.sailor
 tag @s remove role.priest
 tag @s remove role.athlete
 tag @s remove role.priest

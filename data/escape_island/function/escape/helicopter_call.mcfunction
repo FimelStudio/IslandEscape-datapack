@@ -8,6 +8,7 @@ bossbar set escape_island:gen visible false
 bossbar set escape_island:ship visible false
 bossbar set escape_island:sub visible false
 scoreboard players set $game ship_progress 0
+function escape_island:task/ship_reset_parts
 scoreboard players set $game ship_countdown 0
 bossbar set escape_island:heli visible true
 bossbar set escape_island:heli players @a

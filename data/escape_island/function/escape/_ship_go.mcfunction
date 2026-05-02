@@ -1,3 +1,9 @@
-execute as @a[tag=team.human] at @s if entity @e[tag=marker.ship_dock,distance=..8] run function escape_island:escape/boarding_check
+execute as @a[tag=state.boarding,tag=!state.escaped] run function escape_island:escape/boarding_check
 function escape_island:util/recount_escaped
+scoreboard players set $game ship_countdown 0
+bossbar set escape_island:ship visible false
+kill @e[type=minecraft:interaction,tag=entity.ship_door]
+kill @e[tag=entity.ship_door_hint]
+tellraw @a {"text":"[轮船] 缆绳解开，海风号正在离港。","color":"aqua"}
+playsound minecraft:entity.boat.paddle_water master @a ~ ~ ~ 1 0.8
 function escape_island:game/end_ship

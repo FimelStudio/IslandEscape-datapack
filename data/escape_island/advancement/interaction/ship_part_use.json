@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "item": {
+          "predicates": {
+            "minecraft:custom_data": "{item:\"ship_part\"}"
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "escape_island:task/ship_part_use"
+  }
+}

@@ -8,7 +8,6 @@ tag @s remove role.chef
 tag @s remove role.radio
 tag @s remove role.virologist
 tag @s remove role.mechanic
-tag @s remove role.sailor
 tag @s remove role.priest
 tag @s remove role.athlete
 tag @s remove role.priest
@@ -45,7 +44,6 @@ tag @s remove retained.chef
 tag @s remove retained.radio
 tag @s remove retained.virologist
 tag @s remove retained.mechanic
-tag @s remove retained.sailor
 tag @s remove retained.athlete
 tag @s remove retained.priest
 tag @s remove flag.cross_intact

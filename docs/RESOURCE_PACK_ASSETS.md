@@ -47,7 +47,7 @@
 | 线缆 | `ie:item/cable` | `string` | `item:"cable"` | 信号塔修复 |
 | 燃料电池 | `ie:item/fuel_cell` | `redstone` | `item:"fuel_cell"` | 发电机启动 |
 | 潜艇通行证 | `ie:item/sub_pass` | `paper` | `item:"sub_pass"` | 实验室/潜艇路线 |
-| 船舶部件 | `ie:item/ship_part_*` | 待定 | `item:"ship_part"` | 轮船路线 |
+| 船舶部件 | `ie:ship_part_propeller` / `ie:ship_part_fuel_pump` / `ie:ship_part_steering_linkage` / `ie:ship_part_starter_battery` / `ie:ship_part_anchor_winch` | 待定 | `item:"ship_part", part:"..."` | 轮船路线最多五个不同部件，按人数启用 |
 | 主任笔记 | `ie:item/keynote_voss` | `book` / `paper` 待定 | `item:"keynote"` | 实验室入口与剧情 |
 | 普罗米修斯文件 | `ie:item/prometheus_file` | `paper` 待定 | `item:"prom_file"` | 自爆真结局 |
 | 员工身份卡碎片 | `ie:item/lab_card_fragment` | `paper` 待定 | `item:"lab_card_fragment"` | 潜艇路线 |

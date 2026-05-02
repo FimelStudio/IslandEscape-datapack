@@ -38,6 +38,9 @@ scoreboard objectives add gen_interact_cd dummy
 scoreboard objectives add gen_done dummy
 scoreboard objectives add ship_progress dummy
 scoreboard objectives add ship_parts dummy
+scoreboard objectives add ship_bonus_tick dummy
+scoreboard objectives add ship_hold_time dummy
+scoreboard objectives add ship_hold_seen dummy
 scoreboard objectives add lab_cards dummy
 scoreboard objectives add bomb_armed dummy
 scoreboard objectives add bomb_countdown dummy
@@ -66,6 +69,7 @@ scoreboard objectives add tunable.doctor_spore_threshold dummy
 scoreboard objectives add tunable.mother_spore_hit dummy
 scoreboard objectives add tunable.infected_spore_hit dummy
 scoreboard objectives add tunable.signal_stages dummy
+scoreboard objectives add tunable.ship_parts_required dummy
 scoreboard objectives add tunable.helicopter_countdown dummy
 scoreboard objectives add tunable.dawn_transition_seconds dummy
 scoreboard objectives add tunable.death_sporify_seconds dummy
@@ -128,6 +132,7 @@ bossbar set escape_island:mother_respawn visible false
 
 scoreboard players set $game in_game 0
 scoreboard players set $game dev_mode 0
+scoreboard players set $game ship_bonus_tick 0
 scoreboard players set $tick cycle20 0
 scoreboard players set $tick cycle5 0
 scoreboard players set $tick decay_cycle 0

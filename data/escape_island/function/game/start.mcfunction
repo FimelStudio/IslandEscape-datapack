@@ -2,6 +2,10 @@
 function escape_island:util/recount_players
 execute if score $game player_count matches ..3 run tellraw @a {"text":"[孤岛逃生] 至少需要 4 名玩家才能开始。","color":"red"}
 execute if score $game player_count matches ..3 run return 0
+scoreboard players set Tunable tunable.ship_parts_required 5
+execute if score $game player_count matches 4 run scoreboard players set Tunable tunable.ship_parts_required 3
+execute if score $game player_count matches 5..7 run scoreboard players set Tunable tunable.ship_parts_required 4
+execute if score $game player_count matches 8.. run scoreboard players set Tunable tunable.ship_parts_required 5
 
 gamerule immediate_respawn true
 kill @e[tag=entity.downed_anchor]
@@ -17,7 +21,10 @@ scoreboard players set $game dawn_active 0
 scoreboard players set $game signal_progress 0
 scoreboard players set $game signal_done 0
 scoreboard players set $game ship_progress 0
-scoreboard players set $game ship_parts 0
+scoreboard players set $game ship_bonus_tick 0
+function escape_island:task/ship_reset_parts
+scoreboard players set $game ship_hold_time 0
+scoreboard players set $game ship_hold_seen 0
 scoreboard players set $game lab_cards 0
 scoreboard players set $game gen_state 0
 scoreboard players set $game gen_countdown 0
@@ -81,7 +88,6 @@ tag @a remove retained.chef
 tag @a remove retained.radio
 tag @a remove retained.virologist
 tag @a remove retained.mechanic
-tag @a remove retained.sailor
 tag @a remove retained.athlete
 tag @a remove retained.priest
 tag @a remove flag.has_inject

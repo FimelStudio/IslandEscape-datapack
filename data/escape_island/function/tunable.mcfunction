@@ -6,6 +6,7 @@ scoreboard players set Tunable tunable.doctor_spore_threshold 130
 scoreboard players set Tunable tunable.mother_spore_hit 50
 scoreboard players set Tunable tunable.infected_spore_hit 35
 scoreboard players set Tunable tunable.signal_stages 5
+scoreboard players set Tunable tunable.ship_parts_required 5
 scoreboard players set Tunable tunable.helicopter_countdown 90
 scoreboard players set Tunable tunable.dawn_transition_seconds 90
 scoreboard players set Tunable tunable.death_sporify_seconds 15

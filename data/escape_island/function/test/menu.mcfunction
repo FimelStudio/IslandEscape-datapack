@@ -8,6 +8,7 @@ tellraw @s [{"text":"[Batch 7A 信号塔测试]","color":"green","bold":true,"cl
 tellraw @s [{"text":"[Batch 7B 发电机测试]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/generator_setup"}},{"text":" 自动准备发电机位置和燃料电池","color":"gray"}]
 tellraw @s [{"text":"[Batch 7C 直升机呼叫测试]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/helicopter_call_setup"}},{"text":" 自动完成信号塔和发电机，测试撤离阶段触发","color":"gray"}]
 tellraw @s [{"text":"[Batch 8A 直升机登机测试]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/helicopter_boarding_setup"}},{"text":" 快速降落，测试舱门右键登机和结算","color":"gray"}]
+tellraw @s [{"text":"[Batch 9A 轮船路线测试]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/ship_route_setup"}},{"text":" 投入船舶部件、修复船体、右键登船结算","color":"gray"}]
 tellraw @s [{"text":"[查看状态]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:debug/show_state"}},{"text":" 输出当前局内计分板状态","color":"gray"}]
 tellraw @s [{"text":"[训练模式]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/start"}},{"text":" 单人练技能，不开正式局","color":"gray"}]
 tellraw @s [{"text":"[选择训练职业]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/role_menu"}},{"text":" 一次只拥有一个职业，避免技能串线","color":"gray"}]

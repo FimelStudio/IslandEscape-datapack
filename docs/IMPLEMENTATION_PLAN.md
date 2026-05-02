@@ -135,8 +135,8 @@ data/skill/advancement/<职业>/<技能>/
 `data/skill/function/athlete/` 中滑铲（slide_tackle）+ 肾上腺素（adrenaline）已完整实现。
 
 - [x] `escape_island:game/_tick_20.mcfunction` / `training/_tick_20.mcfunction`：将运动员职业 tag 统一为 `role.athlete`
-- [x] `escape_island:function/load.mcfunction`：删除 `cd_sailor` scoreboard 注册（运动员 scoreboard 已由 `skill:athlete/init` 注册）
-- [x] 从旧 `skill:common/cooldown_tick` 移除水手冷却递减
+- [x] `escape_island:function/load.mcfunction`：删除旧机动职业冷却 scoreboard 注册（运动员 scoreboard 已由 `skill:athlete/init` 注册）
+- [x] 从旧 `skill:common/cooldown_tick` 移除废弃机动职业冷却递减
 - [x] 确认 `data/minecraft/tags/function/tick.json` 包含 `skill:athlete/tick`
 - [x] 训练发套件、正式分配、重置、转化清理均接入 `athlete`
 - [x] 运动员游戏内手测通过
@@ -338,8 +338,8 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 运动员接入（已有代码，仅改引用）：
 - [x] `escape_island:game/_tick_20` / `training/_tick_20`：运动员职业 tag 统一为 `role.athlete`
-- [x] `escape_island:function/load`：删除 `cd_sailor` 注册
-- [x] `skill:common/cooldown_tick` 移除旧水手冷却递减
+- [x] `escape_island:function/load`：删除旧机动职业冷却注册
+- [x] `skill:common/cooldown_tick` 移除废弃机动职业冷却递减
 - [x] 正式分配、训练套件、重置、转化清理接入 `athlete`
 - [x] 运动员游戏内手测通过
 
@@ -481,7 +481,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 8 — 直升机撤离与结局
 
-状态: **待实现**
+状态: **已实现并通过游戏内手测**
 
 目标: 完整直升机路线：呼叫→倒计时→到达→登机→结算。
 
@@ -515,12 +515,13 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 9 — 其余撤离路线与结局
 
-状态: **待实现（Batch 8 完成后推进）**
+状态: **进行中（9A 轮船路线待游戏内手测）**
 
 轮船路线：
-- [ ] 收集 5 个船舶部件 → 投入 `marker.ship_dock`
-- [ ] 站立修复进度 +1/s（感染者 -2/s），满 100 → 30s 倒计时
-- [ ] 登船判定（同直升机），至少 1 名幸存者 → `end_ship`
+- [x] 收集本局所需船舶部件（默认 5 个：螺旋桨、燃油泵、舵机连杆、启动电瓶、锚机绞盘）→ 在 `marker.ship_dock` 附近手持对应部件长按右键投入；重复部件不计数
+- [x] 站立修复进度 +1/s；工程师/机修工/微型电池提供修复加成；普通感染体 -1/s，母体 -2/s；满 100 → 30s 登船窗口
+- [x] 登船判定：生成 `entity.ship_door` interaction，幸存者右键登船并进入 `state.boarding`；倒计时结束后 `state.boarding` → `state.escaped`，至少 1 名幸存者 → `end_ship`
+- [x] 自测菜单接入：`test/ship_route_setup`，含快速到 95 进度、感染者干扰/幸存者切换按钮
 
 潜艇路线：
 - [ ] 实验室 4 张身份卡碎片 → `lab_terminal` 合成 → 潜艇启动 45s
@@ -528,7 +529,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [ ] 登艇判定 → `end_lab`
 
 自爆路线：
-- [ ] 持 3 份普罗米修斯文件 + 信号塔完成 + `island_bomb` marker → 长按右键 30s（有面罩 15s）
+- [ ] 持 3 份普罗米修斯文件（从 5 个 `loot_keynote` 候选点中固定生成 3 份）+ 信号塔完成 + `island_bomb` marker → 长按右键 30s（有面罩 15s）
 - [ ] 激活后 3 分钟倒计时 → 任意撤离方式的人获胜
 - [ ] `end_destroy`
 
@@ -550,8 +551,8 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 - [ ] `loot_table/world/basic_supply.json`（按 BALANCE.md §八 表格写）
 - [ ] `loot_table/world/rare_supply.json`
-- [ ] `loot_table/world/keynote.json`（主任笔记 + 普罗米修斯文件）
-- [ ] `loot_table/mob/researcher_drops.json`（身份卡碎片 + 偶发防毒面具）
+- [ ] `loot_table/world/keynote.json`（主任笔记保证 1 份；普罗米修斯文件固定 3 份，隐藏但不随机无解）
+- [x] `task/lab_research_killed.mcfunction` 直接发放身份卡碎片，并 20% 概率给防毒面具（避免缺失 loot table 导致函数加载失败）
 - [ ] `dev/setup_markers.mcfunction` 升级: 在物资点位置放置对应方块（箱子），`/loot insert` 注入对应 loot table
 - [ ] 验收: 开发沙盒中打开物资箱，确认掉落品分布正确
 

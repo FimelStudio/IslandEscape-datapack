@@ -34,7 +34,6 @@ Island Escape Tag 分类规范
 `role.radio`       通讯员
 `role.virologist`  病毒学家
 `role.mechanic`    机修工
-`role.sailor`      水手
 `role.athlete`     运动员
 `role.priest`      神父
 

@@ -14,8 +14,6 @@ execute if entity @e[tag=skill.radio.inspect.target,tag=role.virologist,limit=1]
 execute if entity @e[tag=skill.radio.inspect.target,tag=role.virologist,limit=1] run tag @s add skill.radio.role.found
 execute if entity @e[tag=skill.radio.inspect.target,tag=role.mechanic,limit=1] run title @s actionbar {"text":"职业: 机修工","color":"gray"}
 execute if entity @e[tag=skill.radio.inspect.target,tag=role.mechanic,limit=1] run tag @s add skill.radio.role.found
-execute if entity @e[tag=skill.radio.inspect.target,tag=role.sailor,limit=1] run title @s actionbar {"text":"职业: 水手","color":"white"}
-execute if entity @e[tag=skill.radio.inspect.target,tag=role.sailor,limit=1] run tag @s add skill.radio.role.found
 execute if entity @e[tag=skill.radio.inspect.target,tag=role.athlete,limit=1] run title @s actionbar {"text":"职业: 运动员","color":"white"}
 execute if entity @e[tag=skill.radio.inspect.target,tag=role.athlete,limit=1] run tag @s add skill.radio.role.found
 execute if entity @e[tag=skill.radio.inspect.target,tag=role.priest,limit=1] run title @s actionbar {"text":"职业: 神父","color":"white"}

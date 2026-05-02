@@ -102,7 +102,6 @@ IslandEscape-datapack/
 │   │   │   ├── mother/
 │   │   │   ├── priest/
 │   │   │   ├── radio/
-│   │   │   ├── sailor/
 │   │   │   ├── virologist/
 │   │   │   └── ...
 │   │   ├── predicate/
@@ -148,6 +147,7 @@ IslandEscape-datapack/
 | `gen_overload` | dummy | 发电机过载压力，达到上限后熄火 |
 | `ship_progress` | dummy | 轮船 0–100 |
 | `ship_parts` | dummy | 已交部件数 |
+| `ship_bonus_tick` | dummy | 轮船修复加成的 10 秒循环计数 |
 | `lab_cards` | dummy | 收集的身份卡碎片 |
 | `bomb_armed` | dummy | 0/1 自爆已激活 |
 | `bomb_countdown` | dummy | 自爆秒数 |
@@ -599,7 +599,7 @@ mother.json                 — 母体三件道具 + 60 HP + 护甲属性 → �
 world/basic_supply.json     — 数值见 BALANCE
 world/rare_supply.json      — 数值见 BALANCE
 world/keynote.json          — 主任笔记 / 普罗米修斯文件
-mob/researcher_drops.json   — 身份卡碎片 + 防毒面具偶尔
+task/lab_research_killed.mcfunction — 击杀感染研究员后直接给身份卡碎片，并小概率给防毒面具
 ```
 
 ### Item Modifier（精选）
@@ -624,7 +624,6 @@ role_mother.json            — 母体三件套
 | `skill/radio/signal_scan/use` | `consume_item` (compass) | 信号扫描 |
 | `skill/virologist/detector/use` | `consume_item` (glass_bottle) | 检测剂 |
 | `skill/mechanic/trap` | `placed_block` | 陷阱 |
-| `skill/sailor/dash` | `using_item` (feather) | 冲刺 |
 | `skill/priest_cross` | `entity_hurt_player` (when fatal) | 祝福被动监听 |
 | `skill/mother/trail_sense` | `using_item` (spider_eye, consumable 999s) | 腐痕感知 |
 | `skill/mother/howl` | `using_item` (fermented_spider_eye, consumable 999s) | 集群嚎叫 |

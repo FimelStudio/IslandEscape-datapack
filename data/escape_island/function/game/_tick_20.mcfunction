@@ -32,5 +32,6 @@ function escape_island:task/ship_dock_tick
 execute if score $game bomb_armed matches 1 run function escape_island:task/bomb_tick
 
 execute if score $game cur_phase matches 4 run function escape_island:escape/helicopter_tick
+execute if score $game cur_phase matches 4 if score $game ship_countdown matches 1.. run function escape_island:escape/ship_boarding_tick
 
 execute if score $game phase_timer matches 1.. run function escape_island:event/pick_event
