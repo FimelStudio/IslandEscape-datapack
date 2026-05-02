@@ -1,17 +1,35 @@
-dialog show @s {\
+$dialog show @s {\
     "pause": false,\
     "title": {\
-        "text": "编辑吞噬的感染体",\
-        "color": "dark_red"\
+        "text": "            编辑吞噬的感染体",\
+        "color": "dark_red",\
+        "shadow_color":0\
     },\
     "body": [\
         {\
             "type": "plain_message",\
+            "contents": [\
+            {\
+                "type": "text",\
+                "text": "当前感染体：\n\n",\
+                "color": "white"\
+            },\
+            {\
+                "type": "object",\
+                "player": "$(player_name)",\
+                "object": "player"\
+            },\
+            {\
+                "text": " $(player_name)",\
+                "color": "white"\
+            }]\
+        },\
+        {\
+            "type": "plain_message",\
             "contents": {\
-                "text": "血量越高体型越大、速度越慢；血量越低体型越小、速度越快。",\
-                "color": "dark_gray"\
+                "text": "血量越高体型越大、速度越慢；血量越低体型越小、速度越快。"\
             }\
-        }\
+        }\  
     ],\
     "inputs": [\
         {\
@@ -21,7 +39,7 @@ dialog show @s {\
             "start": 6,\
             "end": 40,\
             "step": 1,\
-            "initial": 20\
+            "initial": $(max_health),\
         }\
     ],\
     "type": "confirmation",\
