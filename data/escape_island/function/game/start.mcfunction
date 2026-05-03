@@ -18,6 +18,7 @@ scoreboard players set $game escaped_count 0
 scoreboard players set $game infected_dead 0
 scoreboard players set $game bomb_armed 0
 scoreboard players set $game dawn_active 0
+scoreboard players set $game mother_dead 0
 scoreboard players set $game signal_progress 0
 scoreboard players set $game signal_done 0
 scoreboard players set $game ship_progress 0
@@ -96,6 +97,7 @@ tag @a remove flag.has_promfile
 tag @a remove flag.has_disguise
 tag @a remove flag.tutorial_seen
 tag @a remove flag.first_attack
+tag @a remove state.attack_slowed
 tag @a remove skill.antidote.user
 tag @a remove skill.antidote.target
 tag @a remove skill.battery.recalled
@@ -165,6 +167,8 @@ scoreboard players reset @a death_count
 scoreboard players reset @a hb_phase
 scoreboard players reset @a mother_last_hp
 scoreboard players reset @a mother_regen_cd
+scoreboard players reset @a mother_hit_cd
+scoreboard players reset @a mother_phase
 scoreboard players reset @a gen_interact_cd
 scoreboard players operation @a used_firework_last = @a used_firework
 

@@ -1,8 +1,8 @@
 
+execute unless entity @s[tag=infected.mother] run return 0
 execute if entity @s[tag=state.dead] run return 0
 execute if entity @s[tag=skill.mother.eating] at @s run function skill:mother/eat/release_fallback
 tag @s add state.dead
-scoreboard players operation @s mother_respawn = Tunable tunable.mother_respawn_seconds
 
 effect clear @s
 execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["entity.dead_anchor"]}
@@ -12,12 +12,12 @@ effect give @s minecraft:invisibility 999 0 true
 effect give @s minecraft:darkness 999 0 true
 effect give @s minecraft:resistance 999 255 true
 
-tellraw @a {"text":"§7信号中断……某处传来了奇怪的沉默。","color":"gray","italic":true}
-bossbar set escape_island:mother_respawn visible true
-bossbar set escape_island:mother_respawn players @s
-execute store result bossbar escape_island:mother_respawn max run scoreboard players get @s mother_respawn
-execute store result bossbar escape_island:mother_respawn value run scoreboard players get @s mother_respawn
+scoreboard players set $game mother_dead 1
+bossbar set escape_island:mother_respawn visible false
 
-title @s title {"text":"§4母体倒下","bold":true}
-title @s subtitle [{"text":"复活倒计时: ","color":"dark_red"},{"score":{"name":"@s","objective":"mother_respawn"}},{"text":"秒","color":"dark_red"}]
-tellraw @s [{"text":"§4你需要 "},{"score":{"name":"@s","objective":"mother_respawn"}},{"text":" 秒复活。","color":"dark_red"}]
+tellraw @a {"text":"⚡ 母巢崩坏 — 核心母体已消亡，感染者将失去复活能力。","color":"dark_red","bold":true}
+playsound minecraft:entity.warden.death master @a ~ ~ ~ 1 0.7
+title @a[tag=team.human] actionbar {"text":"⚡ 核心母体已消亡！猎杀所有感染者以获胜！","color":"gold","bold":true}
+
+title @s title {"text":"§4母体消亡","bold":true}
+title @s subtitle {"text":"§7你的使命，就此终结。"}

@@ -44,6 +44,7 @@ tag @s remove flag.cross_intercepted
 tag @s remove flag.has_inject
 tag @s remove flag.has_disguise
 tag @s remove flag.first_attack
+tag @s remove state.attack_slowed
 tag @s remove skill.antidote.user
 tag @s remove skill.antidote.target
 tag @s remove skill.battery.recalled
@@ -58,6 +59,10 @@ scoreboard players set @s spore_decay_cd 0
 scoreboard players set @s infect_time 0
 scoreboard players set @s sporify_timer 0
 scoreboard players set @s mother_respawn 0
+scoreboard players set @s mother_hit_cd 0
+scoreboard players set @s mother_phase 0
+scoreboard players set @s mother_last_hp 0
+scoreboard players set @s mother_regen_cd 0
 scoreboard players set @s death_count 0
 scoreboard players set @s skill.antidote_charges 0
 scoreboard players set @s skill.antidote_cd 0

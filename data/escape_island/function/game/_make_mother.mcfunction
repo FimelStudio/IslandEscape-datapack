@@ -6,18 +6,21 @@ scoreboard players set @s role 11
 scoreboard players set @s is_mother 1
 team join mother_hidden @s
 
-attribute @s minecraft:max_health base set 60
+attribute @s minecraft:max_health base set 80
 effect give @s minecraft:instant_health 1 10 true
 effect give @s minecraft:saturation 1 20 true
 attribute @s minecraft:armor base set 4
 attribute @s minecraft:armor_toughness base set 2
 attribute @s minecraft:knockback_resistance base set 0.8
-attribute @s minecraft:attack_damage base set 6
+attribute @s minecraft:attack_damage base set 4
 attribute @s minecraft:movement_speed base set 0.105
+attribute @s minecraft:attack_speed base set 4
 
-scoreboard players set @s mother_hp 60
-scoreboard players set @s mother_last_hp 60
+scoreboard players set @s mother_hp 80
+scoreboard players set @s mother_last_hp 80
 scoreboard players set @s mother_regen_cd 5
+scoreboard players set @s mother_hit_cd 0
+scoreboard players set @s mother_phase 1
 scoreboard players operation @s used_firework_last = @s used_firework
 
 function escape_island:role/kit_mother

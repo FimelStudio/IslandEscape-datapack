@@ -53,6 +53,10 @@ When migrating a datapack:
 3. Update folder names, JSON schemas, command syntax, and tags.
 4. Call out behavior changes that require in-game testing.
 
+## IDE / Tooling
+
+**Datapack Helper Plus by Spyglass** (VSCode extension) provides real-time error checking for datapacks. Use it to catch syntax errors, missing references, invalid JSON, and namespace issues directly in the editor. Its problem panel surfaces errors that would otherwise only appear in Minecraft's `/reload` output or game log. Prefer checking its diagnostics before asking the user to test in-game.
+
 ## Validation
 
 Validate structurally before claiming the pack is ready:

@@ -26,6 +26,13 @@ execute if score $game in_game matches 1 run function escape_island:game/phase_c
 execute if score $game cur_phase matches 4 if score $game heli_motion matches 1.. run function escape_island:escape/helicopter_motion_tick
 
 scoreboard players set $training_needed dev_count 0
+execute as @e[scores={mother_hit_cd=1..}] run scoreboard players remove @s mother_hit_cd 1
+execute as @e[tag=state.attack_slowed,scores={mother_hit_cd=0}] run attribute @s minecraft:attack_speed base set 4
+execute as @e[tag=state.attack_slowed,scores={mother_hit_cd=0}] run tag @s remove state.attack_slowed
+
+execute if score $dev mother_hit_cd matches 1.. run scoreboard players remove $dev mother_hit_cd 1
+
+
 execute unless score $game in_game matches 1 if entity @a[tag=state.training] run scoreboard players set $training_needed dev_count 1
 execute unless score $game in_game matches 1 if entity @a[tag=state.infected_period] run scoreboard players set $training_needed dev_count 1
 execute unless score $game in_game matches 1 if entity @a[tag=state.sporifying] run scoreboard players set $training_needed dev_count 1

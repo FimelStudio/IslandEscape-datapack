@@ -16,6 +16,8 @@ execute as @a[tag=state.infected_period] at @s run particle minecraft:dust{color
 
 execute as @a[tag=state.infected_period] run effect give @s minecraft:slowness 2 0 true
 
+execute as @a[tag=state.infected_period,scores={infect_time=1..}] run title @s actionbar [{"text":"感染转化中 ","color":"gold"},{"score":{"name":"@s","objective":"infect_time"}},{"text":"秒","color":"gold"}]
+
 execute as @a[tag=infected.common,tag=retained.captain,tag=!state.dead] at @s run effect give @a[tag=infected.common,distance=..6] minecraft:strength 2 0 true
 
 execute as @a[tag=infected.common,tag=!state.dead] at @s run particle minecraft:dust{color:[0.0,0.9,0.25],scale:0.9} ~ ~1 ~ 2 0.7 2 0.01 8 force @a

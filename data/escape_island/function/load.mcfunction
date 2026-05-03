@@ -50,6 +50,7 @@ scoreboard objectives add ship_countdown dummy
 scoreboard objectives add sub_countdown dummy
 scoreboard objectives add escaped_count dummy
 scoreboard objectives add infected_dead dummy
+scoreboard objectives add mother_dead dummy
 scoreboard objectives add sporify_timer dummy
 scoreboard objectives add player_count dummy
 scoreboard objectives add infected_count dummy
@@ -82,6 +83,8 @@ scoreboard objectives add tunable.debug dummy
 scoreboard objectives add hb_phase dummy
 scoreboard objectives add mother_last_hp dummy
 scoreboard objectives add mother_regen_cd dummy
+scoreboard objectives add mother_hit_cd dummy
+scoreboard objectives add mother_phase dummy
 scoreboard objectives add used_firework minecraft.used:minecraft.firework_rocket
 scoreboard objectives add used_firework_last dummy
 scoreboard objectives add test_count dummy
@@ -140,5 +143,6 @@ scoreboard players set $const_60 event_threshold 60
 scoreboard players set $const_2 spore_load 2
 scoreboard players set $const_4 infect_time 4
 scoreboard players set $const_minus1 heli_countdown -1
+scoreboard players set $dev mother_hit_cd 0
 
 tellraw @a [{"text":"[孤岛逃生：黎明前夕] 数据包已加载。 ","color":"gold"},{"text":"[打开自测菜单]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/menu"}},{"text":" ","color":"white"},{"text":"[开始游戏]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:game/start"}}]
