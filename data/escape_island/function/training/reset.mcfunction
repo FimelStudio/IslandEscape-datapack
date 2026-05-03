@@ -132,3 +132,6 @@ kill @e[tag=entity.dead_anchor]
 kill @e[tag=display.infection_vignette]
 clear @s minecraft:carved_pumpkin
 tellraw @s [{"text":"[训练模式] 已退出并清理。","color":"gray"},{"text":" [自测菜单]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/menu"}}]
+attribute @s minecraft:movement_speed base reset
+attribute @s minecraft:max_health base reset
+attribute @s minecraft:scale base reset
