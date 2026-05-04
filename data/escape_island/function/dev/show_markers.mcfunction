@@ -1,0 +1,6 @@
+execute at @e[tag=marker.spawn_island] run summon minecraft:armor_stand ~ ~ ~ {Tags:["dev.marker_vis","dev.spawn_vis"],Marker:1b,Invisible:1b,NoGravity:1b,Glowing:1b,CustomNameVisible:1b,CustomName:{"text":"出生点","color":"green"}}
+execute at @e[tag=marker.spore_spot] run summon minecraft:armor_stand ~ ~ ~ {Tags:["dev.marker_vis","dev.spore_vis"],Marker:1b,Invisible:1b,NoGravity:1b,Glowing:1b,CustomNameVisible:1b,CustomName:{"text":"孢子点","color":"red"}}
+execute at @e[tag=marker.signal_tower] run summon minecraft:armor_stand ~ ~ ~ {Tags:["dev.marker_vis","dev.signal_vis"],Marker:1b,Invisible:1b,NoGravity:1b,Glowing:1b,CustomNameVisible:1b,CustomName:{"text":"信号塔","color":"yellow"}}
+execute at @e[tag=marker.generator] run summon minecraft:armor_stand ~ ~ ~ {Tags:["dev.marker_vis","dev.gen_vis"],Marker:1b,Invisible:1b,NoGravity:1b,Glowing:1b,CustomNameVisible:1b,CustomName:{"text":"发电机","color":"gold"}}
+execute at @e[tag=marker.heli_pad] run summon minecraft:armor_stand ~ ~ ~ {Tags:["dev.marker_vis","dev.heli_vis"],Marker:1b,Invisible:1b,NoGravity:1b,Glowing:1b,CustomNameVisible:1b,CustomName:{"text":"直升机坪","color":"aqua"}}
+tellraw @a {"text":"[测试] 已显示所有标记位置（发光实体），2分钟后自动清除","color":"gray"}

@@ -8,6 +8,7 @@ tellraw @s [{"text":"[放标记: 孢子复活点]","color":"dark_red","bold":tru
 tellraw @s [{"text":"[放标记: 信号塔]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_signal_tower"}},{"text":" 站在信号塔位置再点","color":"gray"}]
 tellraw @s [{"text":"[放标记: 发电机]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_generator"}},{"text":" 站在发电机位置再点","color":"gray"}]
 tellraw @s [{"text":"[放标记: 直升机坪]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_heli_pad"}},{"text":" 站在直升机降落点再点","color":"gray"}]
+tellraw @s [{"text":"[预览所有标记]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/highlight_markers"}},{"text":" 粒子闪烁显示已放置的标记位置","color":"gray"}]
 tellraw @s [{"text":"[感染测试]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/infection_menu"}},{"text":" 污染、治愈、死亡、复活状态机","color":"gray"}]
 tellraw @s [{"text":"[Batch 7A 信号塔测试]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/signal_tower_setup"}},{"text":" 自动准备阶段、线缆和信号塔位置","color":"gray"}]
 tellraw @s [{"text":"[Batch 7B 发电机测试]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/generator_setup"}},{"text":" 自动准备发电机位置和燃料电池","color":"gray"}]

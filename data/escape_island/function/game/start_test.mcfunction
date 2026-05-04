@@ -188,4 +188,7 @@ give @a minecraft:gold_ingot[custom_data={item:"fuel_cell"},custom_name={text:"ç
 
 effect give @a minecraft:saturation 1 20 true
 
+function escape_island:dev/show_markers
+schedule function escape_island:dev/hide_markers 120s
+
 function escape_island:game/phase_1_load
