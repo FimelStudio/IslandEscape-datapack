@@ -69,6 +69,7 @@ scoreboard players set @s mother_last_hp 0
 scoreboard players set @s mother_regen_cd 0
 scoreboard players set @s mother_hit_cd 0
 scoreboard players set @s mother_phase 0
+scoreboard players set @s mother_phase_timer 0
 scoreboard players set @s hb_phase 0
 scoreboard players operation @s used_firework_last = @s used_firework
 scoreboard players set @s cd_doctor 0
@@ -119,6 +120,10 @@ scoreboard players set @s skill.stamina_warn 0
 scoreboard players set @s cd_mother_lunge 0
 scoreboard players set @s cd_mother_rotsense 0
 scoreboard players set @s cd_mother_howl 0
+scoreboard players set @s skill.rotsense_sec 0
+scoreboard players set @s skill.rotsense_last 0
+scoreboard players set @s skill.howl_sec 0
+scoreboard players set @s skill.howl_last 0
 scoreboard players set @s death_count 0
 effect clear @s
 team leave @s

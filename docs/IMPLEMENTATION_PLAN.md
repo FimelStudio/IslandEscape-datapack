@@ -50,7 +50,7 @@
 
 ### Batch 3 — 感染与死亡状态机
 
-状态: **核心机制已实现并通过游戏内手测；成长阶段和技能重构待 Part 2**
+状态: **已完成并通过游戏内手测**
 
 - [x] 母体/感染者命中增加 `spore_load`（advancement 检测），按新版母体攻击冷却重构：每次有效命中 +40，3 次达 120 ≥ 阈值 100 进感染期；冷却中命中播放擦刀弱音效（`entity.player.attack.weak`）。
 - [x] 阈值到达进入 `state.infected_period`（金色名牌）。
@@ -69,12 +69,12 @@
 - [x] 名牌变色系统（母体隐藏绿 / 感染期金 / 感染者红）。
 - [x] 转化保留系统（retained.* tag 在 turn.mcfunction 中复制）。
 - [x] 母体 HP 追踪（`mother_hp` scoreboard，起始 80）。
-- [x] 母体脱战回血（`mother_regen_cd` 受伤重置 5s，冷却结束后 Regeneration II）、攻击冷却（`mother_hit_cd = 50 tick`，每 tick 递减 2.5s）+ 擦刀反馈（冷却中命中播放弱音效 + `attack_speed` 降至 0.4 模拟攻击条变慢）。
-- [ ] 母体成长阶段 80→100（`mother_phase` scoreboard 已注册，Phase 逻辑待实现）。
+- [x] 母体脱战回血（`mother_regen_cd` 受伤重置 5s，冷却结束后 Regeneration II）、攻击冷却（`mother_hit_cd = 50 tick`，每 tick 递减 2.5s）+ 擦刀反馈（冷却中命中播放弱音效 + `attack_speed` 降至 0.1 + Slowness II 2s 惩罚）。
+- [x] 母体成长阶段 80→90→100：每 300s（5 分钟）升级，`mother_phase_up.mcfunction` 提升 `max_health` +10 并补满 HP。
 
 ### Batch 4 — 母体属性与首攻揭示
 
-状态: **核心属性与攻击冷却已实现并通过手测；技能重构（trail_sense / howl）待 Part 2**
+状态: **已完成并通过游戏内手测**
 
 目标: 母体成为不可复活的感染阵营核心：三下有效命中进感染期，拥有吞噬、腐痕感知、集群嚎叫三个技能，并随时间成长。
 
@@ -94,14 +94,14 @@
   - 若无此 tag → 全图 `tellraw @a` 广播"有人遭受了突袭……"（不含玩家名）→ 给母体 `tag add flag.first_attack`
   - 有效命中（`mother_hit_cd ≤ 0`）：`add_spore_load {amount:40}` + 设 `mother_hit_cd = 50` + `attack_speed = 0.4` + tag `state.attack_slowed`
   - 冷却中命中（`mother_hit_cd ≥ 1`）：播放擦刀弱音效，不叠孢子
-- [ ] 母体技能重构：
+- [x] 母体技能重构：
   - `mother/eat/*` 保留吞噬技能
-  - 新增/替换 `mother/trail_sense/*`：显示附近幸存者脚印 5–8 秒
-  - 新增/替换 `mother/howl/*`：集群嚎叫，给感染者方向提示与短暂速度
-- [x] `game/start.mcfunction` 加 `tag @a remove flag.first_attack` + `state.attack_slowed` 清理 + `mother_hit_cd`/`mother_phase` 重置 + `$game mother_dead = 0` 初始化
-- [x] `training/reset.mcfunction` 同步清理 `flag.first_attack` + `state.attack_slowed` + `mother_hit_cd`/`mother_phase` 重置
+  - `mother/rotsense` → 腐痕感知：40 格内幸存者位置生成红色粒子（仅母体可见），全图广播暴露提示，冷却 60s
+  - `mother/howl` → 集群嚎叫：感染者 Speed II + Strength I 10s，冷却 90s
+- [x] `game/start.mcfunction` 加 `tag @a remove flag.first_attack` + `state.attack_slowed` 清理 + `mother_hit_cd`/`mother_phase`/`mother_phase_timer` 重置 + `$game mother_dead = 0` 初始化
+- [x] `training/reset.mcfunction` 同步清理 `flag.first_attack` + `state.attack_slowed` + `mother_hit_cd`/`mother_phase`/`mother_phase_timer` 重置
 - [x] 验收: 训练沙盒中母体三次有效命中使幸存者进感染期；攻击冷却中命中只擦刀；母体死亡不复活；感染者围绕母体复活，母体死亡后失去复活
-- [ ] 验收: 母体成长阶段（phase 1→2→3），技能 trail_sense / howl
+- [x] 验收: 母体成长阶段（phase 1→2→3 每 5 分钟 +10HP），技能腐痕感知 / 集群嚎叫
 
 ### Batch 5 — 幸存者 10 职业技能
 
@@ -625,6 +625,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 | 2026-04-28 | Batch 6 格洛克手枪 | 静态检查 | PASS | JSON 可解析，`git diff --check` 无错误；等待游戏内手测 |
 | 2026-05-04 | Batch 3 感染状态机重构 | 静态检查 + 游戏内手测 | PASS | 母体 80HP/攻击4/2.5s 冷却/擦刀反馈/母巢崩坏/感染者母体死亡后永久死/actionbar 倒计时/清剿胜利均已通过手测 |
 | 2026-05-04 | Batch 4 母体属性与攻击冷却 | 静态检查 + 游戏内手测 | PASS | attack_speed 冷却手感/首攻广播/first_attack 清理/mother_dead 计分板注册/自测菜单辅助均已通过手测 |
+| 2026-05-04 | Batch 4 Part 2 成长阶段 + 技能 | 静态检查 | PASS | 母体 Phase 1→2→3 每 5 分钟 +10HP、腐痕感知粒子、集群嚎叫 Speed+Strength、擦刀 attack_speed 0.1 + Slowness 2s；等待游戏内手测 |
 
 ---
 

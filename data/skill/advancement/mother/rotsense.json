@@ -1,13 +1,17 @@
 {
   "criteria": {
     "use": {
-      "trigger": "minecraft:using_item",
+      "trigger": "inventory_changed",
       "conditions": {
-        "item": {
-          "items": ["minecraft:spider_eye"],
-          "components": {
-            "minecraft:custom_data": {"role_item": "mother.rotsense"}
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{skill:\"mother/rotsense_used\"}"
+            }
           }
+        ],
+        "player": {
+          "nbt": "{Tags:[\"infected.mother\"]}"
         }
       }
     }

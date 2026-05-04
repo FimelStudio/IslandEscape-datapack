@@ -3,6 +3,9 @@ function skill:common/cooldown_tick
 execute if entity @e[tag=entity.mechanic_trap,limit=1] run function skill:mechanic/trap_tick
 execute if entity @e[tag=entity.chef_stew_pot,limit=1] run function skill:chef/stew_tick
 
+effect give @a[tag=!state.dead,tag=!state.spectator] minecraft:regeneration 3 0 true
+effect give @a[tag=!state.dead,tag=!state.spectator,tag=!state.escaped] minecraft:saturation 3 0 true
+
 function escape_island:infection/tick_infected_state
 function escape_island:infection/spore_load_decay
 

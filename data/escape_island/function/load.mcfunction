@@ -85,6 +85,11 @@ scoreboard objectives add mother_last_hp dummy
 scoreboard objectives add mother_regen_cd dummy
 scoreboard objectives add mother_hit_cd dummy
 scoreboard objectives add mother_phase dummy
+scoreboard objectives add mother_phase_timer dummy
+scoreboard objectives add skill.rotsense_sec dummy
+scoreboard objectives add skill.rotsense_last dummy
+scoreboard objectives add skill.howl_sec dummy
+scoreboard objectives add skill.howl_last dummy
 scoreboard objectives add used_firework minecraft.used:minecraft.firework_rocket
 scoreboard objectives add used_firework_last dummy
 scoreboard objectives add test_count dummy
@@ -142,6 +147,7 @@ scoreboard players set $tick decay_cycle 0
 scoreboard players set $const_60 event_threshold 60
 scoreboard players set $const_2 spore_load 2
 scoreboard players set $const_4 infect_time 4
+scoreboard players set $const_20 cd_mother_rotsense 20
 scoreboard players set $const_minus1 heli_countdown -1
 scoreboard players set $dev mother_hit_cd 0
 

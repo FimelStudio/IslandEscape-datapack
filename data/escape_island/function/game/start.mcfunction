@@ -8,6 +8,7 @@ execute if score $game player_count matches 5..7 run scoreboard players set Tuna
 execute if score $game player_count matches 8.. run scoreboard players set Tunable tunable.ship_parts_required 5
 
 gamerule immediate_respawn true
+gamerule natural_health_regeneration false
 kill @e[tag=entity.downed_anchor]
 kill @e[tag=entity.dead_anchor]
 function skill:mother/eat/clear_storage
@@ -163,12 +164,17 @@ scoreboard players reset @a ie.eat_health
 scoreboard players reset @a cd_mother_lunge
 scoreboard players reset @a cd_mother_rotsense
 scoreboard players reset @a cd_mother_howl
+scoreboard players reset @a skill.rotsense_sec
+scoreboard players reset @a skill.rotsense_last
+scoreboard players reset @a skill.howl_sec
+scoreboard players reset @a skill.howl_last
 scoreboard players reset @a death_count
 scoreboard players reset @a hb_phase
 scoreboard players reset @a mother_last_hp
 scoreboard players reset @a mother_regen_cd
 scoreboard players reset @a mother_hit_cd
 scoreboard players reset @a mother_phase
+scoreboard players reset @a mother_phase_timer
 scoreboard players reset @a gen_interact_cd
 scoreboard players operation @a used_firework_last = @a used_firework
 
