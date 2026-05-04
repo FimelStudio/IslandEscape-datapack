@@ -1,5 +1,6 @@
 
 clear @s minecraft:carved_pumpkin
+function escape_island:ui/spore_bar/clear
 team join infected @s
 
 execute if entity @s[tag=role.doctor] run tag @s add retained.doctor

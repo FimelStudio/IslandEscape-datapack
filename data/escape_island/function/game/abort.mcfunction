@@ -6,6 +6,7 @@ tellraw @a {"text":"[孤岛逃生] 游戏已强制中止。","color":"red"}
 
 effect clear @a
 gamemode adventure @a
+execute as @a run function escape_island:ui/spore_bar/clear
 
 bossbar set escape_island:phase visible false
 bossbar set escape_island:signal visible false
