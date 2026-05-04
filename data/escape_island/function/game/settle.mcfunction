@@ -5,6 +5,7 @@ gamemode spectator @a[tag=state.escaped]
 
 gamemode adventure @a[tag=!state.escaped]
 effect clear @a
+execute as @a run function escape_island:ui/spore_bar/clear
 
 bossbar set escape_island:phase visible false
 bossbar set escape_island:signal visible false

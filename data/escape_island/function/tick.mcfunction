@@ -4,10 +4,12 @@ scoreboard players enable @a ie.eat_health
 execute as @a[scores={ie.dialog=1..}] run function escape_island:dialog/trigger
 execute as @a[scores={ie.eat_health=1..}] run function skill:mother/eat/apply_config_trigger
 
+
 execute as @a[tag=team.human,tag=!state.sporifying,tag=!state.dead,tag=!state.escaped,tag=!state.spectator] at @s run spawnpoint @s ~ ~ ~
 execute as @a[tag=infected.common,tag=!state.dead,tag=!state.escaped,tag=!state.spectator] at @s run spawnpoint @s ~ ~ ~
 execute as @a[tag=infected.mother,tag=!state.dead,tag=!state.escaped,tag=!state.spectator] at @s run spawnpoint @s ~ ~ ~
 function escape_island:infection/death_check
+execute as @a at @s run function escape_island:ui/spore_bar/tick
 execute as @a[tag=state.sporifying] at @s at @e[type=minecraft:marker,tag=entity.downed_anchor,distance=..3,sort=nearest,limit=1] run tp @s ~ ~ ~
 execute as @a[tag=state.dead] at @s at @e[type=minecraft:marker,tag=entity.dead_anchor,distance=..3,sort=nearest,limit=1] run tp @s ~ ~ ~
 
