@@ -1,4 +1,4 @@
-gamemode survival @a[tag=skill.mother.eat.target,limit=1]
+gamemode adventure @a[tag=skill.mother.eat.target,limit=1]
 tag @a[tag=skill.mother.eat.target,limit=1] remove skill.mother.eat.absorbing
 scoreboard players reset @a[tag=skill.mother.eat.target,limit=1] skill.mother_eat_anim
 tag @a[tag=skill.mother.eat.target,limit=1] remove skill.mother.eat.target

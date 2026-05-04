@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "hold": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "item": {
+          "items": ["minecraft:paper"],
+          "components": {
+            "minecraft:custom_data": {"item": "prometheus_file"}
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "escape_island:task/bomb_hold"
+  }
+}

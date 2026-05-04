@@ -1,0 +1,23 @@
+{
+  "pools": [
+    {
+      "rolls": 4,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:string",
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"cable\"}", "minecraft:custom_name": {"text":"线缆","color":"yellow","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":999,"has_consume_particles":false,"sound":{"sound_id":""}} }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"fuel_cell\"}", "minecraft:custom_name": {"text":"燃料电池","color":"gold","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":999,"has_consume_particles":false,"sound":{"sound_id":""}} }}
+          ]
+        }
+      ]
+    }
+  ]
+}

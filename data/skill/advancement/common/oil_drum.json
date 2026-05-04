@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": ["minecraft:tnt"],
+          "components": {
+            "minecraft:custom_data": {"item": "oil_drum"}
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:common/oil_drum"
+  }
+}

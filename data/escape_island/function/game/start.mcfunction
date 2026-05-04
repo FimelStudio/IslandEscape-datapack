@@ -7,6 +7,8 @@ execute if score $game player_count matches 4 run scoreboard players set Tunable
 execute if score $game player_count matches 5..7 run scoreboard players set Tunable tunable.ship_parts_required 4
 execute if score $game player_count matches 8.. run scoreboard players set Tunable tunable.ship_parts_required 5
 
+function escape_island:util/apply_scaling
+
 gamerule immediate_respawn true
 gamerule natural_health_regeneration false
 kill @e[tag=entity.downed_anchor]
@@ -20,6 +22,7 @@ scoreboard players set $game infected_dead 0
 scoreboard players set $game bomb_armed 0
 scoreboard players set $game dawn_active 0
 scoreboard players set $game mother_dead 0
+scoreboard players set $game ending_triggered 0
 scoreboard players set $game signal_progress 0
 scoreboard players set $game signal_done 0
 scoreboard players set $game ship_progress 0
@@ -99,6 +102,7 @@ tag @a remove flag.has_disguise
 tag @a remove flag.tutorial_seen
 tag @a remove flag.first_attack
 tag @a remove state.attack_slowed
+tag @a remove state.mutated
 tag @a remove skill.antidote.user
 tag @a remove skill.antidote.target
 tag @a remove skill.battery.recalled
@@ -110,6 +114,8 @@ execute as @a run function skill:priest/cleanup_non_priest
 scoreboard players reset @a spore_load
 scoreboard players reset @a signal_repair_time
 scoreboard players reset @a signal_repair_seen
+scoreboard players reset @a bomb_repair_time
+scoreboard players reset @a bomb_file_count
 scoreboard players reset @a spore_decay_cd
 scoreboard players reset @a infect_time
 scoreboard players reset @a sporify_timer
@@ -184,5 +190,7 @@ gamemode adventure @a
 effect clear @a
 execute as @a run attribute @s minecraft:movement_speed base set 0.1
 effect give @a minecraft:saturation 1 20 true
+
+function escape_island:task/place_loot_chests
 
 function escape_island:game/phase_1_load

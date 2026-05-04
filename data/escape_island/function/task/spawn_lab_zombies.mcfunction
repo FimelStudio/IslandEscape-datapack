@@ -1,0 +1,2 @@
+execute at @e[tag=marker.mob_lab_researcher] run summon minecraft:zombie ~ ~ ~ {Tags:["mob.lab_researcher"],CustomName:{"text":"感染研究员","color":"dark_purple","italic":true},CustomNameVisible:1b,Attributes:[{Name:"minecraft:max_health",Base:30f},{Name:"minecraft:attack_damage",Base:5f},{Name:"minecraft:movement_speed",Base:0.23f}],Health:30f,HandItems:[{id:"minecraft:iron_sword",count:1}],ArmorItems:[{},{},{},{id:"minecraft:chainmail_helmet",count:1}],CanBreakDoors:0b,IsBaby:0b}
+tellraw @a {"text":"[系统] 实验室区域出现感染研究员……","color":"dark_purple","italic":true}

@@ -14,5 +14,5 @@ scoreboard players set Tunable tunable.spore_respawn_seconds 30
 scoreboard players set Tunable tunable.mother_respawn_seconds 60
 scoreboard players set Tunable tunable.basic_loot_density 30
 scoreboard players set Tunable tunable.rare_loot_density 8
-scoreboard players set Tunable tunable.environment_event_minutes 2
+scoreboard players set Tunable tunable.environment_event_minutes 3
 scoreboard players set Tunable tunable.debug 0

@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": ["minecraft:firework_rocket"],
+          "components": {
+            "minecraft:custom_data": {"item": "flashbang"}
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:common/flashbang"
+  }
+}

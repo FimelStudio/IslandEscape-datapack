@@ -12,7 +12,8 @@ execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_hp=1..24}] at @
 execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_hp=1..24}] at @s run effect give @s minecraft:strength 3 0 true
 
 execute as @a[tag=infected.mother,tag=!state.dead] run scoreboard players add @s mother_phase_timer 1
-execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_phase=1,mother_phase_timer=300..}] run function escape_island:role/mother_phase_up
-execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_phase=2,mother_phase_timer=600..}] run function escape_island:role/mother_phase_up
+execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_phase=1,mother_phase_timer=180..}] run function escape_island:role/mother_phase_up
+execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_phase=2,mother_phase_timer=360..}] run function escape_island:role/mother_phase_up
+execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_phase=3,mother_phase_timer=540..}] run function escape_island:role/mother_phase_up
 
 execute as @a[tag=infected.mother,tag=state.dead] run title @s actionbar {"text":"母巢崩坏 — 你已消亡，感染者将随之瓦解。","color":"dark_gray","italic":true}

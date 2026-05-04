@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:notice",
+    "title": {"text": "      游戏玩法", "color": "aqua", "bold": true},
+    "body": [
+        {"type": "minecraft:plain_message", "contents": {"text": "▎对局流程（15 分钟）", "color": "gold", "bold": true}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "黄昏登岛(0-2分) → 母体觉醒(2-3分) → 黑夜抢修(3-15分) → 撤离倒计时(任务触发) → 孢子升腾(超时)", "color": "gray"}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "▎感染机制", "color": "dark_red", "bold": true}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "母体/感染者攻击叠加「孢子污染值」。100 进入感染期(45s倒计时)→未获救治则转化为普通感染者。船医可解毒，神父可阻断。感染期玩家仍属幸存者阵营，不能伤害队友。", "color": "gray"}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "▎母体规则", "color": "dark_red", "bold": true}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "母体初始处于伪装状态(绿名)，攻击不叠孢子。主动使用「变异」道具后切换猎手状态(暗红名)，可感染、吞噬。母体随时间成长(+HP)，但死亡后不复活。母体死→感染者失去复活→清剿可胜利。", "color": "gray"}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "▎撤离路线", "color": "green", "bold": true}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "主线：修信号塔+启动发电机→直升机90s倒计时+登机60s窗口\n副线：收集船舶部件→修船→30s登船\n隐藏：实验室身份卡→潜艇45s\n彩蛋：3份普罗米修斯文件+信号塔→自爆3分倒计时\nBad End：15分到无人撤离→全员强制感染", "color": "gray"}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "▎环境事件", "color": "aqua", "bold": true}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "每3分钟随机触发：断电(黑暗60s)、风暴(户外扣血90s)、信号干扰(乱码30s)、孢子爆发(+污染)、幻觉(反胃+粒子)", "color": "gray"}, "width": 480}
+    ],
+    "can_close_with_escape": true,
+    "action": {"label": {"text": "返回菜单", "color": "green"}, "action": {"type": "minecraft:show_dialog", "dialog": "escape_island:menu"}}
+}

@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:multi_action",
+    "title": {"text": "游戏设置", "color": "white", "bold": true},
+    "body": [{"type": "minecraft:plain_message", "contents": {"text": "音乐与音效设置", "color": "gray"}, "width": 480}],
+    "columns": 1,
+    "actions": [
+        {"label": {"text": "启用背景音乐", "color": "green"}, "action": {"type": "minecraft:run_command", "command": "trigger ie.dialog set 101"}},
+        {"label": {"text": "禁用背景音乐", "color": "red"}, "action": {"type": "minecraft:run_command", "command": "trigger ie.dialog set 102"}},
+        {"label": "返回菜单", "action": {"type": "minecraft:show_dialog", "dialog": "escape_island:menu"}}
+    ],
+    "exit_action": {"label": "关闭"}
+}

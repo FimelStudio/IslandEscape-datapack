@@ -1,0 +1,84 @@
+{
+  "pools": [
+    {
+      "rolls": { "min": 2, "max": 4 },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:string",
+          "weight": 35,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"cable\"}", "minecraft:custom_name": {"text":"线缆","color":"yellow","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":999,"has_consume_particles":false,"sound":{"sound_id":""}} }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "weight": 20,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"fuel_cell\"}", "minecraft:custom_name": {"text":"燃料电池","color":"gold","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":999,"has_consume_particles":false,"sound":{"sound_id":""}} }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:egg",
+          "weight": 10,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"smoke_bomb\"}", "minecraft:custom_name": {"text":"烟雾蛋","color":"gray","italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键投掷→区域烟雾+致盲感染体","color":"gray","italic":false}] }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:firework_rocket",
+          "weight": 5,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"flashbang\"}", "minecraft:custom_name": {"text":"闪光弹","color":"white","italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键投掷→致盲+减速感染体","color":"gray","italic":false}] }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:torch",
+          "weight": 8,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"signal_flare\"}", "minecraft:custom_name": {"text":"信号燃焰","color":"red","italic":false} }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_nugget",
+          "weight": 35,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "min": 2, "max": 4 } },
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{ammo:1}", "minecraft:item_name": {"text":"9mm 弹药","italic":false,"color":"gray"} }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_sword",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:lantern",
+          "weight": 8,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"flashlight\"}", "minecraft:custom_name": {"text":"应急手电筒","color":"yellow","italic":false} }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glowstone_dust",
+          "weight": 25,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "min": 1, "max": 2 } },
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"medkit\"}", "minecraft:custom_name": {"text":"急救包","color":"red","italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键使用，立即回复4HP","color":"gray","italic":false}] }}
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 14
+        }
+      ]
+    }
+  ]
+}

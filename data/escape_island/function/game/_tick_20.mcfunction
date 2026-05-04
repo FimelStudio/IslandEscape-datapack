@@ -33,6 +33,7 @@ function escape_island:task/signal_tower_tick
 function escape_island:task/generator_tick
 function escape_island:task/ship_dock_tick
 execute if score $game bomb_armed matches 1 run function escape_island:task/bomb_tick
+execute if score $game sub_countdown matches 1.. run function escape_island:escape/sub_tick
 
 execute if score $game mother_dead matches 1 if score $game in_game matches 1 unless entity @a[tag=infected.common,tag=!state.dead] run function escape_island:game/end_purge
 
@@ -40,3 +41,4 @@ execute if score $game cur_phase matches 4 run function escape_island:escape/hel
 execute if score $game cur_phase matches 4 if score $game ship_countdown matches 1.. run function escape_island:escape/ship_boarding_tick
 
 execute if score $game phase_timer matches 1.. run function escape_island:event/pick_event
+execute as @a[tag=event.storm] at @s run function escape_island:event/storm_tick

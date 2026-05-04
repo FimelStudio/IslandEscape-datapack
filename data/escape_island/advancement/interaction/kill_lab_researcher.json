@@ -1,0 +1,15 @@
+{
+  "criteria": {
+    "kill": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "nbt": "{Tags:[\"entity.researcher\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "escape_island:task/lab_research_killed"
+  }
+}

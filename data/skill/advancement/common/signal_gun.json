@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": ["minecraft:crossbow"],
+          "components": {
+            "minecraft:custom_data": {"item": "signal_gun"}
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:common/signal_gun"
+  }
+}

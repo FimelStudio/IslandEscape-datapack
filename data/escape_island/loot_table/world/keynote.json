@@ -1,0 +1,43 @@
+{
+  "pools": [
+    {
+      "rolls": { "min": 1, "max": 2 },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:writable_book",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:custom_data": "{item:\"keynote\"}",
+                "minecraft:custom_name": {"text":"主任笔记","color":"dark_purple","bold":true,"italic":false},
+                "minecraft:lore": [{"text":"实验室入口通行证","color":"gray","italic":false}]
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:paper",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:custom_data": "{item:\"prometheus_file\"}",
+                "minecraft:custom_name": {"text":"普罗米修斯文件","color":"red","bold":true,"italic":false},
+                "minecraft:lore": [{"text":"自爆系统激活指令","color":"gray","italic":false}]
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 2
+        }
+      ]
+    }
+  ]
+}

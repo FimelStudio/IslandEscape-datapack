@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": ["minecraft:paper"],
+          "components": {
+            "minecraft:custom_data": {"item": "lab_key_card"}
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "escape_island:escape/sub_activate"
+  }
+}

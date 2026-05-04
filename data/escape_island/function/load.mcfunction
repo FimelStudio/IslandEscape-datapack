@@ -42,8 +42,11 @@ scoreboard objectives add ship_bonus_tick dummy
 scoreboard objectives add ship_hold_time dummy
 scoreboard objectives add ship_hold_seen dummy
 scoreboard objectives add lab_cards dummy
+scoreboard objectives add ending_triggered dummy
 scoreboard objectives add bomb_armed dummy
 scoreboard objectives add bomb_countdown dummy
+scoreboard objectives add bomb_repair_time dummy
+scoreboard objectives add bomb_file_count dummy
 scoreboard objectives add heli_countdown dummy
 scoreboard objectives add heli_motion dummy
 scoreboard objectives add ship_countdown dummy

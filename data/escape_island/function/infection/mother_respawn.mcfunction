@@ -1,10 +1,7 @@
 
 tag @s remove state.dead
 gamemode adventure @s
-effect clear @s minecraft:invisibility
-effect clear @s minecraft:darkness
-effect clear @s minecraft:resistance
-effect clear @s minecraft:slowness
+effect clear @s
 execute at @s run kill @e[type=minecraft:marker,tag=entity.dead_anchor,distance=..3,sort=nearest,limit=1]
 
 attribute @s minecraft:max_health base set 60

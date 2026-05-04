@@ -22,6 +22,9 @@ execute as @a[scores={gen_hold_time=1..,gen_hold_seen=0}] run function escape_is
 scoreboard players remove @a[scores={gen_hold_seen=1..}] gen_hold_seen 1
 scoreboard players remove @a[scores={gen_interact_cd=1..}] gen_interact_cd 1
 
+execute if score $game heli_countdown matches 1.. run time add 6
+execute if score $game heli_countdown matches ..-1 unless score $game heli_countdown matches ..-62 run time add 6
+
 execute if score $game in_game matches 1 run function escape_island:game/phase_check
 execute if score $game cur_phase matches 4 if score $game heli_motion matches 1.. run function escape_island:escape/helicopter_motion_tick
 

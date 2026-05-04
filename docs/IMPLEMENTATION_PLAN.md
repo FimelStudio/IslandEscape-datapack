@@ -76,7 +76,7 @@
 
 状态: **已完成并通过游戏内手测**
 
-目标: 母体成为不可复活的感染阵营核心：三下有效命中进感染期，拥有吞噬、腐痕感知、集群嚎叫三个技能，并随时间成长。
+目标: 母体成为不可复活的感染阵营核心：三下有效命中进感染期，拥有变异、吞噬、腐痕感知、集群嚎叫四个技能，并随时间成长。
 
 任务:
 
@@ -87,21 +87,36 @@
   - `attribute @s minecraft:knockback_resistance base set 0.8`
   - `attribute @s minecraft:attack_damage base set 4`
   - `attribute @s minecraft:movement_speed base set 0.105`
-  - `attribute @s minecraft:attack_speed base set 4`（新增，冷却结束后恢复）
   - 执行后用 `effect give @s minecraft:instant_health 1 10 true` 补满 HP，并给 `saturation` 保证可疾跑
-- [x] `tick_mother.mcfunction` 维持 Resistance I、脱战回血、攻击冷却与擦刀提示（50 tick = 2.5s，每 tick 在 `tick.mcfunction` 递减；`attack_speed` 降至 0.4 冷却结束后恢复 4.0）
+- [x] `tick_mother.mcfunction` 维持 Resistance I、脱战回血、成长阶段（每 5 分钟 +10HP，80→90→100）、攻击冷却（`mother_hit_cd = 50 tick`，每 tick 递减 2.5s）
 - [x] `on_hit_by_mother.mcfunction` 检查 `flag.first_attack`：
-  - 若无此 tag → 全图 `tellraw @a` 广播"有人遭受了突袭……"（不含玩家名）→ 给母体 `tag add flag.first_attack`
-  - 有效命中（`mother_hit_cd ≤ 0`）：`add_spore_load {amount:40}` + 设 `mother_hit_cd = 50` + `attack_speed = 0.4` + tag `state.attack_slowed`
-  - 冷却中命中（`mother_hit_cd ≥ 1`）：播放擦刀弱音效，不叠孢子
+  - 若无此 tag → 全图广播"有人遭受了突袭……"→ 给母体 `tag add flag.first_attack`
+  - 有效命中（`mother_hit_cd ≤ 0`）：`add_spore_load {amount:40}` + 设 `mother_hit_cd = 50` + `attack_speed → 0.4` + tag `state.attack_slowed`（冷却结束恢复 4.0）
+  - 冷却中命中（`mother_hit_cd ≥ 1`）：仅播放擦刀弱音效，不叠孢子，不改变攻速
 - [x] 母体技能重构：
+  - `mother/mutate` → 变异（新增）：红色染料一次性使用，脱伪装，`mother_hidden → mother` team，开 pvp，全图广播，60s buff
   - `mother/eat/*` 保留吞噬技能
-  - `mother/rotsense` → 腐痕感知：40 格内幸存者位置生成红色粒子（仅母体可见），全图广播暴露提示，冷却 60s
-  - `mother/howl` → 集群嚎叫：感染者 Speed II + Strength I 10s，冷却 90s
-- [x] `game/start.mcfunction` 加 `tag @a remove flag.first_attack` + `state.attack_slowed` 清理 + `mother_hit_cd`/`mother_phase`/`mother_phase_timer` 重置 + `$game mother_dead = 0` 初始化
-- [x] `training/reset.mcfunction` 同步清理 `flag.first_attack` + `state.attack_slowed` + `mother_hit_cd`/`mother_phase`/`mother_phase_timer` 重置
-- [x] 验收: 训练沙盒中母体三次有效命中使幸存者进感染期；攻击冷却中命中只擦刀；母体死亡不复活；感染者围绕母体复活，母体死亡后失去复活
-- [x] 验收: 母体成长阶段（phase 1→2→3 每 5 分钟 +10HP），技能腐痕感知 / 集群嚎叫
+  - `mother/rotsense` → 腐痕感知：40 格内幸存者位置红色粒子（仅母体可见），全图广播暴露提示，冷却 60s，hotbar.5 冷却倒计时显示
+  - `mother/howl` → 集群嚎叫：感染者 Speed II + Strength I 10s，冷却 90s，hotbar.6 冷却倒计时显示
+- [x] `game/start.mcfunction` + `start_test`：tag 清理 + `$game mother_dead = 0` + `state.mutated` 初始化
+- [x] `game/settle.mcfunction`：完整清状态（tag/scoreboard/属性/背包/效果），恢复 `natural_health_regeneration` + `pvp`
+- [x] 阵营系统：全 team `friendlyFire false`，pvp 开局 `false`，母体变异后 `true`
+- [x] 验收: 母体三次有效命中进感染期；冷却中擦刀仅音效；母体死亡不复活；感染者围绕母体复活、母体死后永久死
+- [x] 验收: 母体成长阶段（80→90→100），技能腐痕感知/集群嚎叫/变异
+
+### Batch 4.5 — 测试版开局 + 自测增强
+
+状态: **已完成**
+
+- [x] `game/start_test.mcfunction`：精简开局，自动发线缆+燃料电池，不含物资箱
+- [x] 自测菜单：逐个放标记（出生点/孢子/信号塔/发电机/直升机坪）+ 预览标记 + 测试版开局按钮
+- [x] `dev/show_markers.mcfunction`：生成发光名牌盔甲架标记所有点位，120s 自动清除
+- [x] 常驻 buff：`_tick_20` 每秒刷新 Regeneration I + Saturation I，自然回血禁饱食度依赖
+- [x] 吞噬吐人 `gamemode survival` → `adventure`
+- [x] 感染者/母体复活 `effect clear @s` 全清，不再残留回血效果
+- [x] 手枪命中反馈 title `@p` → 射击者 `skill.pistol.shooter` tag
+- [x] 海军枪械精通 `gm_runtime` 卡住修复
+- [x] `naturalRegeneration` → `natural_health_regeneration`（1.21.5+ snake_case）
 
 ### Batch 5 — 幸存者 10 职业技能
 
@@ -448,7 +463,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
   - `signal_progress >= tunable.signal_stages` → 广播"信号塔修复完成" → 写入 `$game signal_done 1`
 - [x] bossbar `escape_island:signal`：`signal_progress / tunable.signal_stages`，全员可见；进入直升机阶段后隐藏
 - [x] 线缆道具：`custom_data.item = "cable"`；开发/测试通过 `task/give_cable.mcfunction` 给与
-- [ ] 线缆正式投放：loot_basic 概率与全图保底并入 Batch 10 物资系统
+- [x] 线缆正式投放：loot_basic 概率 + `guarantee_supplies` 信号塔下方保底箱
 
 #### 7B — 发电机启动
 
@@ -467,7 +482,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] bossbar `escape_island:gen`：预热/稳定/故障阶段显示对应进度；进入直升机阶段后隐藏
 - [x] actionbar 显示当前发电机预热、稳定倒计时、过载压力、维修进度，避免玩家不知道为什么倒计时暂停
 - [x] 开发自测菜单接入：`test/generator_setup`、`test/generator_as_survivor`、`test/generator_as_infected`
-- [ ] 燃料电池正式投放：loot_basic 概率与全图保底并入 Batch 10 物资系统
+- [x] 燃料电池正式投放：loot_basic 概率 + `guarantee_supplies` 发电机下方保底箱
 
 #### 7C — 信号塔 + 发电机完成 → 直升机呼叫
 
@@ -515,7 +530,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
   - 所有人进入结算
 - [x] 直升机飞入 / 起飞动画第一版：`heli_motion` 每 tick 移动模型，起飞结束后清理模型并结算
 - [x] 登机窗口调整为 60 秒；舱门 interaction 右键登机
-- [ ] 动态破晓（可后期添加）: 每秒 `/time add X` 让天色渐亮，X 根据 `heli_countdown` 反比例计算
+- [x] 动态破晓：直升机接近/登机阶段每秒 `time add 120`，天色随倒计时渐亮
 - [x] 验收: 开发沙盒中手动触发直升机路线，跑完完整流程，确认结算
 
 ### Batch 9 — 其余撤离路线与结局
@@ -529,14 +544,18 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] 自测菜单接入：`test/ship_route_setup`，含快速到 95 进度、感染者干扰/幸存者切换按钮
 
 潜艇路线：
-- [ ] 实验室 4 张身份卡碎片 → `lab_terminal` 合成 → 潜艇启动 45s
-- [ ] 实验室感染研究员（HP 30 自定义僵尸）击杀掉落身份卡碎片
-- [ ] 登艇判定 → `end_lab`
+- [x] 实验室感染研究员（HP 30，phase_3 自动生成于 `marker.mob_lab_researcher`）击杀掉落身份卡碎片（`lab_card_fragment`）
+- [x] 4 张碎片 → 工作台合成「实验室钥匙卡」（`recipe/lab_key_card.json`）
+- [x] 持钥匙卡站 `marker.lab_sub` 旁右键 → `sub_activate` → `submarine_depart`：45s 倒计时 + 登艇门
+- [x] 右键登艇 → `board_sub` → 倒计时结束 `_sub_go` → `end_lab`
+- [x] 菜单：`[快速潜艇]` + `[放标记: 潜艇]`
 
 自爆路线：
-- [ ] 持 3 份普罗米修斯文件（从 5 个 `loot_keynote` 候选点中固定生成 3 份）+ 信号塔完成 + `island_bomb` marker → 长按右键 30s（有面罩 15s）
-- [ ] 激活后 3 分钟倒计时 → 任意撤离方式的人获胜
-- [ ] `end_destroy`
+- [x] 持 3 份普罗米修斯文件 + 信号塔完成 + `island_bomb` marker → 手持文件长按右键 30s（有面罩 15s）
+- [x] `bomb_hold.mcfunction`：`using_item` advancement 每 tick +1，满 600 → `bomb_activate`
+- [x] 激活后 3 分钟倒计时（`bomb_countdown=180`，每秒 -1，bossbar 显示）
+- [x] `end_destroy` 已完成
+- [x] 菜单：`[放标记: 自爆装置]` + 预览粒子
 
 母体伪装结局：
 - [ ] 实验室冷库终端 + 2 张母体专属身份卡碎片 → 伪装试剂 X-7
@@ -544,53 +563,55 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [ ] `end_disguise`
 
 病毒变异 Bad End：
-- [ ] 15:00 时间到 + 无人撤离 → `phase_5_mutate` → 全员强制感染期 → 20s 后转化 → `end_mutate`
+- [x] 15:00 时间到 + 无人撤离 → `phase_5_mutate`：全员 darkness+slowness → `force_infect` → 20s 后 `end_mutate`
+- [x] `phase_check` 已接入 `phase_timer >= 18000` 触发
 
 ### Batch 10 — 物资系统与 loot table
 
-状态: **待实现**
+状态: **已实现并通过单人开箱测试**
 
 目标: 地图上的物资箱可正常开启，掉落正确物品。
 
 任务:
 
-- [ ] `loot_table/world/basic_supply.json`（按 BALANCE.md §八 表格写）
-- [ ] `loot_table/world/rare_supply.json`
-- [ ] `loot_table/world/keynote.json`（主任笔记保证 1 份；普罗米修斯文件固定 3 份，隐藏但不随机无解）
-- [x] `task/lab_research_killed.mcfunction` 直接发放身份卡碎片，并 20% 概率给防毒面具（避免缺失 loot table 导致函数加载失败）
-- [ ] `dev/setup_markers.mcfunction` 升级: 在物资点位置放置对应方块（箱子），`/loot insert` 注入对应 loot table
-- [ ] 验收: 开发沙盒中打开物资箱，确认掉落品分布正确
+- [x] `loot_table/world/basic_supply.json`：线缆 40w + 燃料电池 25w + 9mm 弹药 40w(1-2/抽) + 铁剑 5w + 空 40w；2-4 抽/箱
+- [x] `loot_table/world/rare_supply.json`：线缆 50w(1-2) + 燃料电池 30w + 9mm 弹药 18w(6-8) + 铁剑 25w + 空 27w；2-3 抽/箱
+- [x] `loot_table/world/keynote.json`：主任笔记 2w + 普罗米修斯文件 6w + 空 2w；1-2 抽/箱
+- [x] `task/lab_research_killed.mcfunction` 直接发放身份卡碎片，并 20% 概率给防毒面具
+- [x] `task/place_loot_chests.mcfunction`：在所有 `marker.loot_*` 处 setblock 箱子 + loot insert 注入对应 loot table
+- [x] `start.mcfunction` + `start_test.mcfunction` 开局自动调用 `place_loot_chests`
+- [x] 自测菜单：`[放标记: 普通物资]`/`[稀有物资]`/`[关键线索]` + `[脚下放物资箱]` 单人测试
+- [x] 去掉面包（饱食度常驻无意义）
+- [x] 验收: 单人开箱测试通过，掉落分布符合预期
 
 ### Batch 11 — 环境事件
 
-状态: **待实现**
+状态: **已实现**
 
-目标: 抢修期内每 3 分钟随机触发一个环境事件，制造紧张感。
+目标: 抢修期内每 2 分钟随机触发一个环境事件。
 
 任务:
 
-- [ ] `event/pick_event.mcfunction`（每 180s 运行一次）:
-  - random 选 1-5 → 对应事件函数
-- [ ] `event/blackout.mcfunction`: 全员黑暗 II 60s；持手电筒 3 格内给夜视 I
-- [ ] `event/radio_static.mcfunction`: 30s 随机 title 干扰
-- [ ] `event/hallucination.mcfunction`: 随机位置生成 5 个 glowing display entity，1.5s 后消失
-- [ ] `event/storm.mcfunction`: 户外玩家每 5s 扣 1 心 90s（修复点范围豁免）
-- [ ] `event/spore_burst.mcfunction`: 随机 5 处生成临时孢子云区域（`particle` + 感染者近距离加孢子）
+- [x] `event/pick_event.mcfunction`：每 2 分（`tunable.environment_event_minutes`）随机 0-4 触发
+- [x] `event/blackout.mcfunction`: 全员 `darkness` 60s
+- [x] `event/radio_static.mcfunction`: 乱码 title + 音效 30s
+- [x] `event/storm.mcfunction`: 雷雨 90s + `storm_tick` 每 20tick 扣 1 HP
+- [x] `event/spore_burst.mcfunction`: 随机幸存者位置孢子粒子 + 5 格内 +15 spore
+- [x] `event/hallucination.mcfunction`: 随机玩家 nausea + 紫色粒子
 
 ### Batch 12 — 人数缩放与收尾
 
-状态: **待实现**
+状态: **基本完成**
 
-目标: 4–20 人局自动调整参数；潜伏宿主（17–20 人局）可觉醒。
+目标: 4–20 人局自动调整参数。
 
 任务:
 
-- [ ] `game/start.mcfunction` 调用 `util/apply_scaling`，按 player_count 写入 tunable.*
-- [ ] `util/apply_scaling.mcfunction`（参见 BALANCE.md §九 表格）
-- [ ] 潜伏宿主: 新版母体不可复活，`game/pick_latent_host.mcfunction` 需重审；不得在主母体死亡后自动顶替母体
-- [ ] 小人数局（4–7 人）保证船医出现在非母体幸存者职业池
-- [ ] 完整 15 分钟流程压测（`debug_speed = 1` 压缩时间）
-- [ ] 验收: 4 人局 + 12 人局各跑通 1 次完整流程
+- [x] `game/start.mcfunction` + `start_test` 调用 `util/apply_scaling`
+- [x] `util/apply_scaling.mcfunction`：感染期 40-55s / 信号塔阶段 3-7 按人数
+- [x] 小人数局船医保证：`role/_assign_doctor_guaranteed` 已接
+- [ ] 潜伏宿主: 暂缓（新版母体不可复活，需重审）
+- [ ] 完整流程压测
 
 ---
 
@@ -625,7 +646,10 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 | 2026-04-28 | Batch 6 格洛克手枪 | 静态检查 | PASS | JSON 可解析，`git diff --check` 无错误；等待游戏内手测 |
 | 2026-05-04 | Batch 3 感染状态机重构 | 静态检查 + 游戏内手测 | PASS | 母体 80HP/攻击4/2.5s 冷却/擦刀反馈/母巢崩坏/感染者母体死亡后永久死/actionbar 倒计时/清剿胜利均已通过手测 |
 | 2026-05-04 | Batch 4 母体属性与攻击冷却 | 静态检查 + 游戏内手测 | PASS | attack_speed 冷却手感/首攻广播/first_attack 清理/mother_dead 计分板注册/自测菜单辅助均已通过手测 |
-| 2026-05-04 | Batch 4 Part 2 成长阶段 + 技能 | 静态检查 | PASS | 母体 Phase 1→2→3 每 5 分钟 +10HP、腐痕感知粒子、集群嚎叫 Speed+Strength、擦刀 attack_speed 0.1 + Slowness 2s；等待游戏内手测 |
+| 2026-05-04 | Batch 4 Part 2 成长阶段 + 技能 | 静态检查 + 游戏内手测 | PASS | 母体 Phase 1→2→3、腐痕感知/集群嚎叫冷却显示、有效命中降攻速擦刀不叠加 |
+| 2026-05-04 | Batch 4.5 测试版开局 + 自测增强 | 静态检查 + 游戏内手测 | PASS | start_test/自测菜单放标记/发光标记预览/常驻回血饱食/吞噬吐人修复/手枪命中/海军连射/变异系统 |
+| 2026-05-04 | 文档更新 | — | PASS | 同步 Batch 3/4/4.5 最新状态到 IMPLEMENTATION_PLAN |
+| 2026-05-04 | Batch 10 物资系统 | 静态检查 + 单人开箱测试 | PASS | basic/rare/keynote loot table + place_loot_chests + 菜单测试按钮；去掉面包 |
 
 ---
 

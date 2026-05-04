@@ -45,6 +45,7 @@ tag @s remove flag.has_inject
 tag @s remove flag.has_disguise
 tag @s remove flag.first_attack
 tag @s remove state.attack_slowed
+tag @s remove state.mutated
 tag @s remove skill.antidote.user
 tag @s remove skill.antidote.target
 tag @s remove skill.battery.recalled

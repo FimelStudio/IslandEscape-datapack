@@ -1,4 +1,4 @@
-advancement revoke @s only escape_island:infection/researcher_killed
+advancement revoke @s only escape_island:interaction/kill_lab_researcher
 scoreboard players add @s lab_cards 1
 give @s minecraft:paper[minecraft:custom_data={item:"lab_card_fragment"},minecraft:custom_name={"text":"员工身份卡碎片","italic":false,"color":"aqua"},minecraft:item_model="ie:item/lab_card_fragment"] 1
 execute store result score $researcher_drop event_roll run random value 1..5

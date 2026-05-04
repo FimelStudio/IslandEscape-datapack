@@ -1,0 +1,76 @@
+{
+  "pools": [
+    {
+      "rolls": { "min": 2, "max": 3 },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:string",
+          "weight": 50,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "min": 1, "max": 2 } },
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"cable\"}", "minecraft:custom_name": {"text":"线缆","color":"yellow","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":999,"has_consume_particles":false,"sound":{"sound_id":""}} }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gold_ingot",
+          "weight": 30,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"fuel_cell\"}", "minecraft:custom_name": {"text":"燃料电池","color":"gold","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":999,"has_consume_particles":false,"sound":{"sound_id":""}} }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_apple",
+          "weight": 25,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"medkit_cold\"}", "minecraft:custom_name": {"text":"急救冷藏箱","color":"aqua","bold":true,"italic":false}, "minecraft:lore": [{"text":"治愈感染期","color":"gray","italic":false}] }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chainmail_helmet",
+          "weight": 20,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"gas_mask\"}", "minecraft:custom_name": {"text":"防毒面具","color":"green","bold":true,"italic":false}, "minecraft:lore": [{"text":"实验室孢子免疫","color":"gray","italic":false}] }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_nugget",
+          "weight": 18,
+          "functions": [
+            { "function": "minecraft:set_count", "count": { "min": 6, "max": 8 } },
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{ammo:1}", "minecraft:item_name": {"text":"9mm 弹药","italic":false,"color":"gray"} }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:crossbow",
+          "weight": 12,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"signal_gun\"}", "minecraft:custom_name": {"text":"信号枪","color":"gold","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键发射→命中感染体：2伤+标记5s+燃烧","color":"gray","italic":false}] }}
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_sword",
+          "weight": 25
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:tnt",
+          "weight": 5,
+          "functions": [
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"oil_drum\"}", "minecraft:custom_name": {"text":"油桶","color":"dark_red","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键投掷→范围爆炸+燃烧","color":"gray","italic":false}] }}
+          ]
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 15
+        }
+      ]
+    }
+  ]
+}

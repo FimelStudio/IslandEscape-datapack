@@ -1,2 +1,2 @@
 tag @a remove event.blackout
-effect clear @a minecraft:blindness
+effect clear @a minecraft:darkness
