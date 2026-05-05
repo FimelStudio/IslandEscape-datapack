@@ -21,4 +21,4 @@ tag @s remove state.escaped
 
 function escape_island:escape/helicopter_call
 
-tellraw @s {"text":"[Batch 8A] 快速登机测试已准备：直升机约 5 秒后降落，降落后右键“右键登机”提示处。","color":"gold"}
+tellraw @s {"text":"[Batch 8A] 快速登机测试已准备：直升机约 5 秒后降落，降落后直接右键直升机本体。","color":"gold"}

@@ -517,9 +517,9 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
   - `heli_countdown <= 0` → `escape/helicopter_arrive.mcfunction`
 - [x] `escape/helicopter_arrive.mcfunction`:
   - 广播"直升机降落！60 秒内上机！"
-  - 召唤舱门 `interaction` 实体作为右键登机判定
+  - 召唤覆盖直升机整体的 `interaction` 实体作为右键登机判定
 - [x] `escape/helicopter_door_interact.mcfunction`:
-  - 右键舱门检测玩家阵营
+  - 右键直升机检测玩家阵营
   - 感染者：告知无法登机
   - 幸存者（含感染期）：给 `state.boarding` tag，并切旁观等待起飞
   - 登机倒计时 60s 后所有 `state.boarding` 玩家 → `state.escaped` + gamemode spectator
@@ -529,7 +529,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
   - `in_game = 0`，清理所有 bossbar
   - 所有人进入结算
 - [x] 直升机飞入 / 起飞动画第一版：`heli_motion` 每 tick 移动模型，起飞结束后清理模型并结算
-- [x] 登机窗口调整为 60 秒；舱门 interaction 右键登机
+- [x] 登机窗口调整为 60 秒；直升机整体 interaction 右键登机
 - [x] 动态破晓：直升机接近/登机阶段每秒 `time add 120`，天色随倒计时渐亮
 - [x] 验收: 开发沙盒中手动触发直升机路线，跑完完整流程，确认结算
 

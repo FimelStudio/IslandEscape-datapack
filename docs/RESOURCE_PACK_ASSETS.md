@@ -61,7 +61,7 @@
 | 资产 | 建议 id | 用途 | 实现备注 |
 |---|---|---|---|
 | 直升机 | Animated Java `animated_java:helicopter` | 直升机撤离路线 | 已接入模型召唤；当前动画为 `animation_airscrew_circle`，模型屁股朝前，函数层用旋转/路径修正 |
-| 直升机座位/舱门提示 | `entity.helicopter_door` / `entity.helicopter_door_hint` | 登机判定区域可视化 | 当前用 interaction + text_display；可后续替换为更精细舱门提示模型 |
+| 直升机登机判定/提示 | `entity.helicopter_boarding` / `entity.helicopter_boarding_hint` | 整体机身登机判定区域可视化 | 当前用大 interaction + text_display；可后续替换为更精细机身命中盒 |
 | 轮船 | `ie:entity/escape_ship` | 轮船撤离路线 | 后续 Batch 9 |
 | 潜艇舱门/潜艇 | `ie:entity/submarine` | 实验室潜艇路线 | 后续 Batch 9 |
 | 热汤锅 | `ie:entity/hot_soup_pot` | 厨师技能放置物 | 当前旧实现用隐形 armor stand 名字 |

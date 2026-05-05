@@ -70,6 +70,8 @@ tag @e[type=minecraft:marker,tag=marker.heli_pad] remove heli.selected_pad
 kill @e[type=minecraft:interaction,tag=entity.generator_interaction]
 kill @e[type=minecraft:interaction,tag=entity.ship_door]
 kill @e[tag=entity.ship_door_hint]
+kill @e[type=minecraft:interaction,tag=entity.helicopter_boarding]
+kill @e[tag=entity.helicopter_boarding_hint]
 kill @e[type=minecraft:interaction,tag=entity.sub_door]
 kill @e[tag=entity.sub_door_hint]
 kill @e[tag=test.dummy]

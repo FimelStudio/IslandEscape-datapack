@@ -5,7 +5,7 @@
       "conditions": {
         "entity": {
           "entity_type": "minecraft:interaction",
-          "nbt": "{Tags:[\"entity.helicopter_door\"]}"
+          "nbt": "{Tags:[\"entity.helicopter_boarding\"]}"
         }
       }
     }
