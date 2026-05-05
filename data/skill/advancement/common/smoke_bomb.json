@@ -4,7 +4,7 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "items": ["minecraft:egg"],
+          "items": ["minecraft:slime_ball"],
           "components": {
             "minecraft:custom_data": {"item": "smoke_bomb"}
           }

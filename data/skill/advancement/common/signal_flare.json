@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": ["minecraft:torch"],
+          "components": {
+            "minecraft:custom_data": {"item": "signal_flare"}
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:common/signal_flare"
+  }
+}

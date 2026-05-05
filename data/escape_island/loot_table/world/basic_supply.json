@@ -8,7 +8,7 @@
           "name": "minecraft:string",
           "weight": 35,
           "functions": [
-            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"cable\"}", "minecraft:custom_name": {"text":"线缆","color":"yellow","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":999,"has_consume_particles":false,"sound":{"sound_id":""}} }}
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"cable\"}", "minecraft:custom_name": {"text":"线缆","color":"yellow","bold":true,"italic":false} }}
           ]
         },
         {
@@ -21,7 +21,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:egg",
+          "name": "minecraft:slime_ball",
           "weight": 10,
           "functions": [
             { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"smoke_bomb\"}", "minecraft:custom_name": {"text":"烟雾蛋","color":"gray","italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键投掷→区域烟雾+致盲感染体","color":"gray","italic":false}] }}
@@ -29,7 +29,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:firework_rocket",
+          "name": "minecraft:glowstone_dust",
           "weight": 5,
           "functions": [
             { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"flashbang\"}", "minecraft:custom_name": {"text":"闪光弹","color":"white","italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键投掷→致盲+减速感染体","color":"gray","italic":false}] }}
@@ -40,7 +40,7 @@
           "name": "minecraft:torch",
           "weight": 8,
           "functions": [
-            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"signal_flare\"}", "minecraft:custom_name": {"text":"信号燃焰","color":"red","italic":false} }}
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"signal_flare\"}", "minecraft:custom_name": {"text":"信号燃焰","color":"red","italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键点燃→附近感染体发光+减速","color":"gray","italic":false}] }}
           ]
         },
         {
@@ -62,7 +62,7 @@
           "name": "minecraft:lantern",
           "weight": 8,
           "functions": [
-            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"flashlight\"}", "minecraft:custom_name": {"text":"应急手电筒","color":"yellow","italic":false} }}
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"flashlight\"}", "minecraft:custom_name": {"text":"应急手电筒","color":"yellow","italic":false}, "minecraft:lore": [{"text":"断电时手持→自己及3格内队友获得夜视","color":"gray","italic":false}] }}
           ]
         },
         {

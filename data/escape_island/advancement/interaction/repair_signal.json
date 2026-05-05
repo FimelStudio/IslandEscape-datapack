@@ -1,12 +1,10 @@
 {
   "criteria": {
     "hold": {
-      "trigger": "minecraft:using_item",
+      "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "predicates": {
-            "minecraft:custom_data": "{item:\"cable\"}"
-          }
+          "items": ["minecraft:string"]
         }
       }
     }

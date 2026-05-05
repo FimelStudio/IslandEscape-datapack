@@ -25,7 +25,7 @@
           "name": "minecraft:golden_apple",
           "weight": 25,
           "functions": [
-            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"medkit_cold\"}", "minecraft:custom_name": {"text":"急救冷藏箱","color":"aqua","bold":true,"italic":false}, "minecraft:lore": [{"text":"治愈感染期","color":"gray","italic":false}] }}
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"medkit_cold\"}", "minecraft:custom_name": {"text":"急救冷藏箱","color":"aqua","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键使用→清除感染期","color":"gray","italic":false}] }}
           ]
         },
         {
@@ -47,7 +47,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:crossbow",
+          "name": "minecraft:redstone",
           "weight": 12,
           "functions": [
             { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"signal_gun\"}", "minecraft:custom_name": {"text":"信号枪","color":"gold","bold":true,"italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键发射→命中感染体：2伤+标记5s+燃烧","color":"gray","italic":false}] }}

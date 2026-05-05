@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": ["minecraft:golden_apple"],
+          "components": {
+            "minecraft:custom_data": {"item": "medkit_cold"}
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:common/cryo_medkit"
+  }
+}

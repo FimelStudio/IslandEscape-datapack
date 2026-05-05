@@ -4,7 +4,7 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "items": ["minecraft:crossbow"],
+          "items": ["minecraft:redstone"],
           "components": {
             "minecraft:custom_data": {"item": "signal_gun"}
           }

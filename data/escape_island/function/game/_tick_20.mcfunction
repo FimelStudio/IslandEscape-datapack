@@ -9,6 +9,13 @@ effect give @a[tag=!state.dead,tag=!state.spectator,tag=!state.escaped] minecraf
 function escape_island:infection/tick_infected_state
 function escape_island:infection/spore_load_decay
 
+execute if entity @a[tag=event.blackout,limit=1] as @a[tag=!state.dead] at @s if items entity @s weapon.mainhand minecraft:lantern[minecraft:custom_data~{item:"flashlight"}] run effect give @a[distance=..3] minecraft:night_vision 3 0 true
+execute if entity @a[tag=event.blackout,limit=1] as @a[tag=!state.dead] at @s if items entity @s weapon.offhand minecraft:lantern[minecraft:custom_data~{item:"flashlight"}] run effect give @a[distance=..3] minecraft:night_vision 3 0 true
+
+tag @a remove has_gas_mask
+execute as @a[tag=!state.dead] if items entity @s armor.head minecraft:chainmail_helmet[minecraft:custom_data~{item:"gas_mask"}] run tag @s add has_gas_mask
+execute as @a[tag=!state.dead] if items entity @s container.* minecraft:leather_helmet[minecraft:custom_data~{item:"gas_mask"}] run tag @s add has_gas_mask
+
 execute as @a[tag=team.human,tag=!state.infected_period,scores={spore_load=50..}] at @s run function escape_island:infection/spore_load_warn
 
 execute as @a[tag=state.sporifying] at @s run function escape_island:infection/sporify_tick

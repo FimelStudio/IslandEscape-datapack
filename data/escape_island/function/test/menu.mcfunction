@@ -6,7 +6,8 @@ tellraw @s [{"text":"[清理开发沙盒]","color":"gray","bold":true,"click_eve
 tellraw @s [{"text":"[一键结束游戏]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/end_game_clear"}},{"text":" 清空当前局状态、背包、队伍和临时实体，保留地图 marker","color":"gray"}]
 tellraw @s [{"text":"[放标记: 出生点]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_spawn"}},{"text":" 站好位置点一下放一个，至少4个","color":"gray"}]
 tellraw @s [{"text":"[放标记: 孢子氛围点]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_spore"}},{"text":" 可选：用于地图污染视觉/旧兜底，感染者默认在母体附近复活","color":"gray"}]
-tellraw @s [{"text":"[放标记: 信号塔]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_signal_tower"}},{"text":" 站在信号塔位置再点","color":"gray"}]
+tellraw @s [{"text":"[放标记: 信号塔]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_signal_tower"}},{"text":" 边塔值25进度，站好点一下放一个","color":"gray"}]
+tellraw @s [{"text":"[放标记: 核心信号塔]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_signal_core"}},{"text":" 核心塔值50进度，有且仅有一个","color":"gray"}]
 tellraw @s [{"text":"[放标记: 发电机]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_generator"}},{"text":" 站在发电机位置再点","color":"gray"}]
 tellraw @s [{"text":"[放标记: 直升机坪]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_heli_pad"}},{"text":" 站在直升机降落点再点","color":"gray"}]
 tellraw @s [{"text":"[放标记: 自爆装置]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_bomb"}},{"text":" 站在自爆终端位置再点","color":"gray"}]
@@ -32,6 +33,8 @@ tellraw @s [{"text":"[脚下放物资箱]","color":"yellow","bold":true,"click_e
 tellraw @s [{"text":"[脚下放稀有箱]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/loot_rare"}},{"text":" 稀有物资掉落测试","color":"gray"}]
 tellraw @s {"text":""}
 tellraw @s [{"text":"[单人开局]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/start_solo"}},{"text":" 单人物资箱+标记，需先放好marker","color":"gray"}]
+tellraw @s [{"text":"[跳 Phase 3]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/jump_phase3"}},{"text":" 开局后点这个直接进黑夜抢修","color":"gray"}]
+tellraw @s [{"text":"[快修信号塔]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/quick_signal"}},{"text":" 最近塔进度→99，再摸1秒完成","color":"gray"}]
 tellraw @s [{"text":"[快速直升机]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/quick_helicopter"}},{"text":" 跳过信号塔发电机，直接测登机和动态破晓","color":"gray"}]
 tellraw @s [{"text":"[快速自爆]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/quick_bomb"}},{"text":" 给3份文件+脚下炸弹标记+修好信号塔","color":"gray"}]
 tellraw @s [{"text":"[快速坏结局]","color":"dark_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/quick_mutate"}},{"text":" 直接触发15分钟孢子升腾","color":"gray"}]

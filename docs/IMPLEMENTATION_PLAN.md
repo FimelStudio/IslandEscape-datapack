@@ -447,9 +447,9 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 7 — 任务系统
 
-状态: **已实现并通过游戏内手测（7A/7B/7C）**
+状态: **已重构为 5 塔信号网络并通过单人测试**
 
-目标: 主线直升机前置任务在开发沙盒中可完整跑通：信号塔修复 + 任一发电机稳定运行 → 直升机呼叫。轮船修复暂缓到后续批次。
+目标: 5 座信号塔（4边+1核）形成网络，全局 100 触发直升机。发电机改为支线加速。
 
 #### 7A — 信号塔修复
 
@@ -484,7 +484,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] 开发自测菜单接入：`test/generator_setup`、`test/generator_as_survivor`、`test/generator_as_infected`
 - [x] 燃料电池正式投放：loot_basic 概率 + `guarantee_supplies` 发电机下方保底箱
 
-#### 7C — 信号塔 + 发电机完成 → 直升机呼叫
+#### 7C — 旧版：信号塔 + 发电机完成 → 直升机呼叫
 
 - [x] `phase_check.mcfunction` 检查 `$game signal_done = 1 AND $game gen_done = 1`
   - → 广播"天边开始发白，直升机正在靠近……"
@@ -497,7 +497,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 暂缓，先跑通主线直升机路线后再实现。
 
-验收: 开发沙盒中通过自测菜单跑完信号塔 + 发电机 → 直升机广播出现；感染者靠近发电机可长按破坏并积累过载，过载熄火后幸存者长按维修即可恢复，不需要重新投入电池。7A/7B/7C 已游戏内手测通过；正式物资投放留到 Batch 10。
+验收: 旧版开发沙盒中通过自测菜单跑完信号塔 + 发电机 → 直升机广播出现；感染者靠近发电机可长按破坏并积累过载，过载熄火后幸存者长按维修即可恢复，不需要重新投入电池。7A/7B/7C 已游戏内手测通过；新版 5 塔信号网络待 Batch 13 实现。
 
 ### Batch 8 — 直升机撤离与结局
 
@@ -535,7 +535,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 9 — 其余撤离路线与结局
 
-状态: **进行中（9A 轮船路线待游戏内手测）**
+状态: **进行中（9A 轮船路线待游戏内手测；轮船节奏待 Batch 13 平衡重构）**
 
 轮船路线：
 - [x] 收集本局所需船舶部件（默认 5 个：螺旋桨、燃油泵、舵机连杆、启动电瓶、锚机绞盘）→ 在 `marker.ship_dock` 附近手持对应部件长按右键投入；重复部件不计数
@@ -582,6 +582,11 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `start.mcfunction` + `start_test.mcfunction` 开局自动调用 `place_loot_chests`
 - [x] 自测菜单：`[放标记: 普通物资]`/`[稀有物资]`/`[关键线索]` + `[脚下放物资箱]` 单人测试
 - [x] 去掉面包（饱食度常驻无意义）
+- [x] 急救包（面包替换）：`glowstone_dust`，右键 Instant Health II
+- [x] 信号燃焰：`torch`，右键→附近感染体 glowing+slowness 8s
+- [x] 应急手电筒：`lantern`，断电时手持→3 格内夜视
+- [x] 急救冷藏箱：`golden_apple`，右键→清除感染期
+- [x] 防毒面具：背包有即打 `has_gas_mask` tag（未来实验室孢子豁免）
 - [x] 验收: 单人开箱测试通过，掉落分布符合预期
 
 ### Batch 11 — 环境事件
@@ -608,10 +613,51 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 任务:
 
 - [x] `game/start.mcfunction` + `start_test` 调用 `util/apply_scaling`
-- [x] `util/apply_scaling.mcfunction`：感染期 40-55s / 信号塔阶段 3-7 按人数
+- [x] `util/apply_scaling.mcfunction`：感染期 40-55s / 旧版信号塔阶段 3-7 按人数；新版信号网络缩放待 Batch 13 更新
 - [x] 小人数局船医保证：`role/_assign_doctor_guaranteed` 已接
 - [ ] 潜伏宿主: 暂缓（新版母体不可复活，需重审）
 - [ ] 完整流程压测
+
+### Batch 13 — 主线节奏重构：5 塔信号网络 + 轮船线平衡
+
+状态: **13A/13B 已实现；13C 轮船平衡 + 13D 验收待实现**
+
+目标: 解决 4 人测试开局流程过快的问题。直升机路线从“单信号塔 + 发电机硬门槛”改为 5 塔信号网络；发电机变为支线奖励；轮船线改为中速物流路线，既能成为替代胜利，也不会因为抱团站船坞而瞬间完成。
+
+#### 13A — 5 塔信号网络
+
+- [x] 边塔 `marker.signal_tower`，核心塔 `marker.signal_tower` + `marker.signal_core`
+- [x] 每塔 `signal_local` 0–100（边）/ 0–150（核），完成后 `marker.signal_done` 防重复
+- [x] 边塔 1.0s +1→+25；核心塔用 150 目标等效 1.5s→+50
+- [x] 多人：1 人 1.0/s、2 人 ~1.5/s、3 人 ~2.25/s、4+ 人 2.5/s
+- [x] bossbar 显示全局 0–100，actionbar 显示当前塔/核心塔进度
+- [x] 线缆为工具，不按点消耗但修完塔扣 1 根
+- [x] 感染者/变异母体站塔旁→完全暂停修复
+- [x] `signal_progress >= 100` → `signal_done = 1` → 直升机呼叫
+
+#### 13B — 发电机改为支线奖励
+
+- [x] `check_helicopter_ready` 只要求 `signal_done = 1`
+- [x] `gen_done = 1` 用途：直升机倒计时 -15s + 信号修复 +25%
+- [x] 发电机其余逻辑不变
+
+#### 13C — 轮船线平衡重构
+
+- [x] 部件数量保持按人数缩放
+- [ ] 船舶部件刷点强制分散：待地图制作时处理
+- [x] 船体修复总进度 100
+- [x] 修船多人叠加：1→1、2→1.6、3→2.1、4+→2.5/s（和信号塔一致，10 tick 循环实现）
+- [x] 工程师/机修工/电池加成：已接入，各 2.5/10 tick（~25%），受团队上限约束
+- [x] 感染者压制：普通感染者 -0.5/s（5/10 tick），母体 -1/s
+- [x] 轮船登船 30 秒：已有
+
+#### 13D — 测试与验收
+
+- [x] 自测菜单：`[快修信号塔]` 设边塔99/核心塔149，`[放标记: 核心信号塔]` 放核心塔，`[跳 Phase 3]` 直接进抢修
+- [x] 单人完整流程：放全标记→单人开局→跳P3→修1核+2边→直升机登机→破晓→结算
+- [ ] 4 人测试：不走轮船不修发电机时，6 分钟内不应触发直升机
+- [ ] 4 人分兵：修发电机+多塔并行，约 6–8 分钟完成
+- [ ] 回归测试：轮船/潜艇/自爆/坏结局/清理沙盒/枪械精通均不受影响
 
 ---
 

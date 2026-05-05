@@ -1,4 +1,4 @@
-function escape_island:util/recount_players
+execute unless score $game dev_mode matches 1 run function escape_island:util/recount_players
 execute if score $game player_count matches ..3 run tellraw @a {"text":"[孤岛逃生 测试版] 至少需要 4 名玩家才能开始。","color":"red"}
 execute if score $game player_count matches ..3 run return 0
 
@@ -24,6 +24,9 @@ scoreboard players set $game mother_dead 0
 scoreboard players set $game ending_triggered 0
 scoreboard players set $game signal_progress 0
 scoreboard players set $game signal_done 0
+scoreboard players set @e[type=minecraft:marker,tag=marker.signal_tower] signal_local 0
+scoreboard players set @e[type=minecraft:marker,tag=marker.signal_tower] signal_core_acc 0
+tag @e[tag=marker.signal_done] remove marker.signal_done
 scoreboard players set $game ship_progress 0
 scoreboard players set $game ship_bonus_tick 0
 function escape_island:task/ship_reset_parts
@@ -189,7 +192,7 @@ gamemode adventure @a
 effect clear @a
 execute as @a run attribute @s minecraft:movement_speed base set 0.1
 
-give @a minecraft:string[custom_data={item:"cable"},custom_name={text:"线缆",color:"yellow",bold:true,italic:false},lore=[{text:"在信号塔维修面板旁长按右键，直到接线进度满",color:"gray",italic:false}],consumable={animation:"spyglass",consume_seconds:999,has_consume_particles:false,sound:{sound_id:""}},use_cooldown={seconds:0.1,cooldown_group:"escape_island:repair_signal"}] 1
+give @a minecraft:string[custom_data={item:"cable"},custom_name={text:"线缆",color:"yellow",bold:true,italic:false},lore=[{text:"手持靠近信号塔自动修复",color:"gray",italic:false}]] 1
 give @a minecraft:gold_ingot[custom_data={item:"fuel_cell"},custom_name={text:"燃料电池",color:"gold",bold:true,italic:false},lore=[{text:"对着发电机右键投入燃料",color:"gray",italic:false}],consumable={animation:"spyglass",consume_seconds:999,has_consume_particles:false,sound:{sound_id:""}},use_cooldown={seconds:0.1,cooldown_group:"escape_island:generator_use"}] 3
 
 effect give @a minecraft:saturation 1 20 true

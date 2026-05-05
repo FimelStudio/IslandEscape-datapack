@@ -1,1 +1,1 @@
-give @s minecraft:string[custom_data={item:"cable"},custom_name={text:"线缆",color:"yellow",bold:true,italic:false},lore=[{text:"在信号塔维修面板旁长按右键，直到接线进度满",color:"gray",italic:false}],consumable={animation:"spyglass",consume_seconds:999,has_consume_particles:false,sound:{sound_id:""}},use_cooldown={seconds:0.1,cooldown_group:"escape_island:repair_signal"}] 1
+give @s minecraft:string[custom_data={item:"cable"},custom_name={text:"线缆",color:"yellow",bold:true,italic:false},lore=[{text:"手持靠近信号塔自动修复",color:"gray",italic:false}]] 1

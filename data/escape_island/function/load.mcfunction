@@ -26,6 +26,9 @@ scoreboard objectives add kit_remaining dummy
 scoreboard objectives add signal_progress dummy
 scoreboard objectives add signal_done dummy
 scoreboard objectives add signal_repair_time dummy
+scoreboard objectives add signal_local dummy
+scoreboard objectives add signal_core_acc dummy
+scoreboard objectives add signal_players dummy
 scoreboard objectives add signal_repair_seen dummy
 scoreboard objectives add gen_progress dummy
 scoreboard objectives add gen_state dummy
@@ -41,6 +44,7 @@ scoreboard objectives add ship_parts dummy
 scoreboard objectives add ship_bonus_tick dummy
 scoreboard objectives add ship_hold_time dummy
 scoreboard objectives add ship_hold_seen dummy
+scoreboard objectives add ship_count dummy
 scoreboard objectives add lab_cards dummy
 scoreboard objectives add ending_triggered dummy
 scoreboard objectives add bomb_armed dummy

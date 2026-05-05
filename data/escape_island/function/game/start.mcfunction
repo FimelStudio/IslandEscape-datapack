@@ -25,6 +25,9 @@ scoreboard players set $game mother_dead 0
 scoreboard players set $game ending_triggered 0
 scoreboard players set $game signal_progress 0
 scoreboard players set $game signal_done 0
+scoreboard players set @e[type=minecraft:marker,tag=marker.signal_tower] signal_local 0
+scoreboard players set @e[type=minecraft:marker,tag=marker.signal_tower] signal_core_acc 0
+tag @e[tag=marker.signal_done] remove marker.signal_done
 scoreboard players set $game ship_progress 0
 scoreboard players set $game ship_bonus_tick 0
 function escape_island:task/ship_reset_parts
