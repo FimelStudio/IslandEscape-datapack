@@ -214,7 +214,7 @@ IslandEscape-datapack/
 | `marker.lab_disguise` | 母体伪装终端 |
 | `marker.island_bomb` | 自爆装置 |
 | `marker.ship_dock` | 船坞 |
-| `marker.spore_spot` | 感染者复活点 |
+| `marker.spore_spot` | 孢子氛围点 / 旧复活兜底；普通感染者默认围绕存活母体复活 |
 | `marker.loot_basic` | 普通物资箱位置 |
 | `marker.loot_rare` | 稀有物资箱位置 |
 | `marker.loot_keynote` | 关键剧情点 |
@@ -405,7 +405,7 @@ infection/consume_antidote.json
 - 每 tick 或每 2 tick `tp @s <death_pos>`，防止玩家借击退、载具或水流移动；保留视角转动，避免完全失去信息。
 - 生成隐形位置锚点：使用 `minecraft:marker` 锁定死亡位置，玩家本体原地僵直显示；孢化结束或中断时清理。
 - actionbar 显示 `孢化中: Ns`；本人播放低频心跳/孢化音，其他玩家只看到粒子和倒地代理。
-- 15 秒结束后执行 `infection/turn`，移除锁定效果、清理代理，并在转化点或最近 `spore_spot` 恢复为普通感染者。
+- 15 秒结束后执行 `infection/turn`，移除锁定效果、清理代理，成为普通感染者；死亡后的感染者默认围绕存活母体复活。
 
 污染值 `spore_load >= 50` 的预警只对本人可见：actionbar + 轻微心跳音。音效必须在每次提示时 `execute at @s run playsound ... @s ~ ~ ~`，而不是在旧触发点播放，保证玩家移动后仍从当前位置听到。
 

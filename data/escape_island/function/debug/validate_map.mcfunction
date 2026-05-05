@@ -55,9 +55,8 @@ execute unless entity @e[type=minecraft:marker,tag=marker.lab_disguise,limit=1] 
 execute if entity @e[type=minecraft:marker,tag=marker.island_bomb,limit=1] run tellraw @s {"text":"[OK] marker.island_bomb 彩蛋自爆点","color":"green"}
 execute unless entity @e[type=minecraft:marker,tag=marker.island_bomb,limit=1] run tellraw @s {"text":"[MISS] marker.island_bomb 彩蛋自爆点","color":"red"}
 
-execute if score $spore_spot test_count matches 5.. run tellraw @s [{"text":"[OK] marker.spore_spot 感染者复活点 x","color":"green"},{"score":{"name":"$spore_spot","objective":"test_count"}}]
-execute if score $spore_spot test_count matches 1..4 run tellraw @s [{"text":"[WARN] marker.spore_spot 建议至少 5 个，当前 x","color":"yellow"},{"score":{"name":"$spore_spot","objective":"test_count"}}]
-execute if score $spore_spot test_count matches 0 run tellraw @s {"text":"[MISS] marker.spore_spot 感染者复活点","color":"red"}
+execute if score $spore_spot test_count matches 1.. run tellraw @s [{"text":"[OK] marker.spore_spot 孢子氛围/旧兜底点 x","color":"green"},{"score":{"name":"$spore_spot","objective":"test_count"}}]
+execute if score $spore_spot test_count matches 0 run tellraw @s {"text":"[INFO] marker.spore_spot 可选；感染者默认在母体附近复活","color":"gray"}
 execute if score $loot_basic test_count matches 20.. run tellraw @s [{"text":"[OK] marker.loot_basic 基础物资点 x","color":"green"},{"score":{"name":"$loot_basic","objective":"test_count"}}]
 execute if score $loot_basic test_count matches 1..19 run tellraw @s [{"text":"[WARN] marker.loot_basic 建议至少 20 个，当前 x","color":"yellow"},{"score":{"name":"$loot_basic","objective":"test_count"}}]
 execute if score $loot_basic test_count matches 0 run tellraw @s {"text":"[WARN] marker.loot_basic 基础物资点缺失","color":"yellow"}

@@ -67,7 +67,7 @@
 | 热汤锅 | `ie:entity/hot_soup_pot` | 厨师技能放置物 | 当前旧实现用隐形 armor stand 名字 |
 | 微型电池放置物 | `ie:entity/battery_node` | 工程师技能区域 | marker + 粒子，资源包可加小模型 |
 | 机关陷阱放置物 | `ie:entity/trap_node` | 机修工陷阱 | 需要小而可发现，不应过亮 |
-| 孢子洞/复活点 | `ie:block/spore_den` 或 `ie:entity/spore_den` | 感染者复活表现 / 母巢崩坏表现 | 用于地图点位强化 |
+| 孢子洞/污染点 | `ie:block/spore_den` 或 `ie:entity/spore_den` | 孢子氛围 / 母巢崩坏表现 | 用于地图点位强化；感染者默认围绕母体复活 |
 | 信号塔修复部件 | `ie:block/signal_tower_panel` | 任务点 | 可配合地图方块或 display 模型 |
 | 发电机 | `ie:entity/generator` | 任务点 | 可配合燃料投入反馈 |
 

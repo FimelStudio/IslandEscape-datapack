@@ -109,7 +109,7 @@
 状态: **已完成**
 
 - [x] `game/start_test.mcfunction`：精简开局，自动发线缆+燃料电池，不含物资箱
-- [x] 自测菜单：逐个放标记（出生点/孢子/信号塔/发电机/直升机坪）+ 预览标记 + 测试版开局按钮
+- [x] 自测菜单：逐个放标记（出生点/孢子氛围点/信号塔/发电机/直升机坪）+ 预览标记 + 测试版开局按钮；感染者默认围绕母体复活，孢子点仅作视觉/旧兜底
 - [x] `dev/show_markers.mcfunction`：生成发光名牌盔甲架标记所有点位，120s 自动清除
 - [x] 常驻 buff：`_tick_20` 每秒刷新 Regeneration I + Saturation I，自然回血禁饱食度依赖
 - [x] 吞噬吐人 `gamemode survival` → `adventure`
