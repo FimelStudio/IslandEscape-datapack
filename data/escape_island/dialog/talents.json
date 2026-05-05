@@ -2,11 +2,11 @@
     "type": "minecraft:notice",
     "title": {"text": "      天赋系统", "color": "light_purple", "bold": true},
     "body": [
-        {"type": "minecraft:plain_message", "contents": {"text": "类似《黎明杀机》《第五人格》的赛前天赋。开局前在天赋NPC处从6个天赋中选择2个，不同组合搭配职业产生丰富变化。", "color": "gray"}, "width": 480},
-        {"type": "minecraft:plain_message", "contents": {"text": "▎幸存者天赋（6选2）", "color": "green", "bold": true}, "width": 480},
-        {"type": "minecraft:plain_message", "contents": {"text": "疾跑：移速+8%\n铁肺：孢子获取-25%\n巧手：修复速度+30%\n夜视：永久夜视\n顽强：倒地+5s；感染复活-5s\n狂暴：近战伤害+15%", "color": "gray"}, "width": 480},
-        {"type": "minecraft:plain_message", "contents": {"text": "▎母体天赋（被选中时自动替换）", "color": "dark_red", "bold": true}, "width": 480},
-        {"type": "minecraft:plain_message", "contents": {"text": "疾跑→猎手本能(+10感知)\n铁肺→孢子光环(+2散发)\n巧手→腐化触碰(+30%吞噬)\n夜视→暗影视觉(轮廓可见)\n顽强→不死(+10HP)\n狂暴→猎杀狂热(-0.5s冷却)", "color": "gray"}, "width": 480}
+        {"type": "minecraft:plain_message", "contents": {"text": "赛前选择1个核心人格+2个支线人格，开局随机获得1张命运牌。人格分为救援、修理、牵制、情报四条路线。", "color": "gray"}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "▎构筑规则", "color": "green", "bold": true}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "核心人格决定打法；支线人格补强习惯；命运牌每局随机。位移类会进入疲劳，救援/情报类有长冷却，信息不会直接报出母体姓名。", "color": "gray"}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "▎母体翻面", "color": "dark_red", "bold": true}, "width": 480},
+        {"type": "minecraft:plain_message", "contents": {"text": "若你被选为母体，已选人格自动翻到母体面，不暴露赛前选择。普通感染者只保留较弱的感染回声。", "color": "gray"}, "width": 480}
     ],
     "can_close_with_escape": true,
     "action": {"label": {"text": "返回菜单", "color": "green"}, "action": {"type": "minecraft:show_dialog", "dialog": "escape_island:menu"}}

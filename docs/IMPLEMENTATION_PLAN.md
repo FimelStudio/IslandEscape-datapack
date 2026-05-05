@@ -545,7 +545,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 潜艇路线：
 - [x] 实验室感染研究员（HP 30，phase_3 自动生成于 `marker.mob_lab_researcher`）击杀掉落身份卡碎片（`lab_card_fragment`）
-- [x] 4 张碎片 → 工作台合成「实验室钥匙卡」（`recipe/lab_key_card.json`）
+- [x] 4 张碎片 → `lab_terminal` 合成「实验室钥匙卡」（避免 recipe schema 变更影响 `/reload`）
 - [x] 持钥匙卡站 `marker.lab_sub` 旁右键 → `sub_activate` → `submarine_depart`：45s 倒计时 + 登艇门
 - [x] 右键登艇 → `board_sub` → 倒计时结束 `_sub_go` → `end_lab`
 - [x] 菜单：`[快速潜艇]` + `[放标记: 潜艇]`
