@@ -33,6 +33,9 @@ scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_progre
 scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_state 0
 scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_countdown 0
 scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_overload 0
+scoreboard players set @e[type=minecraft:marker,tag=marker.signal_tower] signal_local 0
+scoreboard players set @e[type=minecraft:marker,tag=marker.signal_tower] signal_repair_acc 0
+tag @e[tag=marker.signal_done] remove marker.signal_done
 scoreboard players set @a gen_hold_time 0
 scoreboard players set @a gen_hold_seen 0
 scoreboard players set @a gen_hold_lock 0

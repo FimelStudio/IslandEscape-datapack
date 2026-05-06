@@ -28,6 +28,7 @@ scoreboard objectives add signal_done dummy
 scoreboard objectives add signal_repair_time dummy
 scoreboard objectives add signal_local dummy
 scoreboard objectives add signal_core_acc dummy
+scoreboard objectives add signal_repair_acc dummy
 scoreboard objectives add signal_players dummy
 scoreboard objectives add signal_repair_seen dummy
 scoreboard objectives add gen_progress dummy
@@ -77,6 +78,15 @@ scoreboard objectives add tunable.doctor_spore_threshold dummy
 scoreboard objectives add tunable.mother_spore_hit dummy
 scoreboard objectives add tunable.infected_spore_hit dummy
 scoreboard objectives add tunable.signal_stages dummy
+scoreboard objectives add tunable.signal_global_target dummy
+scoreboard objectives add tunable.signal_edge_progress dummy
+scoreboard objectives add tunable.signal_core_progress dummy
+scoreboard objectives add tunable.signal_side_tick_seconds dummy
+scoreboard objectives add tunable.signal_core_tick_seconds dummy
+scoreboard objectives add tunable.signal_team_cap_1p dummy
+scoreboard objectives add tunable.signal_team_cap_2p dummy
+scoreboard objectives add tunable.signal_team_cap_3p dummy
+scoreboard objectives add tunable.signal_team_cap_4p dummy
 scoreboard objectives add tunable.ship_parts_required dummy
 scoreboard objectives add tunable.helicopter_countdown dummy
 scoreboard objectives add tunable.dawn_transition_seconds dummy

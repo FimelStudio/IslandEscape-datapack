@@ -57,7 +57,7 @@ v0.1 视为完成需要同时满足：
 | M-7 手枪系统 | Batch 6 | 已完成，需回归 | 组员报错已修，仍需多人实战确认 |
 | 直升机旧主线 | Batch 7 / 8 | 旧版已完成 | 已被 Batch 13 重构为 5 塔信号网络 |
 | 5 塔信号网络（v0.1 版本） | Batch 13A / 13B | 已实现但数值过快 | 旧版 v0.1 数值会被 Batch 17 重构覆盖 |
-| **5 塔信号网络（v0.2 重构）** | **Batch 17** | **待实现** | 核心塔贡献砍半 + 边塔速率减半 + 团队上限收敛；目标 4 人局 5–6 分钟 |
+| **5 塔信号网络（v0.2 重构）** | **Batch 17** | **已完成 17A** | 核心塔贡献砍半 + 边塔速率减半 + 团队上限收敛；目标 4 人局 5–6 分钟 |
 | **发电机奖励强化（v0.2）** | **Batch 17** | **待实现** | 从仅缩短倒计时升级为全图修复速率 ×1.2 + 倒计时 -15s |
 | 轮船路线 | Batch 9 / 13C | 已平衡重构，待部件分散与 4 人验收 | 重点是地图刷点分散和 2.5 倍修复上限 |
 | 轮船登船窗口按人数缩放（v0.2） | Batch 17 | 待实现 | 4–7 人 45s / 8–12 人 50s / 13+ 60s |
@@ -899,21 +899,21 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 #### 17A — 信号网络节奏重构
 
-- [ ] `util/apply_scaling.mcfunction`：写入新数值
+- [x] `util/apply_scaling.mcfunction`：写入新数值
   - `tunable.signal_edge_progress = 25`（不变）
   - `tunable.signal_core_progress = 25`（**v0.1 是 50**）
   - `tunable.signal_side_tick_seconds = 2.0`（**v0.1 是 1.0**）
   - `tunable.signal_core_tick_seconds = 1.5`（不变）
   - `tunable.signal_team_cap_2p = 125`、`_3p = 140`、`_4p = 150`（**v0.1 是 160/210/250**）
   - `tunable.signal_global_target = 100`（不变）
-- [ ] `task/signal_tower_tick.mcfunction` / `signal_tower_repair.mcfunction`：
+- [x] `task/signal_tower_tick.mcfunction` / `signal_tower_repair.mcfunction`：
   - 边塔每段读条改为 `signal_side_tick_seconds × 20 tick`（默认 40 tick）
   - 核心塔每段读条改为 `signal_core_tick_seconds × 20 tick`（默认 30 tick）
   - 完成时全局 +`signal_edge_progress` / `signal_core_progress`
   - 多人速率乘子改用新 cap（按修复点上玩家数读 `signal_team_cap_*`）
-- [ ] `task/_signal_complete.mcfunction`：核心塔完成不再单独写入 `+50`，统一走 `+signal_core_progress`
-- [ ] bossbar 文案更新：原"信号网络 X/100"保留；自测菜单 `[快修信号塔]` 阈值更新为 99/99（不再 99/149）
-- [ ] 自测菜单新增：`[快修边塔到 99]`、`[快修核心到 99]` 各自分开，便于验证两条路径
+- [x] `task/_signal_complete.mcfunction`：核心塔完成不再单独写入 `+50`，统一走 `+signal_core_progress`
+- [x] bossbar 文案更新：原"信号网络 X/100"保留；自测菜单 `[快修信号塔]` 阈值更新为 99/99（不再 99/149）
+- [x] 自测菜单新增：`[快修边塔到 99]`、`[快修核心到 99]` 各自分开，便于验证两条路径
 
 #### 17B — 发电机奖励强化
 
