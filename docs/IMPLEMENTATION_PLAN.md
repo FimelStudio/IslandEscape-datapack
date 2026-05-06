@@ -27,7 +27,65 @@
 - https://minecraft.wiki/w/Text_component_format
 - https://minecraft.wiki/w/Data_component_format
 
-## 三、实现批次
+## 三、GDD / BALANCE 覆盖口径
+
+实现计划不是复制 GDD 和 BALANCE 的全文，而是把它们拆成可落地、可验收的开发批次。判断“实现计划做完是否等于 v0.1 做完”，以本节为准。
+
+### v0.1 完成定义
+
+v0.1 视为完成需要同时满足：
+
+- GDD 中所有标为正式玩法闭环的系统都有对应实现批次，并且批次状态为已完成。
+- BALANCE 中所有会影响正式对局的数值都有 scoreboard / function / loot table / marker 规则承载，或明确标为暂缓。
+- 4 人测试开局、正常开局、至少 1 条撤离路线、母体胜利路线都能在游戏内跑通。
+- `/reload`、函数引用、JSON 解析、`git diff --check` 通过；关键路线完成游戏内手测。
+
+### 设计覆盖矩阵
+
+| GDD / BALANCE 模块 | 实现计划覆盖 | v0.1 状态 | 备注 |
+|---|---|---|---|
+| 对局阶段时间线、正式开局、测试开局 | Batch 1 / 4.5 / 12 | 基本完成 | 需在最终压测中验证正常开局 4 人链路 |
+| 阵营、母体、普通感染者、感染期、死亡转化 | Batch 3 / 4 | ⚠️ 已完成但有遗留问题 | HP 基准 80（应为 60）、PvP 用 gamerule（应改 team）；待 Batch 4.6 修正 |
+| 母体两状态系统、成长时机、变异计时、PvP 架构、flag 迁移 | **Batch 4.6**（新增） | **待实现** | 核心重构批次，优先级最高 |
+| 全员转化立即结局、感染期登机转化驱离 | **Batch 4.7**（新增） | **待实现** | 结局闭环补丁，工作量小 |
+| 母体成长、腐痕感知、集群嚎叫、吞噬 | Batch 4 / 4.5 | 已完成，待 4.6 回归验收 | 成长数值和时机需随 4.6 更新 |
+| 母体伪装期被动孢子脉冲 + 侵蚀光环 | **Batch 17**（v0.2 新增） | **待实现** | 取代旧 +2/s；伪装期主动博弈选项 |
+| 10 职业技能 | Batch 5 / 6 | 基本完成，需回归 | 已发现并修过海军枪械精通；最终压测再覆盖 |
+| 厨师热汤 v0.2 调整（120s/8格/优先队友） | Batch 17 | 待实现 | 冷却减半、范围扩大、响应式辅助 |
+| 通讯员转化保留虚假扫描 v0.2 临时实现 | Batch 17 | 待实现 | 取代"待重做"占位 |
+| 感染者污染值由 +35 → +27 | Batch 17 | 待实现 | 恢复母体在感染效率上的绝对优势 |
+| M-7 手枪系统 | Batch 6 | 已完成，需回归 | 组员报错已修，仍需多人实战确认 |
+| 直升机旧主线 | Batch 7 / 8 | 旧版已完成 | 已被 Batch 13 重构为 5 塔信号网络 |
+| 5 塔信号网络（v0.1 版本） | Batch 13A / 13B | 已实现但数值过快 | 旧版 v0.1 数值会被 Batch 17 重构覆盖 |
+| **5 塔信号网络（v0.2 重构）** | **Batch 17** | **待实现** | 核心塔贡献砍半 + 边塔速率减半 + 团队上限收敛；目标 4 人局 5–6 分钟 |
+| **发电机奖励强化（v0.2）** | **Batch 17** | **待实现** | 从仅缩短倒计时升级为全图修复速率 ×1.2 + 倒计时 -15s |
+| 轮船路线 | Batch 9 / 13C | 已平衡重构，待部件分散与 4 人验收 | 重点是地图刷点分散和 2.5 倍修复上限 |
+| 轮船登船窗口按人数缩放（v0.2） | Batch 17 | 待实现 | 4–7 人 45s / 8–12 人 50s / 13+ 60s |
+| 实验室潜艇路线 | Batch 9 | 已实现，需手测/回归 | 终端、碎片、登艇链路需多人复测 |
+| 实验室研究员数量 = 身份卡碎片数（v0.2） | Batch 17 | 待实现 | 由 `apply_scaling` 写入；不再固定 4 个 |
+| 多撤离路线并行处理（v0.2） | Batch 17 | 待实现 | 首登载结算优先；同 tick 按 直升机 > 轮船 > 潜艇 |
+| 自爆真结局 | Batch 9 | 已实现，需回归 | 触发条件随新版信号网络改为 `signal_done` |
+| 母体伪装结局 / X-7 | 后续彩蛋批次（暂缓） | 暂缓，不计入 v0.1 | 用户已确认可先放后；正常局闭环优先 |
+| 病毒变异 Bad End | Batch 9 | 已实现，需回归 | 15:00 无人撤离触发；提前全员转化由 Batch 4.7 立刻触发 |
+| 物资箱、关键线索、资源保底、物资道具功能 | Batch 10 / 14 / 16 | 掉落已做，道具功能待实现 | 开箱只是第一步；急救包、手电筒、投掷物等需要真实可用 |
+| 环境事件 | Batch 11 | 已完成，需回归 | 频率统一为每 2 分钟（GDD 旧 3 分钟说法已修正） |
+| 缩放规则、调参旋钮 | Batch 12 / 13 / 16 / 17 | 部分完成 | 新版 `signal_*`、`ship_boarding_seconds`、发电机奖励、研究员数量在 Batch 17 写入 |
+| 地图 marker 适配规则 | Batch 2 / 13 / MAP_GUIDE | 部分完成 | 5 塔 marker 校验需实现 |
+| UI 提示、bossbar、actionbar、首局引导 | 各批次 + Batch 16 | 部分完成 | 最终做一次统一文本/提示收口 |
+| 训练模式、复盘、结算观战 | Batch 2 / 8 / 16 | 部分完成 | 复盘 `debug/show_state` 需确认是否完整 |
+| 天赋系统 | Batch 15 | 待实现 | GDD/BALANCE 已重设为人格牌组 |
+
+### 暂缓 / 不计入 v0.1 完成
+
+| 模块 | 暂缓原因 | 后续条件 |
+|---|---|---|
+| 17–20 人局潜伏宿主 / 次级母体 | 新版主母体不可复活，旧规则会破坏清剿胜利 | 大人数压测后单独重设 |
+| 母体伪装结局 / X-7 | 彩蛋路线，不影响正常局和主要胜负闭环 | 主玩法、物资道具和天赋稳定后再做 |
+| 彩蛋结局易触发性优化 | 用户已确认彩蛋结局不容易触发也无所谓 | 主玩法稳定后再调 |
+| 天赋系统完整长期成长 / 存档 UI | v0.1 先做单局人格牌组 | 后续大厅和持久化系统稳定后扩展 |
+| 高精度地图导出 / marker 存档工具 | 当前可用手工 marker + 自测菜单 | 正式地图定稿后再做工具化 |
+
+## 四、实现批次
 
 ### Batch 1 — 框架底座
 
@@ -72,6 +130,8 @@
 - [x] 母体脱战回血（`mother_regen_cd` 受伤重置 5s，冷却结束后 Regeneration II）、攻击冷却（`mother_hit_cd = 50 tick`，每 tick 递减 2.5s）+ 擦刀反馈（冷却中命中播放弱音效 + `attack_speed` 降至 0.1 + Slowness II 2s 惩罚）。
 - [x] 母体成长阶段 80→90→100：每 300s（5 分钟）升级，`mother_phase_up.mcfunction` 提升 `max_health` +10 并补满 HP。
 
+> ⚠️ **Batch 3 遗留问题（待 Batch 4.6 修正）**：母体 HP 基准已更新为 60（GDD/BALANCE），但本批次代码实现仍是 80；成长时机已更新为 T+5/8/11:00，但实现仍是每 5 分钟。Batch 4.6 将对这两项进行回炉修正，Batch 3 本身标为"已完成"但需回归验收。
+
 ### Batch 4 — 母体属性与首攻揭示
 
 状态: **已完成并通过游戏内手测**
@@ -104,6 +164,8 @@
 - [x] 验收: 母体三次有效命中进感染期；冷却中擦刀仅音效；母体死亡不复活；感染者围绕母体复活、母体死后永久死
 - [x] 验收: 母体成长阶段（80→90→100），技能腐痕感知/集群嚎叫/变异
 
+> ⚠️ **Batch 4 遗留问题（待 Batch 4.6 修正）**：PvP 架构使用全局 `pvp` gamerule 开关，需迁移为永久 `pvp true` + team friendlyFire 控制。`flag.first_attack` 暴露机制需迁移为 `state.mutated`（猎手状态）。变异为一次性永久揭示，需改为 60s 计时 + 45s 冷却 + 自动回伪装。
+
 ### Batch 4.5 — 测试版开局 + 自测增强
 
 状态: **已完成**
@@ -117,6 +179,71 @@
 - [x] 手枪命中反馈 title `@p` → 射击者 `skill.pistol.shooter` tag
 - [x] 海军枪械精通 `gm_runtime` 卡住修复
 - [x] `naturalRegeneration` → `natural_health_regeneration`（1.21.5+ snake_case）
+
+### Batch 4.6 — 母体系统回炉（HP 校正 + 两状态 + PvP 架构）
+
+状态: **待实现**
+
+目标: 将 Batch 3/4 已实现的母体系统升级到新版 GDD 设计：HP 60、三阶成长 T+5/8/11:00、变异计时双向切换、PvP 改为 team 控制、flag.first_attack 迁移。
+
+任务:
+
+- [ ] `_make_mother.mcfunction`：`attribute @s minecraft:max_health base set 60`；读取 `tunable.mother_hp`（4–7人局 70，由 `apply_scaling` 写入）
+- [ ] `util/apply_scaling.mcfunction`：新增 `tunable.mother_hp`（4–7人 = 70，其余 = 60）；新增 `tunable.mutate_cd`（4–7人 = 600t / 30s，其余 = 900t / 45s）；新增 `tunable.rotsense_cd`（4–7人 = 600t，其余 = 800t）
+- [ ] 母体成长系统重构（移除旧"每 300s +10"逻辑）：
+  - `_tick_20.mcfunction`：`phase_timer = 5400` → `mother/grow_1`；`= 8400` → `mother/grow_2`；`= 11400` → `mother/grow_3`
+  - `mother/grow_1.mcfunction`：`attribute max_health add +5` + 满血补满 + 私聊 actionbar + 腐痕感知冷却写入新值
+  - `mother/grow_2.mcfunction`：`attribute attack_speed / mother_hit_cd` 调整 + 集群嚎叫持续时间 +3s + 感染者复活 CD -5s + 私聊 actionbar；成长 II 后变异猎手持续时间由 1200t 改为 1500t（75s）、冷却改为 700t（35s）
+  - `mother/grow_3.mcfunction`：`attribute max_health add +10` + 感染者脉冲（Speed I + Resistance I 3s）+ 私聊 actionbar
+- [ ] 变异脉冲 (`mother/mutate`) 重构为双向计时：
+  - 道具改为 `phantom_membrane`（命名"变异脉冲"），`consume_item` advancement
+  - 触发 → `team join mother @s` + `tag add state.mutated` + 变异粒子爆发 + 低沉异声（8格内）+ 设 `cd_mother_hunt = 1200`（60s）
+  - `tick_mother.mcfunction`：`cd_mother_hunt > 0` → 每 tick -1；`cd_mother_hunt = 0 AND tag=state.mutated` → 自动回退（`team join mother_hidden` + `tag remove state.mutated`）+ 设 `cd_mother_mutate = tunable.mutate_cd`（再次变异冷却）
+  - 集群嚎叫冷却与变异独立（`cd_mother_howl`），确认在两种状态均可使用
+- [ ] PvP 架构迁移（取消全局 pvp gamerule 开关）：
+  - `load.mcfunction`：`gamerule pvp true`（永久），移除 `pvp false` 初始化
+  - `team mother friendlyFire true`；`team mother_hidden friendlyFire false`；`team survivors friendlyFire false`
+  - `game/start.mcfunction`：删除 `gamerule pvp false`；`_tick_20` 在 `phase_timer < 2400` 时检测受伤事件（如有母体命中幸存者） → 函数层取消（`effect give @s instant_health 1 0 true` 抵消）
+  - `game/settle.mcfunction`：移除 `gamerule pvp` 恢复逻辑，改为 team 重置
+- [ ] `on_hit_by_mother.mcfunction`：污染条件改为 `if entity @s[team=mother]`；`team=mother_hidden` 命中只播普通音效，不叠孢子、不触发擦刀反馈
+- [ ] `radio/signal_scan/use.mcfunction`：已暴露母体判定从 `flag.first_attack` 改为 `tag=state.mutated`；隐藏母体（`team=mother_hidden + !state.mutated`）不进入报告
+- [ ] 贴身孢子脉冲（伪装状态，取代无效的 +2/s）：
+  - `tick_mother.mcfunction`：仅在 `team=mother_hidden` 时执行；`cd_mother_passive_spore > 0` → -1/tick；`= 0 AND @a[team=survivors,distance=..4,limit=1]` → 对最近幸存者 `spore_load +15` + 重置 `cd_mother_passive_spore = 200`（10s）
+- [ ] 母体里程碑反馈：首次感染（`infected_count` 从 0→1 时）私聊 title + `warden.roar`；转化第 3 人私聊 actionbar
+- [ ] 每局随机变量（`game/start.mcfunction` 末尾）：
+  - 随机 1 台发电机写入 `gen_overload = 8`（隐患发电机）
+  - 随机 1 个 `loot_basic` marker 改为 `loot_rare`（热区物资）
+
+验收:
+- [ ] 母体觉醒 HP = 60（4人局测试 = 70）
+- [ ] 成长时机 T+5/8/11:00 正确触发，HP 变化正确（+5/0/+10）
+- [ ] 变异 60s 后静默回伪装，等 45s 冷却后可再次变异（4人局 30s）
+- [ ] 猎手状态命中叠孢子；伪装状态命中不叠
+- [ ] 伪装贴身 4 格内每 10s 目标 +15 孢子
+- [ ] radio scan 不报告 `team=mother_hidden` 且非 `state.mutated` 的母体
+- [ ] Phase 1 期间任何人受伤 HP 被即时补回，Phase 2+ 不再拦截
+
+### Batch 4.7 — 结局闭环补丁
+
+状态: **待实现**
+
+目标: 补全两个游戏闭环缺口：全员转化应立即结局；感染期玩家在登机窗口转化应被驱离。
+
+任务:
+
+- [ ] `game/_tick_20.mcfunction`（每秒）：`execute if score $game survivors_alive matches 0 if score $game in_game matches 1 run function escape_island:game/end_all_infected`
+- [ ] `game/end_all_infected.mcfunction`：全员 title "§8岛上再无生者……" + `entity.warden.death` 音效，3s 后调用 `game/end_mutate`
+- [ ] 感染期登机窗口转化驱离：
+  - `escape/helicopter_tick.mcfunction`（每秒）：`execute as @a[tag=state.boarding,tag=infected.common] run function escape_island:escape/boarding_convert_kick`
+  - `escape/boarding_convert_kick.mcfunction`：`tag @s remove state.boarding` + `gamemode adventure @s` + `title @s actionbar {"text":"§c感染爆发——你被驱离"}` + `playsound entity.player.hurt`
+  - 同样在 `ship_dock_tick.mcfunction` 和 `submarine_tick.mcfunction` 加入相同检测
+- [ ] 自测菜单增加：`[测试：感染期登机转化驱离]`（给自己 state.boarding + 短感染期倒计时）
+
+验收:
+- [ ] 全部幸存者转化 → 3 秒内 Bad End，不等 15:00
+- [ ] 感染期玩家登机，窗口内转化 → 立刻被踢出，成为场上感染者
+- [ ] 感染期玩家登机，转化前飞离 → 计为成功撤离
+- [ ] 上述逻辑对轮船 / 潜艇同样生效
 
 ### Batch 5 — 幸存者 10 职业技能
 
@@ -557,9 +684,9 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `end_destroy` 已完成
 - [x] 菜单：`[放标记: 自爆装置]` + 预览粒子
 
-母体伪装结局：
+母体伪装结局（暂缓，不计入 v0.1 必做）：
 - [ ] 实验室冷库终端 + 2 张母体专属身份卡碎片 → 伪装试剂 X-7
-- [ ] 服用后 `state.disguised`，登机扫描 8 秒，病毒学家检测剂可破解
+- [ ] 服用后 `state.disguised`，登载扫描 8 秒，病毒学家检测剂可破解
 - [ ] `end_disguise`
 
 病毒变异 Bad End：
@@ -568,9 +695,9 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 10 — 物资系统与 loot table
 
-状态: **已实现并通过单人开箱测试**
+状态: **掉落表与开箱已实现；物资道具功能待 Batch 14**
 
-目标: 地图上的物资箱可正常开启，掉落正确物品。
+目标: 地图上的物资箱可正常开启，掉落基础物品。注意：本批次只代表“能开箱、能掉落”，不代表所有物资道具的主动/被动功能已经完成。
 
 任务:
 
@@ -582,12 +709,13 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `start.mcfunction` + `start_test.mcfunction` 开局自动调用 `place_loot_chests`
 - [x] 自测菜单：`[放标记: 普通物资]`/`[稀有物资]`/`[关键线索]` + `[脚下放物资箱]` 单人测试
 - [x] 去掉面包（饱食度常驻无意义）
-- [x] 急救包（面包替换）：`glowstone_dust`，右键 Instant Health II
-- [x] 信号燃焰：`torch`，右键→附近感染体 glowing+slowness 8s
-- [x] 应急手电筒：`lantern`，断电时手持→3 格内夜视
-- [x] 急救冷藏箱：`golden_apple`，右键→清除感染期
-- [x] 防毒面具：背包有即打 `has_gas_mask` tag（未来实验室孢子豁免）
-- [x] 验收: 单人开箱测试通过，掉落分布符合预期
+- [ ] 急救包（计划载体：`glowstone_dust`）：右键 Instant Health II
+- [ ] 信号燃焰 / 信号枪：右键或发射后标记附近感染体，并给予短暂 glowing / slowness
+- [ ] 应急手电筒（计划载体：`lantern`）：断电时手持给自己与 3 格内队友局部夜视
+- [ ] 急救冷藏箱 / 高级医疗物资：右键清除感染期或强治疗，需限制数量和使用条件
+- [ ] 防毒面具：背包持有时打 `has_gas_mask` tag，并在实验室孢子/自爆终端等逻辑中生效
+- [ ] 烟雾弹 / 闪光弹：物资投放与投掷效果尚未收口
+- [x] 验收: 单人开箱测试通过，基础掉落分布符合预期；道具功能验收移至 Batch 14
 
 ### Batch 11 — 环境事件
 
@@ -659,9 +787,266 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [ ] 4 人分兵：修发电机+多塔并行，约 6–8 分钟完成
 - [ ] 回归测试：轮船/潜艇/自爆/坏结局/清理沙盒/枪械精通均不受影响
 
+### Batch 14 — 物资箱道具功能收口
+
+状态: **待实现**
+
+目标: 把物资箱中开出的道具从“能拿到”补成“能正常使用”。本批次优先处理会影响正常局体验的消耗品、投掷物和被动物品；母体伪装结局暂缓，不抢 v0.1 主线收口优先级。
+
+#### 14A — 医疗与防护道具
+
+- [ ] 急救包：右键即时治疗，消耗 1 个；幸存者/感染期可用，母体/普通感染者是否可用按 BALANCE 最终确认
+- [ ] 高级医疗物资 / 急救冷藏箱：清除感染期或大幅降低孢子污染；必须有稀有度限制，避免船医职业失去价值
+- [ ] 防毒面具：背包持有时获得 `has_gas_mask`，实验室孢子伤害、自爆终端读条、环境孢子事件读取该 tag
+- [ ] 医疗道具使用时提供私人 actionbar 和音效，避免玩家不知道是否生效
+
+#### 14B — 视野与断电道具
+
+- [ ] 应急手电筒：断电事件期间，手持者和 3 格内队友获得短夜视刷新
+- [ ] 手电筒不应在非断电状态提供永久夜视，避免稀释黑夜压迫
+- [ ] 断电事件结束后清除手电筒临时效果，避免残留
+
+#### 14C — 投掷 / 控场道具
+
+- [ ] 烟雾弹：投掷后在落点生成 5 秒烟雾区，区域内给予黑暗/遮蔽效果；投掷者和队友不应完全免疫，但天赋可减免
+- [ ] 闪光弹：投掷后小范围致盲，避免穿墙大范围误伤；母体/感染者可被影响
+- [ ] 信号燃焰 / 信号枪：命中或落点附近标记感染体，给予 glowing + slowness 约 5–8 秒
+- [ ] 钢丝陷阱若进入物资池，必须和机修工职业陷阱区分强度，避免普通玩家抢走职业特色
+
+#### 14D — 投放与经济
+
+- [ ] 更新 basic / rare loot table，使实际掉落项和 BALANCE 一致：急救包、手电筒、烟雾弹、闪光弹、9mm、线缆、燃料电池、铁剑等
+- [ ] 控制总量：一局物资箱中的烟雾/闪光/信号燃焰总量约够全队 2 次正面遭遇，不应变成无限控场
+- [ ] 更新物品命名、lore、`custom_data.item`，保证任务物品和战斗物品不会误判
+- [ ] 自测菜单增加：给急救包、给手电筒、给烟雾弹、给闪光弹、给信号燃焰、防毒面具状态检查
+
+验收:
+
+- [ ] 单人自测：每个物资道具可触发、可消耗或保持、效果持续和冷却符合设计
+- [ ] 多人自测：烟雾/闪光/信号燃焰不会误伤到不可控程度，也不会对母体完全无效
+- [ ] 断电事件中，手电筒能提供局部安全感；断电结束后不残留夜视
+- [ ] 防毒面具能被实验室/自爆相关逻辑读取
+- [ ] 物资箱开出的所有非剧情道具都有实际用途；没有“看起来有用但无功能”的废道具
+
+### Deferred — 母体伪装结局与结局优先级收口
+
+状态: **暂缓，不计入 v0.1 必做**
+
+目标: 后续补齐 GDD / BALANCE 中的母体伪装试剂 X-7 彩蛋路线，并确认所有结局优先级不会互相抢结算。彩蛋路线不要求容易触发，因此排在主玩法、物资道具和天赋之后。
+
+暂缓任务:
+
+- [ ] 实验室冷库终端 `marker.lab_disguise` 可交互，只有母体可推进 X-7 路线
+- [ ] 母体专属身份卡碎片 ×2 与幸存者实验室身份卡碎片分离，避免互相抢资源
+- [ ] 合成 / 获取伪装试剂 X-7，服用后给予 `state.disguised`，持续 90 秒
+- [ ] 伪装期间关闭感染者可见特征；对幸存者侦测只显示“幸存者/信号正常”，不直接暴露母体
+- [ ] 直升机 / 轮船 / 潜艇登载时进入 8 秒扫描，扫描通过触发 `end_disguise`
+- [ ] 扫描期间全员收到“生物识别异常”模糊提示；幸存者攻击或病毒学家检测剂可打断
+- [ ] 结局优先级实现: 母体伪装通过扫描 > 毁灭岛屿真结局 > 直升机/轮船/潜艇幸存者撤离 > 病毒变异
+- [ ] 自测菜单增加：给母体 X-7、强制伪装、快速扫描通过/打断
+
+暂缓验收:
+
+- [ ] 母体可从冷库终端拿到 X-7，并在 90 秒内登载触发母体彩蛋胜
+- [ ] 未伪装母体不能登载；普通感染者不能登载
+- [ ] 病毒学家检测剂可在扫描期间打断伪装
+- [ ] 幸存者正常登机/登船/登艇结局不受伪装代码影响
+
+### Batch 15 — 天赋系统 v0.1：人格牌组
+
+状态: **待实现**
+
+目标: 将 GDD / BALANCE 的新版天赋系统落成可玩版本。v0.1 只做单局人格牌组，不做长期成长和复杂 UI；核心目标是让每局构筑和命运牌带来随机性，但不破坏母体隐藏和任务节奏。
+
+#### 15A — 数据结构与选择流程
+
+- [ ] 新增天赋 scoreboard / tag 命名规范：`talent.core.*`、`talent.branch.*`、`talent.fate.*`
+- [ ] Pre-game 大厅增加天赋选择入口：每人选 1 个核心人格 + 2 个支线人格
+- [ ] 未选择玩家开局自动分配默认通用天赋，避免卡开局
+- [ ] 开局随机补 1 张命运牌
+- [ ] 母体觉醒时将已选人格翻到母体面，不需要重新选择
+
+#### 15B — v0.1 天赋池
+
+- [ ] 核心人格先实现 4 个：化险为夷、破窗余势、临危专注、旧讯号
+- [ ] 支线人格每条路线先实现 2 个：救援、修理、牵制、情报，共 8 个
+- [ ] 命运牌先实现 4 个：船舱记忆、无线电回声、冷库印象、旧伤复燃
+- [ ] 位移/追逐类统一接 `talent.exhaustion`，默认 45 秒
+- [ ] 救援类强触发统一接 `talent.rescue_cd`，默认 120 秒
+- [ ] 情报类强触发统一接 `talent.info_cd`，默认 90 秒
+- [ ] 所有任务加速受任务团队上限约束，不允许天赋绕过信号/轮船 2.5 倍上限
+
+#### 15C — 信息安全与母体面
+
+- [ ] 情报类天赋不直接显示母体姓名，只给方向、距离段、异常事件
+- [ ] 母体面效果必须服务追踪、误导、压制，不直接一键锁死幸存者
+- [ ] 感染者继承的天赋效果只保留 GDD 中允许的“感染回声”，避免转化后数值滚雪球
+
+#### 15D — 自测与平衡
+
+- [ ] 自测菜单增加：查看本人天赋、随机命运牌、清空天赋、强制触发疲劳/CD
+- [ ] 4 人局至少测试 3 套构筑：救援型、修理型、牵制型
+- [ ] 母体开局拿到任意人格面后，不应在 2 分钟觉醒后立刻无反制滚雪球
+- [ ] 天赋关闭时，原有职业/任务/撤离路线仍能正常运行
+
+### Batch 17 — v0.2 玩法平衡重构
+
+状态: **待实现**
+
+目标: 解决 v0.1 暴露出的几项关键平衡问题，统一为 v0.2 玩法基线。本批次不改动地图 marker 结构，只改函数行为和 scoreboard 数值，保证现有自测沙盒和正式地图都不需要重摆 marker。
+
+设计来源: `docs/GDD.md` v0.2 / `docs/BALANCE.md` v0.2 已同步；本批次只做实现落地。BALANCE.md §七 信号网络末尾保留了"信号网络（旧版 v0.1，已归档）"小节，便于实现时对照差异。
+
+#### 17A — 信号网络节奏重构
+
+- [ ] `util/apply_scaling.mcfunction`：写入新数值
+  - `tunable.signal_edge_progress = 25`（不变）
+  - `tunable.signal_core_progress = 25`（**v0.1 是 50**）
+  - `tunable.signal_side_tick_seconds = 2.0`（**v0.1 是 1.0**）
+  - `tunable.signal_core_tick_seconds = 1.5`（不变）
+  - `tunable.signal_team_cap_2p = 125`、`_3p = 140`、`_4p = 150`（**v0.1 是 160/210/250**）
+  - `tunable.signal_global_target = 100`（不变）
+- [ ] `task/signal_tower_tick.mcfunction` / `signal_tower_repair.mcfunction`：
+  - 边塔每段读条改为 `signal_side_tick_seconds × 20 tick`（默认 40 tick）
+  - 核心塔每段读条改为 `signal_core_tick_seconds × 20 tick`（默认 30 tick）
+  - 完成时全局 +`signal_edge_progress` / `signal_core_progress`
+  - 多人速率乘子改用新 cap（按修复点上玩家数读 `signal_team_cap_*`）
+- [ ] `task/_signal_complete.mcfunction`：核心塔完成不再单独写入 `+50`，统一走 `+signal_core_progress`
+- [ ] bossbar 文案更新：原"信号网络 X/100"保留；自测菜单 `[快修信号塔]` 阈值更新为 99/99（不再 99/149）
+- [ ] 自测菜单新增：`[快修边塔到 99]`、`[快修核心到 99]` 各自分开，便于验证两条路径
+
+#### 17B — 发电机奖励强化
+
+- [ ] `task/generator_complete.mcfunction`（或现有 gen_done 写入处）：
+  - 仍写入 `$game gen_done = 1`
+  - 新增 `scoreboard players set $game power_buff 1`
+  - 直升机倒计时仍由 `check_helicopter_ready` 读 `gen_done` 后改 75s
+- [ ] `task/signal_tower_repair.mcfunction` + `task/ship_dock_tick.mcfunction`：
+  - 检测 `$game power_buff matches 1` → 当前修复速率 ×1.2（实现上可在每段 tick 末尾以 6/5 加权）
+  - 与团队上限叠加：先算团队 cap，再乘 power_buff 乘子
+- [ ] `escape/helicopter_call.mcfunction` 或对应阶段函数：进入 Phase 4 直升机倒计时时清除 `power_buff`，避免后期还在加速无意义任务点
+- [ ] `tunable.power_buff_multiplier = 12`（÷10，作为整数化乘子）
+
+#### 17C — 母体伪装期被动重构
+
+- [ ] 新建 `mother/passive_disguise.mcfunction`，由 `tick_mother.mcfunction` 在 `team=mother_hidden AND !state.disguised` 分支每秒调用
+- [ ] 被动孢子脉冲：
+  - `cd_mother_passive_pulse` 每秒 -1；归零时对 4 格内最近幸存者 `function infection/add_spore_load {amount:15}`，并设回 8（秒）
+  - 不可见、无音效，但写一条 debug log 便于自测验证
+- [ ] 侵蚀光环（修复降速）：
+  - 在 `signal_tower_repair.mcfunction` / `ship_dock_tick.mcfunction` 末尾计算修复贡献时，检测 `execute at @s if entity @e[type=player,team=mother_hidden,tag=!state.mutated,distance=..3,limit=1]` → 该 tick 修复贡献 ×0.85
+  - 实现上可用整数除法 `progress *= 17; progress /= 20`（≈ ×0.85）
+- [ ] 侵蚀光环（心跳音）：
+  - 受影响幸存者每 4 秒触发一次极轻 `entity.warden.heartbeat`（音量 0.15，pitch 0.8）
+  - 用 `cd_aura_heartbeat` 个人 scoreboard 节流，避免每秒重复
+- [ ] 旧"+2/s"代码清理：在 `tick_mother.mcfunction` 中删除每秒 +2 spore 的旧实现（如有）
+
+#### 17D — 普通感染者污染值调整
+
+- [ ] `interaction/on_hit_by_infected.mcfunction`：每次有效命中由 `+35` 改为 `+27`
+- [ ] `tunable.infected_spore_hit = 27`（开局写入）
+- [ ] 自测菜单 `[+35污染]` 按钮改名为 `[+27污染]`（可选，便于读数对齐）
+
+#### 17E — 厨师热汤 v0.2 调整
+
+- [ ] `data/skill/function/chef/hot_soup/config.mcfunction`：
+  - `#cooldown` 由 3600 → **2400**（120 秒）
+  - 新增 `#aura_range = 8`（被动光环范围）
+  - 新增 `#priority_range = 5`（优先治愈队友半径）
+  - 新增 `#priority_hp = 8`（队友 HP 阈值，含 ≤）
+- [ ] `data/skill/function/chef/hot_soup/start.mcfunction`：
+  - 先 `execute at @s if entity @a[tag=team.human,tag=state.infected_period,distance=..5,sort=nearest,limit=1] run` → 优先释放治疗在该队友（清除感染期 + 4 心）
+  - 其次 `execute at @s if entity @a[tag=team.human,scores={hp_rounded=..8},distance=..5,sort=nearest,limit=1] run` → 释放在低血队友
+  - 否则自愈
+- [ ] `escape_island:role/tick_chef.mcfunction`：被动光环范围 5 → 8 格；吸收 I 每 5 秒刷新
+
+#### 17F — 通讯员虚假扫描 v0.2 临时实现
+
+- [ ] 新建 `data/skill/function/radio/fake_scan/{config,init,use,start,tick}.mcfunction`
+- [ ] 新建 advancement `data/skill/advancement/radio/fake_scan/use.json`（`consume_item` + `custom_data.skill:"radio_fake_scan"`）
+- [ ] `infection/turn.mcfunction`：感染者通讯员转化时给"干扰器"道具 + 注册 scoreboard `fake_scan_charges = 3`
+- [ ] `start.mcfunction`：
+  - 从在场幸存者随机选 1 名为接收者（`util/random_select` 已有）
+  - 从其余幸存者随机选 1 名为"被指认者"
+  - 距离段从 `["近距离","中距离","远距离"]` 三选一
+  - 私聊接收者：`[信号扫描] 检测到异常生命体征：<被指认者> 距离约 <段>`（格式与真实信号扫描完全一致）
+  - 冷却 120s，charges -1；charges = 0 时道具不再补发但提示"干扰器已耗尽"
+- [ ] 自测菜单：`[测试虚假扫描]` 给自己干扰器并伪装为感染者
+
+#### 17G — 多撤离路线并行处理
+
+- [ ] `escape/_ending_resolve.mcfunction`（新建）：统一结局判定入口
+  - 各撤离路线（直升机/轮船/潜艇）的成功登载完成时调用此函数
+  - 函数内检查 `$game ending_resolved` 标志位：若已结算，则丢弃后续登载结果（让先到的赢）
+  - 同 tick 多次调用按调用顺序优先：直升机 → 轮船 → 潜艇（实现上由各路线注册顺序保证）
+- [ ] `escape/helicopter_door_interact.mcfunction` / `ship_dock_tick.mcfunction` / `submarine_tick.mcfunction`：原本直接 `function game/end_xxx` 改为先调用 `escape/_ending_resolve`，再由 resolve 决定是否触发结局函数
+- [ ] 自爆 `bomb_tick.mcfunction`：保持独立倒计时，3 分钟归零时仍直接走 `end_destroy` 路径（受结局优先级约束，但不被并行登载抢走）
+- [ ] 自测菜单：`[测试: 同时完成直升机+轮船]`
+
+#### 17H — 轮船登船窗口缩放
+
+- [ ] `util/apply_scaling.mcfunction` 写入 `tunable.ship_boarding_seconds`：
+  - 4–7 人 = 900（45s）
+  - 8–12 人 = 1000（50s）
+  - 13+ 人 = 1200（60s）
+- [ ] `escape/ship_dock_tick.mcfunction` / `ship_depart` 起：登船倒计时初值由硬编码 30s 改为读 `tunable.ship_boarding_seconds`
+- [ ] BALANCE 表 §一 阶段时间已记录新值
+
+#### 17I — 实验室研究员数量缩放
+
+- [ ] `util/apply_scaling.mcfunction` 写入 `tunable.lab_researcher_count`：
+  - 4 人 = 3；5–7 人 = 3；8–12 人 = 4；13–16 人 = 4；17–20 人 = 5
+- [ ] `task/lab_init.mcfunction` 或对应研究员生成函数：按 `tunable.lab_researcher_count` 限制生成数量
+- [ ] 现有 `marker.mob_lab_researcher` 数量保持不变（4–5 个候选点），生成时随机抽取所需数量；多余候选点不生成实体
+
+#### 17J — 文档一致性扫描
+
+- [ ] grep 搜索 `每 3 分钟`、`+2/s`、`+35` 等旧描述，确认已全部更新
+- [ ] grep 搜索 `登船 30 秒`、`每 1 秒 +1 本地进度`，确认 BALANCE/GDD 已无残留
+- [ ] BALANCE.md §二 母体 HP 备注 ⚠️ 在 Batch 4.6 完成后清除（与本批次解耦）
+
+验收:
+
+- [ ] 4 人测试开局，无干扰修信号网络（路径 A）：约 5–6 分钟完成；6 分钟内不应触发直升机
+- [ ] 4 人测试开局，无干扰修信号网络（路径 B，跳过核心塔）：约 5.7 分钟，比路径 A 略慢
+- [ ] 发电机完成后，重新计时同样的修复路径，应缩短约 1 分钟
+- [ ] 母体伪装状态贴 4 格内幸存者 40 秒后，目标进入感染期（5 个脉冲 ×15 = 75，但叠加其他来源更快；纯脉冲 7 个达 105）
+- [ ] 母体伪装状态站修复点 3 格内：受影响幸存者修复贡献 ×0.85，并听到极轻心跳；离开范围立刻恢复正常
+- [ ] 母体猎手命中 3 次进感染期；普通感染者命中 4 次进感染期（差值符合 v0.2 设计）
+- [ ] 厨师 5 格内有感染期队友时，热汤优先治该队友；无队友时自愈；冷却 120s
+- [ ] 感染者通讯员使用干扰器：随机指定接收者收到伪造扫描，被指认者无任何提示
+- [ ] 直升机和轮船同时进入登载窗口：先成功登载的路线决定结局，另一路线倒计时清理
+- [ ] 8 人局轮船修复完成 → 50 秒登船窗口；4 人局 → 45 秒
+- [ ] 4 人局实验室生成 3 名研究员；8 人局生成 4 名
+
+### Batch 16 — v0.1 收口压测与文档同步
+
+状态: **待实现**
+
+目标: 实现计划全部功能完成后，不再继续扩功能，集中做覆盖验证、数值回炉和文档同步。通过 Batch 16 才能说“实现计划做完 = v0.1 做完”。
+
+任务:
+
+- [ ] 静态检查：全包 JSON 解析、函数引用扫描、旧文本组件扫描、`git diff --check`
+- [ ] 自测菜单完整走查：创建开发沙盒、清理开发沙盒、一键结束游戏、放/清 marker、全部快速路线
+- [ ] 4 人正常开局完整局：不使用自测作弊，至少跑通一次直升机或轮船撤离
+- [ ] 4 人测试开局完整局：验证新主线不会过快，轮船不会开局秒修
+- [ ] 母体胜利完整局：击杀/转化胜利、15:00 病毒变异 Bad End 至少各跑通一次
+- [ ] 彩蛋路线抽样：自爆用自测菜单跑通一次；母体伪装已暂缓，不计入 v0.1 收口
+- [ ] 结局优先级回归：同 tick 多路线触发时只进入一个结局
+- [ ] BALANCE 回炉：根据 4 人测试结果调整 `signal_*`、`ship_*`、感染期时长、母体 HP / 冷却
+- [ ] MAP_GUIDE 同步：确认正式地图所需 marker 列表、校验输出、放置示例和实际代码一致
+- [ ] GDD / BALANCE / IMPLEMENTATION_PLAN 状态统一：删除或标注所有旧版单塔/发电机硬门槛残留说明
+
+验收:
+
+- [ ] 房主可以按 `MAP_GUIDE.md` 放 marker，正常开始 4 人局并完成一整局
+- [ ] 实现计划所有非暂缓项均为 `[x]`
+- [ ] 暂缓项只剩“母体伪装 / 潜伏宿主 / 长期天赋成长 / 工具化 marker 导出”等不影响 v0.1 闭环的内容
+
 ---
 
-## 四、自测记录
+## 五、自测记录
 
 | 日期 | 批次 | 检查 | 结果 | 备注 |
 |---|---|---|---|---|
@@ -695,11 +1080,11 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 | 2026-05-04 | Batch 4 Part 2 成长阶段 + 技能 | 静态检查 + 游戏内手测 | PASS | 母体 Phase 1→2→3、腐痕感知/集群嚎叫冷却显示、有效命中降攻速擦刀不叠加 |
 | 2026-05-04 | Batch 4.5 测试版开局 + 自测增强 | 静态检查 + 游戏内手测 | PASS | start_test/自测菜单放标记/发光标记预览/常驻回血饱食/吞噬吐人修复/手枪命中/海军连射/变异系统 |
 | 2026-05-04 | 文档更新 | — | PASS | 同步 Batch 3/4/4.5 最新状态到 IMPLEMENTATION_PLAN |
-| 2026-05-04 | Batch 10 物资系统 | 静态检查 + 单人开箱测试 | PASS | basic/rare/keynote loot table + place_loot_chests + 菜单测试按钮；去掉面包 |
+| 2026-05-04 | Batch 10 物资系统 | 静态检查 + 单人开箱测试 | PARTIAL | basic/rare/keynote loot table + place_loot_chests + 菜单测试按钮通过；物资道具实际功能移至 Batch 14 |
 
 ---
 
-## 五、游戏内手测清单
+## 六、游戏内手测清单
 
 ### Batch 1 + Batch 2 最小手测
 

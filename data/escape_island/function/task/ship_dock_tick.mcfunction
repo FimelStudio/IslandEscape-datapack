@@ -24,9 +24,9 @@ execute if score $ship_count ship_progress matches 3 if score $game ship_bonus_t
 execute if score $ship_count ship_progress matches 4.. run scoreboard players set $ship_delta ship_progress 2
 execute if score $ship_count ship_progress matches 4.. if score $game ship_bonus_tick matches 0..4 run scoreboard players set $ship_delta ship_progress 3
 
-execute unless score $ship_delta ship_progress matches 3 run if entity @a[tag=role.engineer,tag=!state.dead,distance=..3,limit=1] if score $game ship_bonus_tick matches 0..2 run scoreboard players add $ship_delta ship_progress 1
-execute unless score $ship_delta ship_progress matches 3 run if entity @a[tag=role.mechanic,tag=!state.dead,distance=..3,limit=1] if score $game ship_bonus_tick matches 3..5 run scoreboard players add $ship_delta ship_progress 1
-execute unless score $ship_delta ship_progress matches 3 run if entity @e[type=minecraft:marker,tag=entity.engineer_battery,distance=..4,limit=1] if entity @a[tag=!state.dead,distance=..3,limit=1] if score $game ship_bonus_tick matches 6..7 run scoreboard players add $ship_delta ship_progress 1
+execute unless score $ship_delta ship_progress matches 3 if entity @a[tag=role.engineer,tag=!state.dead,distance=..3,limit=1] if score $game ship_bonus_tick matches 0..2 run scoreboard players add $ship_delta ship_progress 1
+execute unless score $ship_delta ship_progress matches 3 if entity @a[tag=role.mechanic,tag=!state.dead,distance=..3,limit=1] if score $game ship_bonus_tick matches 3..5 run scoreboard players add $ship_delta ship_progress 1
+execute unless score $ship_delta ship_progress matches 3 if entity @e[type=minecraft:marker,tag=entity.engineer_battery,distance=..4,limit=1] if entity @a[tag=!state.dead,distance=..3,limit=1] if score $game ship_bonus_tick matches 6..7 run scoreboard players add $ship_delta ship_progress 1
 
 execute if entity @a[tag=infected.common,tag=!state.dead,tag=!state.escaped,distance=..3,limit=1] if score $game ship_bonus_tick matches 0..4 run scoreboard players set $ship_delta ship_progress -1
 execute if entity @a[tag=infected.mother,tag=!state.dead,tag=!state.escaped,distance=..3,limit=1] run scoreboard players set $ship_delta ship_progress -1
