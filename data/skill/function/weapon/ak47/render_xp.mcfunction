@@ -1,0 +1,33 @@
+tag @s add skill.ak47.xp
+execute if score @s skill.ak47_mag matches ..0 run experience set @s 0 levels
+execute if score @s skill.ak47_mag matches 1 run experience set @s 1 levels
+execute if score @s skill.ak47_mag matches 2 run experience set @s 2 levels
+execute if score @s skill.ak47_mag matches 3 run experience set @s 3 levels
+execute if score @s skill.ak47_mag matches 4 run experience set @s 4 levels
+execute if score @s skill.ak47_mag matches 5 run experience set @s 5 levels
+execute if score @s skill.ak47_mag matches 6 run experience set @s 6 levels
+execute if score @s skill.ak47_mag matches 7 run experience set @s 7 levels
+execute if score @s skill.ak47_mag matches 8 run experience set @s 8 levels
+execute if score @s skill.ak47_mag matches 9 run experience set @s 9 levels
+execute if score @s skill.ak47_mag matches 10 run experience set @s 10 levels
+execute if score @s skill.ak47_mag matches 11 run experience set @s 11 levels
+execute if score @s skill.ak47_mag matches 12 run experience set @s 12 levels
+execute if score @s skill.ak47_mag matches 13 run experience set @s 13 levels
+execute if score @s skill.ak47_mag matches 14 run experience set @s 14 levels
+execute if score @s skill.ak47_mag matches 15 run experience set @s 15 levels
+execute if score @s skill.ak47_mag matches 16 run experience set @s 16 levels
+execute if score @s skill.ak47_mag matches 17 run experience set @s 17 levels
+execute if score @s skill.ak47_mag matches 18 run experience set @s 18 levels
+execute if score @s skill.ak47_mag matches 19 run experience set @s 19 levels
+execute if score @s skill.ak47_mag matches 20 run experience set @s 20 levels
+execute if score @s skill.ak47_mag matches 21 run experience set @s 21 levels
+execute if score @s skill.ak47_mag matches 22 run experience set @s 22 levels
+execute if score @s skill.ak47_mag matches 23 run experience set @s 23 levels
+execute if score @s skill.ak47_mag matches 24 run experience set @s 24 levels
+execute if score @s skill.ak47_mag matches 25 run experience set @s 25 levels
+execute if score @s skill.ak47_mag matches 26 run experience set @s 26 levels
+execute if score @s skill.ak47_mag matches 27 run experience set @s 27 levels
+execute if score @s skill.ak47_mag matches 28 run experience set @s 28 levels
+execute if score @s skill.ak47_mag matches 29 run experience set @s 29 levels
+execute if score @s skill.ak47_mag matches 30.. run experience set @s 30 levels
+experience set @s 0 points
