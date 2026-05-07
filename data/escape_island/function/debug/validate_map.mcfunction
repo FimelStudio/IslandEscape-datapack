@@ -11,6 +11,7 @@ scoreboard players set $loot_basic test_count 0
 scoreboard players set $loot_rare test_count 0
 scoreboard players set $loot_keynote test_count 0
 scoreboard players set $researcher test_count 0
+scoreboard players set $scan_station test_count 0
 
 execute as @e[type=minecraft:marker,tag=marker.spawn_island] run scoreboard players add $spawn_island test_count 1
 execute as @e[type=minecraft:marker,tag=marker.spawn_beach] run scoreboard players add $spawn_beach test_count 1
@@ -21,6 +22,7 @@ execute as @e[type=minecraft:marker,tag=marker.loot_basic] run scoreboard player
 execute as @e[type=minecraft:marker,tag=marker.loot_rare] run scoreboard players add $loot_rare test_count 1
 execute as @e[type=minecraft:marker,tag=marker.loot_keynote] run scoreboard players add $loot_keynote test_count 1
 execute as @e[type=minecraft:marker,tag=marker.mob_lab_researcher] run scoreboard players add $researcher test_count 1
+execute as @e[type=minecraft:marker,tag=marker.scan_station] run scoreboard players add $scan_station test_count 1
 
 execute if entity @e[type=minecraft:marker,tag=marker.lobby_ship,limit=1] run tellraw @s {"text":"[OK] marker.lobby_ship 船上大厅","color":"green"}
 execute unless entity @e[type=minecraft:marker,tag=marker.lobby_ship,limit=1] run tellraw @s {"text":"[MISS] marker.lobby_ship 船上大厅","color":"red"}
@@ -48,6 +50,8 @@ execute if entity @e[type=minecraft:marker,tag=marker.lab_entrance,limit=1] run 
 execute unless entity @e[type=minecraft:marker,tag=marker.lab_entrance,limit=1] run tellraw @s {"text":"[MISS] marker.lab_entrance 实验室入口","color":"red"}
 execute if entity @e[type=minecraft:marker,tag=marker.lab_terminal,limit=1] run tellraw @s {"text":"[OK] marker.lab_terminal 实验室终端","color":"green"}
 execute unless entity @e[type=minecraft:marker,tag=marker.lab_terminal,limit=1] run tellraw @s {"text":"[MISS] marker.lab_terminal 实验室终端","color":"red"}
+execute if score $scan_station test_count matches 1.. run tellraw @s [{"text":"[OK] marker.scan_station 隔离扫描站 x","color":"green"},{"score":{"name":"$scan_station","objective":"test_count"}}]
+execute if score $scan_station test_count matches 0 run tellraw @s {"text":"[INFO] marker.scan_station 可选；未放置时可复用核心塔/实验室终端/船坞作为扫描站","color":"gray"}
 execute if entity @e[type=minecraft:marker,tag=marker.lab_sub,limit=1] run tellraw @s {"text":"[OK] marker.lab_sub 潜艇撤离点","color":"green"}
 execute unless entity @e[type=minecraft:marker,tag=marker.lab_sub,limit=1] run tellraw @s {"text":"[MISS] marker.lab_sub 潜艇撤离点","color":"red"}
 execute if entity @e[type=minecraft:marker,tag=marker.lab_disguise,limit=1] run tellraw @s {"text":"[OK] marker.lab_disguise 伪装路线点","color":"green"}

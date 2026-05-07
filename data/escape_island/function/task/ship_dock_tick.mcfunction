@@ -31,6 +31,10 @@ execute unless score $ship_delta ship_progress matches 3 if entity @e[type=minec
 execute if entity @a[tag=infected.common,tag=!state.dead,tag=!state.escaped,distance=..3,limit=1] if score $game ship_bonus_tick matches 0..4 run scoreboard players set $ship_delta ship_progress -1
 execute if entity @a[tag=infected.mother,tag=!state.dead,tag=!state.escaped,distance=..3,limit=1] run scoreboard players set $ship_delta ship_progress -1
 
+# Apply global power buff multiplier to ship repair delta if active
+execute if score $game power_buff matches 1.. run scoreboard players operation $ship_delta ship_progress *= Tunable tunable.power_buff_multiplier
+execute if score $game power_buff matches 1.. run scoreboard players operation $ship_delta ship_progress /= $const_100 signal_progress
+
 scoreboard players operation $game ship_progress += $ship_delta ship_progress
 
 execute if score $game ship_progress matches ..-1 run scoreboard players set $game ship_progress 0

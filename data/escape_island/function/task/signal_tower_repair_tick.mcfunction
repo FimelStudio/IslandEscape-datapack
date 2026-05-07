@@ -20,6 +20,11 @@ scoreboard players operation $signal_delta signal_progress /= Tunable tunable.si
 
 execute if entity @a[tag=state.infected_period,distance=..2.5,limit=1] run scoreboard players operation $signal_delta signal_progress /= $const_2 spore_load
 
+
+# Apply global power buff multiplier if active (multiply then divide by 100 since tunable is scaled by 100)
+execute if score $game power_buff matches 1.. run scoreboard players operation $signal_delta signal_progress *= Tunable tunable.power_buff_multiplier
+execute if score $game power_buff matches 1.. run scoreboard players operation $signal_delta signal_progress /= $const_100 signal_progress
+
 scoreboard players operation @s signal_repair_acc += $signal_delta signal_progress
 execute if score @s signal_repair_acc matches 100.. run scoreboard players add @s signal_local 1
 execute if score @s signal_repair_acc matches 100.. run scoreboard players remove @s signal_repair_acc 100

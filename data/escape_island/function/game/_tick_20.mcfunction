@@ -39,6 +39,7 @@ execute as @a[tag=role.priest] at @s run function escape_island:role/tick_priest
 
 function escape_island:task/signal_tower_tick
 function escape_island:task/generator_tick
+function escape_island:task/scan_station_tick
 function escape_island:task/ship_dock_tick
 execute if score $game bomb_armed matches 1 run function escape_island:task/bomb_tick
 execute if score $game sub_countdown matches 1.. run function escape_island:escape/sub_tick

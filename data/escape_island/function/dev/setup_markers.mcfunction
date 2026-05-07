@@ -22,6 +22,7 @@ execute at @s run summon minecraft:marker ~20 ~ ~-14 {Tags:["dev.marker","marker
 execute at @s run summon minecraft:marker ~-8 ~ ~8 {Tags:["dev.marker","marker.ship_dock"]}
 execute at @s run summon minecraft:marker ~-8 ~ ~-8 {Tags:["dev.marker","marker.lab_entrance"]}
 execute at @s run summon minecraft:marker ~-12 ~ ~-8 {Tags:["dev.marker","marker.lab_terminal"]}
+execute at @s run summon minecraft:marker ~-12 ~ ~-6 {Tags:["dev.marker","marker.scan_station"]}
 execute at @s run summon minecraft:marker ~-16 ~ ~-8 {Tags:["dev.marker","marker.lab_sub"]}
 execute at @s run summon minecraft:marker ~-20 ~ ~-8 {Tags:["dev.marker","marker.lab_disguise"]}
 execute at @s run summon minecraft:marker ~-12 ~ ~12 {Tags:["dev.marker","marker.island_bomb"]}

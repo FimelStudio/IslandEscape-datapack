@@ -226,5 +226,6 @@ effect give @a minecraft:saturation 1 20 true
 
 function escape_island:game/randomize_match
 function escape_island:task/place_loot_chests
+function escape_island:task/ship_part_scatter
 
 function escape_island:game/phase_1_load

@@ -28,7 +28,7 @@ scoreboard players set Tunable tunable.ship_boarding_seconds 50
 scoreboard players set Tunable tunable.lab_researcher_count 4
 scoreboard players set Tunable tunable.lab_card_required 4
 scoreboard players set Tunable tunable.escape_full_win_count 1
-scoreboard players set Tunable tunable.power_buff_multiplier 12
+scoreboard players set Tunable tunable.power_buff_multiplier 120
 scoreboard players set Tunable tunable.scan_station_cd 90
 scoreboard players set Tunable tunable.helicopter_countdown 90
 scoreboard players set Tunable tunable.dawn_transition_seconds 90

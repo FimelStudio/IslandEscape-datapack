@@ -5,4 +5,4 @@ scoreboard objectives add aj.is_rig_loaded dummy
 scoreboard objectives add aj.tween_duration dummy
 scoreboard players add aj.last_id aj.id 0
 function animated_java:global/gu/on_load
-function #animated_java:global/on_load
+function animated_java:global/on_load

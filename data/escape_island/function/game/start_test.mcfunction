@@ -231,5 +231,6 @@ function escape_island:game/randomize_match
 function escape_island:dev/show_markers
 
 function escape_island:task/place_loot_chests
+function escape_island:task/ship_part_scatter
 
 function escape_island:game/phase_1_load

@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{skill:\"radio_jam_used\"}"
+            }
+          }
+        ],
+        "player": {
+          "nbt": "{Tags:[\"retained.radio\",\"infected.common\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:radio/jam/use"
+  }
+}

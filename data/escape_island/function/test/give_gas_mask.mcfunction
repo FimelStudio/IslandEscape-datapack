@@ -1,0 +1,2 @@
+give @s minecraft:chainmail_helmet[minecraft:custom_data={item:"gas_mask"},minecraft:custom_name='{"text":"防毒面具","color":"green","bold":true,"italic":false}',minecraft:lore=['{"text":"实验室孢子免疫","color":"gray","italic":false}']] 1
+tellraw @s {"text":"获取防毒面具，戴在头上或放在物品栏内皆可生效！","color":"green"}
