@@ -7,7 +7,19 @@ scoreboard players set Tunable tunable.spore_threshold 100
 scoreboard players set Tunable tunable.doctor_spore_threshold 130
 scoreboard players set Tunable tunable.mother_spore_hit 50
 scoreboard players set Tunable tunable.infected_spore_hit 35
-scoreboard players set Tunable tunable.signal_stages 5
+scoreboard players set Tunable tunable.signal_stages 100
+# 信号网络 v0.2：秒数类数值用 0.1 秒为单位，20 = 2.0 秒。
+scoreboard players set Tunable tunable.signal_global_target 100
+scoreboard players set Tunable tunable.signal_edge_progress 25
+scoreboard players set Tunable tunable.signal_core_progress 25
+scoreboard players set Tunable tunable.signal_side_tick_seconds 20
+scoreboard players set Tunable tunable.signal_core_tick_seconds 15
+scoreboard players set Tunable tunable.signal_team_cap_1p 100
+scoreboard players set Tunable tunable.signal_team_cap_2p 125
+scoreboard players set Tunable tunable.signal_team_cap_3p 140
+scoreboard players set Tunable tunable.signal_team_cap_4p 150
+scoreboard players set $const_100 signal_progress 100
+scoreboard players set $const_1000 signal_progress 1000
 scoreboard players set Tunable tunable.ship_parts_required 5
 scoreboard players set Tunable tunable.helicopter_countdown 90
 scoreboard players set Tunable tunable.dawn_transition_seconds 90

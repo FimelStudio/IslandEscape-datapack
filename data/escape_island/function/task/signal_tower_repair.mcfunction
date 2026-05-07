@@ -19,9 +19,9 @@ execute unless items entity @s weapon.mainhand minecraft:string[minecraft:custom
 clear @s minecraft:string[minecraft:custom_data~{item:"cable"}] 1
 scoreboard players add $game signal_progress 1
 scoreboard players operation $signal_remaining signal_progress = $game signal_progress
-scoreboard players operation $signal_remaining signal_progress -= Tunable tunable.signal_stages
+scoreboard players operation $signal_remaining signal_progress -= Tunable tunable.signal_global_target
 
-tellraw @a [{"text":"§a[信号塔] 接线进度 ","color":"green"},{"score":{"name":"$game","objective":"signal_progress"}},{"text":"/","color":"green"},{"score":{"name":"Tunable","objective":"tunable.signal_stages"}}]
+tellraw @a [{"text":"§a[信号塔] 接线进度 ","color":"green"},{"score":{"name":"$game","objective":"signal_progress"}},{"text":"/","color":"green"},{"score":{"name":"Tunable","objective":"tunable.signal_global_target"}}]
 execute at @s run playsound minecraft:block.anvil.use master @a[distance=..15] ~ ~ ~ 1 1
 execute at @e[type=minecraft:marker,tag=marker.signal_tower,sort=nearest,limit=1] run particle minecraft:electric_spark ~ ~1 ~ 0.35 0.35 0.35 0.02 16 force
 
