@@ -1,4 +1,3 @@
-kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:crossbow",components:{"minecraft:custom_data":{skill:"marine_suppress"}}}}]
 
 scoreboard players remove @a[tag=role.marine,scores={skill.suppress_cd=1..}] skill.suppress_cd 1
 

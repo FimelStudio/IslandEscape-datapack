@@ -1,5 +1,3 @@
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"doctor_antidote"}}}}]
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"doctor_antidote_used"}}}}]
 
 execute as @a[tag=!role.doctor] run function skill:doctor/antidote/cleanup_non_doctor
 

@@ -1,9 +1,3 @@
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"mother/eat"}}}}]
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"mother/eat_release"}}}}]
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"mother/zombie_editor"}}}}]
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"mother/eat_used"}}}}]
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"mother/eat_release_used"}}}}]
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"mother/zombie_editor_used"}}}}]
 
 execute as @a[tag=!infected.mother] run function skill:mother/eat/cleanup_non_mother
 execute as @a[tag=infected.mother,tag=!state.mutated] run function skill:mother/eat/cleanup_non_mother

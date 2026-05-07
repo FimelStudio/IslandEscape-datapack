@@ -1,7 +1,5 @@
 function skill:clicker/hearing_spore/config
 
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"clicker_hearing_spore"}}}}]
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{skill:"clicker_hearing_spore_used"}}}}]
 
 execute as @a[tag=!infected.clicker] run function skill:clicker/hearing_spore/cleanup_non_clicker
 

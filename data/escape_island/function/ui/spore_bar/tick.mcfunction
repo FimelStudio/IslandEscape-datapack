@@ -1,4 +1,3 @@
-kill @e[type=minecraft:item,nbt={Item:{components:{"minecraft:custom_data":{ui:"spore_bar"}}}}]
 execute unless score $game in_game matches 1 unless entity @s[tag=state.training] run function escape_island:ui/spore_bar/clear
 execute unless score $game in_game matches 1 unless entity @s[tag=state.training] run return 0
 execute unless entity @s[tag=team.human] run function escape_island:ui/spore_bar/clear

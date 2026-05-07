@@ -1,7 +1,3 @@
-kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:tripwire_hook",components:{"minecraft:custom_data":{skill:"mechanic_trap"}}}}]
-kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:tripwire_hook",components:{"minecraft:custom_data":{skill:"mechanic_infected_trap"}}}}]
-kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:sugar",components:{"minecraft:custom_data":{skill:"mechanic_trap_used"}}}}]
-kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:sugar",components:{"minecraft:custom_data":{skill:"mechanic_infected_trap_used"}}}}]
 
 scoreboard players remove @a[tag=role.mechanic,scores={skill.trap_cd=1..}] skill.trap_cd 1
 scoreboard players remove @a[tag=infected.common,tag=retained.mechanic,scores={skill.trap_cd=1..}] skill.trap_cd 1

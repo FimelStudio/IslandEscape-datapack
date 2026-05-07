@@ -1,4 +1,3 @@
-kill @e[type=minecraft:item,nbt={Item:{id:"minecraft:paper",components:{"minecraft:custom_data":{weapon:"ak47_used"}}}}]
 execute as @a[tag=skill.ak47.update] run function skill:weapon/ak47/update_item_sync
 tag @a remove skill.ak47.update
 tag @a remove skill.ak47.holding

@@ -5,6 +5,9 @@ execute as @a[scores={ie.dialog=1..}] run function escape_island:dialog/trigger
 execute as @a[scores={ie.eat_health=1..}] run function skill:mother/eat/apply_config_trigger
 
 
+# Clear dropped system items (skills, ui, weapons) efficiently
+execute as @e[type=minecraft:item,tag=!ie.checked_drop] run function escape_island:util/clear_dropped_system_items
+
 execute as @a[tag=team.human,tag=!state.sporifying,tag=!state.dead,tag=!state.escaped,tag=!state.spectator] at @s run spawnpoint @s ~ ~ ~
 execute as @a[tag=infected.common,tag=!state.dead,tag=!state.escaped,tag=!state.spectator] at @s run spawnpoint @s ~ ~ ~
 execute as @a[tag=infected.mother,tag=!state.dead,tag=!state.escaped,tag=!state.spectator] at @s run spawnpoint @s ~ ~ ~
