@@ -24,7 +24,7 @@ tag @s remove team.infected
 tag @s remove infected.secondary_mother
 tag @s remove infected.special
 tag @s remove infected.licker
-tag @s remove infected.listener
+tag @s remove infected.clicker
 tag @s remove infected.runner
 tag @s remove infected.tank
 tag @s remove infected.spitter

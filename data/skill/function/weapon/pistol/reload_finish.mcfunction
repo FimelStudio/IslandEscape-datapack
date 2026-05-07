@@ -1,5 +1,6 @@
 tag @s remove skill.pistol.reloading
 scoreboard players set @s skill.pistol_reload 0
+scoreboard players set @s skill.pistol_reload_sec 0
 scoreboard players operation #before skill.pistol_tmp = @s skill.pistol_mag
 
 function skill:weapon/pistol/reload_load_one

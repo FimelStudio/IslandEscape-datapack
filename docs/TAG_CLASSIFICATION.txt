@@ -60,8 +60,8 @@ Island Escape Tag 分类规范
 `infected.licker`
   舔食者。与 `infected.special` 同时存在。
 
-`infected.listener`
-  循声者。与 `infected.special` 同时存在。
+`infected.clicker`
+  循声者（Clicker）。与 `infected.special` 同时存在；当前实现中仍保留 `infected.common`，用于复活、死亡、吞噬等感染体基础流程。
 
 `infected.runner`
   奔跑者。与 `infected.special` 同时存在。
@@ -130,6 +130,14 @@ Island Escape Tag 分类规范
 `skill.mother.eat.absorbing`
 `skill.mother.eat.fired`
 
+循声者：
+`skill.clicker_spore.detected`
+`skill.clicker_spore.caster`
+`skill.clicker_spore.dead`
+`skill.clicker_spore.active`
+`skill.clicker_spore.target`
+  循声孢子的释放、目标绑定、追踪和清理过程标记。
+
 神父：
 `skill.priest.cross.active`
 
@@ -170,6 +178,12 @@ Island Escape Tag 分类规范
 
 `entity.*`
   可交互实体或技能实体，例如 `entity.engineer_battery`、`entity.mechanic_trap`。
+
+`entity.clicker_spore`
+  循声者释放的追踪孢子实体，可被手枪射击破坏。
+
+`entity.clicker_spore_pending`
+  循声者成功释放技能后，等待 2 秒再转化为追踪孢子的待释放实体。
 
 `marker.*`
   地图固定点位，例如 `marker.signal_tower`、`marker.spawn_island`。

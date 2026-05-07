@@ -4,5 +4,6 @@ execute if score @s ie.dialog matches 103 run tellraw @s {"text":"返回大厅�
 
 execute if score @s ie.dialog matches 301 run tellraw @s {"text":"潜伏宿主/次级母体: 高人数局的隐藏变体，觉醒前按幸存者行动。","color":"dark_purple"}
 execute if score @s ie.dialog matches 302 run tellraw @s {"text":"特殊感染体介绍暂未接入。","color":"dark_red"}
+execute if score @s ie.dialog matches 303 run function skill:mother/eat/convert_clicker_trigger
 
 scoreboard players reset @s ie.dialog

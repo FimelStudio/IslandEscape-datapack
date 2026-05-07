@@ -1,6 +1,7 @@
 scoreboard players set @s skill.pistol_mag 8
 scoreboard players set @s skill.pistol_fire_cd 0
 scoreboard players set @s skill.pistol_reload 0
+scoreboard players set @s skill.pistol_reload_sec 0
 scoreboard players set @s skill.pistol_swap 0
 tag @s remove skill.pistol.reloading
 give @s minecraft:sugar[\

@@ -955,6 +955,25 @@ Pre-game 大厅 → 天赋 NPC → 选 1 核心 + 2 支线 → 确认
 | 失败局保护 | 失败方仍给贡献 XP，但 MVP 加成略低 |
 | 旁观限制 | 结算观战不再累积 match 分 |
 
+### 特殊感染体：循声者（Clicker）
+
+循声者由母体吞噬普通感染体后，在吞噬编辑对话框中切换获得。循声者保留普通感染体的基础属性和 `infected.common` 基础流程，同时额外拥有 `infected.special` + `infected.clicker`。
+
+| 字段 | 默认值 | 说明 |
+|---|---:|---|
+| 技能 | 循声孢子 | 右键释放，冷却期间物品显示倒计时 |
+| 冷却 | 120s | `#cooldown skill.clicker_cfg = 2400` |
+| 空放冷却 | 20s | 没有探测到暴露人类时触发，`#miss_cooldown skill.clicker_cfg = 400` |
+| 释放延迟 | 2s | 成功锁定后先凝聚，再放出孢子，`#release_delay skill.clicker_cfg = 40` |
+| 探测半径 | 50 格 | `storage skill:clicker.hearing_spore config.range` |
+| 探测条件 | W/A/S/D 或跳跃 | 潜行移动不触发；潜行跳跃仍触发 |
+| 孢子速度 | 0.38 格/tick | `config.speed` |
+| 穿墙速度 | 0.13 格/tick | `config.wall_speed`，孢子在非可穿透方块内减速 |
+| 命中污染 | +20 | `config.spore_value`，命中后调用 `infection/add_spore_load` |
+| 孢子血量 | 6 | `#spore_health skill.clicker_cfg`，M-7 单发默认可击碎 |
+
+孢子成功释放时先生成 `entity.clicker_spore_pending` 待释放 marker，2 秒后转为 `entity.clicker_spore` 追踪孢子。追踪孢子生成时会绑定被探测的人类目标，目标丢失时才改追最近人类；孢子可穿墙，穿墙时速度降低。M-7 手枪 raycast 会优先命中孢子，命中后扣除孢子血量，归零则破碎。
+
 ### Scoreboard / Tag 建议
 
 长期保存：

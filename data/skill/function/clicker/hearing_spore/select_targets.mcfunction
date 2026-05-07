@@ -1,0 +1,5 @@
+$execute at @s as @a[tag=team.human,tag=!state.dead,tag=!state.escaped,tag=!state.spectator,distance=..$(range)] unless predicate skill:is_sneak if predicate skill:is_w run tag @s add skill.clicker_spore.detected
+$execute at @s as @a[tag=team.human,tag=!state.dead,tag=!state.escaped,tag=!state.spectator,distance=..$(range)] unless predicate skill:is_sneak if predicate skill:is_a run tag @s add skill.clicker_spore.detected
+$execute at @s as @a[tag=team.human,tag=!state.dead,tag=!state.escaped,tag=!state.spectator,distance=..$(range)] unless predicate skill:is_sneak if predicate skill:is_s run tag @s add skill.clicker_spore.detected
+$execute at @s as @a[tag=team.human,tag=!state.dead,tag=!state.escaped,tag=!state.spectator,distance=..$(range)] unless predicate skill:is_sneak if predicate skill:is_d run tag @s add skill.clicker_spore.detected
+$execute at @s as @a[tag=team.human,tag=!state.dead,tag=!state.escaped,tag=!state.spectator,distance=..$(range)] if predicate skill:is_space run tag @s add skill.clicker_spore.detected

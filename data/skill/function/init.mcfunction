@@ -1,4 +1,5 @@
 function skill:weapon/init
+function skill:clicker/init
 function skill:athlete/init
 function skill:doctor/init
 function skill:captain/init

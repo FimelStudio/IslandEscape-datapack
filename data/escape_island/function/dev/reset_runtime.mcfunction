@@ -79,5 +79,8 @@ schedule clear escape_island:escape/_disguise_scan_complete
 schedule clear escape_island:escape/_ship_go
 kill @e[type=minecraft:interaction,tag=entity.ship_door]
 kill @e[tag=entity.ship_door_hint]
+kill @e[type=minecraft:marker,tag=entity.clicker_spore]
+kill @e[type=minecraft:marker,tag=entity.clicker_spore_pending]
+scoreboard players set #next_target skill.clicker_cfg 0
 
 title @a actionbar ""

@@ -27,6 +27,8 @@ kill @e[tag=entity.chef_stew_pot]
 kill @e[tag=dev.marker_vis]
 kill @e[tag=entity.downed_anchor]
 kill @e[tag=entity.dead_anchor]
+kill @e[type=minecraft:marker,tag=entity.clicker_spore]
+kill @e[type=minecraft:marker,tag=entity.clicker_spore_pending]
 
 tag @a remove team.human
 tag @a remove team.infected
@@ -37,7 +39,7 @@ tag @a remove infected.common
 tag @a remove infected.secondary_mother
 tag @a remove infected.special
 tag @a remove infected.licker
-tag @a remove infected.listener
+tag @a remove infected.clicker
 tag @a remove infected.runner
 tag @a remove infected.tank
 tag @a remove infected.spitter
@@ -56,6 +58,11 @@ tag @a remove skill.mother.eating
 tag @a remove skill.mother.eat.fired
 tag @a remove skill.mother.eat.absorbing
 tag @a remove skill.mother.eat.target
+tag @a remove skill.clicker_spore.detected
+tag @a remove skill.clicker_spore.caster
+tag @a remove skill.clicker_spore.dead
+tag @a remove skill.clicker_spore.active
+tag @a remove skill.clicker_spore.target
 tag @a remove skill.adrenaline.active
 tag @a remove skill.slide.active
 tag @a remove skill.slide.locked
@@ -108,6 +115,14 @@ scoreboard players reset @a mother_phase_timer
 scoreboard players reset @a cd_mother_rotsense
 scoreboard players reset @a cd_mother_howl
 scoreboard players reset @a cd_mother_lunge
+scoreboard players reset @a skill.clicker_cd
+scoreboard players reset @a skill.clicker_sec
+scoreboard players reset @a skill.clicker_last_sec
+scoreboard players reset @a skill.clicker_state
+scoreboard players reset @a skill.clicker_id
+scoreboard players reset @a skill.clicker_target_id
+scoreboard players reset @a skill.clicker_spore_delay
+scoreboard players set #next_target skill.clicker_cfg 0
 scoreboard players reset @a death_count
 scoreboard players reset @a hb_phase
 scoreboard players reset @a gen_interact_cd

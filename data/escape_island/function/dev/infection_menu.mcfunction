@@ -2,6 +2,7 @@ tellraw @s {"text":"\n=== 感染与死亡状态机测试 ===","color":"dark_red"
 tellraw @s [{"text":"[设为幸存者]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_survivor"}},{"text":" 基础幸存者状态，spore_threshold=100","color":"gray"}]
 tellraw @s [{"text":"[设为神父]","color":"white","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_priest"}},{"text":" 测十字架阻断","color":"gray"}]
 tellraw @s [{"text":"[设为感染者]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_infected"}},{"text":" 测感染者死亡/复活","color":"gray"}]
+tellraw @s [{"text":"[设为循声者]","color":"dark_green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_clicker"}},{"text":" 特殊感染体，测试循声孢子","color":"gray"}]
 tellraw @s [{"text":"[设为母体]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/as_mother"}},{"text":" 按当前缩放设置母体属性","color":"gray"}]
 tellraw @s [{"text":"[母体HP: 4人局]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/mother_hp_4"}},{"text":" 一键模拟4人局，预期70HP/35心","color":"gray"}]
 tellraw @s [{"text":"[母体HP: 8人局]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/mother_hp_8"}},{"text":" 一键模拟8人局，预期60HP/30心","color":"gray"}]
