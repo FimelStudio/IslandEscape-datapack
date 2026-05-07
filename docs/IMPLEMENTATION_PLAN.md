@@ -1307,6 +1307,183 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [ ] 实现计划所有非暂缓项均为 `[x]`
 - [ ] 暂缓项只剩“母体伪装 / 潜伏宿主 / 长期天赋成长 / 工具化 marker 导出”等不影响 v0.1 闭环的内容
 
+### Batch 19 — 打靶训练场
+
+状态: **待实现**
+
+目标: 在大厅/训练区提供独立的射击训练模式，玩家可用 M-7 打靶练手感、测精准度、刷个人最佳分。不依赖正式局 scoreboard，训练结束后数据保留供复玩对比。本批次在 Batch 6 M-7 系统基础上扩展，通过 `custom_data.target` 标签将训练场命中路由到独立结算逻辑，不影响正式局战斗。
+
+#### 19A — 数据结构与入口
+
+- [ ] `load.mcfunction` 注册训练场 scoreboard：
+  - `range.score`（本局得分）
+  - `range.best`（个人最佳得分）
+  - `range.hits`（本局命中数）
+  - `range.shots`（本局开枪数）
+- [ ] 自测菜单新增 `[进入训练场]` / `[退出训练场]` 按钮
+- [ ] `range/enter.mcfunction`：
+  - 给玩家 `tag range.active`
+  - 传送到训练场区域（`marker.range_spawn`）
+  - 清空 `range.score`、`range.hits`、`range.shots`；不清空 `range.best`
+  - 给 M-7 + 64 发 9mm 弹药（无限练习用）
+  - 显示操作提示 actionbar
+- [ ] `range/exit.mcfunction`：
+  - 移除 `tag range.active`
+  - 更新 `range.best`（若 `range.score > range.best` 则覆盖）
+  - 传送回大厅 `marker.lobby_spawn`
+  - 广播本局结果和个人最佳
+
+#### 19B — 靶标实体
+
+- [ ] `range/targets/static_target.mcfunction`：
+  - 在 `marker.range_static` 处 summon armor_stand，添加 `tag range.target_static`，`custom_data.target:"range_static"`，`custom_data.hp:3`
+  - 被 M-7 命中（`weapon/pistol/fire` 中检测 `target.custom_data.target` 含 `"range"`）→ 路由到 `range/target_hit`
+  - 命中后设 `custom_data.hp -= 1`；hp = 0 时播放破碎粒子+音效，3 秒后 `range/targets/reset_static`
+- [ ] `range/targets/moving_target.mcfunction`：
+  - 在轨道上每 tick 根据 `range_move_tick` scoreboard 左右平移（-3 到 +3 格来回）
+  - armor_stand + `tag range.target_moving`，`custom_data.target:"range_moving"`
+  - 命中即销毁（hp 1），2 秒后重置
+- [ ] `range/targets/reaction_target.mcfunction`：
+  - 初始隐藏（NoGravity、Invisible）；由 `range/targets/reaction_spawn` 随机等待 20–100 tick 后弹出（Invisible false + 粒子提示）
+  - 弹出后 60 tick 未命中则自动隐藏；弹出期间命中给额外 +5 分加成
+- [ ] `range/targets/sequence_targets.mcfunction`：
+  - 5 个靶按顺序编号（`custom_data.seq:1`~`5`）；仅当前序号靶高亮（发光粒子）
+  - 命中当前序号靶 → `range_seq ++`；命中非当前序号靶不计分且提示"顺序错误"
+  - 全部命中 → +30 连击加成，序列重置
+
+#### 19C — 命中结算路由
+
+- [ ] `weapon/pistol/fire.mcfunction`（已有）中，在目标分流前检测：
+  - `execute if entity @e[tag=range.target_static,distance=..50,limit=1]` 命中最近训练靶 → `function range/target_hit`（而非正式局伤害结算）
+  - 此分支仅对 `tag range.active` 玩家生效，避免正式局误触发
+- [ ] `range/target_hit.mcfunction`：
+  - 根据 `custom_data.target` 区分靶类型给分：
+    - `range_static`：+10 分
+    - `range_moving`：+20 分（移动靶精度奖励）
+    - `range_reaction`（弹出期间）：+15 + 5 弹出加成 = +20 分
+    - `range_sequence`：当前序靶 +15 分（序列全中额外 +30）
+  - `range.hits ++`，actionbar 私人显示当前分 / 命中数 / 精准度（hits/shots）
+  - 播放命中音效 `minecraft:entity.experience_orb.pickup`（pitch 随靶类型变化）
+
+#### 19D — 挑战模式
+
+- [ ] `range/mode/precision.mcfunction`（精准挑战）：
+  - 限 10 发子弹（`range_ammo_limit = 10`）；不限时
+  - 开始时广播"精准挑战开始，10发定输赢"
+  - 弹药耗尽或手动退出 → 进入结算，显示命中率 + 得分 + 最佳对比
+- [ ] `range/mode/timed.mcfunction`（限时挑战）：
+  - 弹药无限；30 秒倒计时（`range_timer = 600`，每 tick -1）
+  - 倒计时 bossbar `escape_island:range_timer` 仅对 `tag range.active` 显示
+  - 时间到 → 结算；得分排行私人显示
+- [ ] `range/mode/survival.mcfunction`（生存挑战）：
+  - 无时间限制；靶出现速度每 30 秒加快（`range_wave ++`，间隔缩短 5 tick）
+  - 连续 3 次未命中弹出靶 → 挑战结束
+  - 难度波次（wave）和得分一起计入 `range.best`
+- [ ] 自测菜单新增三个模式按钮：`[精准挑战]`、`[限时挑战]`、`[生存挑战]`
+
+#### 19E — 复位与清理
+
+- [ ] `range/reset.mcfunction`：kill 所有 `tag range.target_*` 实体，重新调用 `static_target`/`reaction_target`/`sequence_targets` 初始化
+- [ ] `range/cleanup.mcfunction`（游戏开始时调用）：确保训练场靶实体全部清除，`tag range.active` 全部移除
+- [ ] `game/start.mcfunction` 开头调用 `range/cleanup`，避免训练场状态泄漏到正式局
+- [ ] marker 需求：`marker.range_spawn`、`marker.range_static`×4、`marker.range_moving`×2 轨道端点、`marker.range_reaction`×3、`marker.range_seq_1`~`range_seq_5`
+
+验收:
+
+- [ ] 进入训练场：传送、得到枪弹、分数归零；个人最佳不清零
+- [ ] 4 种靶均可被 M-7 命中并计分；正式局开火不触发训练场分支
+- [ ] 移动靶持续左右移动，命中后 2s 重置；反应靶弹出后 60tick 未命中自动隐藏
+- [ ] 序列靶只有当前靶可得分；全序列命中触发连击加成
+- [ ] 3 种挑战模式各跑通一次：精准（10发结算）、限时（30s bossbar结算）、生存（3次miss结束）
+- [ ] 退出训练场：best 更新，结果广播，传回大厅
+
+---
+
+### Batch 20 — Last Stand 枪战小游戏
+
+状态: **待实现**
+
+目标: 在大厅提供独立的 PvP 枪战模式，2–8 名玩家使用 M-7 对战，每人 3 条命，最后存活者或得分最高者获胜。使用独立 team `gunfight` 避免与正式局阵营逻辑交叉；结束后完整清理并返回大厅状态。
+
+#### 20A — 数据结构与组局
+
+- [ ] `load.mcfunction` 注册枪战 scoreboard：
+  - `gs.lives`（剩余命数）
+  - `gs.kills`（本局击杀数）
+  - `gs.deaths`（本局死亡数）
+  - `gs.score`（本局积分：击杀 +10，存活到最后 +20）
+- [ ] 注册 team：`gunfight`（friendlyFire true，collisionRule always，nametagVisibility always，color red）
+- [ ] `gunfight/lobby.mcfunction`：大厅中等待区，`tag gs.ready`；自测菜单 `[枪战大厅]`
+- [ ] `gunfight/start.mcfunction`：
+  - 检查 `@a[tag=gs.ready]` 数量 ≥ 2 才能开始
+  - 将所有 `tag gs.ready` 玩家加入 team `gunfight`
+  - `gs.lives = 3`（所有参与者）；清空 `gs.kills`、`gs.deaths`、`gs.score`
+  - 给每人 M-7 + 16 发 9mm 弹药
+  - 传送到竞技场各 spawn 点（`marker.gs_spawn_*`，4 个）
+  - 3 秒倒计时后开始（title 显示 3/2/1/Go!）
+  - 设 `$game gs_active = 1`
+
+#### 20B — 战斗规则与伤害
+
+- [ ] `gunfight/combat_tick.mcfunction`（每 tick 由 `_tick_1` 调用，仅 `$game gs_active = 1` 时）：
+  - 检测 `tag gs.respawn_immune` 玩家（重生无敌）：`gs_immune_timer --`；归零时移除 tag + 移除无敌效果
+  - 检测 HP = 0（`scores={hp_rounded=..0}`）且无 `tag gs.dead`：调用 `gunfight/on_death`
+- [ ] `gunfight/on_death.mcfunction`：
+  - `gs.lives -= 1`
+  - 给击杀者 `gs.kills += 1` + `gs.score += 10` + 补 4 发 9mm 弹药（击杀奖励）
+  - 广播击杀提示（kill feed）：`tellraw @a[tag=gs.ready] [{"selector":"@s"},{"text":" 被 "},{"selector":"<attacker>"},{"text":" 击倒"}]`
+  - `gs.lives > 0`：3 秒后重生（`gs_immune_timer = 60`，重生传送到随机 spawn，给无敌 Resistance 255 + `tag gs.respawn_immune`）
+  - `gs.lives = 0`：给 `tag gs.eliminated`，spectator，actionbar"你已出局"
+- [ ] `weapon/pistol/fire.mcfunction` 中，`$game gs_active = 1` 分支：
+  - 对 team `gunfight` 成员有效命中固定 6 伤害（不读原版 M-7 母体/幸存者分流）
+  - `gs.deaths` 由 `on_death` 在被杀者身上结算
+- [ ] 重生无敌期间不可受到任何来源伤害（Resistance 255 覆盖）
+
+#### 20C — 结束判定
+
+- [ ] `gunfight/combat_tick.mcfunction` 每秒检查：
+  - `@a[tag=gs.ready,tag=!gs.eliminated]` 数量 ≤ 1 → `gunfight/end`
+  - 或 `$game gs_timer` 归零（可选时间限制：`gs_timer = 18000` → 5分钟，`_tick_1` 每秒 -20）→ `gunfight/end`
+- [ ] `gunfight/end.mcfunction`：
+  - `$game gs_active = 0`
+  - 最后存活者 `gs.score += 20`（最后存活加成）
+  - 结算面板（`tellraw @a` + score display）：
+    - 标题：`赢了！XX 是最后的幸存者` 或 `时间到！`
+    - 积分排行：前 3 名姓名 + 击杀数 + 积分
+    - MVP：`gs.kills` 最高者标注 ⭐ 最佳猎手
+  - 全员传送回大厅（`marker.lobby_spawn`）
+  - 移除 team `gunfight` 所有成员，清除所有 `gs.*` tag，游戏模式改回 adventure
+
+#### 20D — 竞技场与补给点
+
+- [ ] 补给点 tick（`gunfight/supply_tick.mcfunction`，每秒）：
+  - 3 个 `marker.gs_supply` 处各有一个装备箱
+  - `gs_supply_timer` 倒计时 500 tick（25s）；归零时刷新为 8 发 9mm 弹药（loot insert）
+  - 仅 `tag gs.ready` 玩家可开箱；不阻止 `tag gs.eliminated`（旁观者）观看
+- [ ] marker 需求：`marker.gs_spawn_1`~`4`（4 个出生点），`marker.gs_supply_1`~`3`（3 个补给点），`marker.gs_lobby`（等待区）
+- [ ] 竞技场建议：封闭空间，有掩体，禁止飞行（`gamemode adventure` 已保证）；建议地图制作时用告示牌标记 spawn 和 supply 位置
+
+#### 20E — 清理与安全
+
+- [ ] `gunfight/cleanup.mcfunction`：
+  - kill 所有 `marker.gs_*` 生成的临时实体
+  - 清除所有 `gs.*` tag
+  - 设 `$game gs_active = 0`
+  - team `gunfight` removeAllPlayers（不销毁 team，避免重复注册冲突）
+  - 恢复所有受影响玩家的 gamemode → adventure
+- [ ] `game/start.mcfunction` 开头调用 `gunfight/cleanup`，避免枪战状态泄漏到正式局
+- [ ] 自测菜单：`[快速枪战 (2人)]`（直接将当前玩家 + 1 个测试人偶加入枪战）、`[清理枪战]`
+
+验收:
+
+- [ ] 2 人组局：得到 M-7 + 16 发弹药，传送到各自 spawn，3 秒倒计时后可互相造成伤害
+- [ ] 击杀对手：击杀者 +10 积分 +4 弹药；kill feed 广播；对手 3 命扣 1，3 秒后重生并有 3 秒无敌
+- [ ] 对手 3 命耗尽：进入旁观，游戏结束，最后存活者 +20 积分，结算面板显示正确
+- [ ] 重生无敌期间不可受伤；无敌结束后正常可受伤
+- [ ] 补给点 25 秒刷新 8 发弹药；开箱正常消耗弹药
+- [ ] 枪战结束后传回大厅，所有 gs.* 状态清除；之后可以正常开始正式局
+- [ ] 正式局中 `$game gs_active = 0`，枪战伤害分支不触发
+
 ---
 
 ## 五、自测记录
