@@ -20,9 +20,14 @@ execute as @a unless entity @s[tag=skill.pistol.reloading] if items entity @s we
 
 execute as @a[tag=skill.pistol.holding,tag=!skill.pistol.update] run function skill:weapon/pistol/sync_held
 execute as @a[tag=skill.pistol.holding] run function skill:weapon/pistol/render_xp
-execute as @a[tag=!skill.pistol.holding,tag=skill.pistol.xp] run function skill:weapon/pistol/clear_xp
+execute as @a[tag=!skill.pistol.holding,tag=!skill.ak47.holding,tag=skill.pistol.xp] run function skill:weapon/pistol/clear_xp
 
-execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_sec = @s skill.pistol_reload
-execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_sec += #reload_round skill.pistol_tmp
-execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_sec /= #twenty skill.pistol_tmp
-execute as @a[tag=skill.pistol.reloading] run title @s actionbar [{"text":"换弹中 ","color":"yellow"},{"score":{"name":"@s","objective":"skill.pistol_reload_sec"}},{"text":"s","color":"dark_gray"}]
+execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_cs = @s skill.pistol_reload
+execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_cs *= #five skill.pistol_tmp
+execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_sec = @s skill.pistol_reload_cs
+execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_sec /= #hundred skill.pistol_tmp
+execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_frac = @s skill.pistol_reload_cs
+execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_frac %= #hundred skill.pistol_tmp
+execute as @a[tag=skill.pistol.reloading,scores={skill.pistol_reload_frac=0}] run title @s actionbar [{"text":"换弹中 ","color":"yellow"},{"score":{"name":"@s","objective":"skill.pistol_reload_sec"}},{"text":".00s","color":"dark_gray"}]
+execute as @a[tag=skill.pistol.reloading,scores={skill.pistol_reload_frac=1..9}] run title @s actionbar [{"text":"换弹中 ","color":"yellow"},{"score":{"name":"@s","objective":"skill.pistol_reload_sec"}},{"text":".0","color":"dark_gray"},{"score":{"name":"@s","objective":"skill.pistol_reload_frac"}},{"text":"s","color":"dark_gray"}]
+execute as @a[tag=skill.pistol.reloading,scores={skill.pistol_reload_frac=10..99}] run title @s actionbar [{"text":"换弹中 ","color":"yellow"},{"score":{"name":"@s","objective":"skill.pistol_reload_sec"}},{"text":".","color":"dark_gray"},{"score":{"name":"@s","objective":"skill.pistol_reload_frac"}},{"text":"s","color":"dark_gray"}]

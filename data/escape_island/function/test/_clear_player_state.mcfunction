@@ -2,6 +2,8 @@ function escape_island:dev/_reset_player_state
 function skill:athlete/slide_tackle/cleanup_non_athlete
 function skill:weapon/pistol/clear_state
 function skill:weapon/pistol/clear_xp
+function skill:weapon/ak47/clear_state
+function skill:weapon/ak47/clear_xp
 
 tag @s remove state.training
 tag @s remove state.boarding
@@ -84,8 +86,18 @@ scoreboard players set @s skill.pistol_mag 0
 scoreboard players set @s skill.pistol_fire_cd 0
 scoreboard players set @s skill.pistol_reload 0
 scoreboard players set @s skill.pistol_reload_sec 0
+scoreboard players set @s skill.pistol_reload_cs 0
+scoreboard players set @s skill.pistol_reload_frac 0
 scoreboard players set @s skill.pistol_tmp 0
 scoreboard players set @s skill.pistol_swap 0
+scoreboard players set @s skill.ak47_mag 0
+scoreboard players set @s skill.ak47_fire_cd 0
+scoreboard players set @s skill.ak47_reload 0
+scoreboard players set @s skill.ak47_reload_sec 0
+scoreboard players set @s skill.ak47_reload_cs 0
+scoreboard players set @s skill.ak47_reload_frac 0
+scoreboard players set @s skill.ak47_tmp 0
+scoreboard players set @s skill.ak47_swap 0
 scoreboard players set @s skill.battery_timer 0
 scoreboard players set @s skill.gm_runtime 0
 scoreboard players reset @s ie.dialog

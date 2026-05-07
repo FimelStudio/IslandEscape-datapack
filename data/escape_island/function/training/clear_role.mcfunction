@@ -2,6 +2,7 @@ clear @s
 clear @s minecraft:crossbow[minecraft:custom_data~{weapon:"pistol"}]
 clear @s minecraft:sugar[minecraft:custom_data~{weapon:"pistol"}]
 function skill:weapon/pistol/clear_state
+function skill:weapon/ak47/clear_state
 tag @s add state.training
 tag @s remove team.human
 tag @s remove team.infected

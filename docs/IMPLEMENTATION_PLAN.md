@@ -298,7 +298,7 @@ Part 11 已实现并通过:
 
 ### Batch 4.7 — 结局闭环补丁
 
-状态: **进行中（Part 1 全员转化立即结局已实现，已游戏内验收）**
+状态: **进行中（Part 1 全员转化立即结局已实现，已游戏内验收；Part 2 感染期登载转化驱离已实现，待游戏内验收）**
 
 目标: 补全两个游戏闭环缺口：全员转化应立即结局；感染期玩家在登机窗口转化应被驱离。
 
@@ -306,15 +306,16 @@ Part 11 已实现并通过:
 
 - [x] `game/_tick_20.mcfunction`（每秒）：对局中若已无 `team.human`，进入全员转化结局入口
 - [x] `game/end_all_infected.mcfunction`：全员 title "§8岛上再无生者……" + `entity.warden.death` 音效，3s 后调用 `game/end_mutate`
-- [ ] 感染期登机窗口转化驱离：
-  - `escape/helicopter_tick.mcfunction`（每秒）：`execute as @a[tag=state.boarding,tag=infected.common] run function escape_island:escape/boarding_convert_kick`
-  - `escape/boarding_convert_kick.mcfunction`：`tag @s remove state.boarding` + `gamemode adventure @s` + `title @s actionbar {"text":"§c感染爆发——你被驱离"}` + `playsound entity.player.hurt`
-  - 同样在 `ship_dock_tick.mcfunction` 和 `submarine_tick.mcfunction` 加入相同检测
+- [x] 感染期登机窗口转化驱离：
+  - `escape/helicopter_boarding_tick.mcfunction`（每秒）：`execute as @a[tag=state.boarding,tag=infected.common] run function escape_island:escape/boarding_convert_kick`
+  - `escape/boarding_convert_kick.mcfunction`：`tag @s remove state.boarding` + `gamemode adventure @s` + `title @s actionbar {"text":"§c感染爆发——你被驱离"}`
+  - 同样在 `ship_boarding_tick.mcfunction` 和 `sub_tick.mcfunction` 加入相同检测；`_helicopter_depart` / `_ship_go` / `_sub_go` 出发前再兜底检查一次
+  - `escape/boarding_check.mcfunction`：成功撤离时清除 `state.infected_period` 和 `infect_time`，保证载具离开后不再触发转化驱离
 - [x] 自测菜单增加：`[测试：全员转化结局]`
-- [ ] 自测菜单增加：`[测试：感染期登机转化驱离]`（给自己 state.boarding + 短感染期倒计时）
+- [x] 自测菜单增加：`[测试：感染期登载驱离]`（给自己 state.boarding + 短感染期倒计时）
 
 验收:
-- [ ] 全部幸存者转化 → 3 秒内 Bad End，不等 15:00
+- [x] 全部幸存者转化 → 3 秒内 Bad End，不等 15:00
 - [ ] 感染期玩家登机，窗口内转化 → 立刻被踢出，成为场上感染者
 - [ ] 感染期玩家登机，转化前飞离 → 计为成功撤离
 - [ ] 上述逻辑对轮船 / 潜艇同样生效

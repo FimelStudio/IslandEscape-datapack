@@ -1,0 +1,19 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{weapon:\"ak47_used\"}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:weapon/ak47/use"
+  }
+}
