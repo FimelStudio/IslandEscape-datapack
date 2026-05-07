@@ -1,4 +1,5 @@
 title @a title {"text":"游戏结束","color":"gold","bold":true}
+scoreboard players set $game final_pressure 0
 
 gamemode spectator @a[tag=state.escaped]
 gamemode adventure @a[tag=!state.escaped]
@@ -70,6 +71,9 @@ tag @a remove state.infected_period
 tag @a remove state.sporifying
 tag @a remove state.dead
 tag @a remove state.boarding
+tag @a remove state.boarding.heli
+tag @a remove state.boarding.ship
+tag @a remove state.boarding.sub
 tag @a remove state.escaped
 tag @a remove state.spectator
 tag @a remove state.disguised

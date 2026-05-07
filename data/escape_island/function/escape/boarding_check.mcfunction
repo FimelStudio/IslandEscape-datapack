@@ -1,6 +1,9 @@
 execute if entity @s[tag=state.escaped] run return 0
 tag @s add state.escaped
 tag @s remove state.boarding
+tag @s remove state.boarding.heli
+tag @s remove state.boarding.ship
+tag @s remove state.boarding.sub
 tag @s remove state.infected_period
 scoreboard players set @s infect_time 0
 function escape_island:ui/spore_bar/clear

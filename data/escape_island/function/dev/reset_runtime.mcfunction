@@ -1,6 +1,9 @@
 scoreboard players set $game in_game 0
 scoreboard players set $game cur_phase 0
 scoreboard players set $game phase_timer 0
+scoreboard players set $game final_pressure 0
+scoreboard players set $game escape_route 0
+scoreboard players set $game escape_result 0
 scoreboard players set $game signal_progress 0
 scoreboard players set $game signal_done 0
 scoreboard players set $game gen_done 0
@@ -62,6 +65,9 @@ tag @a remove event.has_flashlight
 tag @a remove gen.channel.sabotage
 tag @a remove gen.channel.repair
 tag @a remove state.boarding
+tag @a remove state.boarding.heli
+tag @a remove state.boarding.ship
+tag @a remove state.boarding.sub
 tag @a remove state.escaped
 tag @a remove state.disguise_scanning
 effect clear @a minecraft:blindness

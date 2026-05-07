@@ -21,7 +21,7 @@ tellraw @s [{"text":"[伪装贴身孢子]","color":"dark_green","bold":true,"cli
 tellraw @s [{"text":"[单人模拟感染链提示]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/infection_chain_self"}},{"text":" 单人debug验证“核心母体”提示分支","color":"gray"}]
 tellraw @s [{"text":"[刷测试人偶]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/spawn_dummies"}},{"text":" 在身边生成幸存者/感染者/母体人偶","color":"gray"}]
 tellraw @s {"text":""}
-tellraw @s [{"text":"[+35污染]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/add_spore_35"}},{"text":" 感染者命中量","color":"gray"}]
+tellraw @s [{"text":"[+27污染]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/add_spore_27"}},{"text":" 普通感染者命中量。4次≥100→感染期","color":"gray"}]
 tellraw @s [{"text":"[+40污染]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/add_spore_40"}},{"text":" 母体有效命中量×1。3次≥120→感染期","color":"gray"}]
 tellraw @s [{"text":"[强制感染期]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:infection/force_infect"}},{"text":" 直接进入感染期，actionbar显示转化倒计时","color":"gray"}]
 tellraw @s [{"text":"[治愈自己]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:infection/cure"}},{"text":" 清除感染期","color":"gray"}]

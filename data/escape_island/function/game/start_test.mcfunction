@@ -24,6 +24,9 @@ scoreboard players set $game bomb_armed 0
 scoreboard players set $game dawn_active 0
 scoreboard players set $game mother_dead 0
 scoreboard players set $game ending_triggered 0
+scoreboard players set $game final_pressure 0
+scoreboard players set $game escape_route 0
+scoreboard players set $game escape_result 0
 scoreboard players set $game signal_progress 0
 scoreboard players set $game signal_done 0
 scoreboard players set @e[type=minecraft:marker,tag=marker.signal_tower] signal_local 0
@@ -86,6 +89,9 @@ tag @a remove skill.clicker_spore.active
 tag @a remove skill.clicker_spore.target
 tag @a remove state.infected_period
 tag @a remove state.boarding
+tag @a remove state.boarding.heli
+tag @a remove state.boarding.ship
+tag @a remove state.boarding.sub
 tag @a remove state.escaped
 tag @a remove state.sporifying
 tag @a remove state.dead

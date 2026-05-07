@@ -2,6 +2,9 @@ execute if entity @s[tag=state.disguise_scanning] run title @s actionbar {"text"
 execute if entity @s[tag=state.disguise_scanning] run return 0
 
 tag @s add state.boarding
+tag @s add state.boarding.heli
+tag @s remove state.boarding.ship
+tag @s remove state.boarding.sub
 gamemode spectator @s
 tag @s add state.disguise_scanning
 title @s title {"text":"正在扫描身份","color":"dark_purple","bold":true}

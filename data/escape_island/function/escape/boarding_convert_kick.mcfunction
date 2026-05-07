@@ -1,6 +1,14 @@
 execute unless entity @s[tag=state.boarding,tag=infected.common] run return 0
 
+execute if entity @s[tag=state.boarding.heli] at @e[type=minecraft:marker,tag=heli.selected_pad,limit=1] run tp @s ~4 ~1 ~
+execute if entity @s[tag=state.boarding.heli] unless entity @e[type=minecraft:marker,tag=heli.selected_pad,limit=1] at @e[tag=entity.helicopter,limit=1] run tp @s ~4 ~1 ~
+execute if entity @s[tag=state.boarding.ship] at @e[type=minecraft:marker,tag=marker.ship_dock,sort=nearest,limit=1] run tp @s ~4 ~1 ~
+execute if entity @s[tag=state.boarding.sub] at @e[type=minecraft:marker,tag=marker.lab_sub,sort=nearest,limit=1] run tp @s ~4 ~1 ~
+
 tag @s remove state.boarding
+tag @s remove state.boarding.heli
+tag @s remove state.boarding.ship
+tag @s remove state.boarding.sub
 tag @s remove state.escaped
 tag @s remove state.spectator
 tag @s remove team.human

@@ -7,6 +7,9 @@ function skill:weapon/ak47/clear_xp
 
 tag @s remove state.training
 tag @s remove state.boarding
+tag @s remove state.boarding.heli
+tag @s remove state.boarding.ship
+tag @s remove state.boarding.sub
 tag @s remove state.escaped
 tag @s remove state.spectator
 tag @s remove state.disguise_scanning

@@ -17,6 +17,9 @@ tag @s remove team.infected
 tag @s remove infected.common
 tag @s remove infected.mother
 tag @s remove state.boarding
+tag @s remove state.boarding.heli
+tag @s remove state.boarding.ship
+tag @s remove state.boarding.sub
 tag @s remove state.escaped
 
 function escape_island:escape/helicopter_call

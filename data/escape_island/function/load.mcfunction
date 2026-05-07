@@ -24,6 +24,7 @@ scoreboard objectives add cd_mother_hunt dummy
 scoreboard objectives add cd_mother_mutate dummy
 scoreboard objectives add cd_mother_passive_spore dummy
 scoreboard objectives add cd_aura_heartbeat dummy
+scoreboard objectives add cd_aura_notice dummy
 scoreboard objectives add cd_mother_rotsense dummy
 scoreboard objectives add cd_mother_howl dummy
 scoreboard objectives add kit_remaining dummy
@@ -44,6 +45,8 @@ scoreboard objectives add gen_hold_seen dummy
 scoreboard objectives add gen_hold_lock dummy
 scoreboard objectives add gen_interact_cd dummy
 scoreboard objectives add gen_done dummy
+scoreboard objectives add power_buff dummy
+scoreboard objectives add power_buff_acc dummy
 scoreboard objectives add ship_progress dummy
 scoreboard objectives add ship_parts dummy
 scoreboard objectives add ship_bonus_tick dummy
@@ -51,7 +54,10 @@ scoreboard objectives add ship_hold_time dummy
 scoreboard objectives add ship_hold_seen dummy
 scoreboard objectives add ship_count dummy
 scoreboard objectives add lab_cards dummy
+scoreboard objectives add lab_spawn_left dummy
 scoreboard objectives add ending_triggered dummy
+scoreboard objectives add escape_route dummy
+scoreboard objectives add escape_result dummy
 scoreboard objectives add bomb_armed dummy
 scoreboard objectives add bomb_countdown dummy
 scoreboard objectives add bomb_repair_time dummy
@@ -63,6 +69,12 @@ scoreboard objectives add sub_countdown dummy
 scoreboard objectives add escaped_count dummy
 scoreboard objectives add infected_dead dummy
 scoreboard objectives add mother_dead dummy
+scoreboard objectives add final_pressure dummy
+scoreboard objectives add scan_active dummy
+scoreboard objectives add scan_time dummy
+scoreboard objectives add scan_station_cd dummy
+scoreboard objectives add scan_result dummy
+scoreboard objectives add hp_current dummy
 scoreboard objectives add sporify_timer dummy
 scoreboard objectives add player_count dummy
 scoreboard objectives add infected_count dummy
@@ -97,6 +109,12 @@ scoreboard objectives add tunable.signal_team_cap_2p dummy
 scoreboard objectives add tunable.signal_team_cap_3p dummy
 scoreboard objectives add tunable.signal_team_cap_4p dummy
 scoreboard objectives add tunable.ship_parts_required dummy
+scoreboard objectives add tunable.ship_boarding_seconds dummy
+scoreboard objectives add tunable.lab_researcher_count dummy
+scoreboard objectives add tunable.lab_card_required dummy
+scoreboard objectives add tunable.escape_full_win_count dummy
+scoreboard objectives add tunable.power_buff_multiplier dummy
+scoreboard objectives add tunable.scan_station_cd dummy
 scoreboard objectives add tunable.helicopter_countdown dummy
 scoreboard objectives add tunable.dawn_transition_seconds dummy
 scoreboard objectives add tunable.death_sporify_seconds dummy
@@ -160,6 +178,8 @@ bossbar add escape_island:sub {"text":"潜艇倒计时","color":"aqua"}
 bossbar set escape_island:sub visible false
 bossbar add escape_island:bomb {"text":"自爆倒计时","color":"red"}
 bossbar set escape_island:bomb visible false
+bossbar add escape_island:scan {"text":"隔离扫描","color":"blue"}
+bossbar set escape_island:scan visible false
 bossbar add escape_island:infection {"text":"感染期","color":"red"}
 bossbar set escape_island:infection visible false
 bossbar add escape_island:disguise {"text":"伪装倒计时","color":"dark_purple"}
@@ -178,6 +198,11 @@ scoreboard players set $tick decay_cycle 0
 scoreboard players set $const_60 event_threshold 60
 scoreboard players set $const_2 spore_load 2
 scoreboard players set $const_4 infect_time 4
+scoreboard players set $const_10 signal_progress 10
+scoreboard players set $const_17 signal_progress 17
+scoreboard players set $const_20 signal_progress 20
+scoreboard players set $const_2 ship_progress 2
+scoreboard players set $const_10 ship_progress 10
 scoreboard players set $const_20 cd_mother_rotsense 20
 scoreboard players set $const_minus1 heli_countdown -1
 scoreboard players set $dev mother_hit_cd 0

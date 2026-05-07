@@ -44,16 +44,16 @@ v0.1 视为完成需要同时满足：
 
 | GDD / BALANCE 模块 | 实现计划覆盖 | v0.1 状态 | 备注 |
 |---|---|---|---|
-| 对局阶段时间线、正式开局、测试开局 | Batch 1 / 4.5 / 12 / 17 | 基本完成，待终局高压补齐 | 12:30 终局高压由 Batch 17 新增 |
+| 对局阶段时间线、正式开局、测试开局 | Batch 1 / 4.5 / 12 / 17 | 基本完成，终局高压待手测 | 12:30 终局高压由 Batch 17 新增 |
 | 阵营、母体、普通感染者、感染期、死亡转化 | Batch 3 / 4 / 17 | ⚠️ 已完成但有遗留问题 | HP 基准 80（应为 60）、PvP 用 gamerule（应改 team）；普通感染者知道母体身份并在母体附近复活作为正式规则 |
 | 母体两状态系统、成长时机、变异计时、PvP 架构、flag 迁移 | **Batch 4.6**（新增） | **已完成** | Part 1–11 已通过单人菜单手测/设计确认；核心重构批次已收口 |
-| 全员转化立即结局、感染期登机转化驱离 | **Batch 4.7**（新增） | **进行中** | 结局闭环补丁，按可游戏内测试的小段推进 |
+| 全员转化立即结局、感染期登机转化驱离 | **Batch 4.7**（新增） | **已完成** | 全员转化、登载转化驱离、转化前撤离均已通过菜单手测 |
 | 母体成长、腐痕感知、集群嚎叫、吞噬 | Batch 4 / 4.5 | 已完成，待 4.6 回归验收 | 成长数值和时机需随 4.6 更新 |
 | 母体伪装期被动孢子脉冲 + 侵蚀光环 | **Batch 4.6 / 17** | **部分实现** | 孢子脉冲已进 Batch 4.6；修复降速侵蚀光环仍待 Batch 17 |
 | 10 职业技能 | Batch 5 / 6 | 基本完成，需回归 | 已发现并修过海军枪械精通；最终压测再覆盖 |
 | 厨师热汤 v0.2 调整（120s/8格/优先队友） | Batch 17 | 待实现 | 感染期目标只暂停转化倒计时 8s + 回血，不清除感染期 |
-| 通讯员转化保留虚假扫描 v0.2 临时实现 | Batch 17 | 待实现 | 取代"待重做"占位 |
-| 感染者污染值由 +35 → +27 | Batch 17 | 待实现 | 恢复母体在感染效率上的绝对优势 |
+| 通讯员转化保留 | Batch 17F | 待重设计 | 旧版虚假扫描废弃，避免与通讯员私有扫描规则冲突 |
+| 感染者污染值由 +35 → +27 | Batch 17D | 已完成 | 恢复母体在感染效率上的绝对优势 |
 | 特殊感染体：循声者（Clicker） | 新增补丁 | 已完成 | 母体吞噬编辑中切换；循声孢子追踪移动人类，可被手枪击碎 |
 | M-7 手枪系统 | Batch 6 | 已完成，需回归 | 组员报错已修，仍需多人实战确认 |
 | 直升机旧主线 | Batch 7 / 8 | 旧版已完成 | 已被 Batch 13 重构为 5 塔信号网络 |
@@ -61,10 +61,10 @@ v0.1 视为完成需要同时满足：
 | **5 塔信号网络（v0.2 重构）** | **Batch 17** | **已完成 17A** | 核心塔贡献砍半 + 边塔速率减半 + 团队上限收敛；目标 4 人局 5–6 分钟 |
 | **发电机奖励强化（v0.2）** | **Batch 17** | **待实现** | 从仅缩短倒计时升级为全图修复速率 ×1.2 + 倒计时 -15s |
 | 轮船路线 | Batch 9 / 13C | 已平衡重构，待部件分散与 4 人验收 | 重点是地图刷点分散和 2.5 倍修复上限 |
-| 轮船登船窗口按人数缩放（v0.2） | Batch 17 | 待实现 | 4–7 人 45s / 8–12 人 50s / 13+ 60s |
+| 轮船登船窗口按人数缩放（v0.2） | Batch 17H | 已完成 | 已通过菜单手测；4–7 人 45s / 8–12 人 50s / 13+ 60s |
 | 实验室支援 / 潜艇隐藏路线 | Batch 9 / 17 | 已实现，需手测/回归 | 实验室优先作为疫苗、防毒面具、隔离扫描、文件支援路线；潜艇不作为常规胜率基准 |
-| 实验室研究员数量 = 身份卡碎片数（v0.2） | Batch 17 | 待实现 | 由 `apply_scaling` 写入；不再固定 4 个 |
-| 多撤离路线并行处理 + 分层胜负（v0.2） | Batch 17 | 待实现 | 首结算路线优先；撤离人数达到阈值才完整胜利，低于阈值为惨胜 |
+| 实验室研究员数量 = 身份卡碎片数（v0.2） | Batch 17I | 已完成 | 已通过菜单手测；4/8/17 人为 3/4/5 |
+| 多撤离路线并行处理 + 分层胜负（v0.2） | Batch 17G | 进行中 | 分层撤离结果已实现，等待菜单手测 |
 | 隔离扫描（社交推理补强） | Batch 17 | 待实现 | 2 人读条，正常 / 孢子异常 / 严重异常，病毒学家加速 |
 | 自爆真结局 | Batch 9 | 已实现，需回归 | 触发条件随新版信号网络改为 `signal_done` |
 | 母体伪装结局 / X-7 | 后续彩蛋批次（暂缓） | 暂缓，不计入 v0.1 | 用户已确认可先放后；正常局闭环优先 |
@@ -298,7 +298,7 @@ Part 11 已实现并通过:
 
 ### Batch 4.7 — 结局闭环补丁
 
-状态: **进行中（Part 1 全员转化立即结局已实现，已游戏内验收；Part 2 感染期登载转化驱离已实现，待游戏内验收）**
+状态: **已完成（全员转化立即结局、登载窗口转化驱离、转化前撤离均已通过菜单手测）**
 
 目标: 补全两个游戏闭环缺口：全员转化应立即结局；感染期玩家在登机窗口转化应被驱离。
 
@@ -308,17 +308,19 @@ Part 11 已实现并通过:
 - [x] `game/end_all_infected.mcfunction`：全员 title "§8岛上再无生者……" + `entity.warden.death` 音效，3s 后调用 `game/end_mutate`
 - [x] 感染期登机窗口转化驱离：
   - `escape/helicopter_boarding_tick.mcfunction`（每秒）：`execute as @a[tag=state.boarding,tag=infected.common] run function escape_island:escape/boarding_convert_kick`
-  - `escape/boarding_convert_kick.mcfunction`：`tag @s remove state.boarding` + `gamemode adventure @s` + `title @s actionbar {"text":"§c感染爆发——你被驱离"}`
+  - `escape/boarding_convert_kick.mcfunction`：按登载路线传送回直升机坪 / 船坞 / 潜艇 marker 附近，再 `tag @s remove state.boarding` + `gamemode adventure @s` + `title @s actionbar {"text":"§c感染爆发——你被驱离"}`
   - 同样在 `ship_boarding_tick.mcfunction` 和 `sub_tick.mcfunction` 加入相同检测；`_helicopter_depart` / `_ship_go` / `_sub_go` 出发前再兜底检查一次
   - `escape/boarding_check.mcfunction`：成功撤离时清除 `state.infected_period` 和 `infect_time`，保证载具离开后不再触发转化驱离
 - [x] 自测菜单增加：`[测试：全员转化结局]`
 - [x] 自测菜单增加：`[测试：感染期登载驱离]`（给自己 state.boarding + 短感染期倒计时）
+- [x] 自测菜单增加：`[测试：感染期起飞成功]`（感染期已登机但转化前起飞，验证成功撤离）
+- [x] 自测菜单增加：`[测试：船艇感染期撤离]`（感染期已登船/艇但转化前离开，验证轮船/潜艇成功撤离）
 
 验收:
 - [x] 全部幸存者转化 → 3 秒内 Bad End，不等 15:00
-- [ ] 感染期玩家登机，窗口内转化 → 立刻被踢出，成为场上感染者
-- [ ] 感染期玩家登机，转化前飞离 → 计为成功撤离
-- [ ] 上述逻辑对轮船 / 潜艇同样生效
+- [x] 感染期玩家登机，窗口内转化 → 立刻被踢回载具附近，成为场上感染者
+- [x] 感染期玩家登机，转化前飞离 → 计为成功撤离
+- [x] 上述逻辑对轮船 / 潜艇同样生效
 
 ### Batch 5 — 幸存者 10 职业技能
 
@@ -1099,7 +1101,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 17 — v0.2 玩法平衡重构
 
-状态: **待实现**
+状态: **进行中（17A、17D、17H、17I、17J 已完成；17G 分层撤离结局已实现，等待游戏内验收）**
 
 目标: 解决 v0.1 暴露出的几项关键平衡问题，统一为 v0.2 玩法基线。本批次不改动地图 marker 结构，只改函数行为和 scoreboard 数值，保证现有自测沙盒和正式地图都不需要重摆 marker。
 
@@ -1155,9 +1157,9 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 #### 17D — 普通感染者污染值调整
 
-- [ ] `interaction/on_hit_by_infected.mcfunction`：每次有效命中由 `+35` 改为 `+27`
-- [ ] `tunable.infected_spore_hit = 27`（开局写入）
-- [ ] 自测菜单 `[+35污染]` 按钮改名为 `[+27污染]`（可选，便于读数对齐）
+- [x] `interaction/on_hit_by_infected.mcfunction`：每次有效命中由 `+35` 改为 `+27`
+- [x] `tunable.infected_spore_hit = 27`（开局写入）
+- [x] 自测菜单 `[+35污染]` 按钮改名为 `[+27污染]`（可选，便于读数对齐）
 
 #### 17E — 厨师热汤 v0.2 调整
 
@@ -1172,63 +1174,65 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
   - 否则自愈
 - [ ] `escape_island:role/tick_chef.mcfunction`：被动光环范围 5 → 8 格；吸收 I 每 5 秒刷新
 
-#### 17F — 通讯员虚假扫描 v0.2 临时实现
+#### 17F — 通讯员转化保留重设计
 
-- [ ] 新建 `data/skill/function/radio/fake_scan/{config,init,use,start,tick}.mcfunction`
-- [ ] 新建 advancement `data/skill/advancement/radio/fake_scan/use.json`（`consume_item` + `custom_data.skill:"radio_fake_scan"`）
-- [ ] `infection/turn.mcfunction`：感染者通讯员转化时给"干扰器"道具 + 注册 scoreboard `fake_scan_charges = 3`
-- [ ] `start.mcfunction`：
-  - 从在场幸存者随机选 1 名为接收者（`util/random_select` 已有）
-  - 从其余幸存者随机选 1 名为"被指认者"
-  - 距离段从 `["近距离","中距离","远距离"]` 三选一
-  - 私聊接收者：`[信号扫描] 检测到异常生命体征：<被指认者> 距离约 <段>`（格式与真实信号扫描完全一致）
-  - 冷却 120s，charges -1；charges = 0 时道具不再补发但提示"干扰器已耗尽"
-- [ ] 自测菜单：`[测试虚假扫描]` 给自己干扰器并伪装为感染者
+- [ ] 旧版"虚假扫描"方案废弃：真实信号扫描只私发给通讯员本人，不能由系统向随机幸存者私发伪造报告，否则机制露馅
+- [ ] 不采用"只给使用者本人假结果"：可以口头谎报但玩法收益过低
+- [ ] 重新设计为通讯频道污染 / 公共异常噪声 / 真实扫描干扰 / 短时伪造环境事件等社交压力工具
+- [ ] 确认新方案后再新增道具、advancement 和自测菜单
 
 #### 17G — 多撤离路线并行处理 + 分层胜负
 
-- [ ] `escape/_ending_resolve.mcfunction`（新建）：统一结局判定入口
+- [x] `escape/_ending_resolve.mcfunction`（新建）：统一结局判定入口
   - 各撤离路线（直升机/轮船/潜艇）的成功登载完成时调用此函数
-  - 函数内检查 `$game ending_resolved` 标志位：若已结算，则丢弃后续登载结果（让先到的赢）
+  - 函数内检查 `$game ending_triggered` 标志位：若已结算，则丢弃后续登载结果（让先到的赢）
   - 同 tick 多次调用按调用顺序优先：直升机 → 轮船 → 潜艇（实现上由各路线注册顺序保证）
-- [ ] `util/apply_scaling.mcfunction` 写入 `tunable.escape_full_win_count`：
+- [x] `util/apply_scaling.mcfunction` 写入 `tunable.escape_full_win_count`：
   - 4–7 人 = 1
   - 8–12 人 = 2
   - 13–16 人 = 3
   - 17–20 人 = 4
-- [ ] `escape/_ending_resolve.mcfunction` 统计 `escaped_survivors`：
+- [x] `escape/_ending_resolve.mcfunction` 统计 `escaped_survivors`：
   - `escaped_survivors = 0` → 不触发幸存者撤离结局
   - `escaped_survivors < escape_full_win_count` → `escape_result = 1` 惨胜 / 部分撤离
   - `escaped_survivors >= escape_full_win_count` → `escape_result = 2` 完整幸存者胜利
-- [ ] `escape/helicopter_door_interact.mcfunction` / `ship_dock_tick.mcfunction` / `submarine_tick.mcfunction`：原本直接 `function game/end_xxx` 改为先调用 `escape/_ending_resolve`，再由 resolve 决定是否触发结局函数
+- [x] `escape/helicopter_motion_tick.mcfunction` / `_ship_go.mcfunction` / `_sub_go.mcfunction`：原本直接 `function game/end_xxx` 改为先调用 `escape/_ending_resolve`，再由 resolve 决定是否触发结局函数
+- [x] 后到路线保护：各撤离路线在 `ending_triggered` 已置位后不再覆盖 `escape_route`
 - [ ] 自爆 `bomb_tick.mcfunction`：保持独立倒计时，3 分钟归零时仍直接走 `end_destroy` 路径（受结局优先级约束，但不被并行登载抢走）
-- [ ] 自测菜单：`[测试: 同时完成直升机+轮船]`
+- [x] 自测菜单：`[测试：分层撤离结局]`
+- [x] 自测菜单：`[测试：多路线结局锁]`
 
 #### 17H — 轮船登船窗口缩放
 
-- [ ] `util/apply_scaling.mcfunction` 写入 `tunable.ship_boarding_seconds`：
-  - 4–7 人 = 900（45s）
-  - 8–12 人 = 1000（50s）
-  - 13+ 人 = 1200（60s）
-- [ ] `escape/ship_dock_tick.mcfunction` / `ship_depart` 起：登船倒计时初值由硬编码 30s 改为读 `tunable.ship_boarding_seconds`
-- [ ] BALANCE 表 §一 阶段时间已记录新值
+- [x] `util/apply_scaling.mcfunction` 写入 `tunable.ship_boarding_seconds`：
+  - 4–7 人 = 45s
+  - 8–12 人 = 50s
+  - 13+ 人 = 60s
+- [x] `escape/ship_dock_tick.mcfunction` / `ship_depart` 起：登船倒计时初值由硬编码 30s 改为读 `tunable.ship_boarding_seconds`
+- [x] 自测菜单增加 `[测试：轮船窗口缩放]`
+- [x] BALANCE 表 §一 阶段时间已记录新值
+- [x] 游戏内菜单手测通过
 
 #### 17I — 实验室研究员数量缩放
 
-- [ ] `util/apply_scaling.mcfunction` 写入 `tunable.lab_researcher_count`：
+- [x] `util/apply_scaling.mcfunction` 写入 `tunable.lab_researcher_count` / `tunable.lab_card_required`：
   - 4 人 = 3；5–7 人 = 3；8–12 人 = 4；13–16 人 = 4；17–20 人 = 5
-- [ ] `task/lab_init.mcfunction` 或对应研究员生成函数：按 `tunable.lab_researcher_count` 限制生成数量
-- [ ] 现有 `marker.mob_lab_researcher` 数量保持不变（4–5 个候选点），生成时随机抽取所需数量；多余候选点不生成实体
+- [x] `task/spawn_lab_zombies.mcfunction`：按 `tunable.lab_researcher_count` 限制生成数量
+- [x] `task/lab_terminal.mcfunction`：身份卡碎片需求读取 `tunable.lab_card_required`，避免 4 人局 3 个研究员却仍需 4 张卡
+- [x] 现有 `marker.mob_lab_researcher` 数量保持不变（4–5 个候选点），生成时随机抽取所需数量；多余候选点不生成实体
+- [x] 自测菜单增加 `[测试：研究员数量缩放]`
+- [x] 游戏内菜单手测通过
 
 #### 17J — 终局高压
 
-- [ ] `_tick_20.mcfunction`：`phase_timer = 15000`（T+12:30）且无撤离倒计时进行中 → 调用 `game/final_pressure_start`
-- [ ] `game/final_pressure_start.mcfunction`：
+- [x] `phase_check.mcfunction`：`phase_timer = 15000`（T+12:30）且无撤离倒计时进行中 → 调用 `game/final_pressure_start`
+- [x] `game/final_pressure_start.mcfunction`：
   - 全员 title / actionbar 提示孢子浓度上升
   - `$game final_pressure = 1`
   - 若母体存活，刷新或缩短一次 `cd_mother_mutate`，让母体获得终局开团窗口
-  - 环境事件权重偏向风暴 / 菌丝爆发；不强制立即结局
-- [ ] 15:00 坏结局逻辑保持由 Batch 4.7 / `end_mutate` 处理
+  - 环境事件权重偏向风暴 / 菌丝爆发：延缓，不影响先玩整局
+- [x] 15:00 坏结局逻辑保持由 Batch 4.7 / `end_mutate` 处理
+- [x] 自测菜单增加 `[测试：终局高压]`
 
 #### 17K — 隔离扫描
 
@@ -1272,7 +1276,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [ ] 母体伪装状态站修复点 3 格内：受影响幸存者修复贡献 ×0.85，并听到极轻心跳；离开范围立刻恢复正常
 - [ ] 母体猎手命中 3 次进感染期；普通感染者命中 4 次进感染期（差值符合 v0.2 设计）
 - [ ] 厨师 5 格内有感染期队友时，热汤优先作用于该队友，暂停转化倒计时 8s + 回血但不清除感染期；无队友时自愈；冷却 120s
-- [ ] 感染者通讯员使用干扰器：随机指定接收者收到伪造扫描，被指认者无任何提示
+- [ ] 通讯员转化保留：旧版干扰器方案已废弃，待 17F 新设计确定后补验收项
 - [ ] 直升机和轮船同时进入登载窗口：先完成飞离/离港结算的路线决定结局，另一路线倒计时清理
 - [ ] 8 人局只有 1 名幸存者撤离 → 惨胜 / 部分撤离；2 名及以上撤离 → 完整胜利
 - [ ] T+12:30 且无撤离倒计时时触发终局高压；已进入撤离倒计时时不重复触发
@@ -1688,8 +1692,8 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 ### Batch 3 感染状态机手测
 
 1. 开发沙盒 → `[感染测试]`
-2. `[+35污染]` × 2 → 不进入感染期，actionbar 显示孢子值；到达 50 后本人听到轻微心跳音，其他玩家不可见不可听
-3. `[+35污染]` 再次 → 进入感染期，金色名牌，actionbar 显示转化倒计时，心跳音，脚下粒子
+2. `[+27污染]` × 3 → 不进入感染期，actionbar 显示孢子值；到达 50 后本人听到轻微心跳音，其他玩家不可见不可听
+3. `[+27污染]` 第 4 次 → 进入感染期，金色名牌，actionbar 显示转化倒计时，心跳音，脚下粒子
 4. 等待 45 秒 → 自动转化为感染者，名牌变红
 5. `[设为幸存者]` → `[模拟幸存者死亡]` → 原地倒地孢化，不能移动/飞行/交互，actionbar 显示 15 秒倒计时，结束后转感染者
 6. `[设为感染者]` → `[模拟感染者死亡]` → 母体存活时 25–30 秒复活倒计时，结束后在母体附近复活

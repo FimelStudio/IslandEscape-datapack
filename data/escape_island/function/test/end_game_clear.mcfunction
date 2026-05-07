@@ -3,6 +3,9 @@ function escape_island:dev/reset_runtime
 scoreboard players set $game in_game 0
 scoreboard players set $game cur_phase 0
 scoreboard players set $game phase_timer 0
+scoreboard players set $game final_pressure 0
+scoreboard players set $game escape_route 0
+scoreboard players set $game escape_result 0
 scoreboard players set $game dawn_timer 0
 scoreboard players set $game dawn_active 0
 scoreboard players set $game signal_progress 0
@@ -77,6 +80,7 @@ kill @e[type=minecraft:interaction,tag=entity.sub_door]
 kill @e[tag=entity.sub_door_hint]
 kill @e[tag=test.dummy]
 kill @e[tag=dev.mother_sim]
+kill @e[type=minecraft:marker,tag=test.boarding_kick_marker]
 kill @e[tag=entity.researcher]
 kill @e[tag=entity.chef_stew_pot]
 kill @e[tag=entity.engineer_battery]

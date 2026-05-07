@@ -11,4 +11,4 @@ execute as @a[tag=role.priest] run tellraw @s {"text":"[神父] 铭牌下方有�
 execute as @a run clear @s *[custom_data~{item:"generator_action"}]
 tellraw @a {"text":"[任务] 发电机启动后，靠近发电机会在副手临时出现交互器；对准发电机按住右键维修或破坏。","color":"aqua"}
 
-execute at @e[tag=marker.mob_lab_researcher] run summon minecraft:zombie ~ ~ ~ {Tags:["entity.researcher"],CustomName:{"text":"感染研究员","color":"red"},Health:30.0f,Attributes:[{Name:"generic.max_health",Base:30.0},{Name:"generic.attack_damage",Base:5.0}],PersistenceRequired:1b}
+function escape_island:task/spawn_lab_zombies

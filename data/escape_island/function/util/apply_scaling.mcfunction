@@ -5,6 +5,12 @@ scoreboard players set Tunable tunable.mother_passive_stick_seconds 6
 scoreboard players set Tunable tunable.mother_passive_pulse_dmg 10
 scoreboard players set Tunable tunable.mother_passive_pulse_seconds 10
 scoreboard players set Tunable tunable.infection_seconds 45
+scoreboard players set Tunable tunable.ship_boarding_seconds 50
+scoreboard players set Tunable tunable.lab_researcher_count 4
+scoreboard players set Tunable tunable.lab_card_required 4
+scoreboard players set Tunable tunable.escape_full_win_count 1
+scoreboard players set Tunable tunable.power_buff_multiplier 12
+scoreboard players set Tunable tunable.scan_station_cd 90
 
 # 信号网络 v0.2：全人数共用 5 塔冗余结构，目标 100。
 scoreboard players set Tunable tunable.signal_stages 100
@@ -23,16 +29,40 @@ execute if score $game player_count matches 4 run scoreboard players set Tunable
 execute if score $game player_count matches 4 run scoreboard players set Tunable tunable.mother_hp 70
 execute if score $game player_count matches 4 run scoreboard players set Tunable tunable.mutate_cd 600
 execute if score $game player_count matches 4 run scoreboard players set Tunable tunable.rotsense_cd 600
+execute if score $game player_count matches 4 run scoreboard players set Tunable tunable.ship_boarding_seconds 45
+execute if score $game player_count matches 4 run scoreboard players set Tunable tunable.lab_researcher_count 3
+execute if score $game player_count matches 4 run scoreboard players set Tunable tunable.lab_card_required 3
+execute if score $game player_count matches 4 run scoreboard players set Tunable tunable.escape_full_win_count 1
 
 execute if score $game player_count matches 5..7 run scoreboard players set Tunable tunable.infection_seconds 50
 execute if score $game player_count matches 5..7 run scoreboard players set Tunable tunable.mother_hp 70
 execute if score $game player_count matches 5..7 run scoreboard players set Tunable tunable.mutate_cd 600
 execute if score $game player_count matches 5..7 run scoreboard players set Tunable tunable.rotsense_cd 600
+execute if score $game player_count matches 5..7 run scoreboard players set Tunable tunable.ship_boarding_seconds 45
+execute if score $game player_count matches 5..7 run scoreboard players set Tunable tunable.lab_researcher_count 3
+execute if score $game player_count matches 5..7 run scoreboard players set Tunable tunable.lab_card_required 3
+execute if score $game player_count matches 5..7 run scoreboard players set Tunable tunable.escape_full_win_count 1
 
 execute if score $game player_count matches 8..10 run scoreboard players set Tunable tunable.infection_seconds 45
+execute if score $game player_count matches 8..10 run scoreboard players set Tunable tunable.ship_boarding_seconds 50
+execute if score $game player_count matches 8..10 run scoreboard players set Tunable tunable.lab_researcher_count 4
+execute if score $game player_count matches 8..10 run scoreboard players set Tunable tunable.lab_card_required 4
+execute if score $game player_count matches 8..10 run scoreboard players set Tunable tunable.escape_full_win_count 2
 
 execute if score $game player_count matches 11..12 run scoreboard players set Tunable tunable.infection_seconds 45
+execute if score $game player_count matches 11..12 run scoreboard players set Tunable tunable.ship_boarding_seconds 50
+execute if score $game player_count matches 11..12 run scoreboard players set Tunable tunable.lab_researcher_count 4
+execute if score $game player_count matches 11..12 run scoreboard players set Tunable tunable.lab_card_required 4
+execute if score $game player_count matches 11..12 run scoreboard players set Tunable tunable.escape_full_win_count 2
 
 execute if score $game player_count matches 13..16 run scoreboard players set Tunable tunable.infection_seconds 40
+execute if score $game player_count matches 13..16 run scoreboard players set Tunable tunable.ship_boarding_seconds 60
+execute if score $game player_count matches 13..16 run scoreboard players set Tunable tunable.lab_researcher_count 4
+execute if score $game player_count matches 13..16 run scoreboard players set Tunable tunable.lab_card_required 4
+execute if score $game player_count matches 13..16 run scoreboard players set Tunable tunable.escape_full_win_count 3
 
 execute if score $game player_count matches 17.. run scoreboard players set Tunable tunable.infection_seconds 40
+execute if score $game player_count matches 17.. run scoreboard players set Tunable tunable.ship_boarding_seconds 60
+execute if score $game player_count matches 17.. run scoreboard players set Tunable tunable.lab_researcher_count 5
+execute if score $game player_count matches 17.. run scoreboard players set Tunable tunable.lab_card_required 5
+execute if score $game player_count matches 17.. run scoreboard players set Tunable tunable.escape_full_win_count 4

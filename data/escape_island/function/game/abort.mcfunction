@@ -2,6 +2,7 @@
 execute if score $game in_game matches 0 run return 0
 
 scoreboard players set $game in_game 0
+scoreboard players set $game final_pressure 0
 tellraw @a {"text":"[孤岛逃生] 游戏已强制中止。","color":"red"}
 
 effect clear @a

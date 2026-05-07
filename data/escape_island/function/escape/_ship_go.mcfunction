@@ -7,4 +7,5 @@ kill @e[type=minecraft:interaction,tag=entity.ship_door]
 kill @e[tag=entity.ship_door_hint]
 tellraw @a {"text":"[轮船] 缆绳解开，海风号正在离港。","color":"aqua"}
 playsound minecraft:entity.boat.paddle_water master @a ~ ~ ~ 1 0.8
-function escape_island:game/end_ship
+execute unless score $game ending_triggered matches 1.. run scoreboard players set $game escape_route 2
+function escape_island:escape/_ending_resolve

@@ -16,6 +16,8 @@ execute if score $game cur_phase matches 2 if score $game phase_timer matches 36
 
 execute if score $game cur_phase matches 3 run function escape_island:game/check_helicopter_ready
 
+execute if score $game cur_phase matches 3 if score $game final_pressure matches 0 if score $game phase_timer matches 15000.. unless score $game heli_countdown matches 1.. unless score $game ship_countdown matches 1.. unless score $game sub_countdown matches 1.. unless score $game bomb_countdown matches 1.. run function escape_island:game/final_pressure_start
+
 execute if score $game cur_phase matches 3 if score $game phase_timer matches 18000.. run function escape_island:game/phase_5_mutate
 execute if score $game cur_phase matches 4 if score $game phase_timer matches 18000.. run function escape_island:game/phase_5_mutate
 
