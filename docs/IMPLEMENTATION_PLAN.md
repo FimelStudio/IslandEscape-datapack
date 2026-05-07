@@ -46,10 +46,10 @@ v0.1 视为完成需要同时满足：
 |---|---|---|---|
 | 对局阶段时间线、正式开局、测试开局 | Batch 1 / 4.5 / 12 / 17 | 基本完成，待终局高压补齐 | 12:30 终局高压由 Batch 17 新增 |
 | 阵营、母体、普通感染者、感染期、死亡转化 | Batch 3 / 4 / 17 | ⚠️ 已完成但有遗留问题 | HP 基准 80（应为 60）、PvP 用 gamerule（应改 team）；普通感染者知道母体身份并在母体附近复活作为正式规则 |
-| 母体两状态系统、成长时机、变异计时、PvP 架构、flag 迁移 | **Batch 4.6**（新增） | **进行中** | Part 1 已通过单人菜单手测；核心重构批次，优先级最高 |
-| 全员转化立即结局、感染期登机转化驱离 | **Batch 4.7**（新增） | **待实现** | 结局闭环补丁，工作量小 |
+| 母体两状态系统、成长时机、变异计时、PvP 架构、flag 迁移 | **Batch 4.6**（新增） | **已完成** | Part 1–11 已通过单人菜单手测/设计确认；核心重构批次已收口 |
+| 全员转化立即结局、感染期登机转化驱离 | **Batch 4.7**（新增） | **进行中** | 结局闭环补丁，按可游戏内测试的小段推进 |
 | 母体成长、腐痕感知、集群嚎叫、吞噬 | Batch 4 / 4.5 | 已完成，待 4.6 回归验收 | 成长数值和时机需随 4.6 更新 |
-| 母体伪装期被动孢子脉冲 + 侵蚀光环 | **Batch 17**（v0.2 新增） | **待实现** | 连续贴近 6s 后每 10s +10；保留极弱心跳 / 污染提示 |
+| 母体伪装期被动孢子脉冲 + 侵蚀光环 | **Batch 4.6 / 17** | **部分实现** | 孢子脉冲已进 Batch 4.6；修复降速侵蚀光环仍待 Batch 17 |
 | 10 职业技能 | Batch 5 / 6 | 基本完成，需回归 | 已发现并修过海军枪械精通；最终压测再覆盖 |
 | 厨师热汤 v0.2 调整（120s/8格/优先队友） | Batch 17 | 待实现 | 感染期目标只暂停转化倒计时 8s + 回血，不清除感染期 |
 | 通讯员转化保留虚假扫描 v0.2 临时实现 | Batch 17 | 待实现 | 取代"待重做"占位 |
@@ -184,7 +184,7 @@ v0.1 视为完成需要同时满足：
 
 ### Batch 4.6 — 母体系统回炉（HP 校正 + 两状态 + PvP 架构）
 
-状态: **进行中（Part 1/2 已通过单人菜单手测；Part 3 等待游戏内验收）**
+状态: **已完成（Part 1–11 已通过单人菜单手测 / 用户确认）**
 
 目标: 将 Batch 3/4 已实现的母体系统升级到新版 GDD 设计：HP 60、三阶成长 T+5/8/11:00、变异计时双向切换、PvP 改为 team 控制、flag.first_attack 迁移。
 
@@ -200,66 +200,116 @@ Part 2 已实现并通过单人菜单手测:
 - 成长 II 后集群嚎叫持续时间从 10s 提升到 13s
 - 自测菜单接入单人 `[母体成长: 4人局]`、`[母体成长: 8人局]`
 
-Part 3 已实现，等待游戏内验收:
+Part 3 已实现并通过单人菜单手测:
 - `role/tick_mother.mcfunction` 的成长触发从旧版个人计时 180/360/540 秒改为全局对局时间 T+5/8/11:00
 - 成长触发点使用 `phase_timer = 6000 / 9600 / 13200`（tick 计时）
 - 自测菜单接入单人 `[成长时机: 4人局]`、`[成长时机: 8人局]`，验证提前 1 tick 不成长、到点成长
+
+Part 4 已实现并通过单人菜单手测:
+- `skill:mother/mutate` 从一次性永久揭示改为基础循环：触发猎手 1200t（60s）→ 自动回 `mother_hidden` → 写入再次变异冷却
+- 冷却读取 `Tunable tunable.mutate_cd`：4–7 人局 600t（30s），其余默认 900t（45s）
+- 技能物品改为 `phantom_membrane` 变异脉冲；猎手/冷却期间热键栏显示剩余秒数，冷却结束后自动恢复可用
+- 隐藏母体不再发放腐痕感知 / 集群嚎叫 / 吞噬，避免覆盖伪装期人类物品栏；这些技能只在猎手状态出现，回隐藏后清理
+- 自测菜单接入单人 `[变异循环: 4人局]`、`[变异循环: 8人局]`
+- 自测菜单接入单人 `[母体隐藏物品栏]`
+
+Part 5 已实现并通过单人菜单手测:
+- `interaction/on_hit_by_mother.mcfunction` 命中分流：隐藏母体普通命中不触发首攻广播、不加孢子、不写攻击冷却；猎手状态才叠孢子和进入擦刀冷却
+- 自测菜单接入单人 `[母体命中分流]`
+
+Part 6 已实现并通过单人菜单手测:
+- `skill:radio/signal_scan/start.mcfunction` 母体扫描条件从 `flag.first_attack` / 任意母体改为仅 `state.mutated`
+- 测试人偶母体也只有带 `state.mutated` 时进入扫描报告，避免训练/自测误导
+- 自测菜单接入单人 `[扫描母体伪装]`
+
+Part 7 已实现并通过单人菜单手测:
+- 成长 II 后 `skill:mother/mutate` 猎手持续时间从 1200t 提升到 1500t（75s）
+- 成长 II 后猎手结束回伪装冷却固定为 700t（35s）
+- 成长 III 时对普通感染者发放 Speed I + Resistance I 3s 的感染者脉冲
+- 自测菜单接入单人 `[成长变异强化]`
+
+Part 8 已实现并通过单人菜单手测:
+- `infection/turn.mcfunction` 在转化后 recount 感染者数量
+- `infected_count = 1` 时仅母体收到 title + 私聊 + `warden.roar`
+- `infected_count = 3` 时仅母体收到 actionbar + 私聊提示，鼓励组织围攻
+- 自测菜单接入单人 `[母体里程碑反馈]`
+
+Part 9 已实现并通过单人菜单手测:
+- 新增 `mother/passive_disguise.mcfunction`：隐藏母体、非 X-7、非死亡状态下每秒检测 4 格内幸存者
+- 连续贴近 6 秒后，对最近幸存者每 10 秒 +10 `spore_load`
+- 受影响者收到极弱心跳 / 模糊 actionbar，使用 `cd_aura_heartbeat` 节流
+- 猎手状态 `state.mutated` 和后续 `state.disguised` 会暂停该被动
+- 自测菜单接入单人 `[伪装贴身孢子]`
+
+Part 10 已实现并按用户反馈调整通过:
+- 全局 `pvp` 改为长期 true：`load` / Phase 1 均设为 true，不再由 Phase 2 或母体变异打开
+- `team mother` 的 `friendlyFire` 改为 true；幸存者 / 隐藏母体 / 感染者队伍仍保持队内友伤关闭
+- Phase 1 不再额外补血；用户验收反馈认为无需受伤保护，保留正常伤害即可
+- 自测方式改为 `/reload` 后确认数据包没有关闭全局 PvP 的命令残留，正常开局不再依赖全局 PvP 开关
+
+Part 11 已实现并通过:
+- 新增 `game/randomize_match.mcfunction`
+- 每局开局随机 1 台 `marker.generator` 写入 `gen_overload = 8` 并标记 `gen.hidden_overload`
+- 每局开局随机 1 个 `marker.loot_basic` 临时加上 `marker.loot_rare` / `marker.loot_hot`，在放物资箱前升级为热区稀有箱
+- 自测菜单接入单人 `[随机局变量]`
 
 任务:
 
 - [x] `_make_mother.mcfunction`：`attribute @s minecraft:max_health base set 60`；读取 `tunable.mother_hp`（4–7人局 70，由 `apply_scaling` 写入）
 - [x] `util/apply_scaling.mcfunction`：新增 `tunable.mother_hp`（4–7人 = 70，其余 = 60）；新增 `tunable.mutate_cd`（4–7人 = 600t / 30s，其余 = 900t / 45s）；新增 `tunable.rotsense_cd`（4–7人 = 600t，其余 = 800t）
-- [ ] 母体成长系统重构（移除旧"每 300s +10"逻辑）：
+- [x] 母体成长系统重构（移除旧"每 300s +10"逻辑）：
   - [x] `role/tick_mother.mcfunction`：`phase_timer = 6000` → 成长 I；`= 9600` → 成长 II；`= 13200` → 成长 III
   - [x] `role/mother_phase_up.mcfunction`：成长 I `max_health +5` + 满血补满 + 私聊 actionbar + 腐痕感知冷却写入新值
   - [x] `role/mother_phase_up.mcfunction` / `skill:mother/howl`：成长 II 后集群嚎叫持续时间 +3s + 私聊 actionbar
   - [x] `role/mother_phase_up.mcfunction`：成长 III `max_health +10` + 私聊 actionbar
-  - [ ] 成长 II 后变异猎手持续时间由 1200t 改为 1500t（75s）、冷却改为 700t（35s）
-  - [ ] 成长 III 感染者脉冲（Speed I + Resistance I 3s）
-- [ ] 变异脉冲 (`mother/mutate`) 重构为双向计时：
-  - 道具改为 `phantom_membrane`（命名"变异脉冲"），`consume_item` advancement
-  - 触发 → `team join mother @s` + `tag add state.mutated` + 变异粒子爆发 + 低沉异声（8格内）+ 设 `cd_mother_hunt = 1200`（60s）
-  - `tick_mother.mcfunction`：`cd_mother_hunt > 0` → 每 tick -1；`cd_mother_hunt = 0 AND tag=state.mutated` → 自动回退（`team join mother_hidden` + `tag remove state.mutated`）+ 设 `cd_mother_mutate = tunable.mutate_cd`（再次变异冷却）
-  - 集群嚎叫冷却与变异独立（`cd_mother_howl`），确认在两种状态均可使用
-- [ ] PvP 架构迁移（取消全局 pvp gamerule 开关）：
+  - [x] 成长 II 后变异猎手持续时间由 1200t 改为 1500t（75s）、冷却改为 700t（35s）
+  - [x] 成长 III 感染者脉冲（Speed I + Resistance I 3s）
+- [x] 变异脉冲 (`mother/mutate`) 重构为双向计时基础版：
+  - [x] 道具改为 `phantom_membrane`（命名"变异脉冲"），`consume_item` advancement
+  - [x] 触发 → `team join mother @s` + `tag add state.mutated` + 变异粒子爆发 + 低沉异声（8格内）+ 设 `cd_mother_hunt = 1200`（60s）
+  - [x] `skill:mother/mutate/cooldown_tick`：`cd_mother_hunt > 0` → 每 tick -1；`cd_mother_hunt = 0 AND tag=state.mutated` → 自动回退（`team join mother_hidden` + `tag remove state.mutated`）+ 设 `cd_mother_mutate = tunable.mutate_cd`（再次变异冷却）
+  - [x] 集群嚎叫冷却与变异独立（`cd_mother_howl`），确认在两种状态均可使用
+- [x] PvP 架构迁移（取消全局 pvp gamerule 开关）：
   - `load.mcfunction`：`gamerule pvp true`（永久），移除 `pvp false` 初始化
   - `team mother friendlyFire true`；`team mother_hidden friendlyFire false`；`team survivors friendlyFire false`
-  - `game/start.mcfunction`：删除 `gamerule pvp false`；`_tick_20` 在 `phase_timer < 2400` 时检测受伤事件（如有母体命中幸存者） → 函数层取消（`effect give @s instant_health 1 0 true` 抵消）
-  - `game/settle.mcfunction`：移除 `gamerule pvp` 恢复逻辑，改为 team 重置
-- [ ] `on_hit_by_mother.mcfunction`：污染条件改为 `if entity @s[team=mother]`；`team=mother_hidden` 命中只播普通音效，不叠孢子、不触发擦刀反馈
-- [ ] `radio/signal_scan/use.mcfunction`：已暴露母体判定从 `flag.first_attack` 改为 `tag=state.mutated`；隐藏母体（`team=mother_hidden + !state.mutated`）不进入报告
-- [ ] 贴身孢子脉冲（伪装状态，取代无效的 +2/s）：
-  - `tick_mother.mcfunction`：仅在 `team=mother_hidden` 时执行；连续贴近同一幸存者 6s 后启动；`cd_mother_passive_spore > 0` → -1/tick；`= 0 AND @a[team=survivors,distance=..4,limit=1]` → 对最近幸存者 `spore_load +10` + 重置 `cd_mother_passive_spore = 200`（10s）
+  - `game/start.mcfunction` / `phase_1_load`：不再关闭 pvp；Phase 1 不做额外伤害补偿
+  - `game/settle.mcfunction`：移除 `gamerule pvp` 恢复逻辑，改为 team friendlyFire 重置
+- [x] `on_hit_by_mother.mcfunction`：污染条件改为猎手状态；`team=mother_hidden` / 非 `state.mutated` 命中不叠孢子、不触发擦刀反馈
+- [x] `radio/signal_scan/start.mcfunction`：已暴露母体判定从 `flag.first_attack` 改为 `tag=state.mutated`；隐藏母体（`team=mother_hidden + !state.mutated`）不进入报告
+- [x] 贴身孢子脉冲（伪装状态，取代无效的 +2/s）：
+  - `tick_mother.mcfunction`：仅在隐藏母体且非 X-7 时执行；连续贴近幸存者 6s 后启动；`cd_mother_passive_spore > 0` → 每秒 -1；`= 0` → 对最近幸存者 `spore_load +10` + 重置 `cd_mother_passive_spore = 10`（10s）
   - 给受影响者极弱心跳/污染提示节流，不显示来源
   - 普通感染者转化后显示母体方向或母体身份提示；继续在母体附近 8–16 格复活
-- [ ] 母体里程碑反馈：首次感染（`infected_count` 从 0→1 时）私聊 title + `warden.roar`；转化第 3 人私聊 actionbar
-- [ ] 每局随机变量（`game/start.mcfunction` 末尾）：
+- [x] 母体里程碑反馈：首次感染（`infected_count` 从 0→1 时）私聊 title + `warden.roar`；转化第 3 人私聊 actionbar
+- [x] 每局随机变量（`game/start.mcfunction` / `start_test` 放物资箱前）：
   - 随机 1 台发电机写入 `gen_overload = 8`（隐患发电机）
-  - 随机 1 个 `loot_basic` marker 改为 `loot_rare`（热区物资）
+  - 随机 1 个 `loot_basic` marker 临时加 `loot_rare`（热区物资）
 
 验收:
 - [x] 母体觉醒 HP = 60（4人局测试 = 70）
-- [ ] 成长时机 T+5/8/11:00 正确触发，HP 变化正确（+5/0/+10）
-- [ ] 变异 60s 后静默回伪装，等 45s 冷却后可再次变异（4人局 30s）
-- [ ] 猎手状态命中叠孢子；伪装状态命中不叠
-- [ ] 伪装连续贴近同一目标 6s 后启动脉冲，4 格内每 10s 目标 +10 孢子，并给极弱反馈
-- [ ] radio scan 不报告 `team=mother_hidden` 且非 `state.mutated` 的母体
-- [ ] Phase 1 期间任何人受伤 HP 被即时补回，Phase 2+ 不再拦截
+- [x] 成长时机 T+5/8/11:00 正确触发，HP 变化正确（+5/0/+10）
+- [x] 变异 60s 后静默回伪装，等 45s 冷却后可再次变异（4人局 30s）
+- [x] 猎手状态命中叠孢子；伪装状态命中不叠
+- [x] 伪装连续贴近目标 6s 后启动脉冲，4 格内每 10s 目标 +10 孢子，并给极弱反馈
+- [x] radio scan 不报告 `team=mother_hidden` 且非 `state.mutated` 的母体
+- [x] Phase 1 不再使用受伤补回；全局 PvP 长期 true，具体阵营伤害由 team / 玩法函数控制
+- [x] 开局随机变量：恰好 1 台发电机 `gen_overload = 8`，恰好 1 个普通物资 marker 成为热区稀有物资
 
 ### Batch 4.7 — 结局闭环补丁
 
-状态: **待实现**
+状态: **进行中（Part 1 全员转化立即结局已实现，已游戏内验收）**
 
 目标: 补全两个游戏闭环缺口：全员转化应立即结局；感染期玩家在登机窗口转化应被驱离。
 
 任务:
 
-- [ ] `game/_tick_20.mcfunction`（每秒）：`execute if score $game survivors_alive matches 0 if score $game in_game matches 1 run function escape_island:game/end_all_infected`
-- [ ] `game/end_all_infected.mcfunction`：全员 title "§8岛上再无生者……" + `entity.warden.death` 音效，3s 后调用 `game/end_mutate`
+- [x] `game/_tick_20.mcfunction`（每秒）：对局中若已无 `team.human`，进入全员转化结局入口
+- [x] `game/end_all_infected.mcfunction`：全员 title "§8岛上再无生者……" + `entity.warden.death` 音效，3s 后调用 `game/end_mutate`
 - [ ] 感染期登机窗口转化驱离：
   - `escape/helicopter_tick.mcfunction`（每秒）：`execute as @a[tag=state.boarding,tag=infected.common] run function escape_island:escape/boarding_convert_kick`
   - `escape/boarding_convert_kick.mcfunction`：`tag @s remove state.boarding` + `gamemode adventure @s` + `title @s actionbar {"text":"§c感染爆发——你被驱离"}` + `playsound entity.player.hurt`
   - 同样在 `ship_dock_tick.mcfunction` 和 `submarine_tick.mcfunction` 加入相同检测
+- [x] 自测菜单增加：`[测试：全员转化结局]`
 - [ ] 自测菜单增加：`[测试：感染期登机转化驱离]`（给自己 state.boarding + 短感染期倒计时）
 
 验收:
@@ -430,7 +480,7 @@ scoreboard players set #glow_dur     skill.signal_scan_cfg  100    # 废弃配�
 ```
 
 关键逻辑：
-- 触发后：给使用者打临时 `skill.radio.viewer`，再对 `infected.common`、`state.infected_period`、已暴露母体（`infected.mother` + `flag.first_attack`，且非 `state.disguised`）输出私有 `tellraw` 距离区间报告
+- 触发后：给使用者打临时 `skill.radio.viewer`，再对 `infected.common`、`state.infected_period`、猎手母体（`infected.mother` + `state.mutated`，且非 `state.disguised`）输出私有 `tellraw` 距离区间报告
 - 不使用 `glowing`，也不使用目标头顶粒子；目标不会被全员看见，母体也不会收到通讯员报告
 - `/particle ... force <viewers>` 只能解决“谁能看见”，不能解决远距离和穿墙问题，因此不作为通讯员主侦察手段
 - 隐藏母体（`team=mother_hidden`）和伪装母体（`state.disguised`）不进入异常报告；单人测试人偶的感染者/母体会进入报告，方便训练模式验证

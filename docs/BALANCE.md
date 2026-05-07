@@ -20,7 +20,7 @@
 | 字段 | 值 | scoreboard 名 | 备注 |
 |---|---|---|---|
 | 总时长 | 15:00 (18000 ticks) | `phase_timer` | tick 自增 1 |
-| Phase 1 黄昏登岛 | 0:00 – 2:00 | — | PvP 关 |
+| Phase 1 黄昏登岛 | 0:00 – 2:00 | — | 全局 PvP 保持 true；此时尚未觉醒母体，阵营伤害由 team / 玩法函数控制 |
 | Phase 2 觉醒 | 2:00 – 3:00 | — | PvP 开，母体已选定 |
 | Phase 3 黑夜抢修 | 3:00 – 12:30 | — | 主舞台；副线可直接撤离 |
 | Phase 3.5 终局高压 | 12:30 – 15:00 | — | 若未触发撤离倒计时，孢子浓度上升，母体获得一次短冷却变异窗口 |
@@ -366,8 +366,8 @@
 | 物品 | `phantom_membrane` 命名"变异脉冲"；`consumable.consume_seconds:0` |
 | 触发 | `consume_item` advancement（右键即触发） |
 | 效果 | 母体从伪装状态切换至猎手状态：开启近战感染 + 吞噬；8 格内暗红色粒子 + 低沉异声 |
-| 持续 | 60 秒；到时自动静默回到伪装 |
-| 冷却 | 回到伪装后 45 秒（`cd_mother_mutate` 积分板） |
+| 持续 | 60 秒；成长 II 后 75 秒；到时自动静默回到伪装 |
+| 冷却 | 回到伪装后 45 秒；成长 II 后 35 秒（`cd_mother_mutate` 积分板） |
 | 与 X-7 关系 | X-7 可在猎手期间强制立刻回到伪装，覆盖 60 秒计时；X-7 用完后，变异冷却仍正常计时 |
 | 成长互动 | 成长 II 后猎手持续时间 +15 秒（75 秒），冷却 -10 秒（35 秒） |
 
@@ -388,7 +388,7 @@
 |---|---|---|
 | `phase_timer` = 6000（T+5:00）| `escape_island:role/mother_phase_up` | `attribute max_health +5`；私聊 actionbar |
 | `phase_timer` = 9600（T+8:00）| `escape_island:role/mother_phase_up` | 嚎叫持续 +3 秒；私聊 actionbar |
-| `phase_timer` = 13200（T+11:00）| `escape_island:role/mother_phase_up` | `attribute max_health +10`；私聊 actionbar；感染者脉冲待实现 |
+| `phase_timer` = 13200（T+11:00）| `escape_island:role/mother_phase_up` | `attribute max_health +10`；私聊 actionbar；感染者 Speed I + Resistance I 3s 脉冲 |
 | 转化第 1 人（`score infected_count` 从 0→1）| `escape_island:mother/milestone_first_infect` | title + `warden.roar` 仅母体 |
 
 ### 4b. 母体伪装状态被动（v0.2 新增）

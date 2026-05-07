@@ -20,6 +20,10 @@ scoreboard objectives add cd_virologist dummy
 scoreboard objectives add cd_mechanic dummy
 scoreboard objectives add cd_priest dummy
 scoreboard objectives add cd_mother_lunge dummy
+scoreboard objectives add cd_mother_hunt dummy
+scoreboard objectives add cd_mother_mutate dummy
+scoreboard objectives add cd_mother_passive_spore dummy
+scoreboard objectives add cd_aura_heartbeat dummy
 scoreboard objectives add cd_mother_rotsense dummy
 scoreboard objectives add cd_mother_howl dummy
 scoreboard objectives add kit_remaining dummy
@@ -74,6 +78,9 @@ scoreboard objectives add dev_count dummy
 scoreboard objectives add tunable.mother_hp dummy
 scoreboard objectives add tunable.mutate_cd dummy
 scoreboard objectives add tunable.rotsense_cd dummy
+scoreboard objectives add tunable.mother_passive_stick_seconds dummy
+scoreboard objectives add tunable.mother_passive_pulse_dmg dummy
+scoreboard objectives add tunable.mother_passive_pulse_seconds dummy
 scoreboard objectives add tunable.infection_seconds dummy
 scoreboard objectives add tunable.spore_threshold dummy
 scoreboard objectives add tunable.doctor_spore_threshold dummy
@@ -105,8 +112,11 @@ scoreboard objectives add mother_regen_cd dummy
 scoreboard objectives add mother_hit_cd dummy
 scoreboard objectives add mother_phase dummy
 scoreboard objectives add mother_phase_timer dummy
+scoreboard objectives add mother_passive_stick dummy
 scoreboard objectives add skill.rotsense_sec dummy
 scoreboard objectives add skill.rotsense_last dummy
+scoreboard objectives add skill.mutate_sec dummy
+scoreboard objectives add skill.mutate_last dummy
 scoreboard objectives add skill.howl_sec dummy
 scoreboard objectives add skill.howl_last dummy
 scoreboard objectives add used_firework minecraft.used:minecraft.firework_rocket
@@ -127,7 +137,7 @@ team modify survivors seeFriendlyInvisibles true
 team add mother_hidden {"text":"母体（隐藏）","color":"green"}
 team modify mother_hidden friendlyFire false
 team add mother {"text":"母体","color":"dark_red"}
-team modify mother friendlyFire false
+team modify mother friendlyFire true
 team add infected_period {"text":"感染期","color":"gold"}
 team modify infected_period friendlyFire false
 team add infected {"text":"感染者","color":"red"}
@@ -156,6 +166,8 @@ bossbar add escape_island:disguise {"text":"伪装倒计时","color":"dark_purpl
 bossbar set escape_island:disguise visible false
 bossbar add escape_island:mother_respawn {"text":"母体复活","color":"dark_red"}
 bossbar set escape_island:mother_respawn visible false
+
+gamerule pvp true
 
 scoreboard players set $game in_game 0
 scoreboard players set $game dev_mode 0

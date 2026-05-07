@@ -1,6 +1,9 @@
 scoreboard players set Tunable tunable.mother_hp 60
 scoreboard players set Tunable tunable.mutate_cd 900
 scoreboard players set Tunable tunable.rotsense_cd 800
+scoreboard players set Tunable tunable.mother_passive_stick_seconds 6
+scoreboard players set Tunable tunable.mother_passive_pulse_dmg 10
+scoreboard players set Tunable tunable.mother_passive_pulse_seconds 10
 scoreboard players set Tunable tunable.infection_seconds 45
 
 # 信号网络 v0.2：全人数共用 5 塔冗余结构，目标 100。

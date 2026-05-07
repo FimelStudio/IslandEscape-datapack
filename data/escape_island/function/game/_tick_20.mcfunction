@@ -8,6 +8,7 @@ effect give @a[tag=!state.dead,tag=!state.spectator,tag=!state.escaped] minecraf
 
 function escape_island:infection/tick_infected_state
 function escape_island:infection/spore_load_decay
+execute as @a[scores={cd_aura_heartbeat=1..}] run scoreboard players remove @s cd_aura_heartbeat 1
 
 execute if entity @a[tag=event.blackout,limit=1] as @a[tag=!state.dead] at @s if items entity @s weapon.mainhand minecraft:lantern[minecraft:custom_data~{item:"flashlight"}] run effect give @a[distance=..3] minecraft:night_vision 3 0 true
 execute if entity @a[tag=event.blackout,limit=1] as @a[tag=!state.dead] at @s if items entity @s weapon.offhand minecraft:lantern[minecraft:custom_data~{item:"flashlight"}] run effect give @a[distance=..3] minecraft:night_vision 3 0 true
@@ -43,6 +44,7 @@ execute if score $game bomb_armed matches 1 run function escape_island:task/bomb
 execute if score $game sub_countdown matches 1.. run function escape_island:escape/sub_tick
 
 execute if score $game mother_dead matches 1 if score $game in_game matches 1 unless entity @a[tag=infected.common,tag=!state.dead] run function escape_island:game/end_purge
+execute if score $game in_game matches 1 unless entity @a[tag=team.human] run function escape_island:game/end_all_infected
 
 execute if score $game cur_phase matches 4 run function escape_island:escape/helicopter_tick
 execute if score $game cur_phase matches 4 if score $game ship_countdown matches 1.. run function escape_island:escape/ship_boarding_tick

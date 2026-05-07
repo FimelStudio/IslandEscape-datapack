@@ -54,6 +54,7 @@ bossbar set escape_island:disguise visible false
 bossbar set escape_island:mother_respawn visible false
 
 schedule clear escape_island:game/end_mutate
+schedule clear escape_island:game/end_all_infected_finish
 schedule clear escape_island:event/_blackout_end
 schedule clear escape_island:event/_storm_end
 schedule clear escape_island:event/_static_end

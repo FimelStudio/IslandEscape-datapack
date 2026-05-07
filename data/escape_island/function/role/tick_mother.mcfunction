@@ -11,6 +11,8 @@ execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_regen_cd=..0}] 
 execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_hp=1..24}] at @s run effect give @s minecraft:speed 3 1 true
 execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_hp=1..24}] at @s run effect give @s minecraft:strength 3 0 true
 
+execute if entity @s[tag=infected.mother,tag=!state.dead,tag=!state.mutated,tag=!state.disguised] run function escape_island:mother/passive_disguise
+
 execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_phase=1}] if score $game phase_timer matches 6000.. run function escape_island:role/mother_phase_up
 execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_phase=2}] if score $game phase_timer matches 9600.. run function escape_island:role/mother_phase_up
 execute as @a[tag=infected.mother,tag=!state.dead,scores={mother_phase=3}] if score $game phase_timer matches 13200.. run function escape_island:role/mother_phase_up

@@ -5,6 +5,7 @@ execute if entity @e[tag=entity.chef_stew_pot,limit=1] run function skill:chef/s
 
 function escape_island:infection/tick_infected_state
 function escape_island:infection/spore_load_decay
+execute as @a[scores={cd_aura_heartbeat=1..}] run scoreboard players remove @s cd_aura_heartbeat 1
 
 execute as @a[tag=team.human,tag=!state.infected_period,scores={spore_load=50..}] at @s run function escape_island:infection/spore_load_warn
 

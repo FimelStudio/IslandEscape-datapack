@@ -22,6 +22,11 @@ scoreboard players operation @s mother_hp = Tunable tunable.mother_hp
 scoreboard players operation @s mother_last_hp = Tunable tunable.mother_hp
 scoreboard players set @s mother_regen_cd 5
 scoreboard players set @s mother_hit_cd 0
+scoreboard players set @s cd_mother_hunt 0
+scoreboard players set @s cd_mother_mutate 0
+scoreboard players set @s cd_mother_passive_spore 0
+scoreboard players set @s mother_passive_stick 0
+scoreboard players set @s skill.mutate_sec 0
 scoreboard players set @s mother_phase 1
 scoreboard players operation @s used_firework_last = @s used_firework
 

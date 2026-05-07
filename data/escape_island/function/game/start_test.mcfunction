@@ -106,6 +106,7 @@ tag @a remove flag.tutorial_seen
 tag @a remove flag.first_attack
 tag @a remove state.attack_slowed
 tag @a remove state.mutated
+tag @a remove mother.passive.fire
 tag @a remove skill.antidote.user
 tag @a remove skill.antidote.target
 tag @a remove skill.battery.recalled
@@ -171,10 +172,16 @@ scoreboard players reset @a skill.mother_eat_anim
 scoreboard players reset @a ie.dialog
 scoreboard players reset @a ie.eat_health
 scoreboard players reset @a cd_mother_lunge
+scoreboard players reset @a cd_mother_hunt
+scoreboard players reset @a cd_mother_mutate
+scoreboard players reset @a cd_mother_passive_spore
+scoreboard players reset @a cd_aura_heartbeat
 scoreboard players reset @a cd_mother_rotsense
 scoreboard players reset @a cd_mother_howl
 scoreboard players reset @a skill.rotsense_sec
 scoreboard players reset @a skill.rotsense_last
+scoreboard players reset @a skill.mutate_sec
+scoreboard players reset @a skill.mutate_last
 scoreboard players reset @a skill.howl_sec
 scoreboard players reset @a skill.howl_last
 scoreboard players reset @a death_count
@@ -184,6 +191,7 @@ scoreboard players reset @a mother_regen_cd
 scoreboard players reset @a mother_hit_cd
 scoreboard players reset @a mother_phase
 scoreboard players reset @a mother_phase_timer
+scoreboard players reset @a mother_passive_stick
 scoreboard players reset @a gen_interact_cd
 scoreboard players operation @a used_firework_last = @a used_firework
 
@@ -198,6 +206,7 @@ give @a minecraft:gold_ingot[custom_data={item:"fuel_cell"},custom_name={text:"ç
 
 effect give @a minecraft:saturation 1 20 true
 
+function escape_island:game/randomize_match
 function escape_island:dev/show_markers
 
 function escape_island:task/place_loot_chests

@@ -1,0 +1,1 @@
+$item replace entity @s hotbar.7 with minecraft:gray_dye[custom_data={skill:"mother/mutate_cd"},custom_name={text:"变异脉冲 冷却中",color:"gray",bold:true,italic:false},lore=[{text:"冷却剩余 $(sec) 秒",color:"yellow",italic:false},{text:"冷却结束后自动恢复可用",color:"gray",italic:false}]] 1

@@ -72,6 +72,7 @@ tag @a remove state.berserk
 tag @a remove state.infect_immune
 tag @a remove state.attack_slowed
 tag @a remove state.mutated
+tag @a remove mother.passive.fire
 tag @a remove flag.first_attack
 tag @a remove flag.has_inject
 tag @a remove flag.has_keynote
@@ -105,9 +106,16 @@ scoreboard players reset @a mother_regen_cd
 scoreboard players reset @a mother_hit_cd
 scoreboard players reset @a mother_phase
 scoreboard players reset @a mother_phase_timer
+scoreboard players reset @a mother_passive_stick
 scoreboard players reset @a cd_mother_rotsense
 scoreboard players reset @a cd_mother_howl
 scoreboard players reset @a cd_mother_lunge
+scoreboard players reset @a cd_mother_hunt
+scoreboard players reset @a cd_mother_mutate
+scoreboard players reset @a cd_mother_passive_spore
+scoreboard players reset @a cd_aura_heartbeat
+scoreboard players reset @a skill.mutate_sec
+scoreboard players reset @a skill.mutate_last
 scoreboard players reset @a death_count
 scoreboard players reset @a hb_phase
 scoreboard players reset @a gen_interact_cd
@@ -119,10 +127,15 @@ function skill:mother/eat/clear_storage
 
 clear @a
 team leave @a
+team modify survivors friendlyFire false
+team modify mother_hidden friendlyFire false
+team modify mother friendlyFire true
+team modify infected_period friendlyFire false
+team modify infected friendlyFire false
+team modify spectator friendlyFire false
 
 scoreboard players set $game in_game 0
 gamerule natural_health_regeneration true
-gamerule pvp true
 
 tellraw @a {"text":"─────────────────────────────","color":"gray"}
 tellraw @a {"text":"状态已清除。输入 /function escape_island:game/start 再来一局。","color":"gold"}

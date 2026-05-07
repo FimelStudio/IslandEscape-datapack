@@ -1,4 +1,5 @@
 schedule clear escape_island:game/end_mutate
+schedule clear escape_island:game/end_all_infected_finish
 scoreboard players set $game in_game 1
 scoreboard players set $game cur_phase 3
 scoreboard players set $game phase_timer 0

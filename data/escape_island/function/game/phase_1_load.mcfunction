@@ -1,5 +1,5 @@
 
-gamerule pvp false
+gamerule pvp true
 
 tag @a add team.human
 

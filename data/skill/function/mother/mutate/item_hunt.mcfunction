@@ -1,0 +1,1 @@
+$item replace entity @s hotbar.7 with minecraft:red_dye[custom_data={skill:"mother/mutate_hunt"},custom_name={text:"猎手状态",color:"dark_red",bold:true,italic:false},lore=[{text:"剩余 $(sec) 秒",color:"yellow",italic:false},{text:"时间结束后自动回到隐藏母体",color:"gray",italic:false}]] 1

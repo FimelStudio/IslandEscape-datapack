@@ -26,3 +26,7 @@ execute if score @s mother_phase matches 4 run effect give @s minecraft:instant_
 execute if score @s mother_phase matches 4 run title @s actionbar {"text":"§4▲ 完全进化 §8(+10 HP / 感染者脉冲)","color":"dark_red"}
 execute if score @s mother_phase matches 4 run playsound minecraft:entity.wither.ambient player @s ~ ~ ~ 0.8 0.7
 execute if score @s mother_phase matches 4 run tellraw @a {"text":"§4那东西……已经彻底醒过来了。","color":"dark_red","italic":true}
+execute if score @s mother_phase matches 4 run effect give @a[tag=infected.common,tag=!state.dead] minecraft:speed 3 0 true
+execute if score @s mother_phase matches 4 run effect give @a[tag=infected.common,tag=!state.dead] minecraft:resistance 3 0 true
+execute if score @s mother_phase matches 4 run title @a[tag=infected.common,tag=!state.dead] actionbar {"text":"§4母巢脉冲涌入体内。","color":"dark_red"}
+execute if score @s mother_phase matches 4 at @s run playsound minecraft:block.sculk_catalyst.bloom master @a[tag=infected.common,tag=!state.dead,distance=..64] ~ ~ ~ 0.8 0.7

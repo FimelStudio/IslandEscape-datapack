@@ -72,9 +72,11 @@ title @s subtitle {"text":"§c你已被同化。扩散孢子。"}
 playsound minecraft:entity.witch.celebrate master @s ~ ~ ~ 1 0.5
 
 function escape_island:util/recount_infected
+execute if score $tmp infected_count matches 1 as @a[tag=infected.mother,tag=!state.dead] run function escape_island:mother/milestone_first_infect
+execute if score $tmp infected_count matches 3 as @a[tag=infected.mother,tag=!state.dead] run function escape_island:mother/milestone_third_infect
 tellraw @a[tag=!infected.mother] {"text":"§c岛上有人倒下了……","color":"dark_red","italic":true}
 tellraw @a[tag=infected.mother] [{"text":"§4+1 感染者已就位。总计: "},{"score":{"name":"$tmp","objective":"infected_count"}}]
 execute if entity @a[tag=infected.mother,tag=!state.dead,limit=1] run tellraw @s [{"text":"§4[感染链] 核心母体: ","color":"dark_red"},{"selector":"@a[tag=infected.mother,tag=!state.dead,limit=1]","color":"red"},{"text":"。死亡后你将在母体附近复活。","color":"dark_red"}]
 execute unless entity @a[tag=infected.mother,tag=!state.dead,limit=1] run tellraw @s {"text":"§8[感染链] 母体信号消失。你无法再依靠母体复活。","color":"dark_gray"}
 
-execute if score $game in_game matches 1 unless entity @a[tag=team.human] run function escape_island:game/end_mutate
+execute if score $game in_game matches 1 unless entity @a[tag=team.human] run function escape_island:game/end_all_infected

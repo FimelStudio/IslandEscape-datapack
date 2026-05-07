@@ -4,7 +4,7 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "items": ["minecraft:red_dye"],
+          "items": ["minecraft:phantom_membrane"],
           "components": {
             "minecraft:custom_data": {"skill": "mother/mutate"}
           }

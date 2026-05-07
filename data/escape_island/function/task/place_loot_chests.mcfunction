@@ -1,6 +1,6 @@
-execute at @e[tag=marker.loot_basic] run setblock ~ ~ ~ minecraft:air destroy
-execute at @e[tag=marker.loot_basic] run setblock ~ ~ ~ minecraft:chest
-execute at @e[tag=marker.loot_basic] run loot insert ~ ~ ~ loot escape_island:world/basic_supply
+execute at @e[tag=marker.loot_basic,tag=!marker.loot_hot] run setblock ~ ~ ~ minecraft:air destroy
+execute at @e[tag=marker.loot_basic,tag=!marker.loot_hot] run setblock ~ ~ ~ minecraft:chest
+execute at @e[tag=marker.loot_basic,tag=!marker.loot_hot] run loot insert ~ ~ ~ loot escape_island:world/basic_supply
 
 execute at @e[tag=marker.loot_rare] run setblock ~ ~ ~ minecraft:air destroy
 execute at @e[tag=marker.loot_rare] run setblock ~ ~ ~ minecraft:chest

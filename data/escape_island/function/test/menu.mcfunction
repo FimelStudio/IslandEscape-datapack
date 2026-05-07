@@ -23,6 +23,7 @@ tellraw @s [{"text":"[Batch 7C 直升机呼叫测试]","color":"gold","bold":tru
 tellraw @s [{"text":"[Batch 8A 直升机登机测试]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/helicopter_boarding_setup"}},{"text":" 快速降落，测试右键直升机登机和结算","color":"gray"}]
 tellraw @s [{"text":"[Batch 9A 轮船路线测试]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/ship_route_setup"}},{"text":" 投入船舶部件、修复船体、右键登船结算","color":"gray"}]
 tellraw @s [{"text":"[查看状态]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:debug/show_state"}},{"text":" 输出当前局内计分板状态","color":"gray"}]
+tellraw @s [{"text":"[随机局变量]","color":"dark_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/random_match_vars"}},{"text":" 验证隐患发电机和热区物资随机选择","color":"gray"}]
 tellraw @s [{"text":"[训练模式]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/start"}},{"text":" 单人练技能，不开正式局","color":"gray"}]
 tellraw @s [{"text":"[选择训练职业]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/role_menu"}},{"text":" 一次只拥有一个职业，避免技能串线","color":"gray"}]
 tellraw @s [{"text":"[退出训练]","color":"gray","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/reset"}},{"text":" 清空训练物品、状态和测试实体","color":"gray"}]
@@ -40,4 +41,5 @@ tellraw @s [{"text":"[快修核心到99]","color":"gold","bold":true,"click_even
 tellraw @s [{"text":"[快速直升机]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/quick_helicopter"}},{"text":" 跳过信号塔发电机，直接测登机和动态破晓","color":"gray"}]
 tellraw @s [{"text":"[快速自爆]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/quick_bomb"}},{"text":" 给3份文件+脚下炸弹标记+修好信号塔","color":"gray"}]
 tellraw @s [{"text":"[快速坏结局]","color":"dark_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/quick_mutate"}},{"text":" 直接触发15分钟孢子升腾","color":"gray"}]
+tellraw @s [{"text":"[测试：全员转化结局]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/all_infected_end"}},{"text":" 唯一幸存者转化后，验证3秒内Bad End","color":"gray"}]
 tellraw @s [{"text":"[快速潜艇]","color":"dark_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/quick_sub"}},{"text":" 给钥匙卡+脚下潜艇标记，右键启动","color":"gray"}]

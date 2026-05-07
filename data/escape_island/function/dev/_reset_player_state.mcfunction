@@ -46,6 +46,7 @@ tag @s remove flag.has_disguise
 tag @s remove flag.first_attack
 tag @s remove state.attack_slowed
 tag @s remove state.mutated
+tag @s remove mother.passive.fire
 tag @s remove skill.antidote.user
 tag @s remove skill.antidote.target
 tag @s remove skill.battery.recalled
@@ -59,8 +60,14 @@ scoreboard players set @s spore_load 0
 scoreboard players set @s spore_decay_cd 0
 scoreboard players set @s cd_mother_rotsense 0
 scoreboard players set @s cd_mother_howl 0
+scoreboard players set @s cd_mother_hunt 0
+scoreboard players set @s cd_mother_mutate 0
+scoreboard players set @s cd_mother_passive_spore 0
+scoreboard players set @s cd_aura_heartbeat 0
 scoreboard players set @s skill.rotsense_sec 0
 scoreboard players set @s skill.rotsense_last 0
+scoreboard players set @s skill.mutate_sec 0
+scoreboard players set @s skill.mutate_last 0
 scoreboard players set @s skill.howl_sec 0
 scoreboard players set @s skill.howl_last 0
 scoreboard players set @s infect_time 0
@@ -69,6 +76,7 @@ scoreboard players set @s mother_respawn 0
 scoreboard players set @s mother_hit_cd 0
 scoreboard players set @s mother_phase 0
 scoreboard players set @s mother_phase_timer 0
+scoreboard players set @s mother_passive_stick 0
 scoreboard players set @s mother_last_hp 0
 scoreboard players set @s mother_regen_cd 0
 scoreboard players set @s death_count 0
