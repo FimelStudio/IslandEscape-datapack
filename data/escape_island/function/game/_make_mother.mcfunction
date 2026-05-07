@@ -6,8 +6,9 @@ scoreboard players set @s role 11
 scoreboard players set @s is_mother 1
 team join mother_hidden @s
 
-attribute @s minecraft:max_health base set 60
-execute if score $game player_count matches 4..7 run attribute @s minecraft:max_health base set 70
+execute if score Tunable tunable.mother_hp matches 60 run attribute @s minecraft:max_health base set 60
+execute if score Tunable tunable.mother_hp matches 70 run attribute @s minecraft:max_health base set 70
+execute unless score Tunable tunable.mother_hp matches 60 unless score Tunable tunable.mother_hp matches 70 run attribute @s minecraft:max_health base set 60
 effect give @s minecraft:instant_health 1 10 true
 effect give @s minecraft:saturation 1 20 true
 attribute @s minecraft:armor base set 4
@@ -17,10 +18,8 @@ attribute @s minecraft:attack_damage base set 4
 attribute @s minecraft:movement_speed base set 0.105
 attribute @s minecraft:attack_speed base set 4
 
-scoreboard players set @s mother_hp 60
-execute if score $game player_count matches 4..7 run scoreboard players set @s mother_hp 70
-scoreboard players set @s mother_last_hp 60
-execute if score $game player_count matches 4..7 run scoreboard players set @s mother_last_hp 70
+scoreboard players operation @s mother_hp = Tunable tunable.mother_hp
+scoreboard players operation @s mother_last_hp = Tunable tunable.mother_hp
 scoreboard players set @s mother_regen_cd 5
 scoreboard players set @s mother_hit_cd 0
 scoreboard players set @s mother_phase 1

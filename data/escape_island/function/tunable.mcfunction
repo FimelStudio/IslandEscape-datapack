@@ -1,5 +1,7 @@
 
 scoreboard players set Tunable tunable.mother_hp 60
+scoreboard players set Tunable tunable.mutate_cd 900
+scoreboard players set Tunable tunable.rotsense_cd 800
 scoreboard players set Tunable tunable.infection_seconds 45
 scoreboard players set Tunable tunable.spore_threshold 100
 scoreboard players set Tunable tunable.doctor_spore_threshold 130

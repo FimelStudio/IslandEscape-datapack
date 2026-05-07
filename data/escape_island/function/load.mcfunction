@@ -71,6 +71,8 @@ scoreboard objectives add event_roll dummy
 scoreboard objectives add dev_mode dummy
 scoreboard objectives add dev_count dummy
 scoreboard objectives add tunable.mother_hp dummy
+scoreboard objectives add tunable.mutate_cd dummy
+scoreboard objectives add tunable.rotsense_cd dummy
 scoreboard objectives add tunable.infection_seconds dummy
 scoreboard objectives add tunable.spore_threshold dummy
 scoreboard objectives add tunable.doctor_spore_threshold dummy
