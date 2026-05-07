@@ -14,3 +14,4 @@ data remove storage zombie:eated large_scale
 data remove storage zombie:eated large_speed
 data remove storage zombie:eated huge_scale
 data remove storage zombie:eated huge_speed
+data remove storage zombie:eated target_type

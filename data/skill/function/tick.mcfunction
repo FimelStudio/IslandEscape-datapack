@@ -1,4 +1,5 @@
 function skill:weapon/tick
+function skill:clicker/tick
 function skill:doctor/tick
 function skill:captain/tick
 function skill:engineer/tick

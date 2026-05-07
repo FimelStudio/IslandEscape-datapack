@@ -22,4 +22,7 @@ execute as @a[tag=skill.pistol.holding,tag=!skill.pistol.update] run function sk
 execute as @a[tag=skill.pistol.holding] run function skill:weapon/pistol/render_xp
 execute as @a[tag=!skill.pistol.holding,tag=skill.pistol.xp] run function skill:weapon/pistol/clear_xp
 
-execute as @a[tag=skill.pistol.reloading] run title @s actionbar [{"text":"换弹中 ","color":"yellow"},{"score":{"name":"@s","objective":"skill.pistol_reload"}},{"text":"t","color":"dark_gray"}]
+execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_sec = @s skill.pistol_reload
+execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_sec += #reload_round skill.pistol_tmp
+execute as @a[tag=skill.pistol.reloading] run scoreboard players operation @s skill.pistol_reload_sec /= #twenty skill.pistol_tmp
+execute as @a[tag=skill.pistol.reloading] run title @s actionbar [{"text":"换弹中 ","color":"yellow"},{"score":{"name":"@s","objective":"skill.pistol_reload_sec"}},{"text":"s","color":"dark_gray"}]

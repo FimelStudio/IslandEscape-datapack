@@ -83,6 +83,7 @@ scoreboard players set @s skill.stamina_color 0
 scoreboard players set @s skill.pistol_mag 0
 scoreboard players set @s skill.pistol_fire_cd 0
 scoreboard players set @s skill.pistol_reload 0
+scoreboard players set @s skill.pistol_reload_sec 0
 scoreboard players set @s skill.pistol_tmp 0
 scoreboard players set @s skill.pistol_swap 0
 scoreboard players set @s skill.battery_timer 0

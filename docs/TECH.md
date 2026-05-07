@@ -177,6 +177,8 @@ IslandEscape-datapack/
 | `state.latent_host` | 17–20 人局潜伏宿主，觉醒前仍按幸存者处理 |
 | `infected.secondary_mother` | 潜伏宿主觉醒后的次级母体 |
 | `infected.common` | 普通感染者（游戏进程内部身份） |
+| `infected.special` | 特殊感染体总类 |
+| `infected.clicker` | 循声者（Clicker），当前保留 `infected.common` 以复用基础感染流程 |
 | `zombie` | 感染者技能目标标签；普通感染者转化/调试赋予时同步添加 |
 | `role.doctor`, `role.captain`, ..., `role.priest` | 具体职业（10 个） |
 | `state.infected_period` | 感染期中 |
@@ -208,6 +210,8 @@ IslandEscape-datapack/
 | `marker.signal_tower` | 信号塔修复点 |
 | `marker.generator` | 发电机（多个） |
 | `marker.heli_pad` | 直升机降落候选 |
+| `entity.clicker_spore` | 循声者循声孢子，marker 实体，生成时绑定被探测的人类目标，可被 M-7 raycast 命中 |
+| `entity.clicker_spore_pending` | 循声孢子释放前的 2 秒延迟 marker |
 | `marker.lab_entrance` | 实验室入口 |
 | `marker.lab_terminal` | 实验室终端 |
 | `marker.lab_sub` | 撤离潜艇 |
@@ -442,6 +446,7 @@ give @a minecraft:sugar[custom_name={text:"克洛格",color:"gray",bold:true,ita
 - 框架输入冷却为 0.2 秒，但实际扣弹/伤害门控为 0.4 秒（8 tick），防止全员手枪射速过高。
 - 如果所选载体会被消耗，`fire` / `reload_start` 必须在同 tick 用 `item replace` 或等价逻辑补回手枪，保证武器不丢失。
 - 命中检测由 raycast 或等效命中系统完成，命中后统一调用 `on_hit`。
+- raycast 命中优先级：先检测 `entity.clicker_spore`，再检测感染者玩家；这样玩家可以用手枪打碎循声孢子。
 - `on_hit` 必须先做阵营过滤：幸存者/感染期之间无伤；感染者阵营之间无伤；母体隐藏队不影响伤害规则。
 - 伤害按目标类型写死到玩法层：普通目标 6 damage，母体 4 damage 基础值，再交给护甲/抗性处理。
 - 枪口粒子、命中粒子、额外命中音效都 `execute at @s` 或 `execute positioned` 到当前射击/命中位置；基础枪声由 `on_consume_effects` 播放，但仍需实测玩家移动时声音是否跟随当前位置。
@@ -630,6 +635,7 @@ role_mother.json            — 母体三件套
 | `skill/mother/eat/eat_entity` | `consume_item` (red_dye) | 吞噬感染体 |
 | `skill/mother/eat/use_zombie_editor` | `consume_item` (structure_void) | 编辑被吞噬的感染体 |
 | `skill/mother/eat/release_entity` | `consume_item` (slime_ball) | 吐出感染体 |
+| `skill/clicker/hearing_spore/use` | `inventory_changed` (`custom_data.skill="clicker_hearing_spore_used"`) | 循声者释放循声孢子 |
 | `interaction/repair_signal` | `using_item` (cable) at marker | 信号塔修复 |
 | `interaction/place_battery` | `placed_block` | 给发电机投电池 |
 | `interaction/drink_disguise` | `consume_item` (potion) | 母体伪装 |

@@ -8,6 +8,7 @@ execute unless entity @a[tag=skill.mother.eat.target,limit=1] run return 0
 
 function skill:mother/eat/config
 execute store result storage zombie:eated target_health int 1 run attribute @a[tag=skill.mother.eat.target,limit=1] minecraft:max_health base get 1
+function skill:mother/eat/update_target_type
 data modify storage zombie:eated config_health set value "$(config_health)"
 function skill:mother/eat/zombie_editor_dialog with storage zombie:eated
 function skill:mother/eat/item_editor

@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{skill:\"clicker_hearing_spore_used\"}"
+            }
+          }
+        ],
+        "player": {
+          "nbt": "{Tags:[\"infected.clicker\"]}"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:clicker/hearing_spore/use"
+  }
+}

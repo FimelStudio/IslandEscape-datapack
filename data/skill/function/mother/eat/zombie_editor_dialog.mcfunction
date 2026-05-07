@@ -27,9 +27,28 @@ $dialog show @s {\
         {\
             "type": "plain_message",\
             "contents": {\
+                "text": "当前种类：$(target_type)",\
+                "color": "dark_green"\
+            }\
+        },\
+        {\
+            "type": "plain_message",\
+            "contents": {\
                 "text": "血量越高体型越大、速度越慢；血量越低体型越小、速度越快。"\
             }\
-        }\  
+        },\
+        {\
+            "type": "plain_message",\
+            "contents": {\
+                "text": "\n[转化为循声者] 赋予循声孢子技能",\
+                "color": "dark_green",\
+                "bold": true,\
+                "click_event": {\
+                    "action": "run_command",\
+                    "command": "trigger ie.dialog set 303"\
+                }\
+            }\
+        }\
     ],\
     "inputs": [\
         {\

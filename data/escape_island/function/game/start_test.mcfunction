@@ -11,6 +11,8 @@ gamerule immediate_respawn true
 gamerule natural_health_regeneration false
 kill @e[tag=entity.downed_anchor]
 kill @e[tag=entity.dead_anchor]
+kill @e[type=minecraft:marker,tag=entity.clicker_spore]
+kill @e[type=minecraft:marker,tag=entity.clicker_spore_pending]
 function skill:mother/eat/clear_storage
 
 scoreboard players set $game in_game 1
@@ -52,7 +54,7 @@ tag @a remove team.human
 tag @a remove team.infected
 tag @a remove infected.special
 tag @a remove infected.licker
-tag @a remove infected.listener
+tag @a remove infected.clicker
 tag @a remove infected.runner
 tag @a remove infected.tank
 tag @a remove infected.spitter
@@ -77,6 +79,11 @@ tag @a remove skill.mother.eating
 tag @a remove skill.mother.eat.fired
 tag @a remove skill.mother.eat.absorbing
 tag @a remove skill.mother.eat.target
+tag @a remove skill.clicker_spore.detected
+tag @a remove skill.clicker_spore.caster
+tag @a remove skill.clicker_spore.dead
+tag @a remove skill.clicker_spore.active
+tag @a remove skill.clicker_spore.target
 tag @a remove state.infected_period
 tag @a remove state.boarding
 tag @a remove state.escaped
@@ -169,6 +176,14 @@ scoreboard players reset @a skill.slide_time
 scoreboard players reset @a skill.slide_cd
 scoreboard players reset @a skill.stamina_warn
 scoreboard players reset @a skill.mother_eat_anim
+scoreboard players reset @a skill.clicker_cd
+scoreboard players reset @a skill.clicker_sec
+scoreboard players reset @a skill.clicker_last_sec
+scoreboard players reset @a skill.clicker_state
+scoreboard players reset @a skill.clicker_id
+scoreboard players reset @a skill.clicker_target_id
+scoreboard players reset @a skill.clicker_spore_delay
+scoreboard players set #next_target skill.clicker_cfg 0
 scoreboard players reset @a ie.dialog
 scoreboard players reset @a ie.eat_health
 scoreboard players reset @a cd_mother_lunge

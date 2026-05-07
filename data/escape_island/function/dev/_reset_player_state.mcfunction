@@ -4,7 +4,7 @@ tag @s remove team.infected
 tag @s remove infected.secondary_mother
 tag @s remove infected.special
 tag @s remove infected.licker
-tag @s remove infected.listener
+tag @s remove infected.clicker
 tag @s remove infected.runner
 tag @s remove infected.tank
 tag @s remove infected.spitter
@@ -29,6 +29,11 @@ tag @s remove skill.mother.eating
 tag @s remove skill.mother.eat.fired
 tag @s remove skill.mother.eat.absorbing
 tag @s remove skill.mother.eat.target
+tag @s remove skill.clicker_spore.detected
+tag @s remove skill.clicker_spore.caster
+tag @s remove skill.clicker_spore.dead
+tag @s remove skill.clicker_spore.active
+tag @s remove skill.clicker_spore.target
 tag @s remove gen.channel.sabotage
 tag @s remove gen.channel.repair
 scoreboard players reset @s skill.mother_eat_anim
@@ -77,6 +82,13 @@ scoreboard players set @s mother_hit_cd 0
 scoreboard players set @s mother_phase 0
 scoreboard players set @s mother_phase_timer 0
 scoreboard players set @s mother_passive_stick 0
+scoreboard players set @s skill.clicker_cd 0
+scoreboard players set @s skill.clicker_sec 0
+scoreboard players set @s skill.clicker_last_sec 0
+scoreboard players set @s skill.clicker_state 0
+scoreboard players set @s skill.clicker_id 0
+scoreboard players set @s skill.clicker_target_id 0
+scoreboard players set @s skill.clicker_spore_delay 0
 scoreboard players set @s mother_last_hp 0
 scoreboard players set @s mother_regen_cd 0
 scoreboard players set @s death_count 0
