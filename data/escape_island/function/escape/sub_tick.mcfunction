@@ -1,3 +1,5 @@
+execute as @a[tag=state.boarding,tag=infected.common] run function escape_island:escape/boarding_convert_kick
+
 scoreboard players remove $game sub_countdown 1
 execute store result bossbar escape_island:sub value run scoreboard players get $game sub_countdown
 

@@ -1,3 +1,5 @@
+execute as @a[tag=state.boarding,tag=infected.common] run function escape_island:escape/boarding_convert_kick
+
 scoreboard players add $game heli_countdown 1
 scoreboard players operation $display heli_countdown = $game heli_countdown
 scoreboard players operation $display heli_countdown *= $const_minus1 heli_countdown

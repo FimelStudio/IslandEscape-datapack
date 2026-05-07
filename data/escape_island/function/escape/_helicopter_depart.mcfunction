@@ -1,3 +1,4 @@
+execute as @a[tag=state.boarding,tag=infected.common] run function escape_island:escape/boarding_convert_kick
 execute as @a[tag=state.boarding,tag=!state.escaped] run function escape_island:escape/boarding_check
 
 function escape_island:util/recount_escaped

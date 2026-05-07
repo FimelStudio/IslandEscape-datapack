@@ -43,3 +43,4 @@ tellraw @s [{"text":"[快速自爆]","color":"dark_red","bold":true,"click_event
 tellraw @s [{"text":"[快速坏结局]","color":"dark_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/quick_mutate"}},{"text":" 直接触发15分钟孢子升腾","color":"gray"}]
 tellraw @s [{"text":"[测试：全员转化结局]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/all_infected_end"}},{"text":" 唯一幸存者转化后，验证3秒内Bad End","color":"gray"}]
 tellraw @s [{"text":"[快速潜艇]","color":"dark_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/quick_sub"}},{"text":" 给钥匙卡+脚下潜艇标记，右键启动","color":"gray"}]
+tellraw @s [{"text":"[测试：感染期登载驱离]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/boarding_convert_kick"}},{"text":" 登载窗口内转化后，应立刻被踢回场上","color":"gray"}]
