@@ -1487,6 +1487,153 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ---
 
+### Batch 21 — 武器扩展：步枪 / 霰弹枪 / 狙击枪
+
+状态: **待实现**
+
+目标: 在 Batch 6 M-7 手枪系统基础上扩展三把武器，形成完整枪械池。武器统一走 `weapon/` 命名空间，主手物品 `custom_data.weapon` 区分类型，伤害/冷却/弹匣均由 datapack 结算，不依赖原版近战或弩弹道。本批次同步更新打靶训练场（Batch 19）和 Last Stand（Batch 20）以支持新武器。
+
+#### 武器规格速查
+
+| 武器 | 道具载体 | `weapon` 值 | 伤害 | 弹匣 | 换弹 | 射速门控 | 特性 |
+|---|---|---|---|---|---|---|---|
+| M-7 手枪 | `sugar` | `pistol` | 6（母体 4） | 8 | 2.0s | 0.4s | 已实现 |
+| SR-17 步枪 | `sugar` variant | `rifle` | 4（母体 3） | 30 | 2.5s | 0.12s | 连射，感染者可伤 |
+| SG-5 霰弹枪 | `sugar` variant | `shotgun` | 5×5（母体 4×5） | 6 | 2.0s | 1.0s | 扇形 5 弹，近距叠加 |
+| SP-1 狙击枪 | `spyglass` | `sniper` | 14（母体 9） | 5 | 3.5s | — | 右键开镜 / 左键击发 |
+
+弹药：步枪/霰弹枪使用现有 `9mm`（同手枪）；狙击枪使用新弹药 `sniper_round`。
+
+#### 21A — 数据结构
+
+- [ ] `load.mcfunction` 新增 scoreboard：
+  - `cd_rifle_fire`（步枪射速门控 per-player）
+  - `cd_rifle_reload`（步枪换弹）
+  - `cd_shotgun_fire`（霰弹枪射速门控）
+  - `cd_shotgun_reload`
+  - `cd_sniper_reload`（狙击枪换弹）
+  - `sniper_hitbox_owner`（用于 interaction 实体←→玩家绑定，见 21D）
+- [ ] `tunable` 写入（`util/apply_scaling.mcfunction`）：
+  - `tunable.rifle_damage = 4`、`tunable.rifle_damage_mother = 3`
+  - `tunable.shotgun_pellets = 5`、`tunable.shotgun_damage = 5`、`tunable.shotgun_damage_mother = 4`
+  - `tunable.sniper_damage = 14`、`tunable.sniper_damage_mother = 9`
+- [ ] 弹药道具：`sniper_round`（`custom_data.ammo:"sniper_round"`，载体 `arrow`，display name "狙击弹"）
+- [ ] 自测菜单：`[给步枪]`、`[给霰弹枪]`、`[给狙击枪]`
+
+#### 21B — SR-17 步枪
+
+道具载体: `minecraft:sugar`（`custom_data.weapon:"rifle"`，`item_model:"ie:rifle"`，`consumable.consume_seconds:0`，`use_cooldown.seconds:0.1`）
+
+- [ ] `weapon/rifle/fire.mcfunction`：
+  - 射速门控：`if score @s cd_rifle_fire matches 1.. → actionbar "冷却中" return`；`cd_rifle_fire` 每 tick -1
+  - 弹匣检查：`custom_data.mag <= 0` → `function weapon/rifle/empty_click`（音效提示）return
+  - 命中结算：`execute as @a[tag=team.infected,...] at @s positioned ... if entity @s[distance=..30]` 范围内最近目标，伤害 4 / 母体 3
+  - 扣弹：`custom_data.mag -= 1`；`cd_rifle_fire = 3`（3 tick ≈ 0.15s 连射间隔）
+  - 弹匣归零 → `function weapon/rifle/auto_reload_start`
+- [ ] `weapon/rifle/reload_start.mcfunction` / `reload_finish.mcfunction`：同 M-7 结构，换弹 2.5s（50 tick）
+- [ ] advancement `weapon/rifle/use.json`：`consume_item` + `custom_data.weapon:"rifle"`
+- [ ] `kit_*` 函数：海军陆战队员额外可选配步枪（替换或补充 M-7）
+
+#### 21C — SG-5 霰弹枪
+
+道具载体: `minecraft:sugar`（`custom_data.weapon:"shotgun"`，`item_model:"ie:shotgun"`，`consumable.consume_seconds:0`，`use_cooldown.seconds:0.5`）
+
+- [ ] `weapon/shotgun/fire.mcfunction`：
+  - 射速门控：`cd_shotgun_fire` 20 tick（1.0s）
+  - 扇形 5 弹：循环 5 次 `execute rotated ~ <随机偏差 ±15°> run ...` 命中结算
+    - 每弹独立检测最近目标（距离 ≤ 12）；同一目标最多叠加 5 弹
+    - 远距离（> 6 格）：每弹伤害 ×0.6（近距全伤，远距衰减）
+    - 实现上用 `random value` 或 5 个固定角度偏移模拟散射
+  - 弹匣 6 → 每发扣 1；空匣不能射击
+- [ ] `weapon/shotgun/reload_start.mcfunction` / `reload_finish.mcfunction`：换弹 2.0s
+- [ ] advancement `weapon/shotgun/use.json`：`consume_item` + `custom_data.weapon:"shotgun"`
+
+#### 21D — SP-1 狙击枪（重点）
+
+道具载体: `minecraft:spyglass`（`custom_data.weapon:"sniper"`，`item_model:"ie:sniper"`）
+
+**状态机：**
+- `sniper.unscoped`（默认持枪状态）：使用一个 consumable 道具切换
+- `sniper.scoped`（已开镜）：持真 spyglass（原版 FOV 缩放生效），interaction 实体启用
+- `sniper.reload`（换弹中）：锁定所有操作
+
+**开镜 / 关镜：**
+
+- [ ] 狙击枪切换载体：
+  - **未开镜时**主手为 `custom_data.weapon:"sniper"` + `custom_data.scoped:0b`（仍是 spyglass 物品，但我们用 `using_item` advancement 区分状态）
+  - 右键 → `using_item` advancement（`item.components["custom_data"].scoped:0b AND weapon:"sniper"`）→ `weapon/sniper/scope_in`
+  - `scope_in.mcfunction`：
+    - `item replace entity @s weapon.mainhand with minecraft:spyglass{...custom_data:{weapon:"sniper",scoped:1b}}`（替换为开镜变体）
+    - `summon minecraft:interaction ~ ~0.9 ~ {Tags:["sniper.hitbox"],width:0.6f,height:1.8f,response:1b}`
+    - `tag @s add sniper.scoped`
+    - `effect give @s slowness 999 1 true`（开镜期间移动减速）
+    - 私人 actionbar: `开镜中 | 左键击发 | 潜行退镜`
+
+- [ ] `using_item` advancement（`scoped:1b`）触发 `scope_in` 后立即替换道具为 scoped 版本，实际 spyglass 缩放由客户端控制，scoped 版也是 spyglass 物品因此原版 FOV 缩放继续生效
+
+**击发（右键按住 + Shift）：**
+
+> 左键在"使用中"状态被引擎阻断，无法用于击发。确定方案：右键持续按住保持 FOV 缩放，同时按 Shift 触发击发。潜行不会取消望远镜缩放，`Sneaking:1b` 可每 tick 检测。
+
+- [ ] advancement `weapon/sniper/zoom.json`（`using_item`）：
+  - 条件：`item.components["custom_data"].weapon = "sniper"`
+  - 每 tick 使用中触发 → `weapon/sniper/zoom_flag`
+  - advancement 须每 tick 撤销再重颁（`revoke` + `grant`），保证每 tick 均可触发
+
+- [ ] `weapon/sniper/zoom_flag.mcfunction`（as 玩家，每 tick 使用望远镜时）：
+  - `scoreboard players set @s sniper_zoom_flag 1`
+
+- [ ] `weapon/sniper/state_tick.mcfunction`（`_tick_1` 中对持狙击枪玩家调用）：
+  - `execute if score @s sniper_zoom_flag matches 1 run tag @s add sniper.zooming`
+  - `execute if score @s sniper_zoom_flag matches 0 run tag @s remove sniper.zooming`
+  - `scoreboard players set @s sniper_zoom_flag 0`（重置，下 tick 由 advancement 重新打）
+  - 击发检测：`execute as @s[tag=sniper.zooming,nbt={Sneaking:1b},scores={cd_sniper_bolt=0,cd_sniper_reload=0}] run function weapon/sniper/fire`
+
+- [ ] `weapon/sniper/fire.mcfunction`（as 玩家）：
+  - 弹匣检查：`custom_data.mag <= 0` → `weapon/sniper/empty_click` return
+  - 命中结算：射线投射检测（距离 ≤ 60 格），伤害 14 / 母体 9
+  - 扣弹：`custom_data.mag -= 1`
+  - **强制退镜**：`item replace entity @s weapon.mainhand with <bolt_placeholder>`（非 spyglass 占位道具）→ FOV 缩放自动终止，防止 Shift 持续按住连续触发
+  - `scoreboard players set @s cd_sniper_bolt 10`（0.5s 拉栓动画）
+  - `tag @s remove sniper.zooming`
+  - 粒子 + 枪声
+  - 弹匣归零 → `weapon/sniper/reload_start`
+
+- [ ] `weapon/sniper/bolt_tick.mcfunction`（`_tick_1` 中对 `cd_sniper_bolt > 0` 玩家调用）：
+  - `scoreboard players remove @s cd_sniper_bolt 1`
+  - `execute if score @s cd_sniper_bolt matches 0 run` → 若非换弹中则还原狙击枪道具（玩家需重新按右键开镜）
+
+**退镜（松开右键 = 自然退出）：**
+
+- [ ] 松开右键 → `using_item` 不再触发 → `sniper_zoom_flag` 不再被设为 1 → 下一 tick `state_tick` 检测到 flag=0 → `remove sniper.zooming`，无需额外函数
+- [ ] 换弹/拉栓期间道具为占位物（非 spyglass），不可开镜，天然阻止缩放
+
+**换弹：**
+
+- [ ] `weapon/sniper/reload_start.mcfunction` / `reload_finish.mcfunction`：
+  - 换弹时 `scope_out`（强制退镜）→ 开始 3.5s（70 tick）换弹倒计时
+  - 换弹完成：恢复弹匣 5 发，扣 `sniper_round` 数量
+
+#### 21E — 游戏内集成与清理
+
+- [ ] `weapon/pistol/fire.mcfunction` 中检测目标类型时，新增对 `custom_data.weapon:"rifle"` / `"shotgun"` 的分流（避免手枪命中结算影响其他武器）；各武器 fire 函数独立，通过 advancement 路由
+- [ ] `weapon/sniper/cleanup.mcfunction`：kill 所有 `tag sniper.hitbox` 实体；清除所有 `sniper.*` tag；供 `game/start`、`gunfight/cleanup`、`range/cleanup` 调用
+- [ ] `_tick_20.mcfunction` 新增：`execute as @a[tag=sniper.scoped] run function weapon/sniper/tick`
+- [ ] `kit_*`：目前仅手枪；未来可在海军陆战队员 kit 中提供步枪选择，其余职业保持手枪
+- [ ] `Last Stand`（Batch 20）：枪战中提供手枪/步枪选择；`gs_active=1` 时步枪/霰弹枪伤害统一 6（与手枪对齐）
+- [ ] 打靶训练场（Batch 19）：新增步枪靶道和霰弹枪靶道区域，命中路由检测 `custom_data.weapon` 分别计分
+
+验收:
+
+- [ ] SR-17 步枪：30 发连射（0.15s 间隔），弹匣耗尽自动换弹，换弹 2.5s；命中感染者/母体伤害符合设计
+- [ ] SG-5 霰弹枪：5 弹扇形散射，6 格内全伤，12 格外每弹 ×0.6；换弹 2.0s
+- [ ] SP-1 狙击枪：右键按住 → FOV 缩小（原版 spyglass 行为）；右键按住 + Shift → 击发；松开右键 → 退镜；弹匣 5 发
+- [ ] 击发后强制退镜（道具替换为拉栓占位）；0.5s 拉栓后还原狙击枪；必须重新按右键开镜才能再次击发（防连发）
+- [ ] 狙击枪换弹：弹匣耗尽 → 3.5s 换弹 → 弹匣恢复；换弹中道具为占位物，不可开镜
+- [ ] 进入正式局：`sniper/cleanup` 清除所有 `sniper.*` tag 和 `sniper_zoom_flag`；新游戏开始后枪械状态干净
+
+---
+
 ## 五、自测记录
 
 | 日期 | 批次 | 检查 | 结果 | 备注 |
