@@ -54,7 +54,6 @@ execute if score $game in_game matches 1 unless entity @a[tag=team.human] run fu
 
 execute if score $game cur_phase matches 4 run function escape_island:escape/helicopter_tick
 execute if score $game cur_phase matches 4 if score $game ship_countdown matches 1.. run function escape_island:escape/ship_boarding_tick
-execute if entity @a[tag=range.active,limit=1] run function escape_island:range/tick
 execute if score $game gs_active matches 1 run function escape_island:gunfight/combat_tick
 execute if score $game gs_active matches 1 run function escape_island:gunfight/supply_tick
 

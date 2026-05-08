@@ -106,6 +106,10 @@ scoreboard objectives add range_timer dummy
 scoreboard objectives add range_mode dummy
 scoreboard objectives add range_lives dummy
 scoreboard objectives add range_target_state dummy
+scoreboard objectives add range_shots dummy
+scoreboard objectives add range_hits dummy
+scoreboard objectives add range_seq dummy
+scoreboard objectives add range_wave dummy
 scoreboard objectives add gs_active dummy
 scoreboard objectives add gs_score dummy
 scoreboard objectives add gs_lives dummy
@@ -238,6 +242,8 @@ bossbar add escape_island:disguise {"text":"伪装倒计时","color":"dark_purpl
 bossbar set escape_island:disguise visible false
 bossbar add escape_island:mother_respawn {"text":"母体复活","color":"dark_red"}
 bossbar set escape_island:mother_respawn visible false
+bossbar add escape_island:range_timer {"text":"靶场倒计时","color":"yellow"}
+bossbar set escape_island:range_timer visible false
 
 gamerule pvp true
 

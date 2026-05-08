@@ -23,6 +23,7 @@ scoreboard players remove @a[scores={ship_hold_seen=1..}] ship_hold_seen 1
 
 execute as @a at @s run function escape_island:task/generator_action_area_tick
 execute as @a at @s run function escape_island:task/scan_action_area_tick
+execute if entity @a[tag=range.active,limit=1] run function escape_island:range/tick
 execute as @a[scores={gen_hold_lock=1,gen_hold_seen=0}] run function escape_island:task/generator_reset_hold
 execute as @a[scores={gen_hold_time=1..,gen_hold_seen=0}] run function escape_island:task/generator_reset_hold
 scoreboard players remove @a[scores={gen_hold_seen=1..}] gen_hold_seen 1

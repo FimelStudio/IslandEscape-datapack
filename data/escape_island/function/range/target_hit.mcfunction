@@ -1,7 +1,10 @@
-scoreboard players add @p[tag=range.active,distance=..64,limit=1] range_score 10
+execute unless entity @a[tag=skill.pistol.shooter,tag=range.active,limit=1] unless entity @a[tag=skill.ak47.shooter,tag=range.active,limit=1] run return 0
 scoreboard players set #hit skill.pistol_tmp 1
-scoreboard players add @p[tag=range.active,distance=..64,limit=1] range_combo 1
-particle minecraft:crit ~ ~1 ~ 0.2 0.4 0.2 0.05 20 force @a[distance=..32]
-playsound minecraft:block.note_block.pling player @p[tag=range.active,distance=..64,limit=1] ~ ~ ~ 0.8 1.6
-tp @s ~ ~-64 ~
-kill @s
+scoreboard players set #hit skill.ak47_tmp 1
+execute if entity @s[tag=range.target.sequence,tag=!range.seq.current] run function escape_island:range/sequence_wrong
+execute if entity @s[tag=range.target.sequence,tag=!range.seq.current] run return 0
+execute if entity @s[tag=range.target.sequence,tag=range.seq.current] run function escape_island:range/sequence_hit
+execute if entity @s[tag=range.target.sequence] run return 0
+execute if entity @s[tag=range.target.static] run function escape_island:range/target_hit_static
+execute if entity @s[tag=range.target.moving] run function escape_island:range/target_hit_moving
+execute if entity @s[tag=range.target.reaction] run function escape_island:range/target_hit_reaction

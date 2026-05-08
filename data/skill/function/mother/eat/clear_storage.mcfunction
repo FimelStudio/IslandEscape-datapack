@@ -1,7 +1,10 @@
 data remove storage zombie:eated target_name
 data remove storage zombie:eated target_health
+data remove storage zombie:eated max_health
+data remove storage zombie:eated player_name
 data remove storage zombie:eated target_speed
 data remove storage zombie:eated target_scale
+data remove storage zombie:eated config_health
 data remove storage zombie:eated config_min_health
 data remove storage zombie:eated config_max_health
 data remove storage zombie:eated tiny_scale

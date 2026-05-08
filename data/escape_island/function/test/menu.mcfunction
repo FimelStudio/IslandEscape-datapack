@@ -11,6 +11,7 @@ tellraw @s [{"text":"[放标记: 核心信号塔]","color":"gold","bold":true,"c
 tellraw @s [{"text":"[放标记: 发电机]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_generator"}},{"text":" 站在发电机位置再点","color":"gray"}]
 tellraw @s [{"text":"[放标记: 隔离扫描站]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_scan_station"}},{"text":" 站在扫描站位置再点","color":"gray"}]
 tellraw @s [{"text":"[放标记: 直升机坪]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_heli_pad"}},{"text":" 站在直升机降落点再点","color":"gray"}]
+tellraw @s [{"text":"[放标记: 船坞]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_ship_dock"}},{"text":" 站在轮船修复/登船交互点再点","color":"gray"}]
 tellraw @s [{"text":"[放标记: 自爆装置]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_bomb"}},{"text":" 站在自爆终端位置再点","color":"gray"}]
 tellraw @s [{"text":"[放标记: 潜艇]","color":"dark_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_lab_sub"}},{"text":" 站在潜艇撤离点再点","color":"gray"}]
 tellraw @s [{"text":"[放标记: 普通物资]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:dev/place_marker_loot_basic"}},{"text":" 站位置点一下放一个","color":"gray"}]

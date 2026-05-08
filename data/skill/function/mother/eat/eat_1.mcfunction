@@ -10,7 +10,7 @@ execute unless entity @a[tag=skill.mother.eat.target,limit=1] run return 0
 execute store result storage zombie:eated target_health int 1 run attribute @a[tag=skill.mother.eat.target,limit=1] minecraft:max_health base get 1
 execute store result storage zombie:eated target_speed double 1 run attribute @a[tag=skill.mother.eat.target,limit=1] minecraft:movement_speed base get 1
 execute store result storage zombie:eated target_scale double 1 run attribute @a[tag=skill.mother.eat.target,limit=1] minecraft:scale base get 1
-execute store result storage zombie:eated max_health double 1 run attribute @a[tag=skill.mother.eat.target,limit=1] minecraft:max_health base get 1
+execute store result storage zombie:eated max_health int 1 run attribute @a[tag=skill.mother.eat.target,limit=1] minecraft:max_health base get 1
 data modify storage zombie:eated target_name set value {selector:"@a[tag=skill.mother.eat.target,limit=1]"}
 function skill:mother/eat/update_target_type
 execute at @a[tag=skill.mother.eat.target,limit=1] summon text_display run function skill:mother/eat/eat_1_get_name

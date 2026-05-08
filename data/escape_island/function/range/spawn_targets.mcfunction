@@ -1,0 +1,4 @@
+function escape_island:range/targets/static_target
+function escape_island:range/targets/moving_target
+function escape_island:range/targets/reaction_target
+function escape_island:range/targets/sequence_targets

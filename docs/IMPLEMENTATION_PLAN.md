@@ -1323,93 +1323,92 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 19 — 打靶训练场
 
-状态: **已实现最小闭环（enter/exit/tick/reset/cleanup + 4 种靶 + 3 种挑战模式 + 测试菜单接入；游戏内手测待回归）**
+状态: **已完成可玩闭环（玩家模型靶、命中结算、3 种挑战、重置清理、M-7/AK47 路由；游戏内手测待回归）**
 
-目标: 在大厅/训练区提供独立的射击训练模式，玩家可用 M-7 打靶练手感、测精准度、刷个人最佳分。不依赖正式局 scoreboard，训练结束后数据保留供复玩对比。本批次在 Batch 6 M-7 系统基础上扩展，通过 `custom_data.target` 标签将训练场命中路由到独立结算逻辑，不影响正式局战斗。
+目标: 在大厅/训练区提供独立的射击训练模式，玩家可用 M-7 打靶练手感、测精准度、刷个人最佳分。不依赖正式局 scoreboard，训练结束后数据保留供复玩对比。本批次在 Batch 6 M-7 系统基础上扩展，通过 `range.target` 标签将训练场命中路由到独立结算逻辑，不影响正式局战斗。训练靶使用 NoAI 僵尸作为人形玩家靶，因为原版不能直接召唤假玩家实体；射线按头部、躯干、腿部三段检测，避免只打脚才命中的问题。
 
 #### 19A — 数据结构与入口
 
-- [ ] `load.mcfunction` 注册训练场 scoreboard：
-  - `range.score`（本局得分）
-  - `range.best`（个人最佳得分）
-  - `range.hits`（本局命中数）
-  - `range.shots`（本局开枪数）
-- [ ] 自测菜单新增 `[进入训练场]` / `[退出训练场]` 按钮
-- [ ] `range/enter.mcfunction`：
+- [x] `load.mcfunction` 注册训练场 scoreboard：
+  - `range_score`（本局得分）
+  - `range_best`（个人最佳得分）
+  - `range_hits`（本局命中数）
+  - `range_shots`（本局开枪数）
+  - `range_combo`、`range_timer`、`range_mode`、`range_lives`、`range_seq`、`range_wave`、`range_target_state`
+- [x] 自测菜单新增 `[进入训练场]` / `[退出训练场]` / `[靶场重置]` 按钮
+- [x] `range/enter.mcfunction`：
   - 给玩家 `tag range.active`
   - 传送到训练场区域（`marker.range_spawn`）
-  - 清空 `range.score`、`range.hits`、`range.shots`；不清空 `range.best`
+  - 清空 `range_score`、`range_hits`、`range_shots`；不清空 `range_best`
   - 给 M-7 + 64 发 9mm 弹药（无限练习用）
   - 显示操作提示 actionbar
-- [ ] `range/exit.mcfunction`：
+- [x] `range/exit.mcfunction`：
   - 移除 `tag range.active`
-  - 更新 `range.best`（若 `range.score > range.best` 则覆盖）
-  - 传送回大厅 `marker.lobby_spawn`
+  - 更新 `range_best`（若 `range_score > range_best` 则覆盖）
   - 广播本局结果和个人最佳
 
 #### 19B — 靶标实体
 
-- [ ] `range/targets/static_target.mcfunction`：
-  - 在 `marker.range_static` 处 summon armor_stand，添加 `tag range.target_static`，`custom_data.target:"range_static"`，`custom_data.hp:3`
-  - 被 M-7 命中（`weapon/pistol/fire` 中检测 `target.custom_data.target` 含 `"range"`）→ 路由到 `range/target_hit`
-  - 命中后设 `custom_data.hp -= 1`；hp = 0 时播放破碎粒子+音效，3 秒后 `range/targets/reset_static`
-- [ ] `range/targets/moving_target.mcfunction`：
-  - 在轨道上每 tick 根据 `range_move_tick` scoreboard 左右平移（-3 到 +3 格来回）
-  - armor_stand + `tag range.target_moving`，`custom_data.target:"range_moving"`
-  - 命中即销毁（hp 1），2 秒后重置
-- [ ] `range/targets/reaction_target.mcfunction`：
-  - 初始隐藏（NoGravity、Invisible）；由 `range/targets/reaction_spawn` 随机等待 20–100 tick 后弹出（Invisible false + 粒子提示）
-  - 弹出后 60 tick 未命中则自动隐藏；弹出期间命中给额外 +5 分加成
-- [ ] `range/targets/sequence_targets.mcfunction`：
-  - 5 个靶按顺序编号（`custom_data.seq:1`~`5`）；仅当前序号靶高亮（发光粒子）
+- [x] `range/targets/static_target.mcfunction`：
+  - 在 `marker.range_static` 处 summon NoAI 僵尸人形靶，添加 `tag range.target`、`tag range.target.static`
+  - 被 M-7/AK47 命中后路由到 `range/target_hit`，静态靶 +10 分
+- [x] `range/targets/moving_target.mcfunction`：
+  - 在 `marker.range_moving` 处生成 NoAI 僵尸人形靶，每 tick 根据 `range_target_state` 左右移动
+  - 波次越高，移动速度越快；命中移动靶 +20 分
+- [x] `range/targets/reaction_target.mcfunction`：
+  - 初始隐藏（`range.reaction.hidden` + Invisible），40 tick 后弹出
+  - 弹出 60 tick 未命中则自动隐藏；隐藏态不会被射线判定；弹出期间命中 +20 分
+- [x] `range/targets/sequence_targets.mcfunction`：
+  - 5 个靶按顺序编号（`range.seq.1`~`range.seq.5`）；仅当前序号靶高亮
   - 命中当前序号靶 → `range_seq ++`；命中非当前序号靶不计分且提示"顺序错误"
   - 全部命中 → +30 连击加成，序列重置
 
 #### 19C — 命中结算路由
 
-- [ ] `weapon/pistol/fire.mcfunction`（已有）中，在目标分流前检测：
-  - `execute if entity @e[tag=range.target_static,distance=..50,limit=1]` 命中最近训练靶 → `function range/target_hit`（而非正式局伤害结算）
+- [x] `weapon/pistol/fire.mcfunction` / `weapon/ak47/fire.mcfunction` / `marine/gun_mastery/fire_one.mcfunction` 接入训练场命中：
+  - 射线在 `raycast_hitbox` 顶部优先检测 `tag range.target`，命中最近训练靶 → `function range/target_hit`（而非正式局伤害结算）
   - 此分支仅对 `tag range.active` 玩家生效，避免正式局误触发
-- [ ] `range/target_hit.mcfunction`：
-  - 根据 `custom_data.target` 区分靶类型给分：
-    - `range_static`：+10 分
-    - `range_moving`：+20 分（移动靶精度奖励）
-    - `range_reaction`（弹出期间）：+15 + 5 弹出加成 = +20 分
-    - `range_sequence`：当前序靶 +15 分（序列全中额外 +30）
-  - `range.hits ++`，actionbar 私人显示当前分 / 命中数 / 精准度（hits/shots）
-  - 播放命中音效 `minecraft:entity.experience_orb.pickup`（pitch 随靶类型变化）
+- [x] `range/target_hit.mcfunction`：
+  - 根据靶标 tag 区分靶类型给分：
+    - `range.target.static`：+10 分
+    - `range.target.moving`：+20 分（移动靶精度奖励）
+    - `range.target.reaction`（弹出期间）：+20 分
+    - `range.target.sequence`：当前序靶 +15 分（序列全中额外 +30）
+  - `range_hits ++`，actionbar 私人显示当前分 / 命中数 / 开枪数 / 连击
+  - 播放命中粒子和靶型区分音效
 
 #### 19D — 挑战模式
 
-- [ ] `range/mode/precision.mcfunction`（精准挑战）：
-  - 限 10 发子弹（`range_ammo_limit = 10`）；不限时
-  - 开始时广播"精准挑战开始，10发定输赢"
-  - 弹药耗尽或手动退出 → 进入结算，显示命中率 + 得分 + 最佳对比
-- [ ] `range/mode/timed.mcfunction`（限时挑战）：
-  - 弹药无限；30 秒倒计时（`range_timer = 600`，每 tick -1）
+- [x] `range/mode/precision.mcfunction`（精准挑战）：
+  - 限 10 次开枪机会；不限时
+  - 每次开枪消耗 `range_timer`，归零后调用 `range/finish`
+  - 结算显示得分、命中、开枪数、最佳对比
+- [x] `range/mode/timed.mcfunction`（限时挑战）：
+  - 30 秒倒计时（`range_timer = 600`，每 tick -1）
+  - 开始时补给大量 9mm 与 7.62 弹药，保证 M-7/AK47 测试不会被弹药打断
   - 倒计时 bossbar `escape_island:range_timer` 仅对 `tag range.active` 显示
   - 时间到 → 结算；得分排行私人显示
-- [ ] `range/mode/survival.mcfunction`（生存挑战）：
-  - 无时间限制；靶出现速度每 30 秒加快（`range_wave ++`，间隔缩短 5 tick）
-  - 连续 3 次未命中弹出靶 → 挑战结束
-  - 难度波次（wave）和得分一起计入 `range.best`
-- [ ] 自测菜单新增三个模式按钮：`[精准挑战]`、`[限时挑战]`、`[生存挑战]`
+- [x] `range/mode/survival.mcfunction`（生存挑战）：
+  - 无时间限制；每 30 秒 `range_wave ++`，移动靶速度提升
+  - 任意开枪未命中会扣 1 点生命；3 次未命中结束挑战
+  - 难度波次与得分在 actionbar 显示，得分参与 `range_best`
+- [x] 自测菜单新增三个模式按钮：`[精准挑战]`、`[限时挑战]`、`[生存挑战]`
 
 #### 19E — 复位与清理
 
-- [ ] `range/reset.mcfunction`：kill 所有 `tag range.target_*` 实体，重新调用 `static_target`/`reaction_target`/`sequence_targets` 初始化
-- [ ] `range/cleanup.mcfunction`（游戏开始时调用）：确保训练场靶实体全部清除，`tag range.active` 全部移除
-- [ ] `game/start.mcfunction` 开头调用 `range/cleanup`，避免训练场状态泄漏到正式局
-- [ ] marker 需求：`marker.range_spawn`、`marker.range_static`×4、`marker.range_moving`×2 轨道端点、`marker.range_reaction`×3、`marker.range_seq_1`~`range_seq_5`
+- [x] `range/reset.mcfunction`：kill 所有 `tag range.target` 实体，清空分数/模式/计时/生命/连击/命中/开枪数，重新初始化四类靶
+- [x] `range/cleanup.mcfunction`（游戏开始时调用）：确保训练场靶实体全部清除，`tag range.active` 全部移除，并关闭 `escape_island:range_timer`
+- [x] `game/start.mcfunction` 与 `game/start_test.mcfunction` 开头调用 `range/cleanup`，避免训练场状态泄漏到正式局
+- [x] marker 需求：`marker.range_spawn`、`marker.range_static`、`marker.range_moving`、`marker.range_reaction`、`marker.range_seq_1`~`range_seq_5`；缺少 marker 时会在玩家前方生成 fallback 靶组
 
 验收:
 
-- [ ] 进入训练场：传送、得到枪弹、分数归零；个人最佳不清零
-- [ ] 4 种靶均可被 M-7 命中并计分；正式局开火不触发训练场分支
-- [ ] 移动靶持续左右移动，命中后 2s 重置；反应靶弹出后 60tick 未命中自动隐藏
-- [ ] 序列靶只有当前靶可得分；全序列命中触发连击加成
-- [ ] 3 种挑战模式各跑通一次：精准（10发结算）、限时（30s bossbar结算）、生存（3次miss结束）
-- [ ] 退出训练场：best 更新，结果广播，传回大厅
+- [ ] 游戏内回归：进入训练场后传送、得到枪弹、分数归零；个人最佳不清零
+- [ ] 游戏内回归：4 种靶均可被 M-7 命中并计分；正式局开火不触发训练场分支
+- [ ] 游戏内回归：移动靶持续左右移动；反应靶弹出后 60tick 未命中自动隐藏
+- [ ] 游戏内回归：序列靶只有当前靶可得分；全序列命中触发连击加成
+- [ ] 游戏内回归：3 种挑战模式各跑通一次：精准（10 发结算）、限时（30s bossbar 结算）、生存（3 次 miss 结束）
+- [ ] 游戏内回归：退出训练场时 `range_best` 更新，结果广播，靶标与状态清理干净
 
 ---
 

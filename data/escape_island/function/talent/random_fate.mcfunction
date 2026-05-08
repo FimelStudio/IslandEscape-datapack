@@ -1,4 +1,4 @@
-scoreboard players random @s talent_fate 1 4
+execute store result score @s talent_fate run random value 1..4
 tag @s remove talent.fate.cabin_memory
 tag @s remove talent.fate.radio_echo
 tag @s remove talent.fate.cold_room

@@ -11,3 +11,4 @@ execute anchored eyes positioned ^ ^-0.06 ^0.65 run particle minecraft:smoke ~ ~
 tag @s add skill.ak47.shooter
 execute anchored eyes run function skill:weapon/ak47/raycast
 tag @s remove skill.ak47.shooter
+execute if entity @s[tag=range.active] run function escape_island:range/on_shot_ak47

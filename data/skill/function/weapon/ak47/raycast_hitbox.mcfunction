@@ -1,3 +1,6 @@
+execute if score #hit skill.ak47_tmp matches 0 positioned ~ ~-0.25 ~ as @e[tag=range.target,tag=!range.reaction.hidden,distance=..1.05,sort=nearest,limit=1] at @s run function escape_island:range/target_hit
+execute if score #hit skill.ak47_tmp matches 0 positioned ~ ~-0.95 ~ as @e[tag=range.target,tag=!range.reaction.hidden,distance=..1.05,sort=nearest,limit=1] at @s run function escape_island:range/target_hit
+execute if score #hit skill.ak47_tmp matches 0 positioned ~ ~-1.55 ~ as @e[tag=range.target,tag=!range.reaction.hidden,distance=..1.05,sort=nearest,limit=1] at @s run function escape_island:range/target_hit
 execute if score #hit skill.ak47_tmp matches 0 as @e[type=minecraft:marker,tag=entity.clicker_spore,distance=..0.85,sort=nearest,limit=1] at @s run function skill:weapon/ak47/hit_clicker_spore
 
 execute if score #hit skill.ak47_tmp matches 0 positioned ~ ~-0.25 ~ as @e[tag=infected.mother,tag=!state.dead,distance=..1.05,sort=nearest,limit=1] at @s run function skill:weapon/ak47/hit_mother
