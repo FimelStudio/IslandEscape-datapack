@@ -2,6 +2,8 @@ scoreboard players set @s gen_state 4
 scoreboard players set @s gen_countdown 0
 scoreboard players set @s gen_overload 0
 scoreboard players set $game gen_done 1
+execute at @s as @a[tag=team.human,tag=!state.dead,distance=..4] run scoreboard players add @s match_repair 20
+execute at @s as @a[tag=team.human,tag=!state.dead,distance=..4] run scoreboard players add @s match_objective 15
 bossbar set escape_island:gen visible false
 execute at @s run tellraw @a {"text":"§a[发电机] 稳定运行完成！部分区域恢复供电。","color":"green","bold":true}
 execute at @s run playsound minecraft:block.beacon.activate master @a[distance=..32] ~ ~ ~ 1 1

@@ -1,5 +1,6 @@
 execute if entity @s[tag=state.escaped] run return 0
 tag @s add state.escaped
+scoreboard players add @s match_escape 40
 tag @s remove state.boarding
 tag @s remove state.boarding.heli
 tag @s remove state.boarding.ship

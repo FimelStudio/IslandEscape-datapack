@@ -9,6 +9,8 @@ execute unless score $game ship_countdown matches 1.. run return 0
 
 execute if entity @s[tag=state.boarding] run title @s actionbar {"text":"你已登船，等待离港","color":"green"}
 execute if entity @s[tag=state.boarding] run return 0
+execute if entity @s[tag=team.infected,tag=infected.mother,tag=state.disguised] run function escape_island:escape/_board_disguised_mother
+execute if entity @s[tag=team.infected,tag=infected.mother,tag=state.disguised] run return 0
 execute if entity @s[tag=team.infected] run title @s actionbar {"text":"感染者无法登船","color":"red"}
 execute if entity @s[tag=team.infected] run playsound minecraft:entity.villager.no player @s ~ ~ ~ 1 0.8
 execute if entity @s[tag=team.infected] run return 0

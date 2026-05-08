@@ -1,0 +1,2 @@
+execute at @e[type=minecraft:marker,tag=marker.range_reaction] run summon minecraft:armor_stand ~ ~ ~ {Tags:["range.target","range.target.reaction"],CustomName:{"text":"反应靶","color":"red"},CustomNameVisible:1b,NoGravity:1b,Invulnerable:1b}
+execute unless entity @e[tag=marker.range_reaction,limit=1] at @a[tag=range.active,limit=1] run summon minecraft:armor_stand ~-3 ~ ~7 {Tags:["range.target","range.target.reaction"],CustomName:{"text":"反应靶","color":"red"},CustomNameVisible:1b,NoGravity:1b,Invulnerable:1b}

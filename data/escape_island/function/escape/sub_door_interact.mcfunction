@@ -1,5 +1,7 @@
 advancement revoke @s only escape_island:interaction/sub_door_interact
 
+execute if entity @s[tag=team.infected,tag=infected.mother,tag=state.disguised] run function escape_island:escape/_board_disguised_mother
+execute if entity @s[tag=team.infected,tag=infected.mother,tag=state.disguised] run return 0
 execute if entity @s[tag=team.infected] run tellraw @s {"text":"§7感染者无法登艇","color":"red"}
 execute if entity @s[tag=team.infected] run return 0
 

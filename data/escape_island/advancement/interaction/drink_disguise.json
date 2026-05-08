@@ -1,0 +1,18 @@
+{
+  "criteria": {
+    "drink_disguise": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "minecraft:potion",
+          "predicates": {
+            "minecraft:custom_data": {"role_item": "mother.disguise"}
+          }
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "skill:mother/disguise"
+  }
+}

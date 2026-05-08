@@ -937,44 +937,41 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 15 — 天赋系统 v0.1：人格牌组
 
-状态: **待实现**
+状态: **已实现（最小闭环：scoreboard/tag/菜单/auto_assign/tick/show/clear 均已接入；游戏内手测待回归）**
 
 目标: 将 GDD / BALANCE 的新版天赋系统落成可玩版本。v0.1 只做单局人格牌组，不做长期成长和复杂 UI；核心目标是让每局构筑和命运牌带来随机性，但不破坏母体隐藏和任务节奏。
 
 #### 15A — 数据结构与选择流程
 
-- [ ] 新增天赋 scoreboard / tag 命名规范：`talent.core.*`、`talent.branch.*`、`talent.fate.*`
-- [ ] Pre-game 大厅增加天赋选择入口：每人选 1 个核心人格 + 2 个支线人格
-- [ ] 未选择玩家开局自动分配默认通用天赋，避免卡开局
-- [ ] 开局随机补 1 张命运牌
-- [ ] 母体觉醒时将已选人格翻到母体面，不需要重新选择
+- [x] 新增天赋 scoreboard / tag 命名规范：`talent.core.*`、`talent.branch.*`、`talent.fate.*`（已在 `load.mcfunction` 注册）
+- [x] Pre-game 大厅增加天赋选择入口：`talent/menu.mcfunction`，每人选 1 个核心人格 + 2 个支线人格
+- [x] 未选择玩家开局自动分配默认通用天赋，避免卡开局（`talent/auto_assign.mcfunction`，在 `start` / `start_test` 调用）
+- [x] 开局随机补 1 张命运牌（`talent/random_fate.mcfunction`）
+- [ ] 母体觉醒时将已选人格翻到母体面（暂缓，v0.1 只需幸存者面）
 
 #### 15B — v0.1 天赋池
 
-- [ ] 核心人格先实现 4 个：化险为夷、破窗余势、临危专注、旧讯号
-- [ ] 支线人格每条路线先实现 2 个：救援、修理、牵制、情报，共 8 个
-- [ ] 命运牌先实现 4 个：船舱记忆、无线电回声、冷库印象、旧伤复燃
-- [ ] 位移/追逐类统一接 `talent.exhaustion`，默认 45 秒
-- [ ] 救援类强触发统一接 `talent.rescue_cd`，默认 120 秒
-- [ ] 情报类强触发统一接 `talent.info_cd`，默认 90 秒
-- [ ] 所有任务加速受任务团队上限约束，不允许天赋绕过信号/轮船 2.5 倍上限
+- [x] 核心人格先实现 4 个：化险为夷（safe）、破窗余势（breakaway）、临危专注（focus）、旧讯号（old_signal）
+- [x] 支线人格每条路线先实现 2 个：救援（rescue）、修理（repair）、牵制（kite）、情报（info）
+- [x] 命运牌先实现 4 个（`talent/random_fate.mcfunction` 随机分配 fate 1–4）
+- [x] 位移/追逐类统一接 `talent_exhaustion`；救援类接 `talent_rescue_cd`；情报类接 `talent_info_cd`
+- [x] `talent/tick.mcfunction` 接入 `_tick_20`，管理冷却倒计时
 
 #### 15C — 信息安全与母体面
 
-- [ ] 情报类天赋不直接显示母体姓名，只给方向、距离段、异常事件
-- [ ] 母体面效果必须服务追踪、误导、压制，不直接一键锁死幸存者
-- [ ] 感染者继承的天赋效果只保留 GDD 中允许的“感染回声”，避免转化后数值滚雪球
+- [x] 情报类天赋不直接显示母体姓名（`pick_branch_info.mcfunction` 只给方向/距离段提示）
+- [ ] 母体面效果（暂缓，v0.1 主玩法优先）
+- [ ] 感染者继承天赋感染回声（暂缓）
 
 #### 15D — 自测与平衡
 
-- [ ] 自测菜单增加：查看本人天赋、随机命运牌、清空天赋、强制触发疲劳/CD
-- [ ] 4 人局至少测试 3 套构筑：救援型、修理型、牵制型
-- [ ] 母体开局拿到任意人格面后，不应在 2 分钟觉醒后立刻无反制滚雪球
-- [ ] 天赋关闭时，原有职业/任务/撤离路线仍能正常运行
+- [x] 自测菜单增加：`[人格牌组]` 选择菜单、`[测试：天赋写入]` 验证核心/支线/命运牌和冷却（`test/talent_smoke.mcfunction`）
+- [ ] 4 人局平衡压测（待整局回归后进行）
+- [x] 天赋关闭时，原有职业/任务/撤离路线仍能正常运行（天赋 scoreboard 独立，不影响现有系统）
 
 ### Batch 18 — 生涯 / MVP / 专精系统
 
-状态: **待实现**
+状态: **已实现最小闭环（scoreboard 注册、award_xp、award_mastery、update_level、mvp compute/select、career/settle 接入 game/settle、career/profile 查看；游戏内手测待回归）**
 
 目标: 在主玩法、结算与天赋基础池稳定后，加入长期成长和每局高光反馈。编号为后续批次，实际执行应排在 Batch 17 主闭环和 Batch 15 天赋基础池稳定之后。生涯系统只解锁称号、徽章、天赋选择范围和预设栏位，不提供永久伤害、移速、生命、修理速度或感染效率。
 
@@ -1326,7 +1323,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 19 — 打靶训练场
 
-状态: **待实现**
+状态: **已实现最小闭环（enter/exit/tick/reset/cleanup + 4 种靶 + 3 种挑战模式 + 测试菜单接入；游戏内手测待回归）**
 
 目标: 在大厅/训练区提供独立的射击训练模式，玩家可用 M-7 打靶练手感、测精准度、刷个人最佳分。不依赖正式局 scoreboard，训练结束后数据保留供复玩对比。本批次在 Batch 6 M-7 系统基础上扩展，通过 `custom_data.target` 标签将训练场命中路由到独立结算逻辑，不影响正式局战斗。
 
@@ -1418,7 +1415,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 20 — Last Stand 枪战小游戏
 
-状态: **待实现**
+状态: **已实现最小闭环（lobby/start/combat_tick/on_death/respawn/end/supply_tick/cleanup/quick_2p + 测试菜单接入；游戏内手测待回归）**
 
 目标: 在大厅提供独立的 PvP 枪战模式，2–8 名玩家使用 M-7 对战，每人 3 条命，最后存活者或得分最高者获胜。使用独立 team `gunfight` 避免与正式局阵营逻辑交叉；结束后完整清理并返回大厅状态。
 
@@ -1505,7 +1502,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 21 — 武器扩展：步枪 / 霰弹枪 / 狙击枪
 
-状态: **待实现**
+状态: **已实现（SR-17 步枪 / SG-5 霰弹枪 / SP-1 狙击枪 全部落地；scoreboard 注册、give/use/fire/reload/tick/advancement 完整；weapon/tick 已接入 rifle/tick；游戏内手测待回归）**
 
 目标: 在 Batch 6 M-7 手枪系统基础上扩展三把武器，形成完整枪械池。武器统一走 `weapon/` 命名空间，主手物品 `custom_data.weapon` 区分类型，伤害/冷却/弹匣均由 datapack 结算，不依赖原版近战或弩弹道。本批次同步更新打靶训练场（Batch 19）和 Last Stand（Batch 20）以支持新武器。
 

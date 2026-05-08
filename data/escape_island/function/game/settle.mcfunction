@@ -158,4 +158,5 @@ scoreboard players set $game in_game 0
 gamerule natural_health_regeneration true
 
 tellraw @a {"text":"─────────────────────────────","color":"gray"}
+function escape_island:career/settle
 tellraw @a {"text":"状态已清除。输入 /function escape_island:game/start 再来一局。","color":"gold"}

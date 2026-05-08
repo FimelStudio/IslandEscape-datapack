@@ -9,6 +9,7 @@ scoreboard players set $game signal_done 0
 scoreboard players set $game gen_done 0
 scoreboard players set $game power_buff 0
 scoreboard players set $game power_buff_acc 0
+scoreboard players set $game ship_aura_acc 0
 scoreboard players set $game gen_state 0
 scoreboard players set $game gen_countdown 0
 scoreboard players set $game gen_overload 0

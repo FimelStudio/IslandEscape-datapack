@@ -8,6 +8,7 @@ effect give @a[tag=!state.dead,tag=!state.spectator,tag=!state.escaped] minecraf
 
 function escape_island:infection/tick_infected_state
 function escape_island:infection/spore_load_decay
+function escape_island:talent/tick
 execute as @a[scores={cd_aura_heartbeat=1..}] run scoreboard players remove @s cd_aura_heartbeat 1
 execute as @a[scores={cd_aura_notice=1..}] run scoreboard players remove @s cd_aura_notice 1
 
@@ -53,6 +54,9 @@ execute if score $game in_game matches 1 unless entity @a[tag=team.human] run fu
 
 execute if score $game cur_phase matches 4 run function escape_island:escape/helicopter_tick
 execute if score $game cur_phase matches 4 if score $game ship_countdown matches 1.. run function escape_island:escape/ship_boarding_tick
+execute if entity @a[tag=range.active,limit=1] run function escape_island:range/tick
+execute if score $game gs_active matches 1 run function escape_island:gunfight/combat_tick
+execute if score $game gs_active matches 1 run function escape_island:gunfight/supply_tick
 
 execute if score $game phase_timer matches 1.. run function escape_island:event/pick_event
 execute as @a[tag=event.storm] at @s run function escape_island:event/storm_tick

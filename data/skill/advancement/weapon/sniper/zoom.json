@@ -1,0 +1,11 @@
+{
+  "criteria": {
+    "zoom": {
+      "trigger": "minecraft:using_item",
+      "conditions": {
+        "item": {"items": "minecraft:spyglass", "predicates": {"minecraft:custom_data": {"weapon": "sniper"}}}
+      }
+    }
+  },
+  "rewards": {"function": "skill:weapon/sniper/zoom_flag"}
+}

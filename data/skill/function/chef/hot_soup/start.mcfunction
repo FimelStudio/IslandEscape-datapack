@@ -1,3 +1,13 @@
+tag @a remove skill.soup.user
+tag @a remove skill.soup.target
+tag @s add skill.soup.user
+
+execute at @s as @a[tag=team.human,tag=state.infected_period,tag=!state.dead,tag=!state.escaped,distance=..5,sort=nearest,limit=1] run tag @s add skill.soup.target
+
+execute unless entity @a[tag=skill.soup.target,limit=1] at @s as @a[tag=team.human,tag=!state.dead,tag=!state.escaped,distance=..5] store result score @s hp_current run data get entity @s Health 1
+execute unless entity @a[tag=skill.soup.target,limit=1] at @s as @a[tag=team.human,tag=!state.dead,tag=!state.escaped,scores={hp_current=..8},distance=..5,sort=nearest,limit=1] run tag @s add skill.soup.target
+execute unless entity @a[tag=skill.soup.target,limit=1] run tag @s add skill.soup.target
+
 execute as @a[tag=skill.soup.target,limit=1] run effect give @s minecraft:instant_health 1 3 true
 execute as @a[tag=skill.soup.target,limit=1] run effect give @s minecraft:saturation 2 1 true
 execute as @a[tag=skill.soup.target,tag=state.infected_period,limit=1] run scoreboard players operation @s infect_time += #infect_pause skill.soup_cfg
@@ -14,3 +24,5 @@ execute unless entity @a[tag=skill.soup.target,tag=skill.soup.user,limit=1] as @
 
 scoreboard players operation @s skill.soup_cd = #cooldown skill.soup_cfg
 function skill:chef/hot_soup/update_item
+tag @a remove skill.soup.user
+tag @a remove skill.soup.target

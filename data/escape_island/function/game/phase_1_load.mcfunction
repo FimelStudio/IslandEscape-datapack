@@ -4,6 +4,7 @@ gamerule pvp true
 tag @a add team.human
 
 function escape_island:role/assign
+execute as @a[tag=team.human] run function escape_island:talent/auto_assign
 
 execute as @a run function escape_island:role/give_kit
 

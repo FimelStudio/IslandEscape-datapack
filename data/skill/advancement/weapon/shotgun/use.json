@@ -1,0 +1,17 @@
+{
+  "criteria": {
+    "use": {
+      "trigger": "inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "custom_data": "{weapon:\"shotgun_used\"}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {"function": "skill:weapon/shotgun/use"}
+}

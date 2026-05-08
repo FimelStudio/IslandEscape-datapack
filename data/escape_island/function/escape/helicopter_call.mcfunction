@@ -1,5 +1,7 @@
 scoreboard players operation $game heli_countdown = Tunable tunable.helicopter_countdown
 execute if score $game gen_done matches 1 run scoreboard players remove $game heli_countdown 15
+scoreboard players set $game power_buff 0
+scoreboard players set $game power_buff_acc 0
 
 function escape_island:escape/helicopter_cleanup
 

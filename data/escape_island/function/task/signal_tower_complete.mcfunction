@@ -1,6 +1,8 @@
 tag @s add marker.signal_done
 clear @a[tag=team.human,distance=..2.5,sort=nearest,limit=1] minecraft:string[minecraft:custom_data~{item:"cable"}] 1
 execute if entity @s[tag=marker.signal_core] run scoreboard players operation $game signal_progress += Tunable tunable.signal_core_progress
+execute at @s as @a[tag=team.human,tag=!state.dead,distance=..3] run scoreboard players add @s match_repair 10
+execute at @s as @a[tag=team.human,tag=!state.dead,distance=..3] run scoreboard players add @s match_objective 20
 execute unless entity @s[tag=marker.signal_core] run scoreboard players operation $game signal_progress += Tunable tunable.signal_edge_progress
 execute if score $game signal_progress > Tunable tunable.signal_global_target run scoreboard players operation $game signal_progress = Tunable tunable.signal_global_target
 

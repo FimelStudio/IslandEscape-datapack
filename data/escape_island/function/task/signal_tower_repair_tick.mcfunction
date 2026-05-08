@@ -23,7 +23,7 @@ execute if entity @a[tag=state.infected_period,distance=..2.5,limit=1] run score
 
 # 发电机奖励：修复贡献乘以百分比倍率
 execute if score $game power_buff matches 1.. run scoreboard players operation $signal_delta signal_progress *= Tunable tunable.power_buff_multiplier
-execute if score $game power_buff matches 1.. run scoreboard players operation $signal_delta signal_progress /= $const_100 signal_progress
+execute if score $game power_buff matches 1.. run scoreboard players operation $signal_delta signal_progress /= $const_10 signal_progress
 
 # 伪装母体侵蚀光环：靠近修复点时降低修复贡献
 execute if entity @a[tag=infected.mother,team=mother_hidden,tag=!state.dead,tag=!state.mutated,tag=!state.disguised,distance=..3,limit=1] run scoreboard players operation $signal_delta signal_progress *= $const_17 signal_progress

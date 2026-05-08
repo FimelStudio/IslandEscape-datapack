@@ -31,6 +31,7 @@ tag @s remove skill.slide.locked
 tag @s remove role.priest
 tag @s add team.infected
 tag @s add infected.common
+execute as @a[tag=infected.mother,limit=1] run scoreboard players add @s match_infect 25
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
 function skill:mechanic/cleanup_non_mechanic

@@ -1,0 +1,1 @@
+tellraw @s [{"text":"[人格] 核心=","color":"light_purple"},{"score":{"name":"@s","objective":"talent_core"}},{"text":" 支线="},{"score":{"name":"@s","objective":"talent_branch_a"}},{"text":","},{"score":{"name":"@s","objective":"talent_branch_b"}},{"text":" 命运="},{"score":{"name":"@s","objective":"talent_fate"}}]

@@ -1,0 +1,5 @@
+execute at @a[tag=range.active,limit=1] run summon minecraft:armor_stand ~-2 ~ ~9 {Tags:["range.target","range.target.sequence","range.seq.current"],CustomName:{"text":"序列 1","color":"aqua"},CustomNameVisible:1b,NoGravity:1b,Invulnerable:1b}
+execute at @a[tag=range.active,limit=1] run summon minecraft:armor_stand ~-1 ~ ~9 {Tags:["range.target","range.target.sequence"],CustomName:{"text":"序列 2","color":"gray"},CustomNameVisible:1b,NoGravity:1b,Invulnerable:1b}
+execute at @a[tag=range.active,limit=1] run summon minecraft:armor_stand ~0 ~ ~9 {Tags:["range.target","range.target.sequence"],CustomName:{"text":"序列 3","color":"gray"},CustomNameVisible:1b,NoGravity:1b,Invulnerable:1b}
+execute at @a[tag=range.active,limit=1] run summon minecraft:armor_stand ~1 ~ ~9 {Tags:["range.target","range.target.sequence"],CustomName:{"text":"序列 4","color":"gray"},CustomNameVisible:1b,NoGravity:1b,Invulnerable:1b}
+execute at @a[tag=range.active,limit=1] run summon minecraft:armor_stand ~2 ~ ~9 {Tags:["range.target","range.target.sequence"],CustomName:{"text":"序列 5","color":"gray"},CustomNameVisible:1b,NoGravity:1b,Invulnerable:1b}

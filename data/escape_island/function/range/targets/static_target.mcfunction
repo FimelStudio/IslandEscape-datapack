@@ -1,0 +1,2 @@
+execute at @e[type=minecraft:marker,tag=marker.range_static] run summon minecraft:armor_stand ~ ~ ~ {Tags:["range.target","range.target.static"],CustomName:{"text":"静态靶","color":"green"},CustomNameVisible:1b,NoGravity:1b,Invulnerable:1b}
+execute unless entity @e[tag=marker.range_static,limit=1] at @a[tag=range.active,limit=1] run summon minecraft:armor_stand ~ ~ ~5 {Tags:["range.target","range.target.static"],CustomName:{"text":"静态靶","color":"green"},CustomNameVisible:1b,NoGravity:1b,Invulnerable:1b}

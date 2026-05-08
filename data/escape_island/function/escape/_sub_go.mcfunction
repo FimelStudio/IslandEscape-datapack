@@ -7,5 +7,5 @@ kill @e[type=minecraft:interaction,tag=entity.sub_door]
 kill @e[tag=entity.sub_door_hint]
 bossbar set escape_island:sub visible false
 
-execute unless score $game ending_triggered matches 1.. run scoreboard players set $game escape_route 3
+execute unless score $game ending_triggered matches 1.. unless score $game escape_route matches 1.. run scoreboard players set $game escape_route 3
 function escape_island:escape/_ending_resolve

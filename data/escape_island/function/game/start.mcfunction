@@ -16,6 +16,8 @@ kill @e[tag=entity.dead_anchor]
 kill @e[type=minecraft:marker,tag=entity.clicker_spore]
 kill @e[type=minecraft:marker,tag=entity.clicker_spore_pending]
 function skill:mother/eat/clear_storage
+function escape_island:range/cleanup
+function escape_island:gunfight/cleanup
 scoreboard players set $game in_game 1
 scoreboard players set $game cur_phase 1
 scoreboard players set $game phase_timer 0
@@ -50,6 +52,15 @@ scoreboard players set $game gen_interact_cd 0
 scoreboard players set $game gen_done 0
 scoreboard players set $game power_buff 0
 scoreboard players set $game power_buff_acc 0
+scoreboard players set $game ship_aura_acc 0
+scoreboard players reset @a match_repair
+scoreboard players reset @a match_rescue
+scoreboard players reset @a match_kite
+scoreboard players reset @a match_info
+scoreboard players reset @a match_infect
+scoreboard players reset @a match_escape
+scoreboard players reset @a match_objective
+scoreboard players reset @a mvp_score
 scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_progress 0
 scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_state 0
 scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_countdown 0
@@ -230,5 +241,7 @@ effect give @a minecraft:saturation 1 20 true
 function escape_island:game/randomize_match
 function escape_island:task/place_loot_chests
 function escape_island:task/ship_part_scatter
+
+execute as @a run function escape_island:talent/auto_assign
 
 function escape_island:game/phase_1_load
