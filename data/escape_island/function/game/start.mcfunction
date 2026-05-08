@@ -48,6 +48,8 @@ scoreboard players set $game gen_hold_seen 0
 scoreboard players set $game gen_hold_lock 0
 scoreboard players set $game gen_interact_cd 0
 scoreboard players set $game gen_done 0
+scoreboard players set $game power_buff 0
+scoreboard players set $game power_buff_acc 0
 scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_progress 0
 scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_state 0
 scoreboard players set @e[type=minecraft:marker,tag=marker.generator] gen_countdown 0
@@ -58,6 +60,7 @@ tag @a remove team.human
 tag @a remove team.infected
 tag @a remove infected.special
 tag @a remove infected.licker
+tag @a remove mother.passive.target
 tag @a remove infected.clicker
 tag @a remove infected.runner
 tag @a remove infected.tank

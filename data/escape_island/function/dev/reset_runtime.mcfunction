@@ -7,6 +7,8 @@ scoreboard players set $game escape_result 0
 scoreboard players set $game signal_progress 0
 scoreboard players set $game signal_done 0
 scoreboard players set $game gen_done 0
+scoreboard players set $game power_buff 0
+scoreboard players set $game power_buff_acc 0
 scoreboard players set $game gen_state 0
 scoreboard players set $game gen_countdown 0
 scoreboard players set $game gen_overload 0
@@ -47,6 +49,7 @@ scoreboard players set @a signal_repair_time 0
 scoreboard players set @a signal_repair_seen 0
 scoreboard players set @a ship_hold_time 0
 scoreboard players set @a ship_hold_seen 0
+tag @a remove mother.passive.target
 
 bossbar set escape_island:phase visible false
 bossbar set escape_island:signal visible false

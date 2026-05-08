@@ -7,6 +7,6 @@ execute at @s run tellraw @a {"text":"§a[发电机] 稳定运行完成！部分
 execute at @s run playsound minecraft:block.beacon.activate master @a[distance=..32] ~ ~ ~ 1 1
 kill @e[type=minecraft:interaction,tag=entity.generator_interaction]
 
-# Activate global power buff: increase repair rates for the map
+# 发电机奖励：全图修复速率提高
 scoreboard players set $game power_buff 1
 execute at @s run tellraw @a {"text":"§e[奖励] 发电机已稳定：全图修复速率提高！","color":"gold"}

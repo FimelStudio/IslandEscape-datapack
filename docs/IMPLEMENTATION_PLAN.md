@@ -49,7 +49,7 @@ v0.1 视为完成需要同时满足：
 | 母体两状态系统、成长时机、变异计时、PvP 架构、flag 迁移 | **Batch 4.6**（新增） | **已完成** | Part 1–11 已通过单人菜单手测/设计确认；核心重构批次已收口 |
 | 全员转化立即结局、感染期登机转化驱离 | **Batch 4.7**（新增） | **已完成** | 全员转化、登载转化驱离、转化前撤离均已通过菜单手测 |
 | 母体成长、腐痕感知、集群嚎叫、吞噬 | Batch 4 / 4.5 | 已完成，待 4.6 回归验收 | 成长数值和时机需随 4.6 更新 |
-| 母体伪装期被动孢子脉冲 + 侵蚀光环 | **Batch 4.6 / 17** | **部分实现** | 孢子脉冲已进 Batch 4.6；修复降速侵蚀光环仍待 Batch 17 |
+| 母体伪装期被动孢子脉冲 + 侵蚀光环 | **Batch 4.6 / 17** | **已实现，待手测回归** | 孢子脉冲、同目标贴近判定、修复降速、心跳/污染提示均已接入 |
 | 10 职业技能 | Batch 5 / 6 | 基本完成，需回归 | 已发现并修过海军枪械精通；最终压测再覆盖 |
 | 厨师热汤 v0.2 调整（120s/8格/优先队友） | Batch 17 | 已实现，待手测回归 | 感染期目标只暂停转化倒计时 8s + 回血，不清除感染期；已接入菜单测试 |
 | 通讯员转化保留 | Batch 17F | 已实现，待手测回归 | 改为“污染干扰器”：公共异常噪声 + 扫描站干扰，不伪造私有扫描结果 |
@@ -58,20 +58,20 @@ v0.1 视为完成需要同时满足：
 | M-7 手枪系统 | Batch 6 | 已完成，需回归 | 组员报错已修，仍需多人实战确认 |
 | 直升机旧主线 | Batch 7 / 8 | 旧版已完成 | 已被 Batch 13 重构为 5 塔信号网络 |
 | 5 塔信号网络（v0.1 版本） | Batch 13A / 13B | 已实现但数值过快 | 旧版 v0.1 数值会被 Batch 17 重构覆盖 |
-| **5 塔信号网络（v0.2 重构）** | **Batch 17** | **已完成 17A** | 核心塔贡献砍半 + 边塔速率减半 + 团队上限收敛；目标 4 人局 5–6 分钟 |
+| **5 塔信号网络（v0.2 重构）** | **Batch 17** | **实现已完成，待整局回归** | 核心塔贡献砍半 + 边塔速率减半 + 团队上限收敛；目标 4 人局 5–6 分钟 |
 | **发电机奖励强化（v0.2）** | **Batch 17** | **已实现** | 从仅缩短倒计时升级为全图修复速率 ×1.2 + 倒计时 -15s；已接入菜单测试 |
 | 轮船路线 | Batch 9 / 13C | 部件分散已实现，待 4 人验收 | 重点是地图刷点分散和 2.5 倍修复上限 |
 | 轮船登船窗口按人数缩放（v0.2） | Batch 17H | 已完成 | 已通过菜单手测；4–7 人 45s / 8–12 人 50s / 13+ 60s |
 | 实验室支援 / 潜艇隐藏路线 | Batch 9 / 17 | 已实现，需手测/回归 | 实验室优先作为疫苗、防毒面具、隔离扫描、文件支援路线；潜艇不作为常规胜率基准 |
 | 实验室研究员数量 = 身份卡碎片数（v0.2） | Batch 17I | 已完成 | 已通过菜单手测；4/8/17 人为 3/4/5 |
-| 多撤离路线并行处理 + 分层胜负（v0.2） | Batch 17G | 进行中 | 分层撤离结果已实现，等待菜单手测 |
+| 多撤离路线并行处理 + 分层胜负（v0.2） | Batch 17G | 已实现，待手测回归 | 分层撤离结果、自爆优先级保护、后到路线保护均已接入 |
 | 隔离扫描（社交推理补强） | Batch 17 | 已实现，待手测回归 | 2 人读条，正常 / 孢子异常 / 严重异常，病毒学家加速；已接入菜单测试 |
 | 自爆真结局 | Batch 9 | 已实现，需回归 | 触发条件随新版信号网络改为 `signal_done` |
 | 母体伪装结局 / X-7 | 后续彩蛋批次（暂缓） | 暂缓，不计入 v0.1 | 用户已确认可先放后；正常局闭环优先 |
 | 病毒变异 Bad End | Batch 9 | 已实现，需回归 | 15:00 无人撤离触发；提前全员转化由 Batch 4.7 立刻触发 |
 | 物资箱、关键线索、资源保底、物资道具功能 | Batch 10 / 14 / 16 | 掉落已做，道具功能待实现 | 开箱只是第一步；急救包、手电筒、投掷物等需要真实可用 |
 | 环境事件 | Batch 11 | 已完成，需回归 | 频率统一为每 2 分钟（GDD 旧 3 分钟说法已修正） |
-| 缩放规则、调参旋钮 | Batch 12 / 13 / 16 / 17 | 部分完成 | 新版 `signal_*`、`ship_boarding_seconds`、发电机奖励、研究员数量在 Batch 17 写入 |
+| 缩放规则、调参旋钮 | Batch 12 / 13 / 16 / 17 | 主要规则已实现，待整局校准 | 新版 `signal_*`、`ship_boarding_seconds`、发电机奖励、研究员数量在 Batch 17 写入 |
 | 地图 marker 适配规则 | Batch 2 / 13 / MAP_GUIDE | 部分完成 | 5 塔 marker 校验需实现 |
 | UI 提示、bossbar、actionbar、首局引导 | 各批次 + Batch 16 | 部分完成 | 最终做一次统一文本/提示收口 |
 | 训练模式、复盘、结算观战 | Batch 2 / 8 / 16 | 部分完成 | 复盘 `debug/show_state` 需确认是否完整 |
@@ -452,23 +452,28 @@ scoreboard players set #slow_dur     skill.suppress_cfg  120   # 6s = 120 tick
 
 #### 厨师（chef）— 热汤（hot_soup）
 
-**触发**：`consume_item`，道具 `minecraft:mushroom_stew`（`!minecraft:use_remainder` + `food.can_always_eat:true` + `consumable.consume_seconds:0`，`custom_data.skill:"cook_soup"`）
+**触发**：`consume_item`，道具 `minecraft:mushroom_stew`（`food.can_always_eat:true` + `consumable.consume_seconds:0`，`custom_data.skill:"cook_soup"`；使用后用 `use_remainder` 触发进度并立即回写技能物品）
 
 `data/skill/function/chef/hot_soup/config.mcfunction`：
 ```
 scoreboard players set #hotbar_slot  skill.soup_cfg  6
-scoreboard players set #cooldown     skill.soup_cfg  3600   # 180s
+scoreboard players set #cooldown     skill.soup_cfg  2400   # 120s
 scoreboard players set #heal_amp     skill.soup_cfg  3      # instant_health amplifier 3 ≈ 4 心
+scoreboard players set #aura_range   skill.soup_cfg  8
+scoreboard players set #priority_range skill.soup_cfg 5
+scoreboard players set #priority_hp  skill.soup_cfg  8
+scoreboard players set #infect_pause skill.soup_cfg  8
 ```
 
 关键逻辑：
-- 触发后：检查冷却 → `effect give @s minecraft:instant_health 1 3 true`（约 8 HP = 4 心）
+- 触发后：检查冷却 → 优先选择 5 格内感染期队友，其次 5 格内 HP ≤ 8 队友，否则自愈
+- 目标获得 `effect give @s minecraft:instant_health 1 3 true`（约 8 HP = 4 心）；若目标处于感染期，只把 `infect_time` +8 秒并回血，不清除感染期
 - 在玩家位置播放 `minecraft:entity.generic.drink` 音效 + 心形/村民快乐粒子
 - Batch 5 先实现自用版（给自身）；后期扩展汤锅放置留给 Batch 10+
 
 **被动**（`escape_island:role/tick_chef.mcfunction`）：
 - `effect give @s minecraft:night_vision 3 0 true`
-- 5 格内非厨师幸存者获得短暂 `minecraft:absorption 3 0 true`。当前全员不会消耗饱食度，所以不再使用饱和恢复。
+- 8 格内非厨师幸存者每 5 秒刷新 `minecraft:absorption 6 0 true`。当前全员不会消耗饱食度，所以不再使用饱和恢复。
 
 #### 通讯员（radio）— 信号扫描（signal_scan）
 
@@ -1102,7 +1107,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 17 — v0.2 玩法平衡重构
 
-状态: **进行中（17A、17D、17H、17I、17J、17K 已实现；17G 分层撤离结局已实现，等待游戏内验收）**
+状态: **实现已完成，待整局游戏内回归（17A–17L 已落地；整局节奏验收仍需多人实测）**
 
 目标: 解决 v0.1 暴露出的几项关键平衡问题，统一为 v0.2 玩法基线。本批次不改动地图 marker 结构，只改函数行为和 scoreboard 数值，保证现有自测沙盒和正式地图都不需要重摆 marker。
 
@@ -1128,33 +1133,33 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 #### 17B — 发电机奖励强化
 
-- [ ] `task/generator_complete.mcfunction`（或现有 gen_done 写入处）：
+- [x] `task/generator_complete.mcfunction`（或现有 gen_done 写入处）：
   - 仍写入 `$game gen_done = 1`
   - 新增 `scoreboard players set $game power_buff 1`
   - 直升机倒计时仍由 `check_helicopter_ready` 读 `gen_done` 后改 75s
-- [ ] `task/signal_tower_repair.mcfunction` + `task/ship_dock_tick.mcfunction`：
+- [x] `task/signal_tower_repair_tick.mcfunction` + `task/ship_dock_tick.mcfunction`：
   - 检测 `$game power_buff matches 1` → 当前修复速率 ×1.2（实现上可在每段 tick 末尾以 6/5 加权）
   - 与团队上限叠加：先算团队 cap，再乘 power_buff 乘子
-- [ ] `escape/helicopter_call.mcfunction` 或对应阶段函数：进入 Phase 4 直升机倒计时时清除 `power_buff`，避免后期还在加速无意义任务点
-- [ ] `tunable.power_buff_multiplier = 12`（÷10，作为整数化乘子）
+- [x] `game/phase_4_escape.mcfunction`：进入 Phase 4 时清除 `power_buff`，避免后期还在加速无意义任务点
+- [x] `tunable.power_buff_multiplier = 120`（÷100，作为整数化乘子）
 
 #### 17C — 母体伪装期被动重构
 
-- [ ] 新建 `mother/passive_disguise.mcfunction`，由 `tick_mother.mcfunction` 在 `team=mother_hidden AND !state.disguised` 分支每秒调用
-- [ ] 被动孢子脉冲：
-  - 新增 `mother_passive_target` / `mother_passive_stick` 追踪连续贴近同一幸存者；连续 6 秒后才启动脉冲
-  - `cd_mother_passive_pulse` 每秒 -1；归零时对 4 格内最近幸存者 `function infection/add_spore_load {amount:10}`，并设回 10（秒）
-  - 给予受影响者极弱心跳/污染提示；写 debug log 便于自测验证
-- [ ] 侵蚀光环（修复降速）：
-  - 在 `signal_tower_repair.mcfunction` / `ship_dock_tick.mcfunction` 末尾计算修复贡献时，检测 `execute at @s if entity @e[type=player,team=mother_hidden,tag=!state.mutated,distance=..3,limit=1]` → 该 tick 修复贡献 ×0.85
-  - 实现上可用整数除法 `progress *= 17; progress /= 20`（≈ ×0.85）
-- [ ] 侵蚀光环（心跳音）：
+- [x] 新建 `mother/passive_disguise.mcfunction`，由 `tick_mother.mcfunction` 在 `team=mother_hidden AND !state.disguised` 分支每秒调用
+- [x] 被动孢子脉冲：
+  - 使用 `mother.passive.target` tag + `mother_passive_stick` 追踪连续贴近同一幸存者；连续 6 秒后才启动脉冲
+  - `cd_mother_passive_spore` 每秒 -1；归零时按 `tunable.mother_passive_pulse_dmg` 给目标增加孢子污染，并设回 10（秒）
+  - 给予受影响者极弱心跳/污染提示；自测菜单已有 `[伪装贴身孢子]`
+- [x] 侵蚀光环（修复降速）：
+  - 在 `signal_tower_repair_tick.mcfunction` / `ship_dock_tick.mcfunction` 末尾计算修复贡献时，检测隐藏母体 3 格侵蚀光环 → 该 tick 修复贡献 ×0.85
+  - 信号塔用 `progress *= 17; progress /= 20`；轮船用累计误差近似 0.85，避免 1 点贡献被整除为 0
+- [x] 侵蚀光环（心跳音）：
   - 受影响幸存者每 4 秒触发一次极轻 `entity.warden.heartbeat`（音量 0.15，pitch 0.8）
   - 用 `cd_aura_heartbeat` 个人 scoreboard 节流，避免每秒重复
-- [ ] 侵蚀光环（文字反馈）：
+- [x] 侵蚀光环（文字反馈）：
   - 受影响修复者每 12 秒最多 1 次 actionbar `信号受污染`
   - 不显示来源，不直接暴露母体
-- [ ] 旧"+2/s"代码清理：在 `tick_mother.mcfunction` 中删除每秒 +2 spore 的旧实现（如有）
+- [x] 旧"+2/s"代码清理：`tick_mother.mcfunction` 已无每秒 +2 spore 旧实现
 
 #### 17D — 普通感染者污染值调整
 
@@ -1164,16 +1169,16 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 #### 17E — 厨师热汤 v0.2 调整
 
-- [ ] `data/skill/function/chef/hot_soup/config.mcfunction`：
+- [x] `data/skill/function/chef/hot_soup/config.mcfunction`：
   - `#cooldown` 由 3600 → **2400**（120 秒）
   - 新增 `#aura_range = 8`（被动光环范围）
   - 新增 `#priority_range = 5`（优先治愈队友半径）
   - 新增 `#priority_hp = 8`（队友 HP 阈值，含 ≤）
-- [ ] `data/skill/function/chef/hot_soup/start.mcfunction`：
+- [x] `data/skill/function/chef/hot_soup/use.mcfunction` + `start.mcfunction`：
   - 先 `execute at @s if entity @a[tag=team.human,tag=state.infected_period,distance=..5,sort=nearest,limit=1] run` → 优先释放在该队友（暂停转化倒计时 8s + 回复 4 心，不清除感染期）
-  - 其次 `execute at @s if entity @a[tag=team.human,scores={hp_rounded=..8},distance=..5,sort=nearest,limit=1] run` → 释放在低血队友
+  - 其次 `execute at @s if entity @a[tag=team.human,scores={hp_current=..8},distance=..5,sort=nearest,limit=1] run` → 释放在低血队友
   - 否则自愈
-- [ ] `escape_island:role/tick_chef.mcfunction`：被动光环范围 5 → 8 格；吸收 I 每 5 秒刷新
+- [x] `escape_island:role/tick_chef.mcfunction`：被动光环范围 5 → 8 格；吸收 I 每 5 秒刷新
 
 #### 17F — 通讯员转化保留重设计
 
@@ -1205,7 +1210,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
   - `escaped_survivors >= escape_full_win_count` → `escape_result = 2` 完整幸存者胜利
 - [x] `escape/helicopter_motion_tick.mcfunction` / `_ship_go.mcfunction` / `_sub_go.mcfunction`：原本直接 `function game/end_xxx` 改为先调用 `escape/_ending_resolve`，再由 resolve 决定是否触发结局函数
 - [x] 后到路线保护：各撤离路线在 `ending_triggered` 已置位后不再覆盖 `escape_route`
-- [ ] 自爆 `bomb_tick.mcfunction`：保持独立倒计时，3 分钟归零时仍直接走 `end_destroy` 路径（受结局优先级约束，但不被并行登载抢走）
+- [x] 自爆 `bomb_tick.mcfunction`：保持独立倒计时，归零时直接走 `end_destroy`；`end_destroy` 使用 `ending_triggered` 保护结局优先级
 - [x] 自测菜单：`[测试：分层撤离结局]`
 - [x] 自测菜单：`[测试：多路线结局锁]`
 
@@ -1270,9 +1275,9 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 #### 17L — 文档一致性扫描
 
-- [ ] grep 搜索 `每 3 分钟`、`+2/s`、`+35` 等旧描述，确认已全部更新
-- [ ] grep 搜索旧版登船固定窗口、旧版核心塔快修、旧版伪装孢子脉冲、旧版厨师清感染描述，确认 BALANCE/GDD 已无残留
-- [ ] BALANCE.md §二 母体 HP 备注 ⚠️ 在 Batch 4.6 完成后清除（与本批次解耦）
+- [x] grep 搜索 `每 3 分钟`、`+2/s`、`+35` 等旧描述；剩余命中均为归档旧版说明、MVP/XP 奖励，或“原 +35”备注
+- [x] grep 搜索旧版登船固定窗口、旧版核心塔快修、旧版伪装孢子脉冲、旧版厨师清感染描述；当前 v0.2 正文已同步，旧值仅保留在归档/历史批次说明中
+- [x] BALANCE.md §二 母体 HP 备注 ⚠️ 已确认不存在待清理警告
 
 验收:
 

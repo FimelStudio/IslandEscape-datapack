@@ -9,6 +9,7 @@ effect give @a[tag=!state.dead,tag=!state.spectator,tag=!state.escaped] minecraf
 function escape_island:infection/tick_infected_state
 function escape_island:infection/spore_load_decay
 execute as @a[scores={cd_aura_heartbeat=1..}] run scoreboard players remove @s cd_aura_heartbeat 1
+execute as @a[scores={cd_aura_notice=1..}] run scoreboard players remove @s cd_aura_notice 1
 
 execute if entity @a[tag=event.blackout,limit=1] as @a[tag=!state.dead] at @s if items entity @s weapon.mainhand minecraft:lantern[minecraft:custom_data~{item:"flashlight"}] run effect give @a[distance=..3] minecraft:night_vision 3 0 true
 execute if entity @a[tag=event.blackout,limit=1] as @a[tag=!state.dead] at @s if items entity @s weapon.offhand minecraft:lantern[minecraft:custom_data~{item:"flashlight"}] run effect give @a[distance=..3] minecraft:night_vision 3 0 true

@@ -199,6 +199,7 @@ scoreboard players set $const_60 event_threshold 60
 scoreboard players set $const_2 spore_load 2
 scoreboard players set $const_4 infect_time 4
 scoreboard players set $const_10 signal_progress 10
+scoreboard players set $const_15 signal_progress 15
 scoreboard players set $const_17 signal_progress 17
 scoreboard players set $const_20 signal_progress 20
 scoreboard players set $const_2 ship_progress 2

@@ -40,6 +40,7 @@ tag @a remove infected.common
 tag @a remove infected.secondary_mother
 tag @a remove infected.special
 tag @a remove infected.licker
+tag @a remove mother.passive.target
 tag @a remove infected.clicker
 tag @a remove infected.runner
 tag @a remove infected.tank
