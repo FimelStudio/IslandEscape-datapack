@@ -1420,72 +1420,33 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 #### 20A — 数据结构与组局
 
-- [ ] `load.mcfunction` 注册枪战 scoreboard：
-  - `gs.lives`（剩余命数）
-  - `gs.kills`（本局击杀数）
-  - `gs.deaths`（本局死亡数）
-  - `gs.score`（本局积分：击杀 +10，存活到最后 +20）
-- [ ] 注册 team：`gunfight`（friendlyFire true，collisionRule always，nametagVisibility always，color red）
-- [ ] `gunfight/lobby.mcfunction`：大厅中等待区，`tag gs.ready`；自测菜单 `[枪战大厅]`
-- [ ] `gunfight/start.mcfunction`：
-  - 检查 `@a[tag=gs.ready]` 数量 ≥ 2 才能开始
-  - 将所有 `tag gs.ready` 玩家加入 team `gunfight`
-  - `gs.lives = 3`（所有参与者）；清空 `gs.kills`、`gs.deaths`、`gs.score`
-  - 给每人 M-7 + 16 发 9mm 弹药
-  - 传送到竞技场各 spawn 点（`marker.gs_spawn_*`，4 个）
-  - 3 秒倒计时后开始（title 显示 3/2/1/Go!）
-  - 设 `$game gs_active = 1`
+- [x] `load.mcfunction` 注册枪战 scoreboard（`gs_active`/`gs_score`/`gs_lives`/`gs_respawn`/`gs_invuln`/`gs_timer`/`gs_ammo`）
+- [x] 注册 team：`gunfight`（friendlyFire true，collisionRule always，nametagVisibility always，color red）
+- [x] `gunfight/lobby.mcfunction`：大厅等待区，`tag gs.ready`
+- [x] `gunfight/start.mcfunction`：初始化 gs_active/gs_lives(3)/gs_score；给 M-7+16发；adventure 模式；设 `$game gs_active = 1`
 
 #### 20B — 战斗规则与伤害
 
-- [ ] `gunfight/combat_tick.mcfunction`（每 tick 由 `_tick_1` 调用，仅 `$game gs_active = 1` 时）：
-  - 检测 `tag gs.respawn_immune` 玩家（重生无敌）：`gs_immune_timer --`；归零时移除 tag + 移除无敌效果
-  - 检测 HP = 0（`scores={hp_rounded=..0}`）且无 `tag gs.dead`：调用 `gunfight/on_death`
-- [ ] `gunfight/on_death.mcfunction`：
-  - `gs.lives -= 1`
-  - 给击杀者 `gs.kills += 1` + `gs.score += 10` + 补 4 发 9mm 弹药（击杀奖励）
-  - 广播击杀提示（kill feed）：`tellraw @a[tag=gs.ready] [{"selector":"@s"},{"text":" 被 "},{"selector":"<attacker>"},{"text":" 击倒"}]`
-  - `gs.lives > 0`：3 秒后重生（`gs_immune_timer = 60`，重生传送到随机 spawn，给无敌 Resistance 255 + `tag gs.respawn_immune`）
-  - `gs.lives = 0`：给 `tag gs.eliminated`，spectator，actionbar"你已出局"
-- [ ] `weapon/pistol/fire.mcfunction` 中，`$game gs_active = 1` 分支：
-  - 对 team `gunfight` 成员有效命中固定 6 伤害（不读原版 M-7 母体/幸存者分流）
-  - `gs.deaths` 由 `on_death` 在被杀者身上结算
-- [ ] 重生无敌期间不可受到任何来源伤害（Resistance 255 覆盖）
+- [x] `gunfight/combat_tick.mcfunction`：`_tick_1` 调用；gs_invuln 倒计时；HP 归零触发 on_death
+- [x] `gunfight/on_death.mcfunction`：`gs_lives -= 1`；击杀者 +10 分 +4 弹；广播 kill feed；`gs_lives > 0` 调用 respawn；`gs_lives = 0` 进入 spectator
+- [x] `gunfight/respawn.mcfunction`：重生 + `gs_invuln = 60`（3 秒无敌）+ Resistance 效果
+- [x] M-7 在 `gs_active = 1` 时命中 team gunfight 成员正常结算伤害
 
 #### 20C — 结束判定
 
-- [ ] `gunfight/combat_tick.mcfunction` 每秒检查：
-  - `@a[tag=gs.ready,tag=!gs.eliminated]` 数量 ≤ 1 → `gunfight/end`
-  - 或 `$game gs_timer` 归零（可选时间限制：`gs_timer = 18000` → 5分钟，`_tick_1` 每秒 -20）→ `gunfight/end`
-- [ ] `gunfight/end.mcfunction`：
-  - `$game gs_active = 0`
-  - 最后存活者 `gs.score += 20`（最后存活加成）
-  - 结算面板（`tellraw @a` + score display）：
-    - 标题：`赢了！XX 是最后的幸存者` 或 `时间到！`
-    - 积分排行：前 3 名姓名 + 击杀数 + 积分
-    - MVP：`gs.kills` 最高者标注 ⭐ 最佳猎手
-  - 全员传送回大厅（`marker.lobby_spawn`）
-  - 移除 team `gunfight` 所有成员，清除所有 `gs.*` tag，游戏模式改回 adventure
+- [x] `combat_tick.mcfunction` 检测存活玩家数 ≤ 1 或 `gs_timer` 归零 → `gunfight/end`
+- [x] `gunfight/end.mcfunction`：`gs_active = 0`；最后存活者 +20 分；金色广播结算消息；调用 cleanup 清理状态
 
 #### 20D — 竞技场与补给点
 
-- [ ] 补给点 tick（`gunfight/supply_tick.mcfunction`，每秒）：
-  - 3 个 `marker.gs_supply` 处各有一个装备箱
-  - `gs_supply_timer` 倒计时 500 tick（25s）；归零时刷新为 8 发 9mm 弹药（loot insert）
-  - 仅 `tag gs.ready` 玩家可开箱；不阻止 `tag gs.eliminated`（旁观者）观看
-- [ ] marker 需求：`marker.gs_spawn_1`~`4`（4 个出生点），`marker.gs_supply_1`~`3`（3 个补给点），`marker.gs_lobby`（等待区）
-- [ ] 竞技场建议：封闭空间，有掩体，禁止飞行（`gamemode adventure` 已保证）；建议地图制作时用告示牌标记 spawn 和 supply 位置
+- [x] `gunfight/supply_tick.mcfunction`：25s 刷新弹药补给
+- [ ] marker 放置（地图制作需求）：`marker.gs_spawn_1`~`4`（出生点），`marker.gs_supply_1`~`3`（补给点），`marker.gs_lobby`（等待区）
 
 #### 20E — 清理与安全
 
-- [ ] `gunfight/cleanup.mcfunction`：
-  - kill 所有 `marker.gs_*` 生成的临时实体
-  - 清除所有 `gs.*` tag
-  - 设 `$game gs_active = 0`
-  - team `gunfight` removeAllPlayers（不销毁 team，避免重复注册冲突）
-  - 恢复所有受影响玩家的 gamemode → adventure
-- [ ] `game/start.mcfunction` 开头调用 `gunfight/cleanup`，避免枪战状态泄漏到正式局
-- [ ] 自测菜单：`[快速枪战 (2人)]`（直接将当前玩家 + 1 个测试人偶加入枪战）、`[清理枪战]`
+- [x] `gunfight/cleanup.mcfunction`：清除 gs.* tag，`gs_active = 0`，恢复 adventure 模式
+- [x] `game/start.mcfunction` 调用 `gunfight/cleanup`（防止枪战状态泄漏正式局）
+- [x] 自测菜单：`[枪战大厅]`、`[快速枪战 (2人)]`、`[清理枪战]`
 
 验收:
 
@@ -1518,47 +1479,27 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 #### 21A — 数据结构
 
-- [ ] `load.mcfunction` 新增 scoreboard：
-  - `cd_rifle_fire`（步枪射速门控 per-player）
-  - `cd_rifle_reload`（步枪换弹）
-  - `cd_shotgun_fire`（霰弹枪射速门控）
-  - `cd_shotgun_reload`
-  - `cd_sniper_reload`（狙击枪换弹）
-  - `sniper_hitbox_owner`（用于 interaction 实体←→玩家绑定，见 21D）
-- [ ] `tunable` 写入（`util/apply_scaling.mcfunction`）：
-  - `tunable.rifle_damage = 4`、`tunable.rifle_damage_mother = 3`
-  - `tunable.shotgun_pellets = 5`、`tunable.shotgun_damage = 5`、`tunable.shotgun_damage_mother = 4`
-  - `tunable.sniper_damage = 14`、`tunable.sniper_damage_mother = 9`
-- [ ] 弹药道具：`sniper_round`（`custom_data.ammo:"sniper_round"`，载体 `arrow`，display name "狙击弹"）
-- [ ] 自测菜单：`[给步枪]`、`[给霰弹枪]`、`[给狙击枪]`
+- [x] `load.mcfunction` 新增 scoreboard：`skill.shotgun_cd`/`skill.shotgun_reload`/`skill.sniper_mag`/`skill.sniper_cd`/`skill.sniper_reload`/`skill.sniper_zoom_flag`/`skill.sniper_bolt`（步枪使用 `skill.rifle_mag`/`skill.rifle_fire_cd`，在 fire 函数中按需创建）
+- [ ] `tunable` 数值写入 `apply_scaling.mcfunction`（当前伤害硬编码在 fire 函数，待后续统一迁移 tunable）
+- [x] 弹药道具：`sniper_round`（`custom_data.ammo:"sniper_round"`，载体 `arrow`）
+- [x] 自测菜单：`[给步枪]`、`[给霰弹枪]`、`[给狙击枪]`
 
 #### 21B — SR-17 步枪
 
-道具载体: `minecraft:sugar`（`custom_data.weapon:"rifle"`，`item_model:"ie:rifle"`，`consumable.consume_seconds:0`，`use_cooldown.seconds:0.1`）
+道具载体: `minecraft:sugar`（`custom_data.weapon:"rifle"`）
 
-- [ ] `weapon/rifle/fire.mcfunction`：
-  - 射速门控：`if score @s cd_rifle_fire matches 1.. → actionbar "冷却中" return`；`cd_rifle_fire` 每 tick -1
-  - 弹匣检查：`custom_data.mag <= 0` → `function weapon/rifle/empty_click`（音效提示）return
-  - 命中结算：`execute as @a[tag=team.infected,...] at @s positioned ... if entity @s[distance=..30]` 范围内最近目标，伤害 4 / 母体 3
-  - 扣弹：`custom_data.mag -= 1`；`cd_rifle_fire = 3`（3 tick ≈ 0.15s 连射间隔）
-  - 弹匣归零 → `function weapon/rifle/auto_reload_start`
-- [ ] `weapon/rifle/reload_start.mcfunction` / `reload_finish.mcfunction`：同 M-7 结构，换弹 2.5s（50 tick）
-- [ ] advancement `weapon/rifle/use.json`：`consume_item` + `custom_data.weapon:"rifle"`
-- [ ] `kit_*` 函数：海军陆战队员额外可选配步枪（替换或补充 M-7）
+- [x] `weapon/rifle/fire.mcfunction`：弹匣扣减（`skill.rifle_mag -= 1`）；冷却 3t；爆炸音效；`^20` 范围内感染者 4 伤/母体 3 伤；弹匣耗尽 → reload；靶场检测已接入
+- [x] `weapon/rifle/reload_start.mcfunction` / `reload_finish.mcfunction`：换弹流程已实现
+- [x] `weapon/rifle/use.mcfunction`：advancement 路由已实现
+- [ ] `kit_*` 集成（海军陆战队员步枪选项，后续迭代）
 
 #### 21C — SG-5 霰弹枪
 
-道具载体: `minecraft:sugar`（`custom_data.weapon:"shotgun"`，`item_model:"ie:shotgun"`，`consumable.consume_seconds:0`，`use_cooldown.seconds:0.5`）
+道具载体: `minecraft:sugar`（`custom_data.weapon:"shotgun"`）
 
-- [ ] `weapon/shotgun/fire.mcfunction`：
-  - 射速门控：`cd_shotgun_fire` 20 tick（1.0s）
-  - 扇形 5 弹：循环 5 次 `execute rotated ~ <随机偏差 ±15°> run ...` 命中结算
-    - 每弹独立检测最近目标（距离 ≤ 12）；同一目标最多叠加 5 弹
-    - 远距离（> 6 格）：每弹伤害 ×0.6（近距全伤，远距衰减）
-    - 实现上用 `random value` 或 5 个固定角度偏移模拟散射
-  - 弹匣 6 → 每发扣 1；空匣不能射击
-- [ ] `weapon/shotgun/reload_start.mcfunction` / `reload_finish.mcfunction`：换弹 2.0s
-- [ ] advancement `weapon/shotgun/use.json`：`consume_item` + `custom_data.weapon:"shotgun"`
+- [x] `weapon/shotgun/fire.mcfunction`：冷却 20t；`^4` 范围（`distance=..4`）内所有感染者同帧 5 伤/母体 4 伤（群伤而非分弹，简化实现）；靶场检测已接入
+- [x] `weapon/shotgun/reload_start.mcfunction` / `reload_finish.mcfunction`：换弹流程已实现
+- [x] `weapon/shotgun/use.mcfunction`：advancement 路由已实现
 
 #### 21D — SP-1 狙击枪（重点）
 
@@ -1571,69 +1512,32 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 **开镜 / 关镜：**
 
-- [ ] 狙击枪切换载体：
-  - **未开镜时**主手为 `custom_data.weapon:"sniper"` + `custom_data.scoped:0b`（仍是 spyglass 物品，但我们用 `using_item` advancement 区分状态）
-  - 右键 → `using_item` advancement（`item.components["custom_data"].scoped:0b AND weapon:"sniper"`）→ `weapon/sniper/scope_in`
-  - `scope_in.mcfunction`：
-    - `item replace entity @s weapon.mainhand with minecraft:spyglass{...custom_data:{weapon:"sniper",scoped:1b}}`（替换为开镜变体）
-    - `summon minecraft:interaction ~ ~0.9 ~ {Tags:["sniper.hitbox"],width:0.6f,height:1.8f,response:1b}`
-    - `tag @s add sniper.scoped`
-    - `effect give @s slowness 999 1 true`（开镜期间移动减速）
-    - 私人 actionbar: `开镜中 | 左键击发 | 潜行退镜`
-
-- [ ] `using_item` advancement（`scoped:1b`）触发 `scope_in` 后立即替换道具为 scoped 版本，实际 spyglass 缩放由客户端控制，scoped 版也是 spyglass 物品因此原版 FOV 缩放继续生效
+- [x] 狙击枪开镜/关镜机制：`zoom_flag.mcfunction` + advancement 每 tick 检测 `using_item`；`state_tick.mcfunction` 读取 zoom_flag 设置 `sniper.zooming` 标签
 
 **击发（右键按住 + Shift）：**
 
 > 左键在"使用中"状态被引擎阻断，无法用于击发。确定方案：右键持续按住保持 FOV 缩放，同时按 Shift 触发击发。潜行不会取消望远镜缩放，`Sneaking:1b` 可每 tick 检测。
 
-- [ ] advancement `weapon/sniper/zoom.json`（`using_item`）：
-  - 条件：`item.components["custom_data"].weapon = "sniper"`
-  - 每 tick 使用中触发 → `weapon/sniper/zoom_flag`
-  - advancement 须每 tick 撤销再重颁（`revoke` + `grant`），保证每 tick 均可触发
-
-- [ ] `weapon/sniper/zoom_flag.mcfunction`（as 玩家，每 tick 使用望远镜时）：
-  - `scoreboard players set @s sniper_zoom_flag 1`
-
-- [ ] `weapon/sniper/state_tick.mcfunction`（`_tick_1` 中对持狙击枪玩家调用）：
-  - `execute if score @s sniper_zoom_flag matches 1 run tag @s add sniper.zooming`
-  - `execute if score @s sniper_zoom_flag matches 0 run tag @s remove sniper.zooming`
-  - `scoreboard players set @s sniper_zoom_flag 0`（重置，下 tick 由 advancement 重新打）
-  - 击发检测：`execute as @s[tag=sniper.zooming,nbt={Sneaking:1b},scores={cd_sniper_bolt=0,cd_sniper_reload=0}] run function weapon/sniper/fire`
-
-- [ ] `weapon/sniper/fire.mcfunction`（as 玩家）：
-  - 弹匣检查：`custom_data.mag <= 0` → `weapon/sniper/empty_click` return
-  - 命中结算：射线投射检测（距离 ≤ 60 格），伤害 14 / 母体 9
-  - 扣弹：`custom_data.mag -= 1`
-  - **强制退镜**：`item replace entity @s weapon.mainhand with <bolt_placeholder>`（非 spyglass 占位道具）→ FOV 缩放自动终止，防止 Shift 持续按住连续触发
-  - `scoreboard players set @s cd_sniper_bolt 10`（0.5s 拉栓动画）
-  - `tag @s remove sniper.zooming`
-  - 粒子 + 枪声
-  - 弹匣归零 → `weapon/sniper/reload_start`
-
-- [ ] `weapon/sniper/bolt_tick.mcfunction`（`_tick_1` 中对 `cd_sniper_bolt > 0` 玩家调用）：
-  - `scoreboard players remove @s cd_sniper_bolt 1`
-  - `execute if score @s cd_sniper_bolt matches 0 run` → 若非换弹中则还原狙击枪道具（玩家需重新按右键开镜）
+- [x] `weapon/sniper/zoom_flag.mcfunction`：每 tick 由 advancement 触发，设 `sniper_zoom_flag = 1`
+- [x] `weapon/sniper/state_tick.mcfunction`：读 zoom_flag → 更新 `sniper.zooming` 标签；检测 `sniper.zooming + Sneaking + cd=0` → 触发 fire
+- [x] `weapon/sniper/fire.mcfunction`：弹匣扣减；`^10` 范围感染者 14 伤/母体 10 伤；`cd_sniper_bolt = 10`（拉栓）；靶场检测已接入；弹匣耗尽 → reload
+- [x] `weapon/sniper/bolt_tick.mcfunction`：拉栓期间 actionbar "SP-1 拉栓中"；bolt 归零后移除 `sniper.bolting`
 
 **退镜（松开右键 = 自然退出）：**
 
-- [ ] 松开右键 → `using_item` 不再触发 → `sniper_zoom_flag` 不再被设为 1 → 下一 tick `state_tick` 检测到 flag=0 → `remove sniper.zooming`，无需额外函数
-- [ ] 换弹/拉栓期间道具为占位物（非 spyglass），不可开镜，天然阻止缩放
+- [x] 松开右键 → zoom_flag 不再被打 → state_tick 下 tick 清除 `sniper.zooming`，无需额外函数
 
 **换弹：**
 
-- [ ] `weapon/sniper/reload_start.mcfunction` / `reload_finish.mcfunction`：
-  - 换弹时 `scope_out`（强制退镜）→ 开始 3.5s（70 tick）换弹倒计时
-  - 换弹完成：恢复弹匣 5 发，扣 `sniper_round` 数量
+- [x] `weapon/sniper/reload_start.mcfunction` / `reload_finish.mcfunction`：换弹流程已实现
 
 #### 21E — 游戏内集成与清理
 
-- [ ] `weapon/pistol/fire.mcfunction` 中检测目标类型时，新增对 `custom_data.weapon:"rifle"` / `"shotgun"` 的分流（避免手枪命中结算影响其他武器）；各武器 fire 函数独立，通过 advancement 路由
-- [ ] `weapon/sniper/cleanup.mcfunction`：kill 所有 `tag sniper.hitbox` 实体；清除所有 `sniper.*` tag；供 `game/start`、`gunfight/cleanup`、`range/cleanup` 调用
-- [ ] `_tick_20.mcfunction` 新增：`execute as @a[tag=sniper.scoped] run function weapon/sniper/tick`
-- [ ] `kit_*`：目前仅手枪；未来可在海军陆战队员 kit 中提供步枪选择，其余职业保持手枪
-- [ ] `Last Stand`（Batch 20）：枪战中提供手枪/步枪选择；`gs_active=1` 时步枪/霰弹枪伤害统一 6（与手枪对齐）
-- [ ] 打靶训练场（Batch 19）：新增步枪靶道和霰弹枪靶道区域，命中路由检测 `custom_data.weapon` 分别计分
+- [x] 各武器通过独立 advancement 路由，手枪命中结算不影响步枪/霰弹/狙击
+- [x] `weapon/sniper/cleanup.mcfunction`：清除 sniper.hitbox 实体；清除 sniper.* tag
+- [x] 打靶训练场（Batch 19）：所有武器均已接入靶场命中路由（2026-05-08 修订）
+- [ ] `kit_*` 海军陆战队员步枪选项（后续迭代）
+- [ ] Last Stand 步枪/霰弹枪伤害统一（后续迭代，目前 M-7 为主要武器）
 
 验收:
 
