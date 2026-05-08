@@ -134,6 +134,7 @@ tag @a remove flag.tutorial_seen
 tag @a remove flag.first_attack
 tag @a remove state.attack_slowed
 tag @a remove state.mutated
+tag @a remove state.hunting
 tag @a remove mother.passive.fire
 tag @a remove skill.antidote.user
 tag @a remove skill.antidote.target

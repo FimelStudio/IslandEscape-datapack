@@ -15,4 +15,4 @@ function skill:weapon/pistol/give
 give @s minecraft:iron_nugget[minecraft:custom_data={ammo:1},minecraft:item_name={text:"9mm 弹药",italic:false,color:"gray"}] 64
 execute at @e[type=minecraft:marker,tag=marker.range_spawn,limit=1] run tp @s ~ ~ ~
 function escape_island:range/spawn_targets
-tellraw @s {"text":"[训练场] 已进入。靶标已生成，使用 M-7 命中玩家靶计分。","color":"green"}
+tellraw @s {"text":"[训练场] 已进入。靶标已生成，所有武器均可命中玩家靶。输入指令选择挑战模式开始训练。","color":"green"}

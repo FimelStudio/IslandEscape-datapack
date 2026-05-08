@@ -5,7 +5,7 @@ scoreboard players set @s range_combo 0
 scoreboard players set @s range_shots 0
 scoreboard players set @s range_hits 0
 scoreboard players set @s range_lives 3
-scoreboard players set @s range_timer 600
+scoreboard players set @s range_timer 30
 scoreboard players set @s range_seq 1
 scoreboard players set @s range_wave 1
 kill @e[tag=range.target]

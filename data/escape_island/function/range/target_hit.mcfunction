@@ -1,4 +1,4 @@
-execute unless entity @a[tag=skill.pistol.shooter,tag=range.active,limit=1] unless entity @a[tag=skill.ak47.shooter,tag=range.active,limit=1] run return 0
+execute unless entity @a[tag=range.active,distance=..64,limit=1] run return 0
 scoreboard players set #hit skill.pistol_tmp 1
 scoreboard players set #hit skill.ak47_tmp 1
 execute if entity @s[tag=range.target.sequence,tag=!range.seq.current] run function escape_island:range/sequence_wrong

@@ -4,7 +4,6 @@ tag @s add team.infected
 tag @s add infected.mother
 scoreboard players set @s role 11
 scoreboard players set @s is_mother 1
-team join mother_hidden @s
 
 execute if score Tunable tunable.mother_hp matches 60 run attribute @s minecraft:max_health base set 60
 execute if score Tunable tunable.mother_hp matches 70 run attribute @s minecraft:max_health base set 70
