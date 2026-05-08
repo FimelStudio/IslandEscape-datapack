@@ -24,7 +24,7 @@
           "name": "minecraft:slime_ball",
           "weight": 10,
           "functions": [
-            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"smoke_bomb\"}", "minecraft:custom_name": {"text":"烟雾蛋","color":"gray","italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键投掷→区域烟雾+致盲感染体","color":"gray","italic":false}] }}
+            { "function": "minecraft:set_components", "components": { "minecraft:custom_data": "{item:\"smoke_bomb\"}", "minecraft:custom_name": {"text":"烟雾弹","color":"gray","italic":false}, "minecraft:consumable": {"animation":"spyglass","consume_seconds":0,"has_consume_particles":false,"sound":{"sound_id":""}}, "minecraft:lore": [{"text":"右键投掷→区域烟雾+致盲感染体","color":"gray","italic":false}] }}
           ]
         },
         {

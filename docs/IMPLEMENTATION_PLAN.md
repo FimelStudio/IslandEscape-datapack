@@ -69,7 +69,7 @@ v0.1 视为完成需要同时满足：
 | 自爆真结局 | Batch 9 | 已实现，需回归 | 触发条件随新版信号网络改为 `signal_done` |
 | 母体伪装结局 / X-7 | 后续彩蛋批次（暂缓） | 暂缓，不计入 v0.1 | 用户已确认可先放后；正常局闭环优先 |
 | 病毒变异 Bad End | Batch 9 | 已实现，需回归 | 15:00 无人撤离触发；提前全员转化由 Batch 4.7 立刻触发 |
-| 物资箱、关键线索、资源保底、物资道具功能 | Batch 10 / 14 / 16 | 掉落已做，道具功能待实现 | 开箱只是第一步；急救包、手电筒、投掷物等需要真实可用 |
+| 物资箱、关键线索、资源保底、物资道具功能 | Batch 10 / 14 / 16 | 已实现，待多人回归 | 开箱、保底、急救包、手电筒、防毒面具、烟雾/闪光/信号道具均已接入 |
 | 环境事件 | Batch 11 | 已完成，需回归 | 频率统一为每 2 分钟（GDD 旧 3 分钟说法已修正） |
 | 缩放规则、调参旋钮 | Batch 12 / 13 / 16 / 17 | 主要规则已实现，待整局校准 | 新版 `signal_*`、`ship_boarding_seconds`、发电机奖励、研究员数量在 Batch 17 写入 |
 | 地图 marker 适配规则 | Batch 2 / 13 / MAP_GUIDE | 部分完成 | 5 塔 marker 校验需实现 |
@@ -777,7 +777,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 10 — 物资系统与 loot table
 
-状态: **掉落表与开箱已实现；物资道具功能待 Batch 14**
+状态: **掉落表、开箱与基础物资道具已实现；多人效果待 Batch 14 回归**
 
 目标: 地图上的物资箱可正常开启，掉落基础物品。注意：本批次只代表“能开箱、能掉落”，不代表所有物资道具的主动/被动功能已经完成。
 
@@ -791,13 +791,13 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `start.mcfunction` + `start_test.mcfunction` 开局自动调用 `place_loot_chests`
 - [x] 自测菜单：`[放标记: 普通物资]`/`[稀有物资]`/`[关键线索]` + `[脚下放物资箱]` 单人测试
 - [x] 去掉面包（饱食度常驻无意义）
-- [ ] 急救包（计划载体：`glowstone_dust`）：右键 Instant Health II
-- [ ] 信号燃焰 / 信号枪：右键或发射后标记附近感染体，并给予短暂 glowing / slowness
-- [ ] 应急手电筒（计划载体：`lantern`）：断电时手持给自己与 3 格内队友局部夜视
-- [ ] 急救冷藏箱 / 高级医疗物资：右键清除感染期或强治疗，需限制数量和使用条件
-- [ ] 防毒面具：背包持有时打 `has_gas_mask` tag，并在实验室孢子/自爆终端等逻辑中生效
-- [ ] 烟雾弹 / 闪光弹：物资投放与投掷效果尚未收口
-- [x] 验收: 单人开箱测试通过，基础掉落分布符合预期；道具功能验收移至 Batch 14
+- [x] 急救包（载体：`glowstone_dust`）：右键回复 4HP
+- [x] 信号燃焰 / 信号枪：右键或发射后标记附近感染体，并给予短暂 glowing / slowness
+- [x] 应急手电筒（载体：`lantern`）：断电时手持给自己与 3 格内队友局部夜视
+- [x] 急救冷藏箱 / 高级医疗物资：右键清除感染期，未处于感染期时退还
+- [x] 防毒面具：背包持有或戴在头上时打 `has_gas_mask` tag，并在环境孢子 / 自爆终端等逻辑中生效
+- [x] 烟雾弹 / 闪光弹：已进入物资投放并接入右键效果
+- [x] 验收: 单人开箱测试通过，基础掉落分布符合预期；道具功能细项在 Batch 14 回归
 
 ### Batch 11 — 环境事件
 
@@ -811,7 +811,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] `event/blackout.mcfunction`: 全员 `darkness` 60s
 - [x] `event/radio_static.mcfunction`: 乱码 title + 音效 30s
 - [x] `event/storm.mcfunction`: 雷雨 90s + `storm_tick` 每 20tick 扣 1 HP
-- [x] `event/spore_burst.mcfunction`: 随机幸存者位置孢子粒子 + 5 格内 +15 spore
+- [x] `event/spore_burst.mcfunction`: 随机幸存者位置孢子粒子 + 5 格内无防毒面具幸存者 +15 spore
 - [x] `event/hallucination.mcfunction`: 随机玩家 nausea + 紫色粒子
 
 ### Batch 12 — 人数缩放与收尾
@@ -872,7 +872,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 14 — 物资箱道具功能收口
 
-状态: **待实现**
+状态: **已实现，待多人 / 整局回归**
 
 目标: 把物资箱中开出的道具从“能拿到”补成“能正常使用”。本批次优先处理会影响正常局体验的消耗品、投掷物和被动物品；母体伪装结局暂缓，不抢 v0.1 主线收口优先级。
 
@@ -1685,6 +1685,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 | 2026-05-04 | Batch 4.5 测试版开局 + 自测增强 | 静态检查 + 游戏内手测 | PASS | start_test/自测菜单放标记/发光标记预览/常驻回血饱食/吞噬吐人修复/手枪命中/海军连射/变异系统 |
 | 2026-05-04 | 文档更新 | — | PASS | 同步 Batch 3/4/4.5 最新状态到 IMPLEMENTATION_PLAN |
 | 2026-05-04 | Batch 10 物资系统 | 静态检查 + 单人开箱测试 | PARTIAL | basic/rare/keynote loot table + place_loot_chests + 菜单测试按钮通过；物资道具实际功能移至 Batch 14 |
+| 2026-05-08 | Batch 10/14 物资道具收口 | 静态检查 | PASS | 通用道具进度初始化、防毒面具背包/头戴识别、环境孢子免疫、闪光弹致盲、测试菜单信号枪补入口已更新；仍需多人实机回归 |
 
 ---
 

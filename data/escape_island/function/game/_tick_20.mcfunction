@@ -14,8 +14,11 @@ execute as @a[scores={cd_aura_notice=1..}] run scoreboard players remove @s cd_a
 execute if entity @a[tag=event.blackout,limit=1] as @a[tag=!state.dead] at @s if items entity @s weapon.mainhand minecraft:lantern[minecraft:custom_data~{item:"flashlight"}] run effect give @a[distance=..3] minecraft:night_vision 3 0 true
 execute if entity @a[tag=event.blackout,limit=1] as @a[tag=!state.dead] at @s if items entity @s weapon.offhand minecraft:lantern[minecraft:custom_data~{item:"flashlight"}] run effect give @a[distance=..3] minecraft:night_vision 3 0 true
 
+# 防毒面具可戴在头上，也可放在背包；兼容早期皮革头盔和当前锁链头盔两种载体。
 tag @a remove has_gas_mask
 execute as @a[tag=!state.dead] if items entity @s armor.head minecraft:chainmail_helmet[minecraft:custom_data~{item:"gas_mask"}] run tag @s add has_gas_mask
+execute as @a[tag=!state.dead] if items entity @s armor.head minecraft:leather_helmet[minecraft:custom_data~{item:"gas_mask"}] run tag @s add has_gas_mask
+execute as @a[tag=!state.dead] if items entity @s container.* minecraft:chainmail_helmet[minecraft:custom_data~{item:"gas_mask"}] run tag @s add has_gas_mask
 execute as @a[tag=!state.dead] if items entity @s container.* minecraft:leather_helmet[minecraft:custom_data~{item:"gas_mask"}] run tag @s add has_gas_mask
 
 execute as @a[tag=team.human,tag=!state.infected_period,scores={spore_load=50..}] at @s run function escape_island:infection/spore_load_warn

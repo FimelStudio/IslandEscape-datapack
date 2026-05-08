@@ -1,3 +1,4 @@
+function skill:common/init
 function skill:weapon/init
 function skill:clicker/init
 function skill:athlete/init
