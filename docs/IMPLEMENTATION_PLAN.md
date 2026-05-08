@@ -1323,9 +1323,9 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 ### Batch 19 — 打靶训练场
 
-状态: **已完成可玩闭环（玩家模型靶、命中结算、3 种挑战、重置清理、M-7/AK47 路由；游戏内手测待回归）**
+状态: **已完成可玩闭环（2026-05-08 修订：mannequin 玩家模型靶、全武器命中路由、计时器修正、3 种挑战、重置清理；游戏内手测待回归）**
 
-目标: 在大厅/训练区提供独立的射击训练模式，玩家可用 M-7 打靶练手感、测精准度、刷个人最佳分。不依赖正式局 scoreboard，训练结束后数据保留供复玩对比。本批次在 Batch 6 M-7 系统基础上扩展，通过 `range.target` 标签将训练场命中路由到独立结算逻辑，不影响正式局战斗。训练靶使用 NoAI 僵尸作为人形玩家靶，因为原版不能直接召唤假玩家实体；射线按头部、躯干、腿部三段检测，避免只打脚才命中的问题。
+目标: 在大厅/训练区提供独立的射击训练模式，玩家可用任意武器打靶练手感、测精准度、刷个人最佳分。不依赖正式局 scoreboard，训练结束后数据保留供复玩对比。本批次在 Batch 6 M-7 系统基础上扩展，通过 `range.target` 标签将训练场命中路由到独立结算逻辑，不影响正式局战斗。训练靶使用 `minecraft:mannequin`（原版 1.21.11 玩家模型实体，`immovable:true`）；M-7/AK47 走 pistol 三段射线检测，步枪/霰弹枪/狙击枪在各自 fire.mcfunction 加入靶场分支检测。
 
 #### 19A — 数据结构与入口
 
@@ -1350,24 +1350,24 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 #### 19B — 靶标实体
 
 - [x] `range/targets/static_target.mcfunction`：
-  - 在 `marker.range_static` 处 summon NoAI 僵尸人形靶，添加 `tag range.target`、`tag range.target.static`
-  - 被 M-7/AK47 命中后路由到 `range/target_hit`，静态靶 +10 分
+  - 在 `marker.range_static` 处 summon `minecraft:mannequin`（Steve 皮肤，`immovable:true`），添加 `tag range.target`、`tag range.target.static`
+  - 被任意武器命中后路由到 `range/target_hit`，静态靶 +10 分
 - [x] `range/targets/moving_target.mcfunction`：
-  - 在 `marker.range_moving` 处生成 NoAI 僵尸人形靶，每 tick 根据 `range_target_state` 左右移动
+  - 在 `marker.range_moving` 处生成 mannequin（Alex 皮肤），每 tick 根据 `range_target_state` 左右移动
   - 波次越高，移动速度越快；命中移动靶 +20 分
 - [x] `range/targets/reaction_target.mcfunction`：
-  - 初始隐藏（`range.reaction.hidden` + Invisible），40 tick 后弹出
+  - 初始隐藏（`range.reaction.hidden` + `Invisible:1b`），40 tick 后弹出
   - 弹出 60 tick 未命中则自动隐藏；隐藏态不会被射线判定；弹出期间命中 +20 分
 - [x] `range/targets/sequence_targets.mcfunction`：
-  - 5 个靶按顺序编号（`range.seq.1`~`range.seq.5`）；仅当前序号靶高亮
+  - 5 个靶按顺序编号（`range.seq.1`~`range.seq.5`）；当前序号靶 `Glowing:1b` 高亮
   - 命中当前序号靶 → `range_seq ++`；命中非当前序号靶不计分且提示"顺序错误"
   - 全部命中 → +30 连击加成，序列重置
 
 #### 19C — 命中结算路由
 
-- [x] `weapon/pistol/fire.mcfunction` / `weapon/ak47/fire.mcfunction` / `marine/gun_mastery/fire_one.mcfunction` 接入训练场命中：
-  - 射线在 `raycast_hitbox` 顶部优先检测 `tag range.target`，命中最近训练靶 → `function range/target_hit`（而非正式局伤害结算）
-  - 此分支仅对 `tag range.active` 玩家生效，避免正式局误触发
+- [x] M-7/AK47/gun_mastery：`raycast_hitbox` 三段射线（头/躯/腿 Y 偏移）优先检测 `tag range.target`，命中 → `range/target_hit`
+- [x] 步枪/霰弹枪/狙击枪：各自 `fire.mcfunction` 加入靶场分支；`#hit skill.pistol_tmp` 重置→检测→`on_shot`，精准/生存模式 miss 判定与手枪统一
+- [x] 所有路径仅对 `tag range.active` 玩家生效，避免正式局误触发
 - [x] `range/target_hit.mcfunction`：
   - 根据靶标 tag 区分靶类型给分：
     - `range.target.static`：+10 分
@@ -1384,7 +1384,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
   - 每次开枪消耗 `range_timer`，归零后调用 `range/finish`
   - 结算显示得分、命中、开枪数、最佳对比
 - [x] `range/mode/timed.mcfunction`（限时挑战）：
-  - 30 秒倒计时（`range_timer = 600`，每 tick -1）
+  - 30 秒倒计时（`range_timer = 30`，tick 函数每秒 -1）
   - 开始时补给大量 9mm 与 7.62 弹药，保证 M-7/AK47 测试不会被弹药打断
   - 倒计时 bossbar `escape_island:range_timer` 仅对 `tag range.active` 显示
   - 时间到 → 结算；得分排行私人显示
@@ -1404,7 +1404,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 验收:
 
 - [ ] 游戏内回归：进入训练场后传送、得到枪弹、分数归零；个人最佳不清零
-- [ ] 游戏内回归：4 种靶均可被 M-7 命中并计分；正式局开火不触发训练场分支
+- [ ] 游戏内回归：4 种靶均可被所有武器（M-7/AK47/步枪/霰弹枪/狙击枪）命中并计分；正式局开火不触发训练场分支
 - [ ] 游戏内回归：移动靶持续左右移动；反应靶弹出后 60tick 未命中自动隐藏
 - [ ] 游戏内回归：序列靶只有当前靶可得分；全序列命中触发连击加成
 - [ ] 游戏内回归：3 种挑战模式各跑通一次：精准（10 发结算）、限时（30s bossbar 结算）、生存（3 次 miss 结束）
