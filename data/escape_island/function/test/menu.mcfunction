@@ -83,6 +83,5 @@ tellraw @s [{"text":"[枪战大厅]","color":"red","bold":true,"click_event":{"a
 tellraw @s [{"text":"[快速枪战]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:gunfight/quick_2p"}},{"text":" 快速启动 Last Stand","color":"gray"}]
 tellraw @s [{"text":"[清理枪战]","color":"gray","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:gunfight/cleanup"}},{"text":" 清空 gs.* 状态","color":"gray"}]
 tellraw @s {"text":"--- 武器测试 ---","color":"dark_gray"}
-tellraw @s [{"text":"[给步枪]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/give_rifle"}},{"text":" SR-17 / AK 机制","color":"gray"}]
 tellraw @s [{"text":"[给霰弹枪]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/give_shotgun"}},{"text":" SG-5","color":"gray"}]
 tellraw @s [{"text":"[给狙击枪]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/give_sniper"}},{"text":" SP-1 + 狙击弹","color":"gray"}]

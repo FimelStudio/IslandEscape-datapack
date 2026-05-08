@@ -1484,14 +1484,9 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 - [x] 弹药道具：`sniper_round`（`custom_data.ammo:"sniper_round"`，载体 `arrow`）
 - [x] 自测菜单：`[给步枪]`、`[给霰弹枪]`、`[给狙击枪]`
 
-#### 21B — SR-17 步枪
+#### 21B — SR-17 步枪 ~~（已移除，2026-05-08）~~
 
-道具载体: `minecraft:sugar`（`custom_data.weapon:"rifle"`）
-
-- [x] `weapon/rifle/fire.mcfunction`：弹匣扣减（`skill.rifle_mag -= 1`）；冷却 3t；爆炸音效；`^20` 范围内感染者 4 伤/母体 3 伤；弹匣耗尽 → reload；靶场检测已接入
-- [x] `weapon/rifle/reload_start.mcfunction` / `reload_finish.mcfunction`：换弹流程已实现
-- [x] `weapon/rifle/use.mcfunction`：advancement 路由已实现
-- [ ] `kit_*` 集成（海军陆战队员步枪选项，后续迭代）
+> **已与 AK47 合并。** SR-17 与 AK47 功能重叠（同为全自动突击步枪），且 SR-17 使用固定单点检测（`^20 distance=..3`），而 AK47 已有完整逐格 raycast；SR-17 也未分配给任何角色 kit。决定保留 AK47，删除 SR-17 全部文件。
 
 #### 21C — SG-5 霰弹枪
 
