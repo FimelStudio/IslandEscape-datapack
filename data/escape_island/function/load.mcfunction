@@ -135,6 +135,12 @@ scoreboard objectives add cycle20 dummy
 scoreboard objectives add cycle5 dummy
 scoreboard objectives add decay_cycle dummy
 scoreboard objectives add event_timer dummy
+scoreboard objectives add p2_ambient_cd dummy
+scoreboard objectives add skill.forger_passive_cd dummy
+scoreboard objectives add skill.forger_uses dummy
+scoreboard objectives add signal_forger_active dummy
+scoreboard objectives add signal_forger_offset dummy
+scoreboard objectives add signal_forger_show dummy
 scoreboard objectives add event_threshold dummy
 scoreboard objectives add event_roll dummy
 scoreboard objectives add dev_mode dummy

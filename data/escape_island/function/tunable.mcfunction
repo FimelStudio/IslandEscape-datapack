@@ -8,7 +8,7 @@ scoreboard players set Tunable tunable.mother_passive_pulse_seconds 10
 scoreboard players set Tunable tunable.infection_seconds 45
 scoreboard players set Tunable tunable.spore_threshold 100
 scoreboard players set Tunable tunable.doctor_spore_threshold 130
-scoreboard players set Tunable tunable.mother_spore_hit 50
+scoreboard players set Tunable tunable.mother_spore_hit 34
 scoreboard players set Tunable tunable.infected_spore_hit 27
 scoreboard players set Tunable tunable.signal_stages 100
 # 信号网络 v0.2：秒数类数值用 0.1 秒为单位，20 = 2.0 秒。

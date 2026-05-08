@@ -5,5 +5,6 @@ execute store result storage skill:radio.jam item.sec int 1 run scoreboard playe
 
 execute if score @s skill.radio_jam_cd matches 1.. run scoreboard players set @s skill.radio_jam_state 2
 execute if score @s skill.radio_jam_cd matches 1.. run function skill:radio/jam/item_cooldown with storage skill:radio.jam item
-execute unless score @s skill.radio_jam_cd matches 1.. run scoreboard players set @s skill.radio_jam_state 1
-execute unless score @s skill.radio_jam_cd matches 1.. run function skill:radio/jam/item_ready
+execute if score @s skill.forger_uses matches 2.. unless score @s skill.radio_jam_cd matches 1.. run scoreboard players set @s skill.radio_jam_state 3
+execute if score @s skill.forger_uses matches ..1 unless score @s skill.radio_jam_cd matches 1.. run scoreboard players set @s skill.radio_jam_state 1
+execute if score @s skill.forger_uses matches ..1 unless score @s skill.radio_jam_cd matches 1.. run function skill:radio/jam/item_ready

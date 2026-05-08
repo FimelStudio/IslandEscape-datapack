@@ -13,4 +13,7 @@ execute if score $game signal_done matches 1.. run bossbar set escape_island:sig
 execute if score $game signal_progress matches 1.. run bossbar set escape_island:signal players @a
 execute if score $game signal_done matches 1.. run bossbar set escape_island:signal players @a
 execute store result bossbar escape_island:signal max run scoreboard players get Tunable tunable.signal_global_target
-execute store result bossbar escape_island:signal value run scoreboard players get $game signal_progress
+scoreboard players operation $forger signal_forger_show = $game signal_progress
+execute if score $forger signal_forger_active matches 1.. run scoreboard players operation $forger signal_forger_show += $forger signal_forger_offset
+execute if score $forger signal_forger_show > Tunable tunable.signal_global_target run scoreboard players operation $forger signal_forger_show = Tunable tunable.signal_global_target
+execute store result bossbar escape_island:signal value run scoreboard players get $forger signal_forger_show

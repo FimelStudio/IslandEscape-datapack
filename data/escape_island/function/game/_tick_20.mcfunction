@@ -57,5 +57,8 @@ execute if score $game cur_phase matches 4 if score $game ship_countdown matches
 execute if score $game gs_active matches 1 run function escape_island:gunfight/combat_tick
 execute if score $game gs_active matches 1 run function escape_island:gunfight/supply_tick
 
+execute if score $game p2_ambient_cd matches 1 run function escape_island:game/p2_ambient_event
+execute if score $game p2_ambient_cd matches 1.. run scoreboard players remove $game p2_ambient_cd 1
+
 execute if score $game phase_timer matches 1.. run function escape_island:event/pick_event
 execute as @a[tag=event.storm] at @s run function escape_island:event/storm_tick

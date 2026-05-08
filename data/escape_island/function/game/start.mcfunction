@@ -28,6 +28,11 @@ scoreboard players set $game dawn_active 0
 scoreboard players set $game mother_dead 0
 scoreboard players set $game ending_triggered 0
 scoreboard players set $game final_pressure 0
+scoreboard players set $game p2_ambient_cd 0
+scoreboard players set $forger signal_forger_active 0
+scoreboard players set $forger signal_forger_offset 0
+scoreboard players reset @a skill.forger_passive_cd
+scoreboard players reset @a skill.forger_uses
 scoreboard players set $game escape_route 0
 scoreboard players set $game escape_result 0
 scoreboard players set $game signal_progress 0
