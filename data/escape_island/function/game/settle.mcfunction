@@ -149,7 +149,7 @@ clear @a
 team leave @a
 team modify survivors friendlyFire false
 team modify mother_hidden friendlyFire false
-team modify mother friendlyFire true
+team modify mother friendlyFire false
 team modify infected_period friendlyFire false
 team modify infected friendlyFire false
 team modify spectator friendlyFire false

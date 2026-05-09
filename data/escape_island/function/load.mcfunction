@@ -215,7 +215,7 @@ team add mother_hidden {"text":"母体（隐藏）","color":"green"}
 team modify mother_hidden friendlyFire false
 team modify mother_hidden nametagVisibility hideForOtherTeams
 team add mother {"text":"母体","color":"dark_red"}
-team modify mother friendlyFire true
+team modify mother friendlyFire false
 team modify mother nametagVisibility hideForOtherTeams
 team add infected_period {"text":"感染期","color":"gold"}
 team modify infected_period friendlyFire false
