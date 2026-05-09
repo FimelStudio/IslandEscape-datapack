@@ -1,5 +1,5 @@
 
-clear @s minecraft:carved_pumpkin
+clear @s paper[minecraft:equippable={damage_on_hurt:false,slot:head,camera_overlay:"ie:misc/red"},item_model="ie:empty",minecraft:custom_name=""]
 function escape_island:ui/spore_bar/clear
 team join infected @s
 

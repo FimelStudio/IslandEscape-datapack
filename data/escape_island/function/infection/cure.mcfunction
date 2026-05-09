@@ -7,7 +7,7 @@ tag @s remove flag.self_injected_this_period
 scoreboard players set @s infect_time 0
 scoreboard players set @s spore_load 0
 scoreboard players set @s hb_phase 0
-clear @s minecraft:carved_pumpkin
+clear @s paper[minecraft:equippable={damage_on_hurt:false,slot:head,camera_overlay:"ie:misc/red"},item_model="ie:empty",minecraft:custom_name=""]
 
 tag @s add state.infection_resist
 schedule function escape_island:infection/_remove_resist 400t

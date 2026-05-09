@@ -17,4 +17,4 @@ title @s subtitle [{"text":"治愈倒计时: ","color":"yellow"},{"score":{"name
 playsound minecraft:entity.warden.heartbeat master @s ~ ~ ~ 1 0.7
 tellraw @s {"text":"§c警告: 你进入了感染期！寻求船医协助或使用急救箱。","color":"red"}
 
-item replace entity @s armor.head with minecraft:carved_pumpkin
+item replace entity @s armor.head with paper[minecraft:equippable={damage_on_hurt:false,slot:head,camera_overlay:"ie:misc/red"},item_model="ie:empty",minecraft:custom_name=""]
