@@ -1,13 +1,62 @@
 {
     "type": "minecraft:notice",
-    "title": {"text": "感染阵营 母体", "color": "dark_red", "bold": true},
+    "title": {
+        "text": "感染阵营 母体",
+        "color": "dark_red",
+        "bold": true
+    },
     "body": [
-        {"type": "minecraft:item", "item": {"id": "minecraft:fermented_spider_eye"}, "show_decorations": false, "show_tooltip": false},
-        {"type": "minecraft:plain_message", "contents": {"text": "母体开局以伪装状态(绿名)隐藏在幸存者中。伪装态攻击不叠孢子，必须使用「变异」道具切换至猎手状态(暗红名)才能近战感染。60HP(小局70)，随时间成长至75/85HP。死亡后不复活。", "color": "gray"}, "width": 480},
-        {"type": "minecraft:plain_message", "contents": {"text": "技能", "color": "dark_red", "bold": true}, "width": 480},
-        {"type": "minecraft:plain_message", "contents": {"text": "变异：红色染料右键→脱伪装，开PVP，获得60s Buff\n吞噬：靠近感染体右键→吞入→吐到指定位置\n腐痕感知：40格内幸存者位置红色粒子(仅母体可见)，冷却60s\n集群嚎叫：感染者Speed II+Strength I 10s，冷却90s", "color": "gray"}, "width": 480},
-        {"type": "minecraft:plain_message", "contents": {"text": "策略：伪装期观察幸存者动向、搜集信息；选择合适时机变异发起突袭。母体死亡后感染者失去复活能力，因此不要无脑换血。", "color": "gray"}, "width": 480}
+        {
+            "type": "minecraft:item",
+            "item": {
+                "id": "minecraft:fermented_spider_eye"
+            },
+            "show_decorations": false,
+            "show_tooltip": false
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "母体开局以伪装状态(绿名)隐藏在幸存者中。伪装态攻击不叠孢子，必须使用「变异」道具切换至猎手状态(暗红名)才能近战感染。60HP(小局70)，随时间成长至75/85HP。死亡后不复活。",
+                "color": "gray"
+            },
+            "width": 240
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "技能",
+                "color": "dark_red",
+                "bold": true
+            },
+            "width": 240
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "变异：红色染料右键→脱伪装，开PVP，获得60s Buff\n吞噬：靠近感染体右键→吞入→吐到指定位置\n腐痕感知：40格内幸存者位置红色粒子(仅母体可见)，冷却60s\n集群嚎叫：感染者Speed II+Strength I 10s，冷却90s",
+                "color": "gray"
+            },
+            "width": 240
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "策略：伪装期观察幸存者动向、搜集信息；选择合适时机变异发起突袭。母体死亡后感染者失去复活能力，因此不要无脑换血。",
+                "color": "gray"
+            },
+            "width": 240
+        }
     ],
     "can_close_with_escape": true,
-    "action": {"label": {"text": "返回", "color": "green"}, "action": {"type": "minecraft:show_dialog", "dialog": "escape_island:profession/zombie_menu"}}
+    "action": {
+        "label": {
+            "text": "返回",
+            "color": "green"
+        },
+        "action": {
+            "type": "minecraft:show_dialog",
+            "dialog": "escape_island:profession/zombie_menu"
+        }
+    }
 }

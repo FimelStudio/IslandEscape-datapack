@@ -1,9 +1,11 @@
 clear @s minecraft:blaze_powder[minecraft:custom_data={skill:"mother/howl_used"}] 1
 advancement revoke @s only skill:mother/howl
 
+execute if score @s cd_mother_howl matches 1.. run function skill:mother/howl/update_item
 execute if score @s cd_mother_howl matches 1.. run return 0
 
 scoreboard players set @s cd_mother_howl 1800
+function skill:mother/howl/update_item
 
 execute if score @s mother_phase matches ..2 run effect give @a[tag=infected.common,tag=!state.dead] minecraft:speed 10 1 true
 execute if score @s mother_phase matches ..2 run effect give @a[tag=infected.common,tag=!state.dead] minecraft:strength 10 0 true

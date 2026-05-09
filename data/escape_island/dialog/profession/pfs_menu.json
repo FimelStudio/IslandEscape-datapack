@@ -14,7 +14,7 @@
                 "text": "幸存者靠分工取胜。职业能力不直接决定胜负，但会改变你适合承担的任务：救援、维修、侦察、控制、信息或机动。",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",

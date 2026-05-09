@@ -2,30 +2,91 @@
     "type": "minecraft:multi_action",
     "pause": false,
     "title": {
-        "text": "      海岛逃生 Island Escape",
-        "color": "gold",
-        "bold": true
+        "text": "        \ue014"
     },
+    "external_title": "§4海岛§b逃生 §o§4Island §bEscape",
     "body": [
         {
             "type": "minecraft:plain_message",
             "contents": [
-                {"text": "非对称生存对抗 | 4-20 人 | 15 分钟\n", "color": "gray"},
-                {"text": "幸存者", "color": "green"}, {"text": "：修设施、搜物资、找路线撤离\n", "color": "gray"},
-                {"text": "母体", "color": "dark_red"}, {"text": "：伪装、感染、吞噬、拖垮幸存者\n", "color": "gray"},
-                {"text": "感染者", "color": "red"}, {"text": "：追击、破坏、压制任务\n", "color": "gray"}
+                {
+                    "text": "非对称生存对抗 | 4-20 人 | 15 分钟\n",
+                    "color": "gray"
+                },
+                {
+                    "text": "幸存者",
+                    "color": "green"
+                },
+                {
+                    "text": "：修设施、搜物资、找路线撤离\n",
+                    "color": "gray"
+                },
+                {
+                    "text": "母体",
+                    "color": "dark_red"
+                },
+                {
+                    "text": "：伪装、感染、吞噬、拖垮幸存者\n",
+                    "color": "gray"
+                },
+                {
+                    "text": "感染者",
+                    "color": "red"
+                },
+                {
+                    "text": "：追击、破坏、压制任务\n",
+                    "color": "gray"
+                }
             ],
-            "width": 480
+            "width": 240
         }
     ],
     "columns": 1,
     "actions": [
-        {"label": "游戏背景", "action": {"type": "minecraft:show_dialog", "dialog": "escape_island:lore"}},
-        {"label": "游戏玩法", "action": {"type": "minecraft:show_dialog", "dialog": "escape_island:rules"}},
-        {"label": "身份介绍", "action": {"type": "minecraft:show_dialog", "dialog": "escape_island:profession/pfs_menu"}},
-        {"label": "天赋系统", "action": {"type": "minecraft:show_dialog", "dialog": "escape_island:talents"}},
-        {"label": "游戏设置", "action": {"type": "minecraft:show_dialog", "dialog": "escape_island:settings"}},
-        {"label": "返回大厅", "action": {"type": "minecraft:run_command", "command": "trigger ie.dialog set 103"}}
+        {
+            "label": "游戏背景",
+            "action": {
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:lore"
+            }
+        },
+        {
+            "label": "游戏玩法",
+            "action": {
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:rules"
+            }
+        },
+        {
+            "label": "身份介绍",
+            "action": {
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/pfs_menu"
+            }
+        },
+        {
+            "label": "天赋系统",
+            "action": {
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:talents"
+            }
+        },
+        {
+            "label": "游戏设置",
+            "action": {
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:settings"
+            }
+        },
+        {
+            "label": "返回大厅",
+            "action": {
+                "type": "minecraft:run_command",
+                "command": "trigger ie.dialog set 103"
+            }
+        }
     ],
-    "exit_action": {"label": "关闭"}
+    "exit_action": {
+        "label": "关闭"
+    }
 }

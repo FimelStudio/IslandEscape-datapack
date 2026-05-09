@@ -1,0 +1,65 @@
+{
+    "type": "minecraft:notice",
+    "title": {
+        "text": "感染阵营 循声者",
+        "color": "dark_green",
+        "bold": true
+    },
+    "external_title": {
+        "text": ""
+    },
+    "body": [
+        {
+            "type": "minecraft:item",
+            "item": {
+                "id": "minecraft:echo_shard"
+            },
+            "show_decorations": false,
+            "show_tooltip": false
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "循声者是母体吞噬普通感染体后，在编辑吞噬目标界面中改造出的特殊感染体。它保留普通感染体的追击职责，并额外拥有循声孢子。",
+                "color": "gray"
+            },
+            "width": 240
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "技能：循声孢子",
+                "color": "dark_green",
+                "bold": true
+            },
+            "width": 240
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "右键释放后，循声者会探测周围移动的人类。按前后左右或跳跃的人类会暴露；潜行移动不会暴露，但潜行跳跃仍会被探测。孢子会追踪目标，命中后增加孢子污染值。",
+                "color": "gray"
+            },
+            "width": 240
+        },
+        {
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "弱点：孢子可以被枪械击碎。没有人类暴露时，技能只进入短冷却；成功释放后会有短暂凝聚延迟。",
+                "color": "dark_gray"
+            },
+            "width": 240
+        }
+    ],
+    "inputs": [],
+    "can_close_with_escape": true,
+    "action": {
+        "label": {
+            "text": "返回"
+        },
+        "action": {
+            "type": "minecraft:show_dialog",
+            "dialog": "escape_island:profession/zombie_menu"
+        }
+    }
+}

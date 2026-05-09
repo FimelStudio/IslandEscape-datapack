@@ -29,7 +29,7 @@
                 "text": "靠近幸存者阵营的玩家使用绷带可为其持续治疗",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -37,7 +37,7 @@
                 "text": "医者难自医：对自己治疗效果减半",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         }
     ],
     "inputs": [],

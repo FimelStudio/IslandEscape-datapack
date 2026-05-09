@@ -23,7 +23,7 @@
                 "text": "副线维修与设备职业，适合补位工程师没有覆盖的任务路线。",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -31,7 +31,7 @@
                 "text": "工具能力：围绕设施、陷阱和临时设备展开，能把复杂路线变得更稳定。",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -39,7 +39,7 @@
                 "text": "弱点：需要提前规划位置，临场逃生能力不如运动员。",
                 "color": "dark_gray"
             },
-            "width": 480
+            "width": 240
         }
     ],
     "inputs": [],
