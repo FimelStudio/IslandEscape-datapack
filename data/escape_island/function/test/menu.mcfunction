@@ -37,6 +37,8 @@ tellraw @s [{"text":"[脚下放物资箱]","color":"yellow","bold":true,"click_e
 tellraw @s [{"text":"[脚下放稀有箱]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/loot_rare"}},{"text":" 稀有物资掉落测试","color":"gray"}]
 tellraw @s [{"text":"[拿急救包]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/give_first_aid"}},{"text":" 拿取附带自定义数据的急救包装备","color":"gray"}]
 tellraw @s [{"text":"[拿手电筒]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/give_flashlight"}},{"text":" 拿取附带自定义数据的手电筒装备","color":"gray"}]
+tellraw @s [{"text":"[拿 M-7 手枪]","color":"dark_gray","bold":true,"click_event":{"action":"run_command","command":"/function skill:weapon/pistol/give"}},{"text":" 包含手枪及弹药测试","color":"gray"}]
+tellraw @s [{"text":"[拿 AK-47]","color":"dark_gray","bold":true,"click_event":{"action":"run_command","command":"/function skill:weapon/ak47/give"}},{"text":" 包含满弹匣 AK 及弹药测试","color":"gray"}]
 tellraw @s [{"text":"[拿烟雾弹/闪光弹/燃焰/信号枪]","color":"white","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/give_grenades"}},{"text":" 给通用战斗消耗品","color":"gray"}]
 tellraw @s [{"text":"[获取防毒面具]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/give_gas_mask"}},{"text":" 用于测实验室伤害吸收","color":"gray"}]
 tellraw @s {"text":""}
