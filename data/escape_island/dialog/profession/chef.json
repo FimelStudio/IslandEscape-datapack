@@ -23,7 +23,7 @@
                 "text": "团队续航职业，适合在临时据点、任务点和集合转移时维持队伍状态。",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -31,7 +31,7 @@
                 "text": "热汤：给附近队友提供恢复和短时补给，让队伍能多撑过一次追击。",
                 "color": "green"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -39,7 +39,7 @@
                 "text": "弱点：直接反制能力较弱，需要队友保护才能发挥最大价值。",
                 "color": "dark_gray"
             },
-            "width": 480
+            "width": 240
         }
     ],
     "inputs": [],

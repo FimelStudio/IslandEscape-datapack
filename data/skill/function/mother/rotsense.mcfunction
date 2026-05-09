@@ -1,9 +1,11 @@
 clear @s minecraft:gunpowder[minecraft:custom_data={skill:"mother/rotsense_used"}] 1
 advancement revoke @s only skill:mother/rotsense
 
+execute if score @s cd_mother_rotsense matches 1.. run function skill:mother/rotsense/update_item
 execute if score @s cd_mother_rotsense matches 1.. run return 0
 
 scoreboard players operation @s cd_mother_rotsense = Tunable tunable.rotsense_cd
+function skill:mother/rotsense/update_item
 
 execute at @a[tag=team.human,distance=..40] run particle minecraft:dust{color:[0.9,0.1,0.1],scale:3} ~ ~1.5 ~ 0.6 0.4 0.6 0.01 10 force @a[tag=infected.mother,distance=..60]
 execute at @a[tag=team.human,distance=..40] run particle minecraft:dust{color:[0.6,0.1,0.1],scale:2} ~ ~0.5 ~ 0.4 0.2 0.4 0.01 6 force @a[tag=infected.mother,distance=..60]

@@ -23,7 +23,7 @@
                 "text": "团队指挥与近距离增益职业，适合带队推进任务点或掩护撤离。",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -31,7 +31,7 @@
                 "text": "哨子：右键使用后强化附近队友，适合在修复、转点或反打时开启。",
                 "color": "yellow"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -39,7 +39,7 @@
                 "text": "弱点：能力依赖队友站位，单走收益较低，且容易成为母体优先目标。",
                 "color": "dark_gray"
             },
-            "width": 480
+            "width": 240
         }
     ],
     "inputs": [],

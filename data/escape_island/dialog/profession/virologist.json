@@ -23,7 +23,7 @@
                 "text": "近距离识别与验证职业，是队伍里最接近“找出母体”的证据来源。",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -31,7 +31,7 @@
                 "text": "检测剂：检查附近感染目标；被动能在近距离看到母体留下的金色粒子。",
                 "color": "dark_green"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -39,7 +39,7 @@
                 "text": "弱点：有效距离短，靠近可疑目标本身就有风险。",
                 "color": "dark_gray"
             },
-            "width": 480
+            "width": 240
         }
     ],
     "inputs": [],

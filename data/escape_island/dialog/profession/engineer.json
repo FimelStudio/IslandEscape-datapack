@@ -23,7 +23,7 @@
                 "text": "核心维修职业，修复设施速度更快，适合主导信号塔、发电机等关键任务。",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -31,7 +31,7 @@
                 "text": "微型电池：部署后加速附近修复进度，能把短暂安全窗口转化为实际任务收益。",
                 "color": "gold"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -39,7 +39,7 @@
                 "text": "弱点：经常需要留在固定点位，容易被母体判断行踪。",
                 "color": "dark_gray"
             },
-            "width": 480
+            "width": 240
         }
     ],
     "inputs": [],

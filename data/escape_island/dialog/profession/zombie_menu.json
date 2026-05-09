@@ -11,10 +11,10 @@
         {
             "type": "minecraft:plain_message",
             "contents": {
-                "text": "感染者分为隐藏的母体和暴露的普通感染体。母体负责制造第一波混乱，感染体负责追击、压迫和拖慢任务。",
+                "text": "感染者分为隐藏的母体、暴露的普通感染体，以及由母体吞噬后改造出的特殊感染体。母体负责制造第一波混乱，感染体负责追击、压迫和拖慢任务。",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -61,10 +61,10 @@
             }
         },
         {
-            "label": "特殊感染体",
+            "label": "循声者",
             "action": {
-                "type": "minecraft:run_command",
-                "command": "trigger ie.dialog set 302"
+                "type": "minecraft:show_dialog",
+                "dialog": "escape_island:profession/clicker"
             }
         }
     ],

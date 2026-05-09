@@ -1,11 +1,18 @@
 {
     "type": "minecraft:notice",
     "title": {
-        "text": "      游戏背景",
+        "text": "      关于游戏",
         "color": "gold",
         "bold": true
     },
-    "body": [
+    "body": [{
+            "type": "minecraft:plain_message",
+            "contents": {
+                "text": "游戏背景",
+                "color": "white"
+            },
+            "width": 240
+        },
         {
             "type": "minecraft:plain_message",
             "contents": {
@@ -13,7 +20,7 @@
                 "color": "yellow",
                 "bold": true
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -21,7 +28,7 @@
                 "text": "你们搭乘的「海风号」在风暴中触礁。乘客被冲散到岛上各处，通讯中断，船长 Marlowe 留在船上抢修。这座岛未标注于任何商用海图——衔尾蛇生物科技的秘密研究站 Site-7 就藏在丛林深处。",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -29,7 +36,7 @@
                 "text": "衔尾蛇在这里研发了一种名为 Strain-PRO 的嵌合病毒——普罗米修斯病毒株。它能协同、能伪装、能学习。2025 年实验失控，全员失联，公司封锁了整座岛。",
                 "color": "dark_red"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
@@ -37,22 +44,22 @@
                 "text": "柯尔文·朗——第一例不完全感染者——逃出了岛，潜伏调查，准备公开真相。他混上了海风号。触礁后他消失了。你们中有人已经被他咬伤。",
                 "color": "gray"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
             "contents": {
-                "text": "你们有 15 分钟。修复信号塔和发电机、呼叫直升机撤离——或者永远留在这里。",
+                "text": "你们有15分钟。修复信号塔和发电机、呼叫直升机撤离——或者永远留在这里。",
                 "color": "yellow"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",
             "contents": {
                 "text": "\n"
             },
-            "width": 480
+            "width": 240
         },
         {
             "type": "minecraft:plain_message",

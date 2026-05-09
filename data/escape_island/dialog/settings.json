@@ -1,7 +1,7 @@
 {
     "type": "minecraft:multi_action",
     "title": {"text": "游戏设置", "color": "white", "bold": true},
-    "body": [{"type": "minecraft:plain_message", "contents": {"text": "音乐与音效设置", "color": "gray"}, "width": 480}],
+    "body": [{"type": "minecraft:plain_message", "contents": {"text": "音乐与音效设置", "color": "gray"}, "width": 240}],
     "columns": 1,
     "actions": [
         {"label": {"text": "启用背景音乐", "color": "green"}, "action": {"type": "minecraft:run_command", "command": "trigger ie.dialog set 101"}},
