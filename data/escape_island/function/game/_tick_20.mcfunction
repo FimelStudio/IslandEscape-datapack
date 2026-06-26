@@ -27,7 +27,7 @@ execute as @a[tag=team.human,tag=!state.infected_period,scores={spore_load=50..}
 execute as @a[tag=state.sporifying] at @s run function escape_island:infection/sporify_tick
 function escape_island:infection/respawn_tick
 
-execute as @a[tag=infected.mother,tag=!state.dead,scores={cd_mother_lunge=..0}] if score @s used_firework > @s used_firework_last run function skill:mother/lunge
+execute as @a[tag=infected.mother,tag=state.hunting,tag=!state.dead,scores={cd_mother_lunge=..0}] if score @s used_firework > @s used_firework_last run function skill:mother/lunge
 execute as @a[tag=infected.mother] run scoreboard players operation @s used_firework_last = @s used_firework
 
 execute as @a[tag=infected.mother] at @s run function escape_island:role/tick_mother
@@ -49,7 +49,7 @@ function escape_island:task/ship_dock_tick
 execute if score $game bomb_armed matches 1 run function escape_island:task/bomb_tick
 execute if score $game sub_countdown matches 1.. run function escape_island:escape/sub_tick
 
-execute if score $game mother_dead matches 1 if score $game in_game matches 1 unless entity @a[tag=infected.common,tag=!state.dead] run function escape_island:game/end_purge
+execute if score $game mother_dead matches 1 if score $game in_game matches 1 unless entity @a[tag=infected.common,tag=!state.dead,tag=!state.spectator] run function escape_island:game/end_purge
 execute if score $game in_game matches 1 unless entity @a[tag=team.human] run function escape_island:game/end_all_infected
 
 execute if score $game cur_phase matches 4 run function escape_island:escape/helicopter_tick

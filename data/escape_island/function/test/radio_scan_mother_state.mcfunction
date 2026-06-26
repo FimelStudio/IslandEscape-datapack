@@ -11,7 +11,7 @@ function skill:radio/signal_scan/start
 kill @e[tag=test.radio_scan_mother]
 scoreboard players set @s skill.signal_scan_cd 0
 tellraw @s {"text":"[TEST] 猎手母体扫描：下方应出现一条“异常”距离报告。","color":"gold"}
-execute at @s run summon minecraft:marker ~3 ~ ~ {Tags:["test.dummy","test.radio_scan_mother","infected.mother","state.mutated"]}
+execute at @s run summon minecraft:marker ~3 ~ ~ {Tags:["test.dummy","test.radio_scan_mother","infected.mother","state.hunting"]}
 function skill:radio/signal_scan/start
 kill @e[tag=test.radio_scan_mother]
 scoreboard players set @s skill.signal_scan_cd 0

@@ -19,7 +19,7 @@ tag @s remove infected.mother
 tag @s remove state.escaped
 tag @s remove state.dead
 tag @s remove state.sporifying
-team join infected_period @s
+team join survivors @s
 scoreboard players set @s spore_load 80
 scoreboard players set @s infect_time 30
 
@@ -36,7 +36,7 @@ tag @s add state.boarding
 tag @s add state.boarding.sub
 tag @s remove state.boarding.heli
 tag @s remove state.boarding.ship
-team join infected_period @s
+team join survivors @s
 scoreboard players set @s spore_load 80
 scoreboard players set @s infect_time 30
 

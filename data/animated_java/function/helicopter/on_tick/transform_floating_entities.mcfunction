@@ -1,0 +1,1 @@
+function animated_java:helicopter/root/on_tick/transform_floating_entities

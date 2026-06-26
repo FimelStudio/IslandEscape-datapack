@@ -1,56 +1,56 @@
 execute anchored eyes positioned ^ ^ ^1.2 as @e[tag=infected.common,tag=!state.dead,distance=..1.1] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^ ^ ^1.2 as @e[tag=infected.mother,tag=!state.dead,distance=..1.1] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^ ^ ^1.2 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.1] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^ ^ ^1.2 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.1] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^ ^ ^1.2 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.1] run effect give @s minecraft:slowness 6 2 true
 
 execute anchored eyes positioned ^ ^ ^2.1 as @e[tag=infected.common,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
 execute anchored eyes positioned ^0.8 ^ ^2.1 as @e[tag=infected.common,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
 execute anchored eyes positioned ^-0.8 ^ ^2.1 as @e[tag=infected.common,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^ ^ ^2.1 as @e[tag=infected.mother,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^0.8 ^ ^2.1 as @e[tag=infected.mother,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^-0.8 ^ ^2.1 as @e[tag=infected.mother,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^ ^ ^2.1 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^0.8 ^ ^2.1 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^-0.8 ^ ^2.1 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^ ^ ^2.1 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^0.8 ^ ^2.1 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^-0.8 ^ ^2.1 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^ ^ ^2.1 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^0.8 ^ ^2.1 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^-0.8 ^ ^2.1 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.2] run effect give @s minecraft:slowness 6 2 true
 
 execute anchored eyes positioned ^ ^ ^3 as @e[tag=infected.common,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
 execute anchored eyes positioned ^1.3 ^ ^3 as @e[tag=infected.common,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
 execute anchored eyes positioned ^-1.3 ^ ^3 as @e[tag=infected.common,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^ ^ ^3 as @e[tag=infected.mother,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^1.3 ^ ^3 as @e[tag=infected.mother,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^-1.3 ^ ^3 as @e[tag=infected.mother,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^ ^ ^3 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^1.3 ^ ^3 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^-1.3 ^ ^3 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^ ^ ^3 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^1.3 ^ ^3 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^-1.3 ^ ^3 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^ ^ ^3 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^1.3 ^ ^3 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^-1.3 ^ ^3 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.35] run effect give @s minecraft:slowness 6 2 true
 
 execute anchored eyes positioned ^ ^ ^4 as @e[tag=infected.common,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
 execute anchored eyes positioned ^1.8 ^ ^4 as @e[tag=infected.common,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
 execute anchored eyes positioned ^-1.8 ^ ^4 as @e[tag=infected.common,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^ ^ ^4 as @e[tag=infected.mother,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^1.8 ^ ^4 as @e[tag=infected.mother,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^-1.8 ^ ^4 as @e[tag=infected.mother,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^ ^ ^4 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^1.8 ^ ^4 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^-1.8 ^ ^4 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^ ^ ^4 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^1.8 ^ ^4 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^-1.8 ^ ^4 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^ ^ ^4 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^1.8 ^ ^4 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^-1.8 ^ ^4 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.5] run effect give @s minecraft:slowness 6 2 true
 
 execute anchored eyes positioned ^ ^ ^5 as @e[tag=infected.common,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
 execute anchored eyes positioned ^2.3 ^ ^5 as @e[tag=infected.common,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
 execute anchored eyes positioned ^-2.3 ^ ^5 as @e[tag=infected.common,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^ ^ ^5 as @e[tag=infected.mother,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^2.3 ^ ^5 as @e[tag=infected.mother,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^-2.3 ^ ^5 as @e[tag=infected.mother,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^ ^ ^5 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^2.3 ^ ^5 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
-execute anchored eyes positioned ^-2.3 ^ ^5 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^ ^ ^5 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^2.3 ^ ^5 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^-2.3 ^ ^5 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^ ^ ^5 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^2.3 ^ ^5 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
+execute anchored eyes positioned ^-2.3 ^ ^5 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.65] run effect give @s minecraft:slowness 6 2 true
 
 execute anchored eyes positioned ^ ^ ^1.2 as @e[tag=infected.common,tag=!state.dead,distance=..1.1] at @s run function skill:marine/suppress/hit_feedback
-execute anchored eyes positioned ^ ^ ^1.2 as @e[tag=infected.mother,tag=!state.dead,distance=..1.1] at @s run function skill:marine/suppress/hit_feedback
-execute anchored eyes positioned ^ ^ ^1.2 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.1] at @s run function skill:marine/suppress/hit_feedback
+execute anchored eyes positioned ^ ^ ^1.2 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.1] at @s run function skill:marine/suppress/hit_feedback
+execute anchored eyes positioned ^ ^ ^1.2 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.1] at @s run function skill:marine/suppress/hit_feedback
 execute anchored eyes positioned ^ ^ ^3 as @e[tag=infected.common,tag=!state.dead,distance=..1.35] at @s run function skill:marine/suppress/hit_feedback
-execute anchored eyes positioned ^ ^ ^3 as @e[tag=infected.mother,tag=!state.dead,distance=..1.35] at @s run function skill:marine/suppress/hit_feedback
-execute anchored eyes positioned ^ ^ ^3 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.35] at @s run function skill:marine/suppress/hit_feedback
+execute anchored eyes positioned ^ ^ ^3 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.35] at @s run function skill:marine/suppress/hit_feedback
+execute anchored eyes positioned ^ ^ ^3 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.35] at @s run function skill:marine/suppress/hit_feedback
 execute anchored eyes positioned ^ ^ ^5 as @e[tag=infected.common,tag=!state.dead,distance=..1.65] at @s run function skill:marine/suppress/hit_feedback
-execute anchored eyes positioned ^ ^ ^5 as @e[tag=infected.mother,tag=!state.dead,distance=..1.65] at @s run function skill:marine/suppress/hit_feedback
-execute anchored eyes positioned ^ ^ ^5 as @e[tag=infected.secondary_mother,tag=!state.dead,distance=..1.65] at @s run function skill:marine/suppress/hit_feedback
+execute anchored eyes positioned ^ ^ ^5 as @e[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..1.65] at @s run function skill:marine/suppress/hit_feedback
+execute anchored eyes positioned ^ ^ ^5 as @e[tag=infected.secondary_mother,tag=state.hunting,tag=!state.dead,distance=..1.65] at @s run function skill:marine/suppress/hit_feedback
 
 execute at @s run playsound minecraft:entity.warden.sonic_boom master @a[distance=..24] ~ ~ ~ 1 1.35 0
 execute anchored eyes positioned ^ ^ ^0.8 run particle minecraft:dust{color:[0.95,0.05,0.02],scale:1.0} ~ ~ ~ 0.16 0.14 0.16 0.02 18 force @a[distance=..24]

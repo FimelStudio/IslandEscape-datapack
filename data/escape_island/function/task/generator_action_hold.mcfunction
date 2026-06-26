@@ -16,5 +16,9 @@ execute unless entity @e[type=minecraft:marker,tag=marker.generator,tag=gen.aime
 execute unless entity @e[type=minecraft:marker,tag=marker.generator,tag=gen.aimed,distance=..3,limit=1] run title @s actionbar {"text":"请面向发电机","color":"yellow"}
 execute unless entity @e[type=minecraft:marker,tag=marker.generator,tag=gen.aimed,distance=..3,limit=1] run return 0
 
-execute if entity @s[tag=team.infected] run function escape_island:task/generator_channel_sabotage_tick
-execute unless entity @s[tag=team.infected] run function escape_island:task/generator_channel_repair_tick
+execute if entity @s[tag=infected.mother,tag=!state.hunting] run scoreboard players set @s gen_hold_time 0
+execute if entity @s[tag=infected.mother,tag=!state.hunting] run title @s actionbar {"text":"伪装状态无法直接操作发电机","color":"gray"}
+execute if entity @s[tag=infected.mother,tag=!state.hunting] run return 0
+execute if entity @s[tag=team.infected,tag=!infected.mother] run function escape_island:task/generator_channel_sabotage_tick
+execute if entity @s[tag=infected.mother,tag=state.hunting] run function escape_island:task/generator_channel_sabotage_tick
+execute if entity @s[tag=team.human] run function escape_island:task/generator_channel_repair_tick

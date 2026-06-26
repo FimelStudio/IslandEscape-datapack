@@ -3,7 +3,11 @@ execute if entity @s[tag=state.disguised] run return 0
 
 tag @s add state.disguised
 tag @s add flag.has_disguise
+tag @s remove state.hunting
 team join survivors @s
+function skill:mother/clear_hunt_items
+function escape_island:visual/mother_hidden
+attribute @s minecraft:attack_damage base set 0
 
 effect clear @s minecraft:glowing
 

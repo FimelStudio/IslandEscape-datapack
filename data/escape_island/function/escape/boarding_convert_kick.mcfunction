@@ -14,6 +14,7 @@ tag @s remove state.spectator
 tag @s remove team.human
 tag @s add team.infected
 team join infected @s
+function escape_island:visual/infected_common
 gamemode adventure @s
 effect clear @s
 effect give @s minecraft:resistance 3 1 true

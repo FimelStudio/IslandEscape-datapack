@@ -2,6 +2,7 @@
 tag @s remove team.human
 tag @s add team.infected
 tag @s add infected.mother
+team join survivors @s
 scoreboard players set @s role 11
 scoreboard players set @s is_mother 1
 
@@ -29,11 +30,15 @@ tag @s remove role.priest
 tag @s remove skill.adrenaline.active
 tag @s remove skill.slide.active
 tag @s remove skill.slide.locked
+tag @s remove state.hunting
+tag @s remove state.mutated
 
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
 function skill:mechanic/cleanup_non_mechanic
 function skill:priest/cleanup_non_priest
+function escape_island:role/clear_human_loadout
+function escape_island:visual/mother_hidden
 
 execute if score Tunable tunable.mother_hp matches 60 run attribute @s minecraft:max_health base set 60
 execute if score Tunable tunable.mother_hp matches 70 run attribute @s minecraft:max_health base set 70
@@ -43,7 +48,7 @@ effect give @s minecraft:saturation 1 20 true
 attribute @s minecraft:armor base set 4
 attribute @s minecraft:armor_toughness base set 2
 attribute @s minecraft:knockback_resistance base set 0.8
-attribute @s minecraft:attack_damage base set 4
+attribute @s minecraft:attack_damage base set 0
 attribute @s minecraft:movement_speed base set 0.105
 attribute @s minecraft:attack_speed base set 4
 

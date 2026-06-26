@@ -2,9 +2,9 @@ scoreboard players set @s scan_active 0
 scoreboard players set @s scan_result 0
 
 execute if entity @a[tag=state.infected_period,tag=team.human,tag=!state.dead,distance=..6,limit=1] run scoreboard players set @s scan_result 1
-execute if entity @a[tag=infected.mother,tag=state.mutated,tag=!state.dead,distance=..6,limit=1] run scoreboard players set @s scan_result 2
+execute if entity @a[tag=infected.mother,tag=state.hunting,tag=!state.dead,distance=..6,limit=1] run scoreboard players set @s scan_result 2
 execute if entity @a[tag=infected.common,tag=!state.dead,distance=..6,limit=1] run scoreboard players set @s scan_result 2
-execute if score @s scan_result matches 0 if entity @a[tag=infected.mother,tag=!state.mutated,tag=!state.dead,distance=..6,limit=1] run scoreboard players set @s scan_result 1
+execute if score @s scan_result matches 0 if entity @a[tag=infected.mother,tag=!state.hunting,tag=!state.dead,distance=..6,limit=1] run scoreboard players set @s scan_result 1
 
 execute if score @s scan_result matches 0 at @s run tellraw @a[tag=team.human,tag=!state.dead,distance=..10] {"text":"[隔离扫描] 结果：正常","color":"green"}
 execute if score @s scan_result matches 1 at @s run tellraw @a[tag=team.human,tag=!state.dead,distance=..10] {"text":"[隔离扫描] 结果：孢子异常","color":"yellow"}

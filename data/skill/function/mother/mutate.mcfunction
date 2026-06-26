@@ -6,7 +6,8 @@ execute if entity @s[tag=state.hunting] run title @s actionbar {"text":"猎手�
 execute if entity @s[tag=state.hunting] run return 0
 
 tag @s add state.hunting
-team join mother @s
+team join infected @s
+function escape_island:visual/mother_hunt
 execute if score @s mother_phase matches ..2 run scoreboard players set @s cd_mother_hunt 1200
 execute if score @s mother_phase matches 3.. run scoreboard players set @s cd_mother_hunt 1500
 scoreboard players set @s cd_mother_mutate 0

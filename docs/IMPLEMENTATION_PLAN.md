@@ -45,8 +45,8 @@ v0.1 视为完成需要同时满足：
 | GDD / BALANCE 模块 | 实现计划覆盖 | v0.1 状态 | 备注 |
 |---|---|---|---|
 | 对局阶段时间线、正式开局、测试开局 | Batch 1 / 4.5 / 12 / 17 | 基本完成，终局高压待手测 | 12:30 终局高压由 Batch 17 新增 |
-| 阵营、母体、普通感染者、感染期、死亡转化 | Batch 3 / 4 / 17 | ✅ Team 系统已修 | survivors/mother/mother_hidden 均加 nametagVisibility:hideForOtherTeams；母体初始留 survivors team 防止变身前 PvP；普通感染者知道母体身份并在母体附近复活作为正式规则 |
-| 母体两状态系统、成长时机、变异计时、PvP 架构、flag 迁移 | **Batch 4.6**（新增） | **已完成（2026-05-08 修订）** | 变身永久化：state.mutated（永久）与 state.hunting（当次狩猎）拆分；变身后不回退 mother_hidden；**变身时清除所有人类武器/弹药/任务道具（已在 GDD §三 母体"觉醒物品处理"条目正式记录）** |
+| 阵营、母体、普通感染者、感染期、死亡转化 | Batch 3 / 4 / 17 | ✅ Team 系统已修 | 实际 `team` 只负责原版友伤免疫：幸存者 / 感染期 / 伪装母体在 `survivors`，猎手母体 / 普通感染者在 `infected`，不可复活死亡进入 `spectator`；同阵营免伤不再做事后补偿 |
+| 母体两状态系统、成长时机、变异计时、PvP 架构、flag 迁移 | **Batch 4.6**（新增） | **已完成（2026-06-26 修订）** | `state.mutated` 只记录首次变异历史，`state.hunting` 表示当次猎手状态；猎手结束回到伪装并加入 `survivors`；**觉醒时清除所有人类武器/弹药/任务道具（已在 GDD §三 母体"觉醒物品处理"条目正式记录）** |
 | 全员转化立即结局、感染期登机转化驱离 | **Batch 4.7**（新增） | **已完成** | 全员转化、登载转化驱离、转化前撤离均已通过菜单手测 |
 | 母体成长、腐痕感知、集群嚎叫、吞噬 | Batch 4 / 4.5 | 已完成，待 4.6 回归验收 | 成长数值和时机需随 4.6 更新 |
 | 母体伪装期被动孢子脉冲 + 侵蚀光环 | **Batch 4.6 / 17** | **已实现，待手测回归** | 孢子脉冲、同目标贴近判定、修复降速、心跳/污染提示均已接入 |
@@ -120,7 +120,7 @@ v0.1 视为完成需要同时满足：
 状态: **已完成并通过游戏内手测**
 
 - [x] 母体/感染者命中增加 `spore_load`（advancement 检测），按新版母体攻击冷却重构：每次有效命中 +40，3 次达 120 ≥ 阈值 100 进感染期；冷却中命中播放擦刀弱音效（`entity.player.attack.weak`）。
-- [x] 阈值到达进入 `state.infected_period`（金色名牌）。
+- [x] 阈值到达进入 `state.infected_period`，实际 `team` 保持 `survivors`，附近玩家可见弱红 / 金色粒子提示救援窗口。
 - [x] 感染期玩家仍在幸存者阵营，不能攻击其他幸存者。
 - [x] 任意幸存者死亡进入孢化倒计时，然后转感染者。
 - [x] 感染者死亡：母体存活时围绕母体复活；母体死亡后不再复活（`$game mother_dead = 1` → `mother_respawn = -1` 永久锁定）。
@@ -130,10 +130,10 @@ v0.1 视为完成需要同时满足：
 - [x] 感染期补齐心跳音、脚下粒子；完全转化感染者补齐绿色孢子粒子（无 glowing）。
 - [x] 污染值 ≥ 50 时给本人 actionbar + 轻微心跳音；音效每次在玩家当前位置播放。
 - [x] 幸存者死亡进入倒地孢化：每 tick 在当前位置刷新个人重生点，真实死亡后原地立即重生并用隐形 marker 锚定，不进入 spectator，不可自由飞行；玩家本人站在原地僵直并显示 15 秒倒计时，结束后在原地转化为感染者。
-- [x] 感染者死亡冷却期间不进入 spectator：原地重生后用隐形 marker 锚定，adventure + 移速 0 + 黑暗/隐形等待复活；母体死亡后同样锁定但不复活。
+- [x] 感染者死亡冷却期间不进入 spectator：母体存活时原地重生后用隐形 marker 锚定，adventure + 移速 0 + 黑暗/隐形等待复活；母体死亡后直接进入 spectator。
 - [x] 修复 Tunable 加载顺序。
 - [x] 修复孢子点选择使用 marker 实体。
-- [x] 名牌变色系统（母体隐藏绿 / 感染期金 / 感染者红）。
+- [x] 身份显示系统：伪装母体无外观标识；感染期用弱红 / 金粒子；普通感染者用僵尸头 + 绿色粒子；猎手母体用凋零骷髅头 + 暗红粒子。
 - [x] 转化保留系统（retained.* tag 在 turn.mcfunction 中复制）。
 - [x] 母体 HP 追踪（`mother_hp` scoreboard，起始 80）。
 - [x] 母体脱战回血（`mother_regen_cd` 受伤重置 5s，冷却结束后 Regeneration II）、攻击冷却（`mother_hit_cd = 50 tick`，每 tick 递减 2.5s）+ 擦刀反馈（冷却中命中播放弱音效 + `attack_speed` 降至 0.1 + Slowness II 2s 惩罚）。
@@ -160,10 +160,10 @@ v0.1 视为完成需要同时满足：
 - [x] `tick_mother.mcfunction` 维持 Resistance I、脱战回血、成长阶段（每 5 分钟 +10HP，80→90→100）、攻击冷却（`mother_hit_cd = 50 tick`，每 tick 递减 2.5s）
 - [x] `on_hit_by_mother.mcfunction` 检查 `flag.first_attack`：
   - 若无此 tag → 全图广播"有人遭受了突袭……"→ 给母体 `tag add flag.first_attack`
-  - 有效命中（`mother_hit_cd ≤ 0`）：`add_spore_load {amount:40}` + 设 `mother_hit_cd = 50` + `attack_speed → 0.4` + tag `state.attack_slowed`（冷却结束恢复 4.0）
+  - 有效命中（`mother_hit_cd ≤ 0`）：读取 `tunable.mother_spore_hit`（当前 34）+ 设 `mother_hit_cd = 50` + `attack_speed → 1.6` + tag `state.attack_slowed`（冷却结束恢复 4.0）
   - 冷却中命中（`mother_hit_cd ≥ 1`）：仅播放擦刀弱音效，不叠孢子，不改变攻速
 - [x] 母体技能重构：
-  - `mother/mutate` → 变异（新增）：红色染料一次性使用，脱伪装，`mother_hidden → mother` team，开 pvp，全图广播，60s buff
+  - `mother/mutate` → 变异（新增）：切换为猎手状态，实际 `team join infected`，加 `state.hunting`，装备猎手头饰，60s buff
   - `mother/eat/*` 保留吞噬技能
   - `mother/rotsense` → 腐痕感知：40 格内幸存者位置红色粒子（仅母体可见），全图广播暴露提示，冷却 60s，hotbar.5 冷却倒计时显示
   - `mother/howl` → 集群嚎叫：感染者 Speed II + Strength I 10s，冷却 90s，hotbar.6 冷却倒计时显示
@@ -213,10 +213,10 @@ Part 3 已实现并通过单人菜单手测:
 - 自测菜单接入单人 `[成长时机: 4人局]`、`[成长时机: 8人局]`，验证提前 1 tick 不成长、到点成长
 
 Part 4 已实现并通过单人菜单手测:
-- `skill:mother/mutate` 从一次性永久揭示改为基础循环：触发猎手 1200t（60s）→ 自动回 `mother_hidden` → 写入再次变异冷却
+- `skill:mother/mutate` 从一次性永久揭示改为基础循环：触发猎手 1200t（60s）→ 自动回伪装并加入 `survivors` team → 写入再次变异冷却
 - 冷却读取 `Tunable tunable.mutate_cd`：4–7 人局 600t（30s），其余默认 900t（45s）
 - 技能物品改为 `phantom_membrane` 变异脉冲；猎手/冷却期间热键栏显示剩余秒数，冷却结束后自动恢复可用
-- 隐藏母体不再发放腐痕感知 / 集群嚎叫 / 吞噬，避免覆盖伪装期人类物品栏；这些技能只在猎手状态出现，回隐藏后清理
+- 伪装母体保留腐痕感知 / 集群嚎叫 / 变异脉冲等非战斗玩法；吞噬和猎手战斗道具只在猎手状态出现，回伪装后清理
 - 自测菜单接入单人 `[变异循环: 4人局]`、`[变异循环: 8人局]`
 - 自测菜单接入单人 `[母体隐藏物品栏]`
 
@@ -225,8 +225,8 @@ Part 5 已实现并通过单人菜单手测:
 - 自测菜单接入单人 `[母体命中分流]`
 
 Part 6 已实现并通过单人菜单手测:
-- `skill:radio/signal_scan/start.mcfunction` 母体扫描条件从 `flag.first_attack` / 任意母体改为仅 `state.mutated`
-- 测试人偶母体也只有带 `state.mutated` 时进入扫描报告，避免训练/自测误导
+- `skill:radio/signal_scan/start.mcfunction` 母体扫描条件从 `flag.first_attack` / 任意母体改为仅当前猎手 `state.hunting`
+- 测试人偶母体也只有带 `state.hunting` 时进入扫描报告，避免训练/自测误导
 - 自测菜单接入单人 `[扫描母体伪装]`
 
 Part 7 已实现并通过单人菜单手测:
@@ -245,7 +245,7 @@ Part 9 已实现并通过单人菜单手测:
 - 新增 `mother/passive_disguise.mcfunction`：隐藏母体、非 X-7、非死亡状态下每秒检测 4 格内幸存者
 - 连续贴近 6 秒后，对最近幸存者每 10 秒 +10 `spore_load`
 - 受影响者收到极弱心跳 / 模糊 actionbar，使用 `cd_aura_heartbeat` 节流
-- 猎手状态 `state.mutated` 和后续 `state.disguised` 会暂停该被动
+- 猎手状态 `state.hunting` 和后续 `state.disguised` 会暂停该被动；`state.mutated` 只保留扫描痕迹，不代表当前战斗状态
 - 自测菜单接入单人 `[伪装贴身孢子]`
 
 Part 10 已实现并按用户反馈调整通过:
@@ -273,18 +273,19 @@ Part 11 已实现并通过:
   - [x] 成长 III 感染者脉冲（Speed I + Resistance I 3s）
 - [x] 变异脉冲 (`mother/mutate`) 重构为双向计时基础版：
   - [x] 道具改为 `phantom_membrane`（命名"变异脉冲"），`consume_item` advancement
-  - [x] 触发 → `team join mother @s` + `tag add state.mutated` + 变异粒子爆发 + 低沉异声（8格内）+ 设 `cd_mother_hunt = 1200`（60s）
-  - [x] `skill:mother/mutate/cooldown_tick`：`cd_mother_hunt > 0` → 每 tick -1；`cd_mother_hunt = 0 AND tag=state.mutated` → 自动回退（`team join mother_hidden` + `tag remove state.mutated`）+ 设 `cd_mother_mutate = tunable.mutate_cd`（再次变异冷却）
-  - [x] 集群嚎叫冷却与变异独立（`cd_mother_howl`），确认在两种状态均可使用
+  - [x] 触发 → `team join infected @s` + `tag add state.hunting` + 首次变异时 `tag add state.mutated` + 猎手头饰 + 变异粒子爆发 + 低沉异声（8格内）+ 设 `cd_mother_hunt = 1200`（60s）
+  - [x] `skill:mother/mutate/cooldown_tick`：`cd_mother_hunt > 0` → 每 tick -1；`cd_mother_hunt = 0 AND tag=state.hunting` → 自动回退（`team join survivors` + `tag remove state.hunting` + 清猎手头饰，保留 `state.mutated` 历史标记）+ 设 `cd_mother_mutate = tunable.mutate_cd`（再次变异冷却）
+  - [x] 集群嚎叫冷却与变异独立（`cd_mother_howl`），猎手状态显示 / 可用
 - [x] PvP 架构迁移（取消全局 pvp gamerule 开关）：
   - `load.mcfunction`：`gamerule pvp true`（永久），移除 `pvp false` 初始化
-  - `team mother friendlyFire true`；`team mother_hidden friendlyFire false`；`team survivors friendlyFire false`
-  - `game/start.mcfunction` / `phase_1_load`：不再关闭 pvp；Phase 1 不做额外伤害补偿
+  - `survivors` / `infected` / `spectator` 均 `friendlyFire false`；旧母体/感染期显示队伍不再承担局内真实阵营
+  - `game/start.mcfunction` / `phase_1_load`：不再关闭 pvp；Phase 1 依靠全员 `survivors` 队伍阻止幸存者互伤
+  - 同阵营免伤交给原版 team 处理：伪装母体与幸存者同在 `survivors`，猎手母体与普通感染者同在 `infected`，不再做伤后回血补偿
   - `game/settle.mcfunction`：移除 `gamerule pvp` 恢复逻辑，改为 team friendlyFire 重置
-- [x] `on_hit_by_mother.mcfunction`：污染条件改为猎手状态；`team=mother_hidden` / 非 `state.mutated` 命中不叠孢子、不触发擦刀反馈
-- [x] `radio/signal_scan/start.mcfunction`：已暴露母体判定从 `flag.first_attack` 改为 `tag=state.mutated`；隐藏母体（`team=mother_hidden + !state.mutated`）不进入报告
+- [x] `on_hit_by_mother.mcfunction`：污染条件改为猎手状态；非 `state.hunting` 命中不叠孢子、不触发首攻、不触发擦刀反馈
+- [x] `radio/signal_scan/start.mcfunction`：母体报告从 `flag.first_attack` / 任意母体改为仅当前猎手 `state.hunting`；伪装母体不会被单人机制 100% 报姓名
 - [x] 贴身孢子脉冲（伪装状态，取代无效的 +2/s）：
-  - `tick_mother.mcfunction`：仅在隐藏母体且非 X-7 时执行；连续贴近幸存者 6s 后启动；`cd_mother_passive_spore > 0` → 每秒 -1；`= 0` → 对最近幸存者 `spore_load +10` + 重置 `cd_mother_passive_spore = 10`（10s）
+  - `tick_mother.mcfunction`：仅在伪装母体（`infected.mother + !state.hunting + !state.disguised`）时执行；连续贴近幸存者 6s 后启动；`cd_mother_passive_spore > 0` → 每秒 -1；`= 0` → 对最近幸存者 `spore_load +10` + 重置 `cd_mother_passive_spore = 10`（10s）
   - 给受影响者极弱心跳/污染提示节流，不显示来源
   - 普通感染者转化后显示母体方向或母体身份提示；继续在母体附近 8–16 格复活
 - [x] 母体里程碑反馈：首次感染（`infected_count` 从 0→1 时）私聊 title + `warden.roar`；转化第 3 人私聊 actionbar
@@ -298,7 +299,7 @@ Part 11 已实现并通过:
 - [x] 变异 60s 后静默回伪装，等 45s 冷却后可再次变异（4人局 30s）
 - [x] 猎手状态命中叠孢子；伪装状态命中不叠
 - [x] 伪装连续贴近目标 6s 后启动脉冲，4 格内每 10s 目标 +10 孢子，并给极弱反馈
-- [x] radio scan 不报告 `team=mother_hidden` 且非 `state.mutated` 的母体
+- [x] radio scan 不报告当前伪装母体姓名；信息类扫描只给模糊异常线索
 - [x] Phase 1 不再使用受伤补回；全局 PvP 长期 true，具体阵营伤害由 team / 玩法函数控制
 - [x] 开局随机变量：恰好 1 台发电机 `gen_overload = 8`，恰好 1 个普通物资 marker 成为热区稀有物资
 
@@ -495,10 +496,10 @@ scoreboard players set #glow_dur     skill.signal_scan_cfg  100    # 废弃配�
 ```
 
 关键逻辑：
-- 触发后：给使用者打临时 `skill.radio.viewer`，再对 `infected.common`、`state.infected_period`、猎手母体（`infected.mother` + `state.mutated`，且非 `state.disguised`）输出私有 `tellraw` 距离区间报告
+- 触发后：给使用者打临时 `skill.radio.viewer`，再对 `infected.common`、`state.infected_period`、猎手母体（`infected.mother` + `state.hunting`，且非 `state.disguised`）输出私有 `tellraw` 距离区间报告
 - 不使用 `glowing`，也不使用目标头顶粒子；目标不会被全员看见，母体也不会收到通讯员报告
 - `/particle ... force <viewers>` 只能解决“谁能看见”，不能解决远距离和穿墙问题，因此不作为通讯员主侦察手段
-- 隐藏母体（`team=mother_hidden`）和伪装母体（`state.disguised`）不进入异常报告；单人测试人偶的感染者/母体会进入报告，方便训练模式验证
+- 伪装母体（非 `state.hunting`）和 X-7 伪装母体（`state.disguised`）不进入异常报告；单人测试人偶的感染者/猎手母体会进入报告，方便训练模式验证
 
 **被动**：近距离准心对准其他玩家时显示公开职业；隐藏/伪装母体显示为幸存者，暴露母体/感染者显示为信号异常
 
@@ -1148,7 +1149,7 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 #### 17C — 母体伪装期被动重构
 
-- [x] 新建 `mother/passive_disguise.mcfunction`，由 `tick_mother.mcfunction` 在 `team=mother_hidden AND !state.disguised` 分支每秒调用
+- [x] 新建 `mother/passive_disguise.mcfunction`，由 `tick_mother.mcfunction` 在 `infected.mother + !state.hunting + !state.disguised` 分支每秒调用
 - [x] 被动孢子脉冲：
   - 使用 `mother.passive.target` tag + `mother_passive_stick` 追踪连续贴近同一幸存者；连续 6 秒后才启动脉冲
   - `cd_mother_passive_spore` 每秒 -1；归零时按 `tunable.mother_passive_pulse_dmg` 给目标增加孢子污染，并设回 10（秒）
@@ -1607,8 +1608,8 @@ scoreboard players set #night_vision_dur  skill.cross_cfg  3    # 每秒刷新
 
 1. 开发沙盒 → `[感染测试]`
 2. `[+27污染]` × 3 → 不进入感染期，actionbar 显示孢子值；到达 50 后本人听到轻微心跳音，其他玩家不可见不可听
-3. `[+27污染]` 第 4 次 → 进入感染期，金色名牌，actionbar 显示转化倒计时，心跳音，脚下粒子
-4. 等待 45 秒 → 自动转化为感染者，名牌变红
+3. `[+27污染]` 第 4 次 → 进入感染期，actionbar 显示转化倒计时，心跳音，脚下粒子，附近玩家可见弱红 / 金色粒子
+4. 等待 45 秒 → 自动转化为感染者，戴僵尸头并显示绿色孢子粒子
 5. `[设为幸存者]` → `[模拟幸存者死亡]` → 原地倒地孢化，不能移动/飞行/交互，actionbar 显示 15 秒倒计时，结束后转感染者
 6. `[设为感染者]` → `[模拟感染者死亡]` → 母体存活时 25–30 秒复活倒计时，结束后在母体附近复活
 7. `[设为母体]` → `[模拟母体死亡]` → 母体进入母巢崩坏，不复活；感染者随后死亡不再复活

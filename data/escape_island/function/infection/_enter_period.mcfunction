@@ -7,7 +7,7 @@ execute if entity @s[tag=flag.cross_intercepted] run return run tag @s remove fl
 execute if entity @s[tag=state.infected_period] run return 0
 
 tag @s add state.infected_period
-team join infected_period @s
+team join survivors @s
 scoreboard players operation @s infect_time = Tunable tunable.infection_seconds
 
 effect give @s minecraft:slowness 1 0 true

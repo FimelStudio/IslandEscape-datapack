@@ -2,15 +2,8 @@
 execute unless entity @s[tag=infected.mother] run return 0
 execute if entity @s[tag=state.dead] run return 0
 execute if entity @s[tag=skill.mother.eating] at @s run function skill:mother/eat/release_fallback
-tag @s add state.dead
-
-effect clear @s
-execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["entity.dead_anchor"]}
-gamemode adventure @s
-attribute @s minecraft:movement_speed base set 0
-effect give @s minecraft:invisibility 999 0 true
-effect give @s minecraft:darkness 999 0 true
-effect give @s minecraft:resistance 999 255 true
+function skill:mother/clear_hunt_items
+function escape_island:infection/permadeath_spectator
 
 scoreboard players set $game mother_dead 1
 bossbar set escape_island:mother_respawn visible false

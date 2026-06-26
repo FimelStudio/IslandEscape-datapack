@@ -12,5 +12,8 @@ execute unless entity @e[type=minecraft:marker,tag=marker.generator,tag=gen.aime
 execute if items entity @s weapon.mainhand *[custom_data~{item:"fuel_cell"}] run function escape_island:task/generator_interact_fuel
 execute if items entity @s weapon.mainhand *[custom_data~{item:"fuel_cell"}] run return 0
 
-execute if entity @s[tag=team.infected] run function escape_island:task/generator_interact_sabotage
-execute unless entity @s[tag=team.infected] run function escape_island:task/generator_interact_repair
+execute if entity @s[tag=infected.mother,tag=!state.hunting] run title @s actionbar {"text":"伪装状态无法直接操作发电机","color":"gray"}
+execute if entity @s[tag=infected.mother,tag=!state.hunting] run return 0
+execute if entity @s[tag=team.infected,tag=!infected.mother] run function escape_island:task/generator_interact_sabotage
+execute if entity @s[tag=infected.mother,tag=state.hunting] run function escape_island:task/generator_interact_sabotage
+execute if entity @s[tag=team.human] run function escape_island:task/generator_interact_repair

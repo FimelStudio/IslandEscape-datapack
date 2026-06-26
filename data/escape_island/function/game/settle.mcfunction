@@ -8,6 +8,7 @@ execute as @a run attribute @s minecraft:movement_speed base set 0.1
 execute as @a run attribute @s minecraft:max_health base set 20
 execute as @a run attribute @s minecraft:attack_damage base set 1
 execute as @a run attribute @s minecraft:attack_speed base set 4
+execute as @a run function escape_island:visual/clear_head
 execute as @a run function escape_island:ui/spore_bar/clear
 
 bossbar set escape_island:phase visible false

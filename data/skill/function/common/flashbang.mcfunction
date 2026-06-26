@@ -1,5 +1,7 @@
 advancement revoke @s only skill:common/flashbang
 execute anchored eyes positioned ^ ^ ^3 run particle minecraft:end_rod ~ ~1 ~ 2 1 2 0.08 60 force @a[distance=..24]
-execute anchored eyes positioned ^ ^ ^3 run effect give @a[tag=team.infected,distance=..4] minecraft:blindness 3 2 true
-execute anchored eyes positioned ^ ^ ^3 run effect give @a[tag=team.infected,distance=..4] minecraft:slowness 3 1 true
+execute anchored eyes positioned ^ ^ ^3 run effect give @a[tag=team.infected,tag=!infected.mother,tag=!state.dead,tag=!state.spectator,distance=..4] minecraft:blindness 3 2 true
+execute anchored eyes positioned ^ ^ ^3 run effect give @a[tag=team.infected,tag=!infected.mother,tag=!state.dead,tag=!state.spectator,distance=..4] minecraft:slowness 3 1 true
+execute anchored eyes positioned ^ ^ ^3 run effect give @a[tag=infected.mother,tag=state.hunting,tag=!state.dead,tag=!state.spectator,distance=..4] minecraft:blindness 3 2 true
+execute anchored eyes positioned ^ ^ ^3 run effect give @a[tag=infected.mother,tag=state.hunting,tag=!state.dead,tag=!state.spectator,distance=..4] minecraft:slowness 3 1 true
 playsound minecraft:entity.generic.explode master @a[distance=..24] ~ ~ ~ 0.8 1.5

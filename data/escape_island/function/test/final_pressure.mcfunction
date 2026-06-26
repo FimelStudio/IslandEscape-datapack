@@ -11,6 +11,7 @@ scoreboard players set $game gen_done 0
 tag @s add infected.mother
 tag @s remove state.dead
 tag @s remove state.mutated
+tag @s remove state.hunting
 scoreboard players set @s cd_mother_mutate 900
 function escape_island:game/phase_check
 tellraw @s [{"text":"[TEST] 无撤离倒计时，12:30终局高压=","color":"gold"},{"score":{"name":"$game","objective":"final_pressure"}},{"text":"，母体变异CD=","color":"gold"},{"score":{"name":"@s","objective":"cd_mother_mutate"}},{"text":"。预期 1 / 0。","color":"green"}]

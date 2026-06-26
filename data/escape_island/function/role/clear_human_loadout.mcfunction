@@ -1,0 +1,14 @@
+clear @s #skill:role_items
+clear @s minecraft:iron_axe
+clear @s minecraft:iron_sword
+clear @s minecraft:sugar[minecraft:custom_data~{weapon:"pistol"}]
+clear @s minecraft:paper[minecraft:custom_data~{weapon:"pistol_used"}]
+clear @s minecraft:sugar[minecraft:custom_data~{weapon:"ak47"}]
+clear @s minecraft:paper[minecraft:custom_data~{weapon:"ak47_used"}]
+clear @s minecraft:blaze_rod[minecraft:custom_data~{weapon:"shotgun"}]
+clear @s minecraft:sugar[minecraft:custom_data~{weapon:"shotgun_used"}]
+clear @s minecraft:spyglass[minecraft:custom_data~{weapon:"sniper"}]
+clear @s minecraft:iron_nugget[minecraft:custom_data={ammo:1}]
+clear @s minecraft:arrow[minecraft:custom_data~{ammo:"sniper_round"}]
+clear @s minecraft:string[minecraft:custom_data~{item:"cable"}]
+clear @s minecraft:gold_ingot[minecraft:custom_data~{item:"fuel_cell"}]

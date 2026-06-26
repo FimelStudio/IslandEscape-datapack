@@ -1,4 +1,5 @@
 function escape_island:dev/_reset_player_state
+function escape_island:visual/clear_head
 function skill:athlete/slide_tackle/cleanup_non_athlete
 function skill:weapon/pistol/clear_state
 function skill:weapon/pistol/clear_xp
