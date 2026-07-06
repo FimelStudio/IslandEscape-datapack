@@ -66,6 +66,6 @@ scoreboard players operation @s used_firework_last = @s used_firework
 
 function escape_island:role/kit_mother
 
-tellraw @s [{"text":"[ 母体觉醒 ]\n","bold":true,"color":"dark_red"},{"text":"你被柯尔文咬伤了。你的身体正在改变。\n任务: 感染所有幸存者，或让岛屿沉没。","color":"red"}]
+tellraw @s [{"text":"[ 母体觉醒 ]\n","bold":true,"color":"dark_red"},{"text":"你是本局唯一母体。先伪装接近落单者；夜晚优先阻止修信号塔和登机。\n胜利: 感染所有幸存者，或拖到病毒爆发。","color":"red"}]
 title @s title {"text":"§4§l母体"}
-title @s subtitle {"text":"§c感染。扩散。胜利。"}
+title @s subtitle {"text":"§c隐藏身份，感染落单者。"}

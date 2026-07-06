@@ -74,6 +74,7 @@ execute if entity @s[tag=retained.mechanic] run function skill:mechanic/trap/upd
 title @s title {"text":"§4感染","bold":true}
 title @s subtitle {"text":"§c你已被同化。扩散孢子。"}
 playsound minecraft:entity.witch.celebrate master @s ~ ~ ~ 1 0.5
+tellraw @s [{"text":"[感染者目标] ","color":"dark_red","bold":true},{"text":"追击幸存者，保护母体，阻止他们修信号塔或登上直升机。死亡后会尝试在母体附近复活。","color":"red"}]
 
 function escape_island:util/recount_infected
 execute if score $tmp infected_count matches 1 as @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator] run function escape_island:mother/milestone_first_infect

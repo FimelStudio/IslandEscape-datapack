@@ -1,4 +1,4 @@
-title @a title {"text":"游戏结束","color":"gold","bold":true}
+function escape_island:ui/show_v01_result
 scoreboard players set $game final_pressure 0
 
 gamemode spectator @a[tag=state.escaped]

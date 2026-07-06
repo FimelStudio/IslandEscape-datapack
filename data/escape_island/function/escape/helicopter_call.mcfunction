@@ -24,6 +24,8 @@ execute if entity @e[type=minecraft:marker,tag=marker.heli_pad,limit=1] run func
 execute unless entity @e[type=minecraft:marker,tag=marker.heli_pad,limit=1] run tellraw @a {"text":"[直升机] 未找到 marker.heli_pad，无法选择降落点。","color":"red"}
 
 tellraw @a [{"text":"[直升机] 已呼叫！约 ","color":"gold"},{"score":{"name":"$game","objective":"heli_countdown"}},{"text":" 秒后降落。地点已广播。","color":"gold"}]
+tellraw @a[tag=team.human] {"text":"[撤离目标] 前往直升机坪，等舱门出现后靠近登机；不要在撤离点恋战。","color":"aqua"}
+tellraw @a[tag=team.infected] {"text":"[感染目标] 直升机已被呼叫，拦截前往撤离点的幸存者。","color":"red"}
 playsound minecraft:entity.ender_dragon.flap master @a ~ ~ ~ 1 0.4
 
 function escape_island:game/phase_4_escape

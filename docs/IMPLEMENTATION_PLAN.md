@@ -9,6 +9,18 @@
 - 正式地图以后只提供 marker，不应重新改核心玩法逻辑。
 - 每完成一批实现，先跑静态自测，再更新本文状态。
 
+### v0.1 收束原则（2026-06-30）
+
+v0.1 的发布目标从“完整长期设计全量闭环”收束为 **4–12 人隐藏身份感染撤离 PvP**。代码中已经存在或文档中已经设计的后续内容可以保留，但不作为 v0.1 阻塞项，避免首轮多人测试被双母体、彩蛋结局、天赋 / 生涯和复杂多结局评分拖住。
+
+| 归属 | 内容 |
+|---|---|
+| v0.1 必须稳定 | 4–12 人基础局、1 名母体、感染 / 转化、普通感染者复活、信号塔、直升机撤离、病毒超时、母体死亡清剿、基础职业 / 物资 |
+| v0.1 可选测试 | 轮船路线、完整 10 职业池、隔离扫描、资源包枪械模型 / 音效 |
+| v0.2 再纳入 | 潜艇、自爆 / 真结局、完整多结局评分、天赋基础池 |
+| 实验模式 | 13–20 人缩放、17–20 人双母体、Last Stand、特殊感染体扩展 |
+| 暂缓 | 生涯系统、长期账户成长、复杂大厅匹配、X-7 母体伪装结局 |
+
 ## 二、1.21.11 格式规则
 
 以下规则来自 1.21.5+ 之后的文本组件和物品组件格式，并作为本项目后续写法基准:
@@ -35,9 +47,10 @@
 
 v0.1 视为完成需要同时满足：
 
-- GDD 中所有标为正式玩法闭环的系统都有对应实现批次，并且批次状态为已完成。
-- BALANCE 中所有会影响正式对局的数值都有 scoreboard / function / loot table / marker 规则承载，或明确标为暂缓。
-- 4 人测试开局、正常开局、至少 1 条撤离路线、母体胜利路线都能在游戏内跑通。
+- GDD / BALANCE 中标为 v0.1 必须稳定的系统都有对应实现批次，并且批次状态为已完成或已明确列入当前迭代。
+- 4–12 人基础局、正常开局、信号塔 → 直升机撤离、病毒超时胜利、母体死亡清剿路线都能在游戏内跑通。
+- 轮船、隔离扫描、完整职业池若开启测试，必须不破坏主线；潜艇、自爆、X-7、双母体、天赋、生涯不作为 v0.1 发布阻塞项。
+- BALANCE 中所有 v0.1 主线数值都有 scoreboard / function / loot table / marker 规则承载，或明确标为后续 / 实验。
 - `/reload`、函数引用、JSON 解析、`git diff --check` 通过；关键路线完成游戏内手测。
 
 ### 设计覆盖矩阵
@@ -89,9 +102,12 @@ v0.1 视为完成需要同时满足：
 
 | 模块 | 暂缓原因 | 后续条件 |
 |---|---|---|
+| 潜艇 / 实验室撤离 | 隐藏路线会增加首轮目标理解成本 | 信号塔、直升机和轮船稳定后进入 v0.2 |
+| 自爆真结局 | 彩蛋 / 高复杂结局，不适合作为首轮胜率基准 | 多结局评分收口后再做公开测试 |
 | 母体伪装结局 / X-7 | 彩蛋路线，不影响正常局和主要胜负闭环 | 主玩法、物资道具和天赋稳定后再做 |
+| 17–20 人双母体 | 当前设计完整但实现与平衡变量太多 | 4–12 人胜率和性能稳定后进入实验模式 |
 | 彩蛋结局易触发性优化 | 用户已确认彩蛋结局不容易触发也无所谓 | 主玩法稳定后再调 |
-| 生涯系统 / MVP / 天赋长期解锁 | v0.1 先做单局人格牌组 | Batch 18；主玩法、结算与天赋基础池稳定后再做 |
+| 生涯系统 / MVP / 天赋长期解锁 | v0.1 不做长期账户成长；天赋也不作为主线阻塞项 | 主玩法、结算与天赋基础池稳定后再做 |
 | 高精度地图导出 / marker 存档工具 | 当前可用手工 marker + 自测菜单 | 正式地图定稿后再做工具化 |
 
 ## 四、实现批次
@@ -135,11 +151,11 @@ v0.1 视为完成需要同时满足：
 - [x] 修复孢子点选择使用 marker 实体。
 - [x] 身份显示系统：伪装母体无外观标识；感染期用弱红 / 金粒子；普通感染者用僵尸头 + 绿色粒子；猎手母体用凋零骷髅头 + 暗红粒子。
 - [x] 转化保留系统（retained.* tag 在 turn.mcfunction 中复制）。
-- [x] 母体 HP 追踪（`mother_hp` scoreboard，起始 80）。
+- [x] 母体 HP 追踪（`mother_hp` scoreboard；当前 v0.1 基准为 60，4–7 人局为 70）。
 - [x] 母体脱战回血（`mother_regen_cd` 受伤重置 5s，冷却结束后 Regeneration II）、攻击冷却（`mother_hit_cd = 50 tick`，每 tick 递减 2.5s）+ 擦刀反馈（冷却中命中播放弱音效 + `attack_speed` 降至 0.1 + Slowness II 2s 惩罚）。
-- [x] 母体成长阶段 80→90→100：每 300s（5 分钟）升级，`mother_phase_up.mcfunction` 提升 `max_health` +10 并补满 HP。
+- [x] 母体成长阶段已收束为 T+6/9/12，HP 60→65→70（4–7 人局 70→75→80），成长不再瞬间补满 HP。
 
-> ⚠️ **Batch 3 遗留问题（待 Batch 4.6 修正）**：母体 HP 基准已更新为 60（GDD/BALANCE），但本批次代码实现仍是 80；成长时机已更新为 T+5/8/11:00，但实现仍是每 5 分钟。Batch 4.6 将对这两项进行回炉修正，Batch 3 本身标为"已完成"但需回归验收。
+> **历史注记**：Batch 3 的旧 HP / 成长实现已由后续 v0.1 收束改掉，当前验收以 `role/tick_mother.mcfunction` 与 `role/mother_phase_up.mcfunction` 为准。
 
 ### Batch 4 — 母体属性与首攻揭示
 
@@ -150,14 +166,14 @@ v0.1 视为完成需要同时满足：
 任务:
 
 - [x] `_make_mother.mcfunction` 调整 attribute 命令:
-  - `attribute @s minecraft:max_health base set 80`
+  - `attribute @s minecraft:max_health base set` 读取 `Tunable tunable.mother_hp`（标准 60，4–7 人局 70）
   - `attribute @s minecraft:armor base set 4`
   - `attribute @s minecraft:armor_toughness base set 2`
   - `attribute @s minecraft:knockback_resistance base set 0.8`
   - `attribute @s minecraft:attack_damage base set 4`
   - `attribute @s minecraft:movement_speed base set 0.105`
   - 执行后用 `effect give @s minecraft:instant_health 1 10 true` 补满 HP，并给 `saturation` 保证可疾跑
-- [x] `tick_mother.mcfunction` 维持 Resistance I、脱战回血、成长阶段（每 5 分钟 +10HP，80→90→100）、攻击冷却（`mother_hit_cd = 50 tick`，每 tick 递减 2.5s）
+- [x] `tick_mother.mcfunction` 维持 Resistance I、脱战回血、成长阶段（T+6/9/12，+5/0/+5，不瞬间回血）、攻击冷却（`mother_hit_cd = 50 tick`，每 tick 递减 2.5s）
 - [x] `on_hit_by_mother.mcfunction` 检查 `flag.first_attack`：
   - 若无此 tag → 全图广播"有人遭受了突袭……"→ 给母体 `tag add flag.first_attack`
   - 有效命中（`mother_hit_cd ≤ 0`）：读取 `tunable.mother_spore_hit`（当前 34）+ 设 `mother_hit_cd = 50` + `attack_speed → 1.6` + tag `state.attack_slowed`（冷却结束恢复 4.0）
@@ -171,7 +187,7 @@ v0.1 视为完成需要同时满足：
 - [x] `game/settle.mcfunction`：完整清状态（tag/scoreboard/属性/背包/效果），恢复 `natural_health_regeneration` + `pvp`
 - [x] 阵营系统：全 team `friendlyFire false`，pvp 开局 `false`，母体变异后 `true`
 - [x] 验收: 母体三次有效命中进感染期；冷却中擦刀仅音效；母体死亡不复活；感染者围绕母体复活、母体死后永久死
-- [x] 验收: 母体成长阶段（80→90→100），技能腐痕感知/集群嚎叫/变异
+- [x] 验收: 母体成长阶段（60→65→70；4–7 人局 70→75→80），技能腐痕感知/集群嚎叫/变异
 
 > ⚠️ **Batch 4 遗留问题（待 Batch 4.6 修正）**：PvP 架构使用全局 `pvp` gamerule 开关，需迁移为永久 `pvp true` + team friendlyFire 控制。`flag.first_attack` 暴露机制需迁移为 `state.mutated`（猎手状态）。变异为一次性永久揭示，需改为 60s 计时 + 45s 冷却 + 自动回伪装。
 
@@ -193,7 +209,7 @@ v0.1 视为完成需要同时满足：
 
 状态: **已完成（Part 1–11 已通过单人菜单手测 / 用户确认）**
 
-目标: 将 Batch 3/4 已实现的母体系统升级到新版 GDD 设计：HP 60、三阶成长 T+5/8/11:00、变异计时双向切换、PvP 改为 team 控制、flag.first_attack 迁移。
+目标: 将 Batch 3/4 已实现的母体系统升级到新版 GDD 设计：HP 60、三阶成长 T+6/9/12:00、变异计时双向切换、PvP 改为 team 控制、flag.first_attack 迁移。
 
 Part 1 已实现并通过单人菜单手测:
 - `_make_mother.mcfunction` 现在读取 `Tunable tunable.mother_hp` 设置母体 HP
@@ -202,14 +218,14 @@ Part 1 已实现并通过单人菜单手测:
 - 自测菜单已接入 `[母体HP: 4人局]`、`[母体HP: 8人局]`、`[单人模拟感染链提示]`
 
 Part 2 已实现并通过单人菜单手测:
-- 母体成长 HP 不再写死旧版 80/90/100，而是基于 `Tunable tunable.mother_hp` 计算 60→65→75 / 70→75→85
+- 母体成长 HP 不再写死旧版 80/90/100，而是基于 `Tunable tunable.mother_hp` 计算 60→65→70 / 70→75→80
 - 腐痕感知冷却读取 `tunable.rotsense_cd`，可被人数缩放影响
 - 成长 II 后集群嚎叫持续时间从 10s 提升到 13s
 - 自测菜单接入单人 `[母体成长: 4人局]`、`[母体成长: 8人局]`
 
 Part 3 已实现并通过单人菜单手测:
-- `role/tick_mother.mcfunction` 的成长触发从旧版个人计时 180/360/540 秒改为全局对局时间 T+5/8/11:00
-- 成长触发点使用 `phase_timer = 6000 / 9600 / 13200`（tick 计时）
+- `role/tick_mother.mcfunction` 的成长触发从旧版个人计时 180/360/540 秒改为全局对局时间 T+6/9/12:00
+- 成长触发点使用 `phase_timer = 7200 / 10800 / 14400`（tick 计时）
 - 自测菜单接入单人 `[成长时机: 4人局]`、`[成长时机: 8人局]`，验证提前 1 tick 不成长、到点成长
 
 Part 4 已实现并通过单人菜单手测:
@@ -230,8 +246,8 @@ Part 6 已实现并通过单人菜单手测:
 - 自测菜单接入单人 `[扫描母体伪装]`
 
 Part 7 已实现并通过单人菜单手测:
-- 成长 II 后 `skill:mother/mutate` 猎手持续时间从 1200t 提升到 1500t（75s）
-- 成长 II 后猎手结束回伪装冷却固定为 700t（35s）
+- v0.1 收束后，成长 II 不再提升 `skill:mother/mutate` 猎手持续时间，保持 1200t（60s）
+- v0.1 收束后，成长 II 不再缩短猎手结束回伪装冷却，继续读取 `tunable.mutate_cd`
 - 成长 III 时对普通感染者发放 Speed I + Resistance I 3s 的感染者脉冲
 - 自测菜单接入单人 `[成长变异强化]`
 
@@ -265,11 +281,11 @@ Part 11 已实现并通过:
 - [x] `_make_mother.mcfunction`：`attribute @s minecraft:max_health base set 60`；读取 `tunable.mother_hp`（4–7人局 70，由 `apply_scaling` 写入）
 - [x] `util/apply_scaling.mcfunction`：新增 `tunable.mother_hp`（4–7人 = 70，其余 = 60）；新增 `tunable.mutate_cd`（4–7人 = 600t / 30s，其余 = 900t / 45s）；新增 `tunable.rotsense_cd`（4–7人 = 600t，其余 = 800t）
 - [x] 母体成长系统重构（移除旧"每 300s +10"逻辑）：
-  - [x] `role/tick_mother.mcfunction`：`phase_timer = 6000` → 成长 I；`= 9600` → 成长 II；`= 13200` → 成长 III
-  - [x] `role/mother_phase_up.mcfunction`：成长 I `max_health +5` + 满血补满 + 私聊 actionbar + 腐痕感知冷却写入新值
+  - [x] `role/tick_mother.mcfunction`：`phase_timer = 7200` → 成长 I；`= 10800` → 成长 II；`= 14400` → 成长 III
+  - [x] `role/mother_phase_up.mcfunction`：成长 I `max_health +5` + 私聊 actionbar；成长不再瞬间回血
   - [x] `role/mother_phase_up.mcfunction` / `skill:mother/howl`：成长 II 后集群嚎叫持续时间 +3s + 私聊 actionbar
-  - [x] `role/mother_phase_up.mcfunction`：成长 III `max_health +10` + 私聊 actionbar
-  - [x] 成长 II 后变异猎手持续时间由 1200t 改为 1500t（75s）、冷却改为 700t（35s）
+  - [x] `role/mother_phase_up.mcfunction`：成长 III `max_health +5` + 私聊 actionbar；成长不再瞬间回血
+  - [x] 成长 II 不再强化变异猎手覆盖率，猎手仍为 1200t（60s），冷却继续读取 `tunable.mutate_cd`
   - [x] 成长 III 感染者脉冲（Speed I + Resistance I 3s）
 - [x] 变异脉冲 (`mother/mutate`) 重构为双向计时基础版：
   - [x] 道具改为 `phantom_membrane`（命名"变异脉冲"），`consume_item` advancement
@@ -295,7 +311,7 @@ Part 11 已实现并通过:
 
 验收:
 - [x] 母体觉醒 HP = 60（4人局测试 = 70）
-- [x] 成长时机 T+5/8/11:00 正确触发，HP 变化正确（+5/0/+10）
+- [x] 成长时机 T+6/9/12:00 正确触发，HP 变化正确（+5/0/+5，不瞬间回血）
 - [x] 变异 60s 后静默回伪装，等 45s 冷却后可再次变异（4人局 30s）
 - [x] 猎手状态命中叠孢子；伪装状态命中不叠
 - [x] 伪装连续贴近目标 6s 后启动脉冲，4 格内每 10s 目标 +10 孢子，并给极弱反馈

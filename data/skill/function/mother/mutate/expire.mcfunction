@@ -3,7 +3,6 @@ team join survivors @s
 function escape_island:visual/mother_hidden
 scoreboard players set @s cd_mother_hunt 0
 scoreboard players operation @s cd_mother_mutate = Tunable tunable.mutate_cd
-execute if score @s mother_phase matches 3.. run scoreboard players set @s cd_mother_mutate 700
 effect clear @s minecraft:speed
 effect clear @s minecraft:strength
 effect clear @s minecraft:resistance

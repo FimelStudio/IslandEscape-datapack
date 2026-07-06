@@ -504,7 +504,8 @@ tag @s remove team.human
 tag @s add infected.mother
 tag @s add team.infected
 team join survivors @s
-attribute @s minecraft:max_health base set 80
+# 当前实现读取 Tunable tunable.mother_hp：标准 60，4-7 人局 70
+attribute @s minecraft:max_health base set 60
 function escape_island:role/give_kit_mother
 tellraw @s [{"text":"§4§l你被柯尔文咬伤了。\\n","color":"dark_red"}, ...]
 ```
