@@ -5,7 +5,8 @@
         "color": "gold",
         "bold": true
     },
-    "body": [{
+    "body": [
+        {
             "type": "minecraft:plain_message",
             "contents": {
                 "text": "游戏背景",
@@ -91,11 +92,11 @@
                 {
                     "type": "object",
                     "object": "player",
-                    "player": "chu_feng_breeze",
+                    "player": "TreeHey",
                     "color": "white"
                 },
                 {
-                    "text": " chu_feng_breeze\n",
+                    "text": " TreeHey\n",
                     "color": "white"
                 },
                 {
