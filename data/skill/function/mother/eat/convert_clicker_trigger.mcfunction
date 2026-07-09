@@ -8,6 +8,7 @@ execute if entity @a[tag=skill.mother.eat.target,tag=infected.clicker,limit=1] r
 execute if entity @a[tag=skill.mother.eat.target,tag=infected.clicker,limit=1] run function skill:mother/eat/item_editor
 execute if entity @a[tag=skill.mother.eat.target,tag=infected.clicker,limit=1] run return 0
 
+execute as @a[tag=skill.mother.eat.target,limit=1] at @a[tag=skill.mother.eating,limit=1] rotated as @a[tag=skill.mother.eating,limit=1] run tp @s ^ ^0.2 ^1.2
 execute as @a[tag=skill.mother.eat.target,limit=1] run function skill:mother/eat/apply_clicker
 function skill:mother/eat/item_release with storage zombie:eated
 function skill:mother/eat/item_editor

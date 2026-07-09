@@ -19,11 +19,11 @@ execute if entity @e[tag=skill.radio.inspect.target,tag=role.athlete,limit=1] ru
 execute if entity @e[tag=skill.radio.inspect.target,tag=role.priest,limit=1] run title @s actionbar {"text":"职业: 神父","color":"white"}
 execute if entity @e[tag=skill.radio.inspect.target,tag=role.priest,limit=1] run tag @s add skill.radio.role.found
 
-execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,tag=state.disguised,limit=1] run title @s actionbar {"text":"职业: 幸存者","color":"green"}
-execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,tag=state.disguised,limit=1] run tag @s add skill.radio.role.found
+execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,tag=!state.hunting,limit=1] run title @s actionbar {"text":"职业: 幸存者","color":"green"}
+execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,tag=!state.hunting,limit=1] run tag @s add skill.radio.role.found
 
-execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,limit=1] run title @s actionbar {"text":"信号异常","color":"red"}
-execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,limit=1] run tag @s add skill.radio.role.found
+execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,tag=state.hunting,limit=1] run title @s actionbar {"text":"信号异常","color":"red"}
+execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.mother,tag=state.hunting,limit=1] run tag @s add skill.radio.role.found
 execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.common,limit=1] run title @s actionbar {"text":"信号异常","color":"red"}
 execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=infected.common,limit=1] run tag @s add skill.radio.role.found
 execute unless entity @s[tag=skill.radio.role.found] if entity @e[tag=skill.radio.inspect.target,tag=state.infected_period,limit=1] run title @s actionbar {"text":"信号异常","color":"red"}

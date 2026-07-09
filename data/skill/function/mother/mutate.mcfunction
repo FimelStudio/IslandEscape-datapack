@@ -6,9 +6,10 @@ execute if entity @s[tag=state.hunting] run title @s actionbar {"text":"猎手�
 execute if entity @s[tag=state.hunting] run return 0
 
 tag @s add state.hunting
-team join mother @s
+team join infected @s
+function escape_island:visual/mother_hunt
 execute if score @s mother_phase matches ..2 run scoreboard players set @s cd_mother_hunt 1200
-execute if score @s mother_phase matches 3.. run scoreboard players set @s cd_mother_hunt 1500
+execute if score @s mother_phase matches 3.. run scoreboard players set @s cd_mother_hunt 1200
 scoreboard players set @s cd_mother_mutate 0
 
 execute unless entity @s[tag=state.mutated] run tellraw @a {"text":"§4§l母体已变异！§r 伪装脱落，猎手现身。所有幸存者，快跑！","color":"dark_red","bold":true}
@@ -37,6 +38,6 @@ attribute @s minecraft:attack_damage base set 4
 execute if score @s mother_phase matches ..2 run effect give @s minecraft:resistance 60 5 true
 execute if score @s mother_phase matches ..2 run effect give @s minecraft:speed 60 0 true
 execute if score @s mother_phase matches ..2 run effect give @s minecraft:strength 60 0 true
-execute if score @s mother_phase matches 3.. run effect give @s minecraft:resistance 75 5 true
-execute if score @s mother_phase matches 3.. run effect give @s minecraft:speed 75 0 true
-execute if score @s mother_phase matches 3.. run effect give @s minecraft:strength 75 0 true
+execute if score @s mother_phase matches 3.. run effect give @s minecraft:resistance 60 5 true
+execute if score @s mother_phase matches 3.. run effect give @s minecraft:speed 60 0 true
+execute if score @s mother_phase matches 3.. run effect give @s minecraft:strength 60 0 true

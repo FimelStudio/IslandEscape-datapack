@@ -1,7 +1,3 @@
 execute as @a run function escape_island:career/mvp/compute_scores
-function escape_island:career/mvp/select_global
-execute as @a run function escape_island:career/award_xp
-execute as @a run function escape_island:career/award_mastery
-execute as @a run function escape_island:career/update_level
-tellraw @a {"text":"===== 本局贡献结算 =====","color":"gold","bold":true}
-execute as @a run tellraw @s [{"text":"生涯 XP: ","color":"gold"},{"score":{"name":"@s","objective":"career_xp"}},{"text":" | 等级 "},{"score":{"name":"@s","objective":"career_level"}},{"text":" | 本局 MVP 分 "},{"score":{"name":"@s","objective":"mvp_score"}}]
+tellraw @a {"text":"===== 本局贡献（v0.1 测试，不写入生涯成长） =====","color":"gold","bold":true}
+execute as @a run tellraw @s [{"text":"本局贡献分: ","color":"gold"},{"score":{"name":"@s","objective":"mvp_score"}},{"text":" | 修复 "},{"score":{"name":"@s","objective":"match_repair"}},{"text":" | 感染 "},{"score":{"name":"@s","objective":"match_infect"}},{"text":" | 撤离 "},{"score":{"name":"@s","objective":"match_escape"}}]

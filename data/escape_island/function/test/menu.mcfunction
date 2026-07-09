@@ -58,7 +58,7 @@ tellraw @s [{"text":"[测试：船艇感染期撤离]","color":"aqua","bold":tru
 tellraw @s [{"text":"[测试：轮船窗口缩放]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/ship_boarding_scaling"}},{"text":" 验证4/8/13人登船窗口45/50/60秒","color":"gray"}]
 tellraw @s [{"text":"[测试：研究员数量缩放]","color":"dark_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/lab_researcher_scaling"}},{"text":" 验证4/8/17人研究员与身份卡需求3/4/5","color":"gray"}]
 tellraw @s [{"text":"[测试：终局高压]","color":"dark_red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/final_pressure"}},{"text":" 验证12:30触发、撤离倒计时中不触发","color":"gray"}]
-tellraw @s [{"text":"[测试：分层撤离结局]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/escape_result_scaling"}},{"text":" 验证8人1撤离惨胜、2撤离完整胜利","color":"gray"}]
+tellraw @s [{"text":"[测试：撤离结果分层]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/escape_result_scaling"}},{"text":" 验证8人1撤离=部分撤离、2撤离=完整撤离","color":"gray"}]
 tellraw @s [{"text":"[测试：多路线结局锁]","color":"dark_green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/escape_route_lock"}},{"text":" 验证首个撤离结局锁定，后续路线不覆盖","color":"gray"}]
 tellraw @s [{"text":"[测试：厨师热汤v0.2]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/chef_hot_soup_v2"}},{"text":" 验证120s冷却/8格队友优先/感染期+8秒缓冲","color":"gray"}]
 tellraw @s [{"text":"[测试：通讯员转化保留]","color":"dark_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/radio_retained_jam"}},{"text":" 感染后使用污染干扰器，验证扫描干扰与公共噪声","color":"gray"}]
@@ -67,11 +67,11 @@ tellraw @s [{"text":"[测试：轮船4人验收]","color":"aqua","bold":true,"cl
 tellraw @s [{"text":"[测试隔离扫描: 正常]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/scan_setup_normal"}},{"text":" 两人读条后应给出“正常”","color":"gray"}]
 tellraw @s [{"text":"[测试隔离扫描: 异常]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/scan_setup_abnormal"}},{"text":" 两人读条后应给出“孢子异常”","color":"gray"}]
 tellraw @s [{"text":"[测试隔离扫描: 严重异常]","color":"red","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/scan_setup_severe"}},{"text":" 两人读条后应给出“严重异常”","color":"gray"}]
-tellraw @s {"text":"--- 天赋 / 生涯 ---","color":"dark_gray"}
+tellraw @s {"text":"--- 天赋 / 生涯（v0.2/调试） ---","color":"dark_gray"}
 tellraw @s [{"text":"[人格牌组]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:talent/menu"}},{"text":" 选择/查看天赋","color":"gray"}]
 tellraw @s [{"text":"[清空天赋]","color":"gray","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:talent/clear"}},{"text":" 重置全部天赋分配","color":"gray"}]
 tellraw @s [{"text":"[测试：天赋写入]","color":"light_purple","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/talent_smoke"}},{"text":" 验证核心/支线/命运牌和冷却","color":"gray"}]
-tellraw @s [{"text":"[生涯档案]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:career/profile"}},{"text":" 查看生涯 XP / 专精","color":"gray"}]
+tellraw @s [{"text":"[生涯档案 v0.2]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:career/profile"}},{"text":" 调试查看；v0.1 结算不写入生涯成长","color":"gray"}]
 tellraw @s [{"text":"[Debug重置生涯]","color":"gray","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:career/debug_reset"}},{"text":" 清零 XP/等级/专精","color":"gray"}]
 tellraw @s [{"text":"[Debug发放XP+100]","color":"yellow","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:career/debug_give_xp"}},{"text":" 加 100 XP 并更新等级","color":"gray"}]
 tellraw @s {"text":"--- 靶场 / 枪战 ---","color":"dark_gray"}

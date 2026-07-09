@@ -4,10 +4,10 @@ function escape_island:util/apply_scaling
 function escape_island:game/_make_mother
 scoreboard players set @s mother_phase 3
 function skill:mother/mutate
-tellraw @s [{"text":"[TEST] 成长II后变异：","color":"gold"},{"text":"hunt=","color":"gray"},{"score":{"name":"@s","objective":"cd_mother_hunt"}},{"text":"。预期 1500 tick / 75秒。","color":"green"}]
+tellraw @s [{"text":"[TEST] 成长II后变异：","color":"gold"},{"text":"hunt=","color":"gray"},{"score":{"name":"@s","objective":"cd_mother_hunt"}},{"text":"。预期 1200 tick / 60秒。","color":"green"}]
 scoreboard players set @s cd_mother_hunt 1
 function skill:mother/mutate/cooldown_tick
-tellraw @s [{"text":"[TEST] 成长II后回伪装冷却：","color":"gold"},{"text":"mutate_cd=","color":"gray"},{"score":{"name":"@s","objective":"cd_mother_mutate"}},{"text":"。预期 700 tick / 35秒。","color":"green"}]
+tellraw @s [{"text":"[TEST] 成长II后回伪装冷却：","color":"gold"},{"text":"mutate_cd=","color":"gray"},{"score":{"name":"@s","objective":"cd_mother_mutate"}},{"text":"。预期 900 tick / 45秒。","color":"green"}]
 tag @s add infected.common
 scoreboard players set @s mother_phase 3
 function escape_island:role/mother_phase_up

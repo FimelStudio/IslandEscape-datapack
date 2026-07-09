@@ -20,7 +20,7 @@ tellraw @s [{"text":"[TEST] 贴近6秒触发：","color":"gold"},{"text":"stick=
 scoreboard players set @s cd_mother_passive_spore 1
 function escape_island:mother/passive_disguise
 tellraw @s [{"text":"[TEST] 冷却到期再脉冲：","color":"gold"},{"text":"spore=","color":"gray"},{"score":{"name":"@s","objective":"spore_load"}},{"text":"，cd=","color":"gray"},{"score":{"name":"@s","objective":"cd_mother_passive_spore"}},{"text":"。预期 spore=20，cd=10。","color":"green"}]
-tag @s add state.mutated
+tag @s add state.hunting
 scoreboard players set @s cd_mother_passive_spore 0
 function escape_island:mother/passive_disguise
 tellraw @s [{"text":"[TEST] 猎手状态暂停：","color":"gold"},{"text":"spore=","color":"gray"},{"score":{"name":"@s","objective":"spore_load"}},{"text":"。预期仍为 20。","color":"green"}]

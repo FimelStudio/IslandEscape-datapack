@@ -21,7 +21,7 @@ tag @s remove infected.mother
 tag @s remove state.escaped
 tag @s remove state.dead
 tag @s remove state.sporifying
-team join infected_period @s
+team join survivors @s
 scoreboard players set @s spore_load 200
 scoreboard players set @s infect_time 3
 

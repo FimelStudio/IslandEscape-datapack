@@ -1,4 +1,4 @@
-execute unless entity @s[tag=infected.mother,tag=!state.mutated,tag=!state.dead,tag=!state.disguised] run return 0
+execute unless entity @s[tag=infected.mother,tag=!state.hunting,tag=!state.dead,tag=!state.disguised] run return 0
 
 tag @s remove mother.passive.fire
 execute unless entity @a[tag=mother.passive.target,tag=team.human,tag=!state.dead,tag=!state.escaped,tag=!state.spectator,tag=!state.infected_period,distance=..4,limit=1] run tag @a[tag=mother.passive.target] remove mother.passive.target

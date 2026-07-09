@@ -2,6 +2,7 @@
 tag @s remove team.human
 tag @s add team.infected
 tag @s add infected.mother
+team join survivors @s
 scoreboard players set @s role 11
 scoreboard players set @s is_mother 1
 
@@ -29,11 +30,15 @@ tag @s remove role.priest
 tag @s remove skill.adrenaline.active
 tag @s remove skill.slide.active
 tag @s remove skill.slide.locked
+tag @s remove state.hunting
+tag @s remove state.mutated
 
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
 function skill:mechanic/cleanup_non_mechanic
 function skill:priest/cleanup_non_priest
+function escape_island:role/clear_human_loadout
+function escape_island:visual/mother_hidden
 
 execute if score Tunable tunable.mother_hp matches 60 run attribute @s minecraft:max_health base set 60
 execute if score Tunable tunable.mother_hp matches 70 run attribute @s minecraft:max_health base set 70
@@ -43,7 +48,7 @@ effect give @s minecraft:saturation 1 20 true
 attribute @s minecraft:armor base set 4
 attribute @s minecraft:armor_toughness base set 2
 attribute @s minecraft:knockback_resistance base set 0.8
-attribute @s minecraft:attack_damage base set 4
+attribute @s minecraft:attack_damage base set 0
 attribute @s minecraft:movement_speed base set 0.105
 attribute @s minecraft:attack_speed base set 4
 
@@ -61,6 +66,6 @@ scoreboard players operation @s used_firework_last = @s used_firework
 
 function escape_island:role/kit_mother
 
-tellraw @s [{"text":"[ 母体觉醒 ]\n","bold":true,"color":"dark_red"},{"text":"你被柯尔文咬伤了。你的身体正在改变。\n任务: 感染所有幸存者，或让岛屿沉没。","color":"red"}]
+tellraw @s [{"text":"[ 母体觉醒 ]\n","bold":true,"color":"dark_red"},{"text":"你是本局唯一母体。先伪装接近落单者；夜晚优先阻止修信号塔和登机。\n胜利: 感染所有幸存者，或拖到病毒爆发。","color":"red"}]
 title @s title {"text":"§4§l母体"}
-title @s subtitle {"text":"§c感染。扩散。胜利。"}
+title @s subtitle {"text":"§c隐藏身份，感染落单者。"}

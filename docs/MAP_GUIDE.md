@@ -5,7 +5,7 @@
 ## 目录
 
 1. [地图风格建议](#一地图风格建议)
-2. [必需 marker 列表](#二必需-marker-列表)
+2. [v0.1 marker 列表](#二v01-marker-列表)
 3. [Step-by-step 适配流程](#三step-by-step-适配流程)
 4. [分区设计（文字图）](#四分区设计文字图)
 5. [物资箱密度建议](#五物资箱密度建议)
@@ -38,9 +38,11 @@
 
 ---
 
-## 二、必需 marker 列表
+## 二、v0.1 marker 列表
 
 每个 marker 实体使用 `/summon marker x y z {Tags:["<tag>"]}` 放置。坐标取该位置玩家应该交互的中心点。
+
+v0.1 正式多人测试只要求信号塔 → 直升机主线闭环。轮船、实验室、潜艇、自爆和 X-7 伪装路线可以继续保留在地图上，但不是 v0.1 主线必填项。
 
 | # | Tag | 数量 | 必填 | 位置说明 |
 |---|---|---|---|---|
@@ -50,24 +52,24 @@
 | 4 | `marker.spawn_beach` | 1 | ⭕ | 旧地图兼容兜底出生点；spawn_island 不足时使用 |
 | 5 | `marker.signal_tower` | 5 | ✅ | 信号网络修复点；东、东南、西南、西北、中心核心塔各 1 个 |
 | 6 | `marker.signal_core` | 1 | ✅ | 中心核心塔的额外 tag；该 marker 应同时拥有 `marker.signal_tower` |
-| 7 | `marker.generator` | 2-3 | ✅ | 备用发电机支线；放在岛屿散落点（如山洞、码头、营地） |
+| 7 | `marker.generator` | 2-3 | ⭕ | v0.1 推荐支线；用于加速信号塔 / 直升机路线，不是最小闭环必填 |
 | 8 | `marker.heli_pad` | 4 | ✅ | 直升机降落候选点；4 个分布在岛屿四角 / 重要区域，给视野和路线变化 |
-| 9 | `marker.lab_entrance` | 1 | ✅ | 实验室入口；最好在山体内或地下，进门后玩家立即在地图边缘 |
-| 10 | `marker.lab_terminal` | 1 | ✅ | 实验室深处身份卡终端 |
-| 11 | `marker.lab_sub` | 1 | ✅ | 撤离潜艇位置；通常实验室再深一层，靠水 |
-| 12 | `marker.lab_disguise` | 1 | ✅ | 母体伪装试剂终端；冷库感 |
-| 13 | `marker.island_bomb` | 1 | ✅ | 自爆装置；可与 lab_terminal 同一区域但更深 |
-| 14 | `marker.ship_dock` | 1 | ✅ | 海风号停靠的船坞；轮船修复终点 |
+| 9 | `marker.lab_entrance` | 1 | ⭕ | v0.2 实验室支援路线入口；v0.1 可不放 |
+| 10 | `marker.lab_terminal` | 1 | ⭕ | v0.2 实验室终端；v0.1 不作为主线验收 |
+| 11 | `marker.lab_sub` | 1 | ⭕ | v0.2 潜艇撤离点；v0.1 不作为主线验收 |
+| 12 | `marker.lab_disguise` | 1 | ⭕ | 后续彩蛋 X-7 伪装路线；不进 v0.1 |
+| 13 | `marker.island_bomb` | 1 | ⭕ | v0.2 自爆 / 真结局点；不进 v0.1 主线 |
+| 14 | `marker.ship_dock` | 1 | ⭕ | v0.1 可选轮船路线终点；启用轮船测试时必放 |
 | 15 | `marker.spore_spot` | 0-6 | 可选 | 孢子氛围/旧兜底点；普通感染者默认围绕存活母体复活 |
 | 16 | `marker.loot_basic` | 20-40 | ✅ | 普通物资箱；建议每 30×30 区域 1-2 个 |
-| 17 | `marker.loot_rare` | 5-10 | ✅ | 稀有物资箱；放在偏远 / 危险 / 高处 |
-| 18 | `marker.loot_keynote` | 5 | ✅ | 关键剧情点；隐藏书页刷点 |
-| 19 | `marker.mob_lab_researcher` | 4 | ✅ | 实验室僵尸刷点 |
+| 17 | `marker.loot_rare` | 5-10 | ⭕ | 推荐物资点；用于提高路线变化，不是最小闭环必填 |
+| 18 | `marker.loot_keynote` | 5 | ⭕ | 剧情 / v0.2 线索点；v0.1 可不参与胜负 |
+| 19 | `marker.mob_lab_researcher` | 4 | ⭕ | v0.2 实验室战斗刷点；v0.1 可不放 |
 | 20 | `marker.event_blackout` | 1 | ⭕ | 断电事件中心点；无放置则该事件不触发 |
 | 21 | `marker.captain_marlowe` | 1 | ⭕ | 船长 NPC 显示位置（armor_stand）；船上大厅或船坞处 |
 | 22 | `marker.dock_npc_korvin` | 1 | ⭕ | 开场柯尔文 NPC 位置；用于第一次"被咬"动画 |
 
-总计**最少 18 类 marker，最多 22 类**（含可选）。
+v0.1 信号塔 → 直升机最小闭环至少需要 7 类 marker：`lobby_ship`、`dining_room`、`spawn_island`、`signal_tower`、`signal_core`、`heli_pad`、`loot_basic`。若启用轮船可选路线，再补 `ship_dock` 和船舶部件相关物资点；若测试 v0.2 实验室 / 自爆，再补 `lab_*`、`island_bomb`、`mob_lab_researcher`。
 
 ---
 

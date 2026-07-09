@@ -1,0 +1,1 @@
+function escape_island:visual/clear_head

@@ -2,6 +2,7 @@
 clear @s paper[minecraft:equippable={damage_on_hurt:false,slot:head,camera_overlay:"ie:misc/red"},item_model="ie:empty",minecraft:custom_name=""]
 function escape_island:ui/spore_bar/clear
 team join infected @s
+function escape_island:visual/infected_common
 
 execute if entity @s[tag=role.doctor] run tag @s add retained.doctor
 execute if entity @s[tag=role.captain] run tag @s add retained.captain
@@ -33,7 +34,7 @@ tag @s remove skill.slide.locked
 tag @s remove role.priest
 tag @s add team.infected
 tag @s add infected.common
-execute as @a[tag=infected.mother,limit=1] run scoreboard players add @s match_infect 25
+execute as @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator,limit=1] run scoreboard players add @s match_infect 25
 function skill:radio/cleanup_non_radio
 function skill:virologist/cleanup_non_virologist
 function skill:mechanic/cleanup_non_mechanic
@@ -73,13 +74,14 @@ execute if entity @s[tag=retained.mechanic] run function skill:mechanic/trap/upd
 title @s title {"text":"§4感染","bold":true}
 title @s subtitle {"text":"§c你已被同化。扩散孢子。"}
 playsound minecraft:entity.witch.celebrate master @s ~ ~ ~ 1 0.5
+tellraw @s [{"text":"[感染者目标] ","color":"dark_red","bold":true},{"text":"追击幸存者，保护母体，阻止他们修信号塔或登上直升机。死亡后会尝试在母体附近复活。","color":"red"}]
 
 function escape_island:util/recount_infected
-execute if score $tmp infected_count matches 1 as @a[tag=infected.mother,tag=!state.dead] run function escape_island:mother/milestone_first_infect
-execute if score $tmp infected_count matches 3 as @a[tag=infected.mother,tag=!state.dead] run function escape_island:mother/milestone_third_infect
+execute if score $tmp infected_count matches 1 as @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator] run function escape_island:mother/milestone_first_infect
+execute if score $tmp infected_count matches 3 as @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator] run function escape_island:mother/milestone_third_infect
 tellraw @a[tag=!infected.mother] {"text":"§c岛上有人倒下了……","color":"dark_red","italic":true}
-tellraw @a[tag=infected.mother] [{"text":"§4+1 感染者已就位。总计: "},{"score":{"name":"$tmp","objective":"infected_count"}}]
-execute if entity @a[tag=infected.mother,tag=!state.dead,limit=1] run tellraw @s [{"text":"§4[感染链] 核心母体: ","color":"dark_red"},{"selector":"@a[tag=infected.mother,tag=!state.dead,limit=1]","color":"red"},{"text":"。死亡后你将在母体附近复活。","color":"dark_red"}]
-execute unless entity @a[tag=infected.mother,tag=!state.dead,limit=1] run tellraw @s {"text":"§8[感染链] 母体信号消失。你无法再依靠母体复活。","color":"dark_gray"}
+tellraw @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator] [{"text":"§4+1 感染者已就位。总计: "},{"score":{"name":"$tmp","objective":"infected_count"}}]
+execute if entity @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator,limit=1] run tellraw @s [{"text":"§4[感染链] 核心母体: ","color":"dark_red"},{"selector":"@a[tag=infected.mother,tag=!state.dead,tag=!state.spectator,limit=1]","color":"red"},{"text":"。死亡后你将在母体附近复活。","color":"dark_red"}]
+execute unless entity @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator,limit=1] run tellraw @s {"text":"§8[感染链] 母体信号消失。你无法再依靠母体复活。","color":"dark_gray"}
 
 execute if score $game in_game matches 1 unless entity @a[tag=team.human] run function escape_island:game/end_all_infected

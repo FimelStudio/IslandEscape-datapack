@@ -13,7 +13,7 @@ execute as @a[tag=team.human,tag=!state.infected_period,scores={spore_load=50..}
 execute as @a[tag=state.sporifying] at @s run function escape_island:infection/sporify_tick
 function escape_island:infection/respawn_tick
 
-execute as @a[tag=infected.mother,tag=!state.dead,scores={cd_mother_lunge=..0}] if score @s used_firework > @s used_firework_last run function skill:mother/lunge
+execute as @a[tag=infected.mother,tag=state.hunting,tag=!state.dead,scores={cd_mother_lunge=..0}] if score @s used_firework > @s used_firework_last run function skill:mother/lunge
 execute as @a[tag=infected.mother] run scoreboard players operation @s used_firework_last = @s used_firework
 
 execute as @a[tag=infected.mother] at @s run function escape_island:role/tick_mother

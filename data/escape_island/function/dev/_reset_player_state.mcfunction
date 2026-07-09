@@ -1,4 +1,5 @@
 clear @s
+function escape_island:visual/clear_head
 tag @s remove team.human
 tag @s remove team.infected
 tag @s remove infected.secondary_mother
@@ -42,6 +43,7 @@ scoreboard players set @s skill.trap_place_cd 0
 tag @s remove state.infected_period
 tag @s remove state.sporifying
 tag @s remove state.dead
+tag @s remove state.spectator
 tag @s remove state.disguised
 tag @s remove state.infection_resist
 tag @s remove flag.cross_intact

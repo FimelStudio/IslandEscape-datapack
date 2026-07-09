@@ -241,20 +241,17 @@ IslandEscape-datapack/
 
 ```
 /team add survivors       {"text":"幸存者","color":"green"}   friendlyFire=false
-/team add mother_hidden   {"text":"幸存者","color":"green"}   friendlyFire=false  # 母体隐藏态：绿名牌，与幸存者视觉完全一致
-/team add infected_period {"text":"幸存者","color":"gold"}    friendlyFire=false  # 感染期：金色名牌，仍属幸存者阵营
 /team add infected        {"text":"感染者","color":"red"}     friendlyFire=false
-/team add mother          {"text":"母体","color":"dark_red"}  friendlyFire=false  # 仅在母体被临时暴露（15s）时使用
 /team add spectator       {"text":"旁观者","color":"gray"}
 ```
 
 **团队逻辑说明**:
-- 母体全程在 `mother_hidden`（绿名牌），任何人（含感染者）都无法从名牌分辨母体身份
-- 进入感染期时: `team join infected_period @s`（金名牌），其他玩家可视别
-- 转化完成时: `team join infected @s`（红名牌）
-- 病毒学家检测剂抓到母体 → 15秒内 `team join mother @s`（暗红），暴露结束后 `team join mother_hidden @s`
-- Team 只负责名牌颜色和同队误伤兜底，不作为完整阵营伤害系统
-- 近战、手枪和技能伤害必须在对应 hit/fire 函数中做阵营判断：幸存者/感染期之间无伤；感染者之间无伤；母体对幸存者有效；幸存者对母体/普通感染者有效
+- Team 只负责原版友伤免疫，不负责逻辑身份和对外显示。
+- 幸存者、感染期玩家、伪装母体实际 `team join survivors`；伪装母体没有 `team.human` tag。
+- 猎手母体、普通感染者和未来特殊感染体实际 `team join infected`，同阵营免伤完全交给 `friendlyFire=false`。
+- 不可复活死亡、撤离等待和结局等待实际 `team join spectator`。
+- 对外显示不再依赖队伍颜色：普通感染者戴僵尸头，猎手母体戴凋零骷髅头，感染期用弱红 / 金粒子提示。
+- 近战、枪械和控制技能必须在对应 hit/fire 函数中做玩法判断：伪装母体不能造成或承受幸存者战斗伤害，猎手母体才可被武器/压制技能命中。
 
 ### Bossbar
 
@@ -505,8 +502,10 @@ execute as @r[tag=state.role_candidate] run function escape_island:game/_make_mo
 # _make_mother
 tag @s remove team.human
 tag @s add infected.mother
-team join mother @s
-attribute @s minecraft:max_health base set 80
+tag @s add team.infected
+team join survivors @s
+# 当前实现读取 Tunable tunable.mother_hp：标准 60，4-7 人局 70
+attribute @s minecraft:max_health base set 60
 function escape_island:role/give_kit_mother
 tellraw @s [{"text":"§4§l你被柯尔文咬伤了。\\n","color":"dark_red"}, ...]
 ```

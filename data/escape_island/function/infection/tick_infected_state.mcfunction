@@ -13,6 +13,7 @@ execute as @a[tag=state.infected_period,scores={infect_time=1..9}] at @s run pla
 
 execute as @a[tag=state.infected_period] at @s run particle minecraft:portal ~ ~0.15 ~ 0.35 0.05 0.35 0.02 12 force @s
 execute as @a[tag=state.infected_period] at @s run particle minecraft:dust{color:[0.9,0.0,0.0],scale:1.1} ~ ~1 ~ 0.25 0.35 0.25 0.01 6 force @s
+execute as @a[tag=state.infected_period] at @s run particle minecraft:dust{color:[1.0,0.72,0.0],scale:0.9} ~ ~1.15 ~ 0.25 0.3 0.25 0.01 4 force @a[tag=team.human,distance=..8]
 
 execute as @a[tag=state.infected_period] run effect give @s minecraft:slowness 2 0 true
 

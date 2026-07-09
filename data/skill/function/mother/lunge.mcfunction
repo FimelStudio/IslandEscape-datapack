@@ -1,4 +1,5 @@
 advancement revoke @s only skill:mother/lunge
+execute unless entity @s[tag=state.hunting] run return 0
 execute if score @s cd_mother_lunge matches 1.. run return 0
 
 scoreboard players set @s cd_mother_lunge 20

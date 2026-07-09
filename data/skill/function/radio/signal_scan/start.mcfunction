@@ -6,10 +6,10 @@ tag @s add skill.radio.viewer
 tag @e[tag=skill.radio.reported] remove skill.radio.reported
 execute as @a[tag=infected.common,tag=!state.dead,tag=!skill.radio.viewer,tag=!skill.radio.reported] at @s run function skill:radio/signal_scan/report_line
 execute as @a[tag=state.infected_period,tag=!infected.common,tag=!state.dead,tag=!skill.radio.viewer,tag=!skill.radio.reported] at @s run function skill:radio/signal_scan/report_line
-execute as @a[tag=infected.mother,tag=state.mutated,tag=!state.disguised,tag=!state.dead,tag=!skill.radio.viewer,tag=!skill.radio.reported] at @s run function skill:radio/signal_scan/report_line
+execute as @a[tag=infected.mother,tag=state.hunting,tag=!state.disguised,tag=!state.dead,tag=!skill.radio.viewer,tag=!skill.radio.reported] at @s run function skill:radio/signal_scan/report_line
 execute as @e[tag=test.dummy,tag=infected.common,tag=!skill.radio.reported] at @s run function skill:radio/signal_scan/report_line
-execute as @e[tag=test.dummy,tag=infected.mother,tag=state.mutated,tag=!skill.radio.reported] at @s run function skill:radio/signal_scan/report_line
-execute unless entity @a[tag=infected.common,tag=!state.dead,tag=!skill.radio.viewer] unless entity @a[tag=state.infected_period,tag=!infected.common,tag=!state.dead,tag=!skill.radio.viewer] unless entity @a[tag=infected.mother,tag=state.mutated,tag=!state.disguised,tag=!state.dead,tag=!skill.radio.viewer] unless entity @e[tag=test.dummy,tag=infected.common] unless entity @e[tag=test.dummy,tag=infected.mother,tag=state.mutated] run tellraw @s {"text":"未发现异常信号。","color":"gray"}
+execute as @e[tag=test.dummy,tag=infected.mother,tag=state.hunting,tag=!skill.radio.reported] at @s run function skill:radio/signal_scan/report_line
+execute unless entity @a[tag=infected.common,tag=!state.dead,tag=!skill.radio.viewer] unless entity @a[tag=state.infected_period,tag=!infected.common,tag=!state.dead,tag=!skill.radio.viewer] unless entity @a[tag=infected.mother,tag=state.hunting,tag=!state.disguised,tag=!state.dead,tag=!skill.radio.viewer] unless entity @e[tag=test.dummy,tag=infected.common] unless entity @e[tag=test.dummy,tag=infected.mother,tag=state.hunting] run tellraw @s {"text":"未发现异常信号。","color":"gray"}
 tag @e[tag=skill.radio.reported] remove skill.radio.reported
 tag @s remove skill.radio.viewer
 title @s actionbar {"text":"异常信号报告已接收","color":"aqua"}
