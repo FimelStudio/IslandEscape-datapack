@@ -15,28 +15,3 @@ scoreboard players set #hundred skill.slide_fall 100
 scoreboard players set #max_fall skill.slide_fall -1200
 
 function skill:athlete/slide_tackle/stamina_config
-
-tp @e[tag=skill.slide.vehicle] 0 -512 0
-kill @e[type=minecraft:area_effect_cloud,tag=skill.slide.vehicle]
-kill @e[type=minecraft:pig,tag=skill.slide.vehicle]
-kill @e[type=minecraft:silverfish,tag=skill.slide.vehicle]
-tag @a remove skill.slide.active
-tag @a remove skill.slide.locked
-tag @a remove skill.slide.blocked
-tag @a remove skill.slide.falling
-tag @a remove skill.slide.falling_small
-tag @a remove skill.slide.moved
-tag @a remove skill.slide.drop_113
-tag @a remove skill.slide.drop_100
-tag @a remove skill.slide.drop_083
-tag @a remove skill.slide.drop_064
-tag @a remove skill.slide.drop_044
-tag @a remove skill.slide.drop_030
-tag @a remove skill.slide.drop_015
-tag @a remove skill.slide.drop_008
-tag @a remove skill.slide.stamina.init
-tag @a remove skill.slide.stamina.showing
-scoreboard players set @a skill.slide_fall 0
-scoreboard players set @a skill.slide_cost 0
-scoreboard players set @a skill.slide_sprint 0
-scoreboard players set @a skill.stamina_warn 0

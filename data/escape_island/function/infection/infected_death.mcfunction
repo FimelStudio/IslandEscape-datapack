@@ -4,12 +4,12 @@ execute if score $game mother_dead matches 1 run function escape_island:infectio
 execute if score $game mother_dead matches 1 run title @s title {"text":"§8永久倒下","bold":true}
 execute if score $game mother_dead matches 1 run title @s subtitle {"text":"§7母体已消亡，你进入旁观。","italic":true}
 execute if score $game mother_dead matches 1 run return 0
-execute unless entity @e[tag=infected.mother,tag=!state.dead,tag=!state.spectator] run function escape_island:infection/permadeath_spectator
-execute unless entity @e[tag=infected.mother,tag=!state.dead,tag=!state.spectator] run title @s title {"text":"§8永久倒下","bold":true}
-execute unless entity @e[tag=infected.mother,tag=!state.dead,tag=!state.spectator] run title @s subtitle {"text":"§7母体信号消失，你进入旁观。","italic":true}
-execute unless entity @e[tag=infected.mother,tag=!state.dead,tag=!state.spectator] run return 0
-
-execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["entity.dead_anchor"]}
+# 训练环境无母体时保留原有的结束方式。
+execute unless score $game in_game matches 1 unless entity @e[tag=infected.mother,tag=!state.dead,tag=!state.spectator] run function escape_island:infection/permadeath_spectator
+execute unless score $game in_game matches 1 unless entity @e[tag=infected.mother,tag=!state.dead,tag=!state.spectator] run return 0
+# 母体暂时不在线时仍进入倒下状态；只有明确记录死亡才永久淘汰。
+execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["entity.dead_anchor","ie.new"]}
+function escape_island:player/claim_entities
 gamemode adventure @s
 attribute @s minecraft:movement_speed base set 0
 effect give @s minecraft:invisibility 999 0 true

@@ -5,7 +5,7 @@ attribute @s minecraft:movement_speed base set 0.1
 execute if entity @s[tag=infected.clicker] run attribute @s minecraft:movement_speed base set 0.26
 effect clear @s
 effect give @s minecraft:saturation 1 20 true
-execute at @s run kill @e[type=minecraft:marker,tag=entity.dead_anchor,distance=..3,sort=nearest,limit=1]
+function escape_island:infection/anchor/remove {kind:"dead"}
 
 clear @s
 function escape_island:visual/infected_common

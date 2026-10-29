@@ -1,1 +1,2 @@
+execute unless score $game in_game matches 1 unless entity @s[tag=ie.active] run function escape_island:training/clear_role
 give @s minecraft:lantern[minecraft:custom_data={item:"flashlight"},minecraft:custom_name={"text":"应急手电筒","color":"yellow","italic":false},minecraft:lore=[{"text":"断电时手持→自己及3格内队友获得夜视","color":"gray","italic":false}]] 1

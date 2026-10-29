@@ -1,4 +1,9 @@
 {
-	"replace": false,
-	"values": ["animated_java:global/on_load", "escape_island:load", "skill:init"]
+  "replace": false,
+  "values": [
+    "escape_island:compat/animated_java_load",
+    "escape_island:load",
+    "skill:init",
+    "escape_island:game/reload"
+  ]
 }

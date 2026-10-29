@@ -1,19 +1,25 @@
 {
-	"pack": {
-		"min_format": 88,
-		"max_format": 9999999,
-		"description": "孤岛逃生：黎明前夕 v0.1"
-	},
-	"filter": {
-		"block": [
-			{
-				"namespace": "minecraft",
-				"path": "recipe/.*"
-			},
-			{
-				"namespace": "minecraft",
-				"path": "advancement/.*"
-			}
-		]
-	}
+  "pack": {
+    "min_format": [
+      94,
+      1
+    ],
+    "max_format": [
+      94,
+      1
+    ],
+    "description": "海岛逃生：黎明前夕 v0.1 · v0.3 开发基础"
+  },
+  "filter": {
+    "block": [
+      {
+        "namespace": "minecraft",
+        "path": "recipe/.*"
+      },
+      {
+        "namespace": "minecraft",
+        "path": "advancement/.*"
+      }
+    ]
+  }
 }

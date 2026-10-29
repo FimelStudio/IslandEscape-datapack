@@ -2,7 +2,8 @@ execute if entity @s[tag=state.sporifying] run return 0
 tag @s add state.sporifying
 scoreboard players operation @s sporify_timer = Tunable tunable.death_sporify_seconds
 
-execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["entity.downed_anchor"]}
+execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["entity.downed_anchor","ie.new"]}
+function escape_island:player/claim_entities
 gamemode adventure @s
 attribute @s minecraft:movement_speed base set 0
 effect give @s minecraft:slowness 999 127 true

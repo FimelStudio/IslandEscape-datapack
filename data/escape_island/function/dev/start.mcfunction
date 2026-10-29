@@ -1,3 +1,6 @@
+execute if score $game gs_active matches 1 run return 0
+execute if score $game in_game matches 1 run return 0
+execute if score $game ie.mode matches 4 run return 0
 function escape_island:dev/clear_markers
 scoreboard players set $game dev_mode 1
 function escape_island:training/start

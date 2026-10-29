@@ -1,0 +1,22 @@
+# 自动生成：清除本包临时交互进度；只针对正在退出的玩家。
+advancement revoke @s only skill:athlete/adrenaline/use
+advancement revoke @s only skill:captain/whistle/use
+advancement revoke @s only skill:chef/hot_soup/use
+advancement revoke @s only skill:clicker/hearing_spore/use
+advancement revoke @s only skill:common/cryo_medkit
+advancement revoke @s only skill:common/flashbang
+advancement revoke @s only skill:common/medkit
+advancement revoke @s only skill:common/oil_drum
+advancement revoke @s only skill:common/signal_flare
+advancement revoke @s only skill:common/signal_gun
+advancement revoke @s only skill:common/smoke_bomb
+advancement revoke @s only skill:doctor/antidote/use
+advancement revoke @s only skill:engineer/battery/use
+advancement revoke @s only skill:marine/gun_mastery/use
+advancement revoke @s only skill:marine/suppress/use
+advancement revoke @s only skill:mechanic/trap/use
+advancement revoke @s only skill:radio/jam/use
+advancement revoke @s only skill:radio/signal_scan/use
+advancement revoke @s only skill:virologist/detector/use
+advancement revoke @s only skill:weapon/ak47/use
+advancement revoke @s only skill:weapon/pistol/use

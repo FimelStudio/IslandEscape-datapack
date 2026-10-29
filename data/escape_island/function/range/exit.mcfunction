@@ -3,3 +3,5 @@ tellraw @a [{"text":"[训练场] ","color":"gold"},{"selector":"@s"},{"text":" �
 tag @s remove range.active
 function escape_island:range/cleanup
 gamemode adventure @s
+
+function escape_island:player/reset

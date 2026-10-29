@@ -1,3 +1,8 @@
+execute if score $game gs_active matches 1 run return 0
+execute if score $game in_game matches 1 run return 0
+execute if score $game ie.mode matches 4 run return 0
+tag @s add ie.active
+scoreboard players operation @s ie.session = $game ie.match_id
 tag @s add state.training
 tellraw @s {"text":"\n=== 训练职业选择 ===","color":"light_purple","bold":true}
 tellraw @s [{"text":"[船医]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:training/choose_doctor"}},{"text":" 解毒针","color":"gray"}]

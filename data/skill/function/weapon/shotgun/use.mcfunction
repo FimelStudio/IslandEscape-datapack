@@ -10,4 +10,7 @@ execute if entity @s[tag=skill.shotgun.reloading] run return 0
 
 execute if score @s skill.shotgun_cd matches 1.. run return 0
 execute if predicate skill:is_sneak run function skill:weapon/shotgun/reload_start
-execute unless predicate skill:is_sneak run function skill:weapon/shotgun/fire
+execute if predicate skill:is_sneak run return 0
+execute if score @s skill.shotgun_mag matches ..0 run function skill:weapon/shotgun/reload_start
+execute if score @s skill.shotgun_mag matches ..0 run return 0
+function skill:weapon/shotgun/fire

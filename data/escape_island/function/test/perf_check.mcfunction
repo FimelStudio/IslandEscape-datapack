@@ -1,1 +1,1 @@
-tellraw @s {"text":"§e[TEST] 使用 /perf start 开始性能分析，10秒后自动停止并生成报告。","color":"yellow"}
+tellraw @s {"text":"[性能] 在代表性多人对局中手动执行 /perf start，完成后检查服务端生成的 profiling 报告。此入口不生成模拟 TPS 结果。","color":"yellow"}

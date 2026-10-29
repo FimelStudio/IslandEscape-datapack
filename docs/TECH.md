@@ -20,17 +20,8 @@
 ## 一、Minecraft 版本与 pack format
 
 - 目标版本: **Minecraft Java Edition 1.21.11**
-- pack_format: 检查 `1.21.11` 对应的 `pack_format` 数字（1.21 起为 48，每个次版本 +1，1.21.11 预计为 ~58）
-
-```json
-{
-  "pack": {
-    "pack_format": 58,
-    "supported_formats": [55, 60],
-    "description": "孤岛逃生：感染 v0.1"
-  }
-}
-```
+- 数据包兼容版本：`min_format: [94, 1]` / `max_format: [94, 1]`，精确对应 Java 1.21.11。[官方版本说明](https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-11)
+- 当前运行架构以 [ARCHITECTURE.md](ARCHITECTURE.md) 为准；下方较早的字段表和调用图作历史参考，不能替代当前源码与状态清单。
 
 依赖的 1.21.x 特性:
 - `consumable` 物品组件（任意物品可消耗）

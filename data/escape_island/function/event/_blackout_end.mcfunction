@@ -1,2 +1,1 @@
-tag @a remove event.blackout
-effect clear @a minecraft:darkness
+scoreboard players set $blackout ie.event 0

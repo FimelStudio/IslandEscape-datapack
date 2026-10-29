@@ -1,4 +1,6 @@
 function escape_island:test/reset_state
+tag @s add ie.active
+scoreboard players operation @s ie.session = $game ie.match_id
 schedule clear escape_island:game/end_all_infected_finish
 kill @e[type=minecraft:marker,tag=test.boarding_kick_marker]
 execute at @s run summon minecraft:marker ~ ~ ~ {Tags:["test.boarding_kick_marker","heli.selected_pad"]}

@@ -1,3 +1,6 @@
+execute if score $game in_game matches 1 run return 0
+execute if score $game ie.mode matches 4 run return 0
+execute if score $game gs_active matches 1 run return 0
 function escape_island:training/clear_role
 tag @s add team.human
 function escape_island:role/_tag_doctor

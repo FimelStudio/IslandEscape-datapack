@@ -11,7 +11,7 @@ tag @s remove state.boarding.ship
 tag @s remove state.boarding.sub
 tag @s remove state.escaped
 tag @s remove state.spectator
-tag @s remove team.human
+function escape_island:game/human/leave
 tag @s add team.infected
 team join infected @s
 function escape_island:visual/infected_common

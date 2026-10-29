@@ -12,12 +12,14 @@ execute if score @s skill.antidote_cd matches 1.. run title @s actionbar {"text"
 execute if score @s skill.antidote_cd matches 1.. run function skill:doctor/antidote/update_item
 execute if score @s skill.antidote_cd matches 1.. run return 0
 
+tag @a[tag=ie.active] remove skill.antidote.target
+tag @a[tag=ie.active] remove skill.antidote.user
 tag @s add skill.antidote.user
 execute if entity @s[tag=state.infected_period] run tag @s add skill.antidote.target
-execute unless entity @s[tag=state.infected_period] at @s as @a[tag=state.infected_period,tag=team.human,distance=..5,sort=nearest,limit=1] unless entity @s[tag=skill.antidote.user] run tag @s add skill.antidote.target
+execute unless entity @s[tag=state.infected_period] at @s as @a[tag=ie.active,tag=state.infected_period,tag=team.human,distance=..5,sort=nearest,limit=1] unless entity @s[tag=skill.antidote.user] run tag @s add skill.antidote.target
 
-execute if entity @a[tag=skill.antidote.target,limit=1] run function skill:doctor/antidote/start
-execute unless entity @a[tag=skill.antidote.target,limit=1] run title @s actionbar {"text":"5格内没有感染期目标","color":"gray"}
+execute if entity @a[tag=ie.active,tag=skill.antidote.target,limit=1] run function skill:doctor/antidote/start
+execute unless entity @a[tag=ie.active,tag=skill.antidote.target,limit=1] run title @s actionbar {"text":"5格内没有感染期目标","color":"gray"}
 
 tag @s remove skill.antidote.user
-tag @a remove skill.antidote.target
+tag @a[tag=ie.active] remove skill.antidote.target

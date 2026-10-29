@@ -87,3 +87,5 @@ tellraw @s [{"text":"[清理枪战]","color":"gray","bold":true,"click_event":{"
 tellraw @s {"text":"--- 武器测试 ---","color":"dark_gray"}
 tellraw @s [{"text":"[给霰弹枪]","color":"gold","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/give_shotgun"}},{"text":" SG-5","color":"gray"}]
 tellraw @s [{"text":"[给狙击枪]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/give_sniper"}},{"text":" SP-1 + 狙击弹","color":"gray"}]
+
+tellraw @s [{"text":"[生命周期回归]","color":"green","click_event":{"action":"run_command","command":"/function escape_island:test/regression_lifecycle"}}]

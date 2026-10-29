@@ -1,37 +1,18 @@
-
 clear @s paper[minecraft:equippable={damage_on_hurt:false,slot:head,camera_overlay:"ie:misc/red"},item_model="ie:empty",minecraft:custom_name=""]
 function escape_island:ui/spore_bar/clear
 team join infected @s
 function escape_island:visual/infected_common
 
-execute if entity @s[tag=role.doctor] run tag @s add retained.doctor
-execute if entity @s[tag=role.captain] run tag @s add retained.captain
-execute if entity @s[tag=role.engineer] run tag @s add retained.engineer
-execute if entity @s[tag=role.marine] run tag @s add retained.marine
-execute if entity @s[tag=role.chef] run tag @s add retained.chef
-execute if entity @s[tag=role.radio] run tag @s add retained.radio
-execute if entity @s[tag=role.radio] run scoreboard players set @s skill.forger_passive_cd 45
-execute if entity @s[tag=role.radio] run scoreboard players set @s skill.forger_uses 0
-execute if entity @s[tag=role.virologist] run tag @s add retained.virologist
-execute if entity @s[tag=role.mechanic] run tag @s add retained.mechanic
-execute if entity @s[tag=role.athlete] run tag @s add retained.athlete
-execute if entity @s[tag=role.priest] run tag @s add retained.priest
+execute if entity @s[tag=role.athlete] at @s run function skill:athlete/slide_tackle/cleanup_non_athlete
+function escape_island:role/retain_on_infection
 
-tag @s remove team.human
+function escape_island:game/human/leave
 tag @s remove state.infected_period
-tag @s remove role.doctor
-tag @s remove role.captain
-tag @s remove role.engineer
-tag @s remove role.marine
-tag @s remove role.chef
-tag @s remove role.radio
-tag @s remove role.virologist
-tag @s remove role.mechanic
-tag @s remove role.athlete
+tag @s remove state.infection_resist
+scoreboard players set @s ie.resist_left 0
 tag @s remove skill.adrenaline.active
 tag @s remove skill.slide.active
 tag @s remove skill.slide.locked
-tag @s remove role.priest
 tag @s add team.infected
 tag @s add infected.common
 execute as @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator,limit=1] run scoreboard players add @s match_infect 25
@@ -83,5 +64,3 @@ tellraw @a[tag=!infected.mother] {"text":"§c岛上有人倒下了……","color
 tellraw @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator] [{"text":"§4+1 感染者已就位。总计: "},{"score":{"name":"$tmp","objective":"infected_count"}}]
 execute if entity @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator,limit=1] run tellraw @s [{"text":"§4[感染链] 核心母体: ","color":"dark_red"},{"selector":"@a[tag=infected.mother,tag=!state.dead,tag=!state.spectator,limit=1]","color":"red"},{"text":"。死亡后你将在母体附近复活。","color":"dark_red"}]
 execute unless entity @a[tag=infected.mother,tag=!state.dead,tag=!state.spectator,limit=1] run tellraw @s {"text":"§8[感染链] 母体信号消失。你无法再依靠母体复活。","color":"dark_gray"}
-
-execute if score $game in_game matches 1 unless entity @a[tag=team.human] run function escape_island:game/end_all_infected

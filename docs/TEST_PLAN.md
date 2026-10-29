@@ -151,53 +151,23 @@ v0.1 的正式验收只覆盖 **4–12 人基础局**。主线必须跑通：正
 
 ---
 
-## 三、单机自动化测试
+## 三、离线回归与游戏内冒烟
 
-### `escape_island:test/perf_check`
+运行 `python tools/check.py`，检查生成状态清单、结构/引用/依赖和 22 项状态回归。详细范围及限制见 [ARCHITECTURE.md](ARCHITECTURE.md)。状态执行器使用真实函数源码，但世界/物品/实体有替代实现，不等于游戏引擎执行或完整多人验证。
 
-每次改代码后跑一次。在空房间召唤 20 个 ArmorStand 模拟玩家，调用主 tick 1000 次，输出平均 / 最大耗时。
+游戏内在空闲测试环境执行：
 
 ```mcfunction
-# 期望输出 (在控制台)
-[escape_island:perf] avg=1.8ms / max=4.2ms / iterations=1000
+/function escape_island:test/regression_lifecycle
 ```
 
-阈值: avg < 3ms, max < 5ms。超过即性能回退，必须排查。
+预期输出 `[PASS]`；任何 `[FAIL]` 需记录失败计数。该入口清理测试状态，不在正式对局期间执行。原文中的 `regression_M2` 未实现且名称大小写不合法，当前小写兼容入口为 `test/regression_m2`。
 
-### `escape_island:test/spawn_dummies`
+`test/spawn_dummies` 生成人偶，适合命中/视觉测试，不能代替被 `@a` 选择的真人。`test/full_simulation` 现在转到真实的生命周期冒烟入口，不再声称自动加速整局。
 
-```
-spawn 4 假玩家（armor_stand + team.human + 完整属性）到不同 `marker.spawn_island`
-分配职业:
-  dummy_1 → 船医
-  dummy_2 → 工程师
-  dummy_3 → 海军陆战队员
-  dummy_4 → 通讯员
-开局后等 2 分钟看母体随机选谁
-```
+`test/perf_check` 提示人工运行服务端 `/perf start`；从真实报告测量性能，没有虚构的平均耗时或 TPS 保证。
 
-### `escape_island:test/full_simulation`
-
-模拟一整局（15 分钟压缩到 3 分钟，调试模式）:
-- 0:00 开局
-- 0:24 母体觉醒
-- 0:36 进入黑夜抢修
-- 1:40 信号塔 + 发电机完成，触发动态破晓和直升机倒计时
-- 2:30 1 名假玩家上机 → 触发直升机结局
-
-预期结果: 任何阶段都没有 mcfunction 错误，结局动画正确播放。
-
-### `escape_island:test/regression_M2`
-
-专门验证感染状态机:
-1. 召唤 1 个 dummy，给 infected.mother
-2. 召唤 1 个 dummy，给 team.human + role.doctor
-3. mother 攻击 doctor 1 次 → 检查 doctor 的 `spore_load` 增加且未获得 `state.infected_period`
-4. mother 再次攻击 doctor → 检查 doctor 获得 `state.infected_period`
-5. 等 0.5 秒，doctor 用解毒针对自己（dummy 不能右键，用 `function skill:doctor/inject` 模拟）
-6. 检查 `state.infected_period` 是否被清除，且获得短暂 `state.infection_resist`
-
-每个 M2 修复后跑一次。
+新增必须手测：连续两局母体属性恢复、全感染演出中重开、中止后等待、正式局重载、两人错开治疗、候机感染转化、训练与枪战切换、旁观者不被清理。
 
 ---
 
@@ -266,13 +236,13 @@ spawn 4 假玩家（armor_stand + team.human + 完整属性）到不同 `marker.
 
 | 指标 | 阈值 | 测量方法 |
 |---|---|---|
-| 主 tick 平均耗时 | < 3ms | `/perf start 30` 然后查 `escape_island.tick` |
+| 主 tick 平均耗时 | < 3ms | 手动 `/perf start` 后检查实际服务端报告 |
 | 主 tick 峰值 | < 5ms | 同上 |
 | 单 mcfunction 命令数 | < 1000 | 静态扫描 |
 | Datapack 总 mcfunction 数 | 只记录，不作为 v0.1 阻塞 | 当前项目包含训练、动画和实验模式，不能用总函数数直接判定性能 |
 | Datapack 总大小 | < 5 MB | 文件夹大小 |
-| 单局产生的 marker 实体数 | < 50 | `/data get @e[type=marker] count` |
-| 单局产生的 display entity | < 100 | 同上 |
+| 单局产生的 marker 实体数 | < 50 | 用 `execute as @e[type=minecraft:marker]` 配合 scoreboard 计数 |
+| 单局产生的 display entity | < 100 | 按实际类型分组计数 |
 | 内存峰值（服务端进程） | 无明显增量 | 任务管理器对比开关游戏前后 |
 
 ---
@@ -328,11 +298,11 @@ scoreboard: zzz
 
 ```
 /function escape_island:test/perf_check
-/function escape_island:test/regression_M2
+/function escape_island:test/regression_m2
 /function escape_island:test/full_simulation
 ```
 
-3 个全绿 → 可以发"内部预览版"。
+离线检查通过、生命周期冒烟为 `[PASS]` 后，再完成四人正常对局；不能把仅提示操作的性能入口视为“全绿”。
 
 ### Full Regression（半天）
 

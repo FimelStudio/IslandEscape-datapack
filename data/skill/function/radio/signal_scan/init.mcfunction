@@ -13,16 +13,4 @@ scoreboard objectives add skill.radio_jam_sec dummy
 function skill:radio/signal_scan/config
 function skill:radio/jam/config
 
-advancement revoke @a only skill:radio/signal_scan/use
-advancement revoke @a only skill:radio/jam/use
-scoreboard players set @a skill.signal_scan_cd 0
-scoreboard players set @a skill.signal_scan_item 0
-scoreboard players set @a skill.signal_scan_state 0
-scoreboard players set @a skill.signal_scan_sec 0
-scoreboard players set @a skill.signal_scan_last_sec 0
-scoreboard players set @a skill.signal_scan_time 0
-scoreboard players set @a skill.radio_jam_cd 0
-scoreboard players set @a skill.radio_jam_state 0
-scoreboard players set @a skill.radio_jam_sec 0
-tag @a remove skill.radio.viewer
 tag @e[tag=skill.radio.reported] remove skill.radio.reported

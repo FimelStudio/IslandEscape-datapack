@@ -1,4 +1,3 @@
-
 execute unless entity @s[tag=state.infected_period] run return 0
 
 tag @s remove state.infected_period
@@ -10,7 +9,7 @@ scoreboard players set @s hb_phase 0
 clear @s paper[minecraft:equippable={damage_on_hurt:false,slot:head,camera_overlay:"ie:misc/red"},item_model="ie:empty",minecraft:custom_name=""]
 
 tag @s add state.infection_resist
-schedule function escape_island:infection/_remove_resist 400t
+scoreboard players set @s ie.resist_left 400
 
 effect clear @s minecraft:slowness
 

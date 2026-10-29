@@ -1,3 +1,7 @@
+function escape_island:game/cancel_schedules
+scoreboard players set $game ie.ruleset 1
+scoreboard players set $game ie.mode 1
+scoreboard players set $game ending_triggered 0
 schedule clear escape_island:game/end_mutate
 schedule clear escape_island:game/end_all_infected_finish
 scoreboard players set $game in_game 1

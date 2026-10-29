@@ -1,3 +1,6 @@
+execute unless score @s skill.shotgun_mag matches 1.. run return 0
+scoreboard players remove @s skill.shotgun_mag 1
+title @s actionbar [{"text":"SG-5 弹药 ","color":"gold"},{"score":{"name":"@s","objective":"skill.shotgun_mag"}},{"text":"/6","color":"gold"}]
 scoreboard players set @s skill.shotgun_cd 20
 playsound minecraft:item.crossbow.shoot master @a[distance=..24] ~ ~ ~ 1 0.7
 execute anchored eyes positioned ^ ^ ^4 as @e[tag=infected.common,tag=!state.dead,distance=..4] run damage @s 5 minecraft:generic

@@ -6,4 +6,4 @@ effect clear @s
 attribute @s minecraft:movement_speed base set 0.1
 scoreboard players set @s mother_respawn -1
 gamemode spectator @s
-execute at @s run kill @e[type=minecraft:marker,tag=entity.dead_anchor,distance=..3,sort=nearest,limit=1]
+function escape_island:infection/anchor/remove {kind:"dead"}

@@ -1,6 +1,7 @@
-scoreboard players set $game in_game 0
-
-tellraw @a {"text":"[实验结局] 伪装撤离 — 母体伪装成幸存者，混上了撤离交通工具。","color":"dark_purple"}
-playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 0.5
-
-function escape_island:game/settle
+# 兼容旧结局入口；不自行清理或重开结果锁。
+execute unless score $game in_game matches 1 run return 0
+execute if score $game ending_triggered matches 1.. run return 0
+scoreboard players set $game ie.pending_kind 7
+scoreboard players set $game escape_result 0
+scoreboard players set $game ie.finish_left 0
+function escape_island:game/result/accept

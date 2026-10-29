@@ -1,4 +1,3 @@
-
 scoreboard objectives add in_game dummy
 scoreboard objectives add play_sound dummy
 scoreboard objectives add phase_timer dummy
@@ -35,6 +34,7 @@ scoreboard objectives add signal_local dummy
 scoreboard objectives add signal_core_acc dummy
 scoreboard objectives add signal_repair_acc dummy
 scoreboard objectives add signal_players dummy
+scoreboard objectives add signal_engineers dummy
 scoreboard objectives add signal_repair_seen dummy
 scoreboard objectives add gen_progress dummy
 scoreboard objectives add gen_state dummy
@@ -119,6 +119,7 @@ scoreboard objectives add gs_timer dummy
 scoreboard objectives add gs_ammo dummy
 scoreboard objectives add skill.shotgun_cd dummy
 scoreboard objectives add skill.shotgun_reload dummy
+scoreboard objectives add skill.shotgun_mag dummy
 scoreboard objectives add skill.sniper_mag dummy
 scoreboard objectives add skill.sniper_cd dummy
 scoreboard objectives add skill.sniper_reload dummy
@@ -256,7 +257,7 @@ bossbar set escape_island:range_timer visible false
 
 gamerule pvp true
 
-scoreboard players set $game in_game 0
+
 scoreboard players set $game dev_mode 0
 scoreboard players set $game ship_bonus_tick 0
 scoreboard players set $tick cycle20 0
@@ -276,3 +277,39 @@ scoreboard players set $const_minus1 heli_countdown -1
 scoreboard players set $dev mother_hit_cd 0
 
 tellraw @a [{"text":"[孤岛逃生：黎明前夕] 数据包已加载。 ","color":"gold"},{"text":"[打开自测菜单]","color":"aqua","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:test/menu"}},{"text":" ","color":"white"},{"text":"[开始游戏]","color":"green","bold":true,"click_event":{"action":"run_command","command":"/function escape_island:game/start"}}]
+
+scoreboard objectives add ie.match_id dummy
+scoreboard objectives add ie.mode dummy
+scoreboard objectives add ie.ruleset dummy
+scoreboard objectives add ie.session dummy
+scoreboard objectives add ie.resist_left dummy
+scoreboard objectives add ie.disguise_left dummy
+scoreboard objectives add ie.scan_left dummy
+scoreboard objectives add ie.mutate_left dummy
+scoreboard objectives add ie.finish_left dummy
+scoreboard objectives add ie.pending_kind dummy
+scoreboard objectives add ie.pending_id dummy
+scoreboard objectives add ie.evac_ready dummy
+scoreboard objectives add ie.rules_saved dummy
+scoreboard objectives add ie.prev_regen dummy
+scoreboard objectives add ie.prev_respawn dummy
+scoreboard objectives add ie.test_fail dummy
+scoreboard objectives add ie.test_pass dummy
+execute unless score $game ie.match_id matches 0.. run scoreboard players set $game ie.match_id 0
+
+scoreboard objectives add ie.settle_count dummy
+scoreboard objectives add ie.test_value dummy
+execute unless score $game ie.settle_count matches 0.. run scoreboard players set $game ie.settle_count 0
+
+scoreboard objectives add ie.actor dummy
+scoreboard objectives add ie.owner dummy
+execute unless score $allocator ie.actor matches 0.. run scoreboard players set $allocator ie.actor 0
+
+scoreboard objectives add ie.map_ready dummy
+scoreboard objectives add ie.map_count dummy
+scoreboard objectives add ie.event dummy
+scoreboard objectives add ie.humans dummy
+scoreboard objectives add ie.players dummy
+scoreboard objectives add ie.online dummy
+scoreboard objectives add ie.hygiene dummy
+scoreboard players set $tick ie.hygiene 0

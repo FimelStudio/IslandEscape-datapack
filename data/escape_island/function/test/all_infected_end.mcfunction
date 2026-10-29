@@ -1,5 +1,9 @@
 function escape_island:test/reset_state
+tag @s add ie.active
+tag @s add ie.participant
+scoreboard players operation @s ie.session = $game ie.match_id
 scoreboard players set $game in_game 1
+scoreboard players set $game ie.humans 1
 scoreboard players set $game cur_phase 3
 scoreboard players set $game ending_triggered 0
 

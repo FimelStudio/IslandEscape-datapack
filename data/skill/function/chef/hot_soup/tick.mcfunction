@@ -1,6 +1,6 @@
 
-scoreboard players remove @a[tag=role.chef,scores={skill.soup_cd=1..}] skill.soup_cd 1
+scoreboard players remove @a[tag=ie.active,tag=role.chef,scores={skill.soup_cd=1..}] skill.soup_cd 1
 
-execute as @a[tag=role.chef,scores={skill.soup_cd=0,skill.soup_state=2}] run function skill:chef/hot_soup/update_item
-execute as @a[tag=role.chef,scores={skill.soup_cd=1..}] run function skill:chef/hot_soup/cooldown_tick
-execute as @a[tag=role.chef] run function skill:chef/hot_soup/ensure_item
+execute as @a[tag=ie.active,tag=role.chef,scores={skill.soup_cd=0,skill.soup_state=2}] run function skill:chef/hot_soup/update_item
+execute as @a[tag=ie.active,tag=role.chef,scores={skill.soup_cd=1..}] run function skill:chef/hot_soup/cooldown_tick
+execute as @a[tag=ie.active,tag=role.chef] run function skill:chef/hot_soup/ensure_item

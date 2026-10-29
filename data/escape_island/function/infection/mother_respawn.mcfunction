@@ -2,7 +2,7 @@
 tag @s remove state.dead
 gamemode adventure @s
 effect clear @s
-execute at @s run kill @e[type=minecraft:marker,tag=entity.dead_anchor,distance=..3,sort=nearest,limit=1]
+function escape_island:infection/anchor/remove {kind:"dead"}
 
 attribute @s minecraft:max_health base set 60
 effect give @s minecraft:instant_health 1 10 true

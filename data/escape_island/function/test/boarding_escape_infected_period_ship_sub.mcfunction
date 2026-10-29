@@ -1,4 +1,6 @@
 function escape_island:test/reset_state
+tag @s add ie.active
+scoreboard players operation @s ie.session = $game ie.match_id
 schedule clear escape_island:game/end_all_infected_finish
 
 scoreboard players set $game in_game 1

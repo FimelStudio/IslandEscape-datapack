@@ -1,3 +1,4 @@
+scoreboard players set $game ie.evac_ready 0
 scoreboard players set $game heli_countdown 0
 scoreboard players set $game heli_motion 0
 scoreboard players set $game ship_countdown 0

@@ -14,7 +14,8 @@ tag @s remove skill.slide.drop_030
 tag @s remove skill.slide.drop_015
 tag @s remove skill.slide.drop_008
 
-summon minecraft:silverfish ~ ~ ~ {Tags:["skill.slide.vehicle","skill.slide.new"],NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+summon minecraft:silverfish ~ ~ ~ {Tags:["skill.slide.vehicle","skill.slide.new","ie.new"],NoAI:1b,Silent:1b,Invulnerable:1b,PersistenceRequired:1b}
+function escape_island:player/claim_entities
 attribute @e[type=minecraft:silverfish,tag=skill.slide.new,limit=1,sort=nearest,distance=..1.5] minecraft:scale base set 0.25
 execute rotated as @s rotated ~ 0 run rotate @e[type=minecraft:silverfish,tag=skill.slide.new,limit=1,sort=nearest,distance=..1.5] ~ 0
 effect give @e[type=minecraft:silverfish,tag=skill.slide.new,limit=1,sort=nearest,distance=..1.5] minecraft:invisibility 3 0 true

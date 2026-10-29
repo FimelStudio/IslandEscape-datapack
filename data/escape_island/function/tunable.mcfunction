@@ -22,6 +22,7 @@ scoreboard players set Tunable tunable.signal_team_cap_2p 125
 scoreboard players set Tunable tunable.signal_team_cap_3p 140
 scoreboard players set Tunable tunable.signal_team_cap_4p 150
 scoreboard players set $const_100 signal_progress 100
+scoreboard players set $const_25 signal_progress 25
 scoreboard players set $const_1000 signal_progress 1000
 scoreboard players set Tunable tunable.ship_parts_required 5
 scoreboard players set Tunable tunable.ship_boarding_seconds 50

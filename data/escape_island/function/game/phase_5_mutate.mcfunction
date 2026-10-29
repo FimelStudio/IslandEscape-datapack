@@ -1,4 +1,3 @@
-
 execute if score $game cur_phase matches 5 run return 0
 execute if score $game in_game matches 0 run return 0
 execute if score $game escaped_count matches 1.. run return 0
@@ -16,4 +15,4 @@ effect give @a[tag=team.human,tag=!state.dead] minecraft:slowness 25 2 true
 
 execute as @a[tag=team.human,tag=!state.escaped,tag=!state.spectator,tag=!state.sporifying,tag=!state.dead] run function escape_island:infection/force_infect
 
-schedule function escape_island:game/end_mutate 20s
+scoreboard players set $game ie.mutate_left 400

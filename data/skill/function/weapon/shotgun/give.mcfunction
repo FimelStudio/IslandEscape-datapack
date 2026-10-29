@@ -1,2 +1,5 @@
-item replace entity @s weapon.mainhand with minecraft:blaze_rod[custom_data={weapon:"shotgun"},custom_name={text:"SG-5 霰弹枪",color:"gold",bold:true,italic:false},lore=[{text:"右键: 扇面霰弹",color:"gray",italic:false},{text:"Shift+右键: 装填",color:"dark_gray",italic:false}],consumable={animation:"crossbow",consume_seconds:0,has_consume_particles:false,sound:{sound_id:""}},use_remainder={id:"minecraft:sugar",count:1,components:{"minecraft:custom_data":{weapon:"shotgun_used"}}},use_cooldown={seconds:0.2,cooldown_group:"weapon:shotgun"}] 1
 scoreboard players set @s skill.shotgun_cd 0
+scoreboard players set @s skill.shotgun_reload 0
+scoreboard players set @s skill.shotgun_mag 6
+tag @s remove skill.shotgun.reloading
+function skill:weapon/shotgun/restore

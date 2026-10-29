@@ -1,1 +1,2 @@
+execute unless score $game in_game matches 1 unless entity @s[tag=ie.active] run function escape_island:training/clear_role
 give @s minecraft:glowstone_dust[minecraft:custom_data={item:"medkit"},minecraft:custom_name={"text":"急救包","color":"red","italic":false},minecraft:consumable={animation:"spyglass",consume_seconds:1,has_consume_particles:false,sound:{sound_id:"minecraft:entity.player.burp"}},minecraft:food={nutrition:0,saturation:0,can_always_eat:true},minecraft:lore=[{"text":"右键使用，立即回复4HP","color":"gray","italic":false}]] 1

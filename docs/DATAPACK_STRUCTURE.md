@@ -4,15 +4,17 @@
 
 ## 快速入口
 
-- `pack.mcmeta`：数据包元信息。当前目标为 Java 1.21.x，使用 `min_format: 88`，并过滤原版 recipe / advancement。
-- `data/minecraft/tags/function/load.json`：加载入口，依次调用 `animated_java:global/on_load`、`escape_island:load`、`skill:init`。
-- `data/minecraft/tags/function/tick.json`：tick 入口，调用 `escape_island:tick`、运动员 tick、母体吞噬 tick、母体技能 tick、通用技能 tick。
+- `pack.mcmeta`：数据包元信息。当前目标为 Java 1.21.x，使用 `min_format: [94, 1]` / `max_format: [94, 1]`，并过滤原版 recipe / advancement。
+- `data/minecraft/tags/function/load.json`：加载入口，依次调用 `animated_java:global/on_load`、`escape_island:load`、`skill:init`、`escape_island:game/reload`。
+- `data/minecraft/tags/function/tick.json`：tick 入口，调用 `escape_island:tick` 与 `escape_island:player/tick_skills`；后者只在存在活跃玩家时分发技能更新。
 - `data/escape_island/function/load.mcfunction`：主 scoreboard / team / bossbar / gamerule 注册入口。
 - `data/escape_island/function/tick.mcfunction`：每 tick 主调度；死亡检查、任务读条、状态刷新、训练模式兜底都从这里进。
 - `data/escape_island/function/game/_tick_20.mcfunction`：正式局每秒调度；阶段推进、感染/任务/结局、职业 tick 的主要汇合点。
 - `data/escape_island/function/game/start.mcfunction`：正式开局。
 - `data/escape_island/function/game/start_test.mcfunction`：测试开局。
 - `data/escape_island/function/game/settle.mcfunction`：结算与清理。
+
+当前基础重构的模块约定见 [ARCHITECTURE.md](ARCHITECTURE.md)。新增 `function/player/` 管理玩家临时状态和个人计时，`game/result/` 管理结果接受/演出/结束，`game/rules/v01/` 隔离旧时间线。状态清理由 `tools/state_contract.json` 生成，`python tools/check.py` 统一验证。
 
 ## 顶层结构
 
