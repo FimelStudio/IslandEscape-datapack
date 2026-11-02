@@ -1,0 +1,26 @@
+{
+  "revision": "v0.3-design-r1",
+  "date": "2026-11-03",
+  "status": "design_only_unplaytested",
+  "time_unit": "logical_second",
+  "recommended_players": 6,
+  "designed_player_range": [4, 12],
+  "round": {"awakening": 90, "second_choice_fallback": 360, "pressure_warning": 1080, "hard_end": 1320, "last_departure_purge_window": 90},
+  "helicopter": {"flight": 120, "boarding": 60, "landing_lock_after_call": 20, "latest_call": 1110, "departure_margin_before_hard_end": 30},
+  "ship": {"launch_preparation": 15, "boarding": 45},
+  "submarine": {"iris_scan": 10, "launch_preparation": 25, "boarding": 45},
+  "w7": {"availability_percent": 10, "required_investigation_records": 3, "distinct_authorizers": 2, "veto_window": 20, "countdown": 180, "departure_margin": 15, "disarm_work": 20, "irreversible_final": 10},
+  "infection": {"threshold": 100, "mother_bite_load": 34, "common_bite_load": 25, "bite_cooldown": 3, "decay_delay": 8, "decay_per_second": 10, "cure_work": 3, "post_cure_immunity": 10, "stabilize_cap_per_episode": 10, "sporification": 8},
+  "rescue": {"work": 3, "revived_hp": 8, "second_down": 25, "second_down_during_wound": 15, "wound_duration": 60, "rescuable_downs_per_human_life": 2, "post_revive_protection": 3},
+  "combat": {"human_hp": 20, "pistol_body": 4, "pistol_head": 6, "pistol_interval": 0.65, "pistol_magazine": 6, "pistol_reload": 2.4, "mother_claw_damage": 4, "mother_claw_interval": 1.4, "common_claw_damage": 3, "common_claw_interval": 1.6, "bite_damage": 1, "shove_cooldown": 12, "control_budget_seconds": 1, "control_window_seconds": 6, "positive_speed_cap": 0.2},
+  "growth": {"profession_count": 8, "profession_offer_size": 3, "profession_redraws": 1, "choices": 2, "options_per_choice": 3, "redraws_per_round": 1, "human_card_count": 12, "paired_infected_card_count": 12},
+  "disconnect": {"individual_grace": 60, "all_offline_abort": 30},
+  "profiles": [
+    {"min": 4, "max": 4, "mothers": 1, "mother_hp": 64, "common_hp": 20, "infection_period": 75, "first_down": 45, "respawn_base": 25, "generator_modules": 2, "ship_fuel": 1, "routes_percent": {"none": 40, "ship": 30, "submarine": 30, "both": 0}},
+    {"min": 5, "max": 5, "mothers": 1, "mother_hp": 88, "common_hp": 22, "infection_period": 65, "first_down": 40, "respawn_base": 24, "generator_modules": 2, "ship_fuel": 1, "routes_percent": {"none": 20, "ship": 40, "submarine": 40, "both": 0}},
+    {"min": 6, "max": 6, "mothers": 1, "mother_hp": 112, "common_hp": 24, "infection_period": 60, "first_down": 40, "respawn_base": 22, "generator_modules": 2, "ship_fuel": 2, "routes_percent": {"none": 10, "ship": 35, "submarine": 35, "both": 20}},
+    {"min": 7, "max": 8, "mothers": 1, "mother_hp": 144, "common_hp": 24, "infection_period": 60, "first_down": 40, "respawn_base": 22, "generator_modules": 3, "ship_fuel": 2, "routes_percent": {"none": 10, "ship": 35, "submarine": 35, "both": 20}},
+    {"min": 9, "max": 10, "mothers": 2, "mother_hp": 120, "common_hp": 22, "infection_period": 55, "first_down": 35, "respawn_base": 20, "generator_modules": 3, "ship_fuel": 3, "routes_percent": {"none": 5, "ship": 20, "submarine": 20, "both": 55}},
+    {"min": 11, "max": 12, "mothers": 2, "mother_hp": 144, "common_hp": 24, "infection_period": 55, "first_down": 35, "respawn_base": 20, "generator_modules": 4, "ship_fuel": 3, "routes_percent": {"none": 5, "ship": 20, "submarine": 20, "both": 55}}
+  ]
+}
